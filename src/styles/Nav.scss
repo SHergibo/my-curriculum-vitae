@@ -1,0 +1,83 @@
+.mainMenu {
+  background-color: #05182c;
+  border-bottom: $border;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  .containNav {
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    a{
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      text-transform: none;
+      text-decoration: none;
+      font-weight: 700;
+      height: 80px;
+    }
+  }
+}
+
+.logo {
+  a {
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      top: 50%;
+      margin-top: -15px;
+      background: $blue;
+      left: 3px;
+      border-radius: 50%;
+      z-index: 0;
+    }
+    span {
+      position: relative;
+      color: $link-color;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.menu {
+  ul {
+    display: flex;
+  }
+  a {
+    color: $link-color;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      color: $link-color-hover;
+    }
+    &:active {
+      color: #ffffff;
+    }
+  }
+}
+
+.social {
+  ul{
+    display: flex;
+  }
+  svg {
+    height: 20px;
+    path {
+      fill: $link-color;
+      transition: 0.2s ease-in-out;
+    }
+    &:hover {
+      path {
+        fill: $link-color-hover;
+      }
+    }
+  }
+}

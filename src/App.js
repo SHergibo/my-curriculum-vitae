@@ -1,16 +1,14 @@
 import React from 'react';
-import './styles/App.css';
+import './styles/Styles.scss';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import Contact from './components/Contact';
 
 function App() {
   return (
-    <div>
-      {/* <Navbar /> */}
+    <header>
       <Home />
-      {/* <Contact /> */}
-    </div>
+      <Navbar />
+    </header>
   );
 }
 
