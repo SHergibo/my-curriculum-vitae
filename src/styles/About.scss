@@ -39,6 +39,7 @@
     li{
       margin: 10px 0;
       color: $grey-two;
+      font-size: 13px;
     }
   }
   span{
@@ -82,10 +83,20 @@
   div{
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     width: 25%;
     height: 150px;
     border-right: $border;
+    svg{
+      path{
+        fill: $grey-two;
+      }
+    }
+    .svg-inline--fa{
+      width: 2.5rem;
+      height: 2.5rem;
+    }
   }
   h5{
     color: #ffffff;

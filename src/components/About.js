@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faJs, faHtml5 } from '@fortawesome/free-brands-svg-icons'
 
 function About() {
   return (
@@ -26,12 +28,12 @@ function About() {
         <div className="wrapper aboutJob">
           <div></div>
           <div>
-            <i className="fab fa-js"></i>
-            <h5>web developper</h5>
+            <FontAwesomeIcon icon={faJs} />
+            <h5>Web Developper</h5>
           </div>
           <div>
-            <i className="fab fa-html5"></i>
-            <h5>web integrator</h5>
+            <FontAwesomeIcon icon={faHtml5} />
+            <h5>Web Integrator</h5>
           </div>
           <div></div>
         </div>
