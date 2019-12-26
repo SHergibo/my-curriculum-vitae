@@ -24,6 +24,12 @@
   }
 }
 
+.menuFixed{
+  position: fixed;
+  top: 0;
+  bottom: unset;
+}
+
 .logo {
   a {
     position: relative;
@@ -41,7 +47,7 @@
     }
     span {
       position: relative;
-      color: $link-color;
+      color: $grey-one;
       font-weight: 700;
       font-size: 1.3rem;
     }
@@ -53,10 +59,10 @@
     display: flex;
   }
   a {
-    color: $link-color;
+    color: $grey-one;
     transition: 0.2s ease-in-out;
     &:hover {
-      color: $link-color-hover;
+      color: $grey-two;
     }
     &:active {
       color: #ffffff;
@@ -71,12 +77,12 @@
   svg {
     height: 20px;
     path {
-      fill: $link-color;
+      fill: $grey-one;
       transition: 0.2s ease-in-out;
     }
     &:hover {
       path {
-        fill: $link-color-hover;
+        fill: $grey-two;
       }
     }
   }

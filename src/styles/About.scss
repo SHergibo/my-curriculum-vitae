@@ -1,0 +1,98 @@
+.about {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.aboutContainer {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.textAbout{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 50%;
+  h2{
+    color: #ffffff;
+    font-size: 40px;
+  }
+  p{
+    color: $grey-one;
+  }
+}
+
+.aboutTitle {
+  @include sub-title;
+  justify-content: flex-end;
+  border-right: $border;
+  padding-right: 15px;
+}
+
+
+.info{
+  background-color: rgba(255, 255, 255, 0.02);
+  position: relative;
+  ul{
+    padding: 20px 40px;
+    li{
+      margin: 10px 0;
+      color: $grey-two;
+    }
+  }
+  span{
+    display: inline-block;
+    color: $grey-one;
+    width: 140px;
+  }
+  &:before{
+    content: "";
+    position: absolute;
+    background: #2336B6;
+    bottom: 0;
+    top: 0;
+    width: 20px;
+    left: -20px;
+    z-index: 10;
+  }
+  &:after{
+    content: "";
+    top: 0;
+    position: absolute;
+    background: inherit;
+    bottom: 0;
+    right: -1200px;
+    width: 1200px;
+  }
+}
+
+.aboutJobContainer{
+  width: 100%;
+  border-bottom: $border;
+  border-top: $border;
+}
+
+.aboutJob{
+  display: flex;
+  justify-content: space-between;
+  div:first-child{
+    border-left: $border;
+  }
+  div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 150px;
+    border-right: $border;
+  }
+  h5{
+    color: #ffffff;
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-weight: 700;
+    letter-spacing: -1px;
+    font-size: 17px;
+  }
+}

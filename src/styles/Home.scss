@@ -1,29 +1,28 @@
 .home {
-  section {
-    margin: 0 auto;
-    position: fixed;
-    display: flex;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    align-self: center;
-    flex-direction: column;
-  }
+  position: fixed;
+  margin: 0 auto;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  align-self: center;
+  flex-direction: column;
 }
 
 .welcome {
-  color: rgba(255, 255, 255, 0.3);
-  font-weight: bolder;
-  letter-spacing: -1px;
+  @include sub-title;
   position: absolute;
   top: 0;
-  display: flex;
-  align-items: flex-end;
   padding-left: 15px;
-  height: 40px;
   border-left: $border;
+}
+
+.graphicContainer{
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 .graphicOne {
@@ -72,11 +71,12 @@
   padding: 10px;
 }
 
-.jobName{
-  color: $link-color;
+.jobName {
+  color: $grey-one;
   font-size: 25px;
   font-weight: bolder;
-  span{
+  span {
     color: $blue;
+    text-decoration: underline;
   }
 }

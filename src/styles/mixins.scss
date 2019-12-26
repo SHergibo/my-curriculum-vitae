@@ -1,0 +1,8 @@
+@mixin sub-title{
+    display: flex;
+    font-weight: bolder;
+    letter-spacing: -1px;
+    height: 40px;
+    align-items: flex-end;
+    color: $grey-three;
+}

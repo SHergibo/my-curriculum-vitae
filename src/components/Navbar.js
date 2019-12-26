@@ -1,6 +1,24 @@
-import React from 'react';
+import React, {useEffect } from 'react';
 
 function Navbar() {
+
+  useEffect(() => {
+    window.addEventListener('scroll', ()=>{
+      let header = document.getElementById('header');
+      let menu = document.getElementsByClassName('mainMenu')[0];
+      var windowHeight = header.scrollHeight - (menu.scrollHeight + 1);
+      var scrollHeight = Math.round(window.scrollY);
+      console.log(window.scrollTop);
+      if (scrollHeight >= windowHeight) {
+        menu.classList.add("menuFixed");
+      } else {
+        menu.classList.remove("menuFixed");
+      }
+    });
+
+  });
+
+
   return (
     <nav className="mainMenu">
       <div className="wrapper containNav">
@@ -15,7 +33,7 @@ function Navbar() {
               <a href="#home">Home</a>
             </li>
             <li>
-              <a href="#aboout">About</a>
+              <a href="#about">About</a>
             </li>
             <li>
               <a href="#resume">Resume</a>
@@ -31,7 +49,7 @@ function Navbar() {
         <div className="social">
           <ul>
             <li>
-              <a href="">
+              <a href="#home">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
                   aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
                   <path data-name="layer1"
@@ -40,7 +58,7 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#home">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
                   aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
                   <path data-name="layer2"
