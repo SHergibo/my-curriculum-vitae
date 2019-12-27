@@ -1,4 +1,4 @@
-.mainMenu {
+.main-menu {
   background-color: #05182c;
   border-bottom: $border;
   position: absolute;
@@ -6,7 +6,7 @@
   right: 0;
   bottom: 0;
   z-index: 100;
-  .containNav {
+  .contain-nav {
     padding: 0 40px;
     display: flex;
     justify-content: space-between;
@@ -19,12 +19,12 @@
       text-transform: none;
       text-decoration: none;
       font-weight: 700;
-      height: 80px;
+      height: 65px;
     }
   }
 }
 
-.menuFixed{
+.menu-fixed{
   position: fixed;
   top: 0;
   bottom: unset;
@@ -55,8 +55,17 @@
 }
 
 .menu {
-  ul {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  background-color: $principal-color;
+  width: 100%;
+  border-bottom: $border;
+  display: none;
+  .list-menu {
     display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   a {
     color: $grey-one;
@@ -70,20 +79,65 @@
   }
 }
 
-.social {
+.social{
+  ul{
+    display: none;
+  }
+}
+
+.social-mobile{
+  padding-bottom: 20px;
   ul{
     display: flex;
+    justify-content: center;
   }
-  svg {
-    height: 20px;
-    path {
-      fill: $grey-one;
-      transition: 0.2s ease-in-out;
+}
+
+.social, .social-mobile {
+  @include svg(20px)
+}
+
+.burger-menu-svg {
+  @include svg(30px)
+}
+
+.display-block{
+  display: block;
+}
+
+.display-svg-menu{
+  display: none;
+}
+
+
+/*Media queries*/
+
+@media screen and (min-width: 426px){
+
+  .menu{
+    display: flex;
+    justify-content: center;
+    border: none;
+    position: unset;
+    top: unset;
+    .list-menu {
+      flex-direction: row;
     }
-    &:hover {
-      path {
-        fill: $grey-two;
-      }
+  }
+
+  .social{
+    ul{
+      display: flex;
     }
+  }
+  
+  .social-mobile{
+    ul{
+      display: none;
+    }
+  }
+
+  .burger-menu-svg{
+    display: none;
   }
 }

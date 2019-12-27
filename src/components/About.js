@@ -5,10 +5,10 @@ import { faJs, faHtml5 } from '@fortawesome/free-brands-svg-icons'
 function About() {
   return (
     <div id="about" className="about">
-      <div className="wrapper aboutContainer">
+      <div className="wrapper about-container">
         <div></div>
-        <div className="textAbout">
-          <div className="aboutTitle">
+        <div className="text-about">
+          <div className="about-title">
             About
           </div>
           <h2>Hello There!</h2>
@@ -24,8 +24,8 @@ function About() {
           </div>
         </div>
       </div>
-      <div className="aboutJobContainer">
-        <div className="wrapper aboutJob">
+      <div className="about-job-container">
+        <div className="wrapper about-job">
           <div></div>
           <div>
             <FontAwesomeIcon icon={faJs} />
@@ -37,7 +37,6 @@ function About() {
           </div>
           <div></div>
         </div>
-
       </div>
     </div>
   );

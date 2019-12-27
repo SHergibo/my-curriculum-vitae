@@ -3,61 +3,61 @@
   overflow: hidden;
 }
 
-.aboutContainer {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-}
-
-.textAbout{
+.about-container {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 50%;
-  h2{
+  position: relative;
+  margin: 0 15px;
+}
+
+.text-about {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  h2 {
     color: #ffffff;
     font-size: 40px;
   }
-  p{
+  p {
     color: $grey-one;
   }
 }
 
-.aboutTitle {
+.about-title {
   @include sub-title;
   justify-content: flex-end;
   border-right: $border;
   padding-right: 15px;
 }
 
-
-.info{
+.info {
   background-color: rgba(255, 255, 255, 0.02);
   position: relative;
-  ul{
-    padding: 20px 40px;
-    li{
+  ul {
+    padding: 20px 20px;
+    li {
       margin: 10px 0;
       color: $grey-two;
       font-size: 13px;
     }
   }
-  span{
+  span {
     display: inline-block;
     color: $grey-one;
-    width: 140px;
+    width: 100px;
   }
-  &:before{
+  &:before {
     content: "";
     position: absolute;
-    background: #2336B6;
+    background: #2336b6;
     bottom: 0;
     top: 0;
     width: 20px;
     left: -20px;
     z-index: 10;
   }
-  &:after{
+  &:after {
     content: "";
     top: 0;
     position: absolute;
@@ -68,42 +68,81 @@
   }
 }
 
-.aboutJobContainer{
+.about-job-container {
   width: 100%;
   border-bottom: $border;
   border-top: $border;
 }
 
-.aboutJob{
+.about-job {
   display: flex;
   justify-content: space-between;
-  div:first-child{
+  div:first-child {
     border-left: $border;
+    display: none;
   }
-  div{
+  div:last-child {
+    display: none;
+  }
+  div {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    width: 25%;
+    width: 50%;
     height: 150px;
     border-right: $border;
-    svg{
-      path{
+    svg {
+      path {
         fill: $grey-two;
       }
     }
-    .svg-inline--fa{
+    .svg-inline--fa {
       width: 2.5rem;
       height: 2.5rem;
     }
   }
-  h5{
+  h5 {
     color: #ffffff;
     margin-top: 20px;
     margin-bottom: 0;
     font-weight: 700;
     letter-spacing: -1px;
     font-size: 17px;
+  }
+}
+
+/*Media queries*/
+
+@media screen and (min-width: 426px) {
+
+  .about-container {
+    flex-direction: row;
+    margin: 0 auto;
+  }
+
+  .text-about{
+    width: 50%;
+  }
+
+  .info {
+    ul {
+      padding: 20px 40px;
+    }
+    span {
+      width: 140px;
+    }
+  }
+
+  .about-job {
+    div {
+      width: 25%;
+    }
+    div:first-child {
+      display: block;
+    }
+    div:last-child {
+      display: block;
+    }
   }
 }

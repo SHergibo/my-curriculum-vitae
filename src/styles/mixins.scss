@@ -1,8 +1,23 @@
-@mixin sub-title{
-    display: flex;
-    font-weight: bolder;
-    letter-spacing: -1px;
-    height: 40px;
-    align-items: flex-end;
-    color: $grey-three;
+@mixin sub-title {
+  display: flex;
+  font-weight: bolder;
+  letter-spacing: -1px;
+  height: 40px;
+  align-items: flex-end;
+  color: $grey-three;
+}
+
+@mixin svg($height) {
+  svg {
+    height: $height;
+    path {
+      fill: $grey-one;
+      transition: 0.2s ease-in-out;
+    }
+    &:hover {
+      path {
+        fill: $grey-two;
+      }
+    }
+  }
 }
