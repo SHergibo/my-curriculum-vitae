@@ -1,0 +1,113 @@
+.resume {
+  display: flex;
+  
+}
+
+.resume-title {
+  @include sub-title;
+  justify-content: flex-start;
+  border-left: $border;
+  padding-left: 15px;
+}
+
+.list-resume {
+  margin-top: 30px;
+  font-weight: bolder;
+  ul {
+    font-size: 15px;
+    li {
+      padding: 7px 0;
+      a{
+        color: $grey-two;
+        transition: .5s ease-in-out;
+        &:active{
+          color: #ffffff;
+        }
+        &:hover{
+          color: $grey-one;
+        }
+      }
+    }
+  }
+}
+
+.menu-resume {
+  width: 25%;
+}
+
+.edu-expe {
+  width: 75%;
+  border-left: $border;
+  padding-left: 50px;
+  margin-left: -1px;
+}
+
+.edu-container{
+  @include title-resume(190px);
+}
+
+.exp-container{
+  @include title-resume(210px);
+}
+
+.skill-conainer{
+  @include title-resume(100px);
+}
+
+.container-resume:not(:last-child){
+  border-bottom: $border;
+}
+
+.container-resume{
+  transition: .5s ease-in-out;
+  &:hover{
+    h3{
+      color: $blue;
+    }
+  }
+}
+
+.date-resume{
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  p{
+    margin-left: 10px;
+    color: $grey-one;
+  }
+}
+
+.resume-svg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33px;
+  height: 33px;
+  background-color: $blue;
+  border-radius: 50%;
+  svg{
+    margin-top: -2px;
+    width: 18px;
+    height: 18px; 
+    path{
+      stroke: #ffffff;
+    } 
+  }
+}
+
+.text-resume{
+  margin: 15px 0 35px 43px;
+  h3{
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: -1px;
+    transition: .2s ease-in-out;
+  }
+  p{
+    color: $grey-one;
+    font-size: 15px;
+  }
+}

@@ -11,7 +11,7 @@ function Home() {
       <div className="home wrapper">
         <div className="welcome">
           welcome
-      </div>
+        </div>
         <section className="wrapper">
           <div className="wrapper title-home-div">
             <div>
