@@ -1,0 +1,40 @@
+.skill-bar-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.skill-bar-container:not(:last-child){
+  border-bottom: $border;
+}
+
+.info-skill{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  p, span{
+    color: #ffffff;
+  }
+  p{
+    text-transform: capitalize;
+  }
+  span{
+    font-weight: bolder;
+    font-size: 80%;
+  }
+}
+
+.skill-bar{
+  margin: 20px 0 25px 0;
+  width: 100%;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+  div{
+    background-color: $blue;
+    height: 6px;
+  }
+}

@@ -1,4 +1,7 @@
 import React from 'react';
+import EducationExperience from './ResumeComponents/EducationExperience';
+import CanvasResume from './ResumeComponents/CanvasResume';
+import SkillBarResume from './ResumeComponents/SkillBarResume';
 
 function Resume() {
   return (
@@ -16,88 +19,38 @@ function Resume() {
       <div id="education" className="edu-expe">
         <div className="edu-container">
           <h2>Education</h2>
-          <div className="container-resume">
-            <div className="date-resume">
-              <span className="resume-svg">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                  <path data-name="layer1" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M2 8h60v54H2z" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                  <path data-name="layer2" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M54 54H10V16h44v38z" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                  <path data-name="layer1" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M32 2v18M18 2v18M46 2v18" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                </svg>
-              </span>
-              <p>2000 - 2000</p>
-            </div>
-            <div className="text-resume">
-              <h3>Bla Bla Bla</h3>
-              <p>School</p>
-            </div>
-          </div>
-          <div className="container-resume">
-            <div className="date-resume">
-              <span className="resume-svg">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                  <path data-name="layer1" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M2 8h60v54H2z" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                  <path data-name="layer2" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M54 54H10V16h44v38z" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                  <path data-name="layer1" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M32 2v18M18 2v18M46 2v18" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                </svg>
-              </span>
-              <p>2000 - 2000</p>
-            </div>
-            <div className="text-resume">
-              <h3>Bla Bla Bla</h3>
-              <p>School</p>
-            </div>
-          </div>
+          <EducationExperience begin="2000" end= "2005" title="BLA BLA BLA" school="School" />
+          <EducationExperience begin="2000" end= "2005" title="BLA BLA BLA" school="School" />
         </div>
         <div id="experience" className="exp-container">
           <h2>Experience</h2>
-          <div className="container-resume">
-            <div className="date-resume">
-              <span className="resume-svg">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                  <path data-name="layer1" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M2 8h60v54H2z" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                  <path data-name="layer2" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M54 54H10V16h44v38z" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                  <path data-name="layer1" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M32 2v18M18 2v18M46 2v18" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                </svg>
-              </span>
-              <p>2000 - 2000</p>
-            </div>
-            <div className="text-resume">
-              <h3>Bla Bla Bla</h3>
-              <p>School</p>
-            </div>
-          </div>
-          <div className="container-resume">
-            <div className="date-resume">
-              <span className="resume-svg">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                  <path data-name="layer1" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M2 8h60v54H2z" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                  <path data-name="layer2" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M54 54H10V16h44v38z" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                  <path data-name="layer1" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" d="M32 2v18M18 2v18M46 2v18" strokeLinejoin="round" strokeLinecap="round">
-                  </path>
-                </svg>
-              </span>
-              <p>2000 - 2000</p>
-            </div>
-            <div className="text-resume">
-              <h3>Bla Bla Bla</h3>
-              <p>School</p>
-            </div>
-          </div>
+          <EducationExperience begin="2000" end= "2005" title="BLA BLA BLA" school="School" />
+          <EducationExperience begin="2000" end= "2005" title="BLA BLA BLA" school="School" />
         </div>
-        <div className="skill-conainer">
+        <div className="skill-container">
           <h2>Skills</h2>
+          <div className="skill-canvas">
+            <CanvasResume id="canvas1" skill="test1" percentage="90"/>
+            <CanvasResume id="canvas2" skill="test2" percentage="50"/>
+            <CanvasResume id="canvas3" skill="test3" percentage="70"/>
+            <CanvasResume id="canvas4" skill="test4" percentage="65"/>
+          </div>
+          <div className="skill-bars">
+            <div className="soft-skills">
+              <h4>Soft Skills</h4>
+              <SkillBarResume skill="test4" percentage="65"/>
+              <SkillBarResume skill="test4" percentage="65"/>
+              <SkillBarResume skill="test4" percentage="65"/>
+              <SkillBarResume skill="test4" percentage="65"/>
+            </div>
+            <div className="language-skills">
+              <h4>Language</h4>
+              <SkillBarResume skill="test4" percentage="65"/>
+              <SkillBarResume skill="test4" percentage="65"/>
+              <SkillBarResume skill="test4" percentage="65"/>
+              <SkillBarResume skill="test4" percentage="65"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,57 @@
+.container-resume:not(:last-child) {
+  border-bottom: $border;
+}
+
+.container-resume {
+  transition: 0.5s ease-in-out;
+  &:hover {
+    h3 {
+      color: $blue;
+    }
+  }
+}
+
+.date-resume {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  p {
+    margin-left: 10px;
+    color: $grey-one;
+  }
+}
+
+.resume-svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33px;
+  height: 33px;
+  background-color: $blue;
+  border-radius: 50%;
+  svg {
+    margin-top: -2px;
+    width: 18px;
+    height: 18px;
+    path {
+      stroke: #ffffff;
+    }
+  }
+}
+
+.text-resume {
+  margin: 15px 0 35px 43px;
+  h3 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: -1px;
+    transition: 0.2s ease-in-out;
+  }
+  p {
+    color: $grey-one;
+    font-size: 15px;
+  }
+}

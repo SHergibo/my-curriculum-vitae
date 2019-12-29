@@ -1,0 +1,32 @@
+.canvas-container {
+  width: 25%;
+  text-align: center;
+  p {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
+}
+
+.canvas{
+  position: relative;
+  span{
+    width: 100%;
+    position: absolute;
+    top: calc(50% - 12px);
+    left: 0;
+    color: $grey-three;
+    font-size: 19px;
+    font-weight: 900;
+    line-height: 19px;
+    transition: 0.2s ease-in-out;
+  }
+  &:hover{
+    span{
+      color: $blue;
+    }
+  }
+}

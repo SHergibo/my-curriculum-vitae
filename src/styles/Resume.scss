@@ -1,6 +1,5 @@
 .resume {
   display: flex;
-  
 }
 
 .resume-title {
@@ -11,6 +10,7 @@
 }
 
 .list-resume {
+  display: none;
   margin-top: 30px;
   font-weight: bolder;
   ul {
@@ -50,64 +50,40 @@
   @include title-resume(210px);
 }
 
-.skill-conainer{
+.skill-container{
   @include title-resume(100px);
 }
 
-.container-resume:not(:last-child){
-  border-bottom: $border;
-}
-
-.container-resume{
-  transition: .5s ease-in-out;
-  &:hover{
-    h3{
-      color: $blue;
-    }
-  }
-}
-
-.date-resume{
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  p{
-    margin-left: 10px;
-    color: $grey-one;
-  }
-}
-
-.resume-svg{
+.skill-canvas{
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 33px;
-  height: 33px;
-  background-color: $blue;
-  border-radius: 50%;
-  svg{
-    margin-top: -2px;
-    width: 18px;
-    height: 18px; 
-    path{
-      stroke: #ffffff;
-    } 
+  margin: 30px 0;
+  .canvas-container:nth-child(2n+1){
+    background-color: $grey-five;
   }
 }
 
-.text-resume{
-  margin: 15px 0 35px 43px;
-  h3{
-    color: #ffffff;
-    margin-bottom: 10px;
-    font-size: 1.25rem;
-    line-height: 1.4;
-    font-weight: 700;
-    letter-spacing: -1px;
-    transition: .2s ease-in-out;
+.skill-bars{
+  display: flex;
+  .soft-skills, .language-skills{
+    width: 50%;
+    h4{
+      color: #ffffff;
+      font-size: 20px;
+    }
   }
-  p{
-    color: $grey-one;
-    font-size: 15px;
+  .soft-skills{
+    margin-right: 25px;
+  }
+  .language-skills{
+    margin-left: 25px;
+  }
+}
+
+/*Media queries*/
+
+@media screen and (min-width: 426px) {
+  .list-resume{
+    display: block;
   }
 }

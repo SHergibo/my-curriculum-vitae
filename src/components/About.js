@@ -19,7 +19,7 @@ function About() {
               <li><span>Email</span>: sachahergibo@gmail.com</li>
               <li><span>Address</span>: Route de Velaines, 24A 7543 Mourcourt</li>
               <li><span>Birthdate</span>: 24/04/92</li>
-              <li><span>Driver's license</span>: Holder of a B license and a car</li>
+              <li><span>Driver's license</span>: Holder of a B driver license and a car</li>
             </ul>
           </div>
         </div>
