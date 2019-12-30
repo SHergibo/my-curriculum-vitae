@@ -4,10 +4,11 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import About from './components/About';
 import Resume from './components/Resume';
+import Contact from './components/Contact';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <header id="header">
         <Home />
         <Navbar />
@@ -15,6 +16,7 @@ function App() {
       <main>
         <About />
         <Resume />
+        <Contact />
       </main>
     </div>
   );

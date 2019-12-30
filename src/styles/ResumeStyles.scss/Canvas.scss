@@ -1,5 +1,5 @@
 .canvas-container {
-  width: 25%;
+  width: 50%;
   text-align: center;
   p {
     color: #ffffff;
@@ -28,5 +28,13 @@
     span{
       color: $blue;
     }
+  }
+}
+
+/*Media queries*/
+
+@media screen and (min-width: 426px) {
+  .canvas-container {
+    width: 25%;
   }
 }

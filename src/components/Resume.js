@@ -6,8 +6,8 @@ import SkillBarResume from './ResumeComponents/SkillBarResume';
 function Resume() {
   return (
     <div id="resume" className="wrapper resume">
+      <div className="resume-title">Resume</div>
       <div className="menu-resume">
-        <div className="resume-title">Resume</div>
         <div className="list-resume">
           <ul>
             <li><a href="#education">Education</a></li>

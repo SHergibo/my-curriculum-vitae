@@ -9,6 +9,7 @@
   justify-content: center;
   align-self: center;
   flex-direction: column;
+  padding: 0 15px;
 }
 
 .welcome {
@@ -19,7 +20,7 @@
   border-left: $border;
 }
 
-.graphic-container{
+.graphic-container {
   position: fixed;
   top: 0;
   right: 0;
@@ -79,5 +80,11 @@
   span {
     color: $blue;
     text-decoration: underline;
+  }
+}
+
+@media screen and (min-width: 426px) {
+  .home {
+    padding: 0;
   }
 }

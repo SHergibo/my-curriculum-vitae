@@ -23,7 +23,6 @@
 }
 
 @mixin  title-resume($left) {
-  margin-top: 70px;
   h2{
     color: #ffffff;
     font-size: 35px;
@@ -39,5 +38,38 @@
       bottom: 25px;
       left: $left;
     }
+  }
+}
+
+@mixin contact-form-input(){
+  label{
+    display: block;
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  div{
+    display: flex;
+    align-items: center;
+    background-color: $grey-four;
+    border-radius: 5px;
+    border: .5px solid transparent;
+    transition: .2s ease-in border;
+  }
+  ::placeholder{
+    color: $grey-two;
+    font-family: "Poppins", sans-serif;
+    opacity: 1;
+  }
+  :-ms-input-placeholder {
+    color: $grey-two;
+    font-family: "Poppins", sans-serif;
+  } 
+  ::-ms-input-placeholder {
+    color: $grey-two;
+    font-family: "Poppins", sans-serif;
+  }
+  &:focus-within div{
+    border: $border;
   }
 }
