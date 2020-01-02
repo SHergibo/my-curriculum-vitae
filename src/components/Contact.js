@@ -1,11 +1,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faMobileAlt, faMapMarkerAlt, faUser} from '@fortawesome/free-solid-svg-icons';
-import ContactInput from './ContactInput/ContactInput';
-
-
+import { faEnvelope, faMobileAlt, faMapMarkerAlt, faUser, faAt, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { useForm } from 'react-hook-form';
 
 function Contact() {
+  const onSubmit = data => console.log(data);
+  const { register, handleSubmit, errors } = useForm({
+    mode: "onChange"
+  });
   return (
     <div className="contact-container">
       <div id="contact" className="wrapper contact">
@@ -13,12 +15,68 @@ function Contact() {
         <div className="contact-form">
           <h2>Get in touch</h2>
           <p>Feel free to contact me</p>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="input-container">
-              <ContactInput id="email" label="Email" fontAwe={faUser} type="email" inputType="input" text="Your email here..."/>
-              <ContactInput id="phone" label="Phone" fontAwe={faMobileAlt} type="phone" inputType="input" text="Your phone here..."/>
+              <div className="input">
+                <label htmlFor="firstname">Firstname *</label>
+                <div>
+                  <span><FontAwesomeIcon icon={faUser} /></span>
+                  <input name="firstname" type="text" id="firstname" placeholder="Your firstname here..." ref={register({ required: true })} />
+                </div>
+                {errors.firstname && <span className="error-message">This field is required</span>}
+              </div>
+              <div className="input">
+                <label htmlFor="lastname">Lastname *</label>
+                <div>
+                  <span><FontAwesomeIcon icon={faUser} /></span>
+                  <input name="lastname" type="text" id="lastname" placeholder="Your lastname here..." ref={register({ required: true })} />
+                </div>
+                {errors.lastname && <span className="error-message">This field is required</span>}
+              </div>
             </div>
-            <ContactInput id="message" label="Message" type="phone" inputType="text-area" text="Your message here..."/>
+            <div className="input-container">
+              <div className="input">
+                <label htmlFor="email">Email *</label>
+                <div>
+                  <span><FontAwesomeIcon icon={faAt} /></span>
+                  <input name="email" type="text" id="email" placeholder="Your email here..." ref={register({ required: true })} />
+                </div>
+                {errors.email && <span className="error-message">This field is required</span>}
+              </div>
+              <div className="input">
+                <label htmlFor="phone">Phone *</label>
+                <div>
+                  <span><FontAwesomeIcon icon={faMobileAlt} /></span>
+                  <input name="phone" type="text" id="phone" placeholder="Your phone here..." ref={register({ required: true })} />
+                </div>
+                {errors.phone && <span className="error-message">This field is required</span>}
+              </div>
+            </div>
+            <div className="input-container">
+              <div className="input">
+                <label htmlFor="subject">Subject *</label>
+                <div>
+                  <span><FontAwesomeIcon icon={faEnvelope} /></span>
+                  <input name="subject" type="text" id="subject" placeholder="Your subject here..." ref={register({ required: true })} />
+                </div>
+                {errors.subject && <span className="error-message">This field is required</span>}
+              </div>
+            </div>
+            <div className="text-area">
+              <label htmlFor="message">Message*</label>
+              <div>
+                <textarea name="message" id="message" placeholder="Your message here..." ref={register({ required: true })} />
+              </div>
+              {errors.message && <span className="error-message">This field is required</span>}
+            </div>
+            {/* <div className="submit-contact">
+              <input type="submit" />
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </div> */}
+            <button className="submit-contact" type="submit">
+              Send now
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </button>
           </form>
         </div>
         <div className="contact-info">

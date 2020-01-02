@@ -1,0 +1,36 @@
+.footer {
+  background-color: $principal-color;
+  border-top: $border;
+}
+
+.footer-container {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    text-transform: none;
+    text-decoration: none;
+    font-weight: 700;
+    height: 80px;
+  }
+}
+
+.social-footer {
+  ul{ 
+    display: flex;
+  }
+  @include svg(20px)
+}
+
+/*Media queries*/
+
+@media screen and (min-width: 426px){
+  .footer-container {
+    padding: 0;
+  }
+}

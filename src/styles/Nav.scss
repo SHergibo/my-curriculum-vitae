@@ -30,30 +30,6 @@
   bottom: unset;
 }
 
-.logo {
-  a {
-    position: relative;
-    &:before {
-      content: "";
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      top: 50%;
-      margin-top: -15px;
-      background: $blue;
-      left: 3px;
-      border-radius: 50%;
-      z-index: 0;
-    }
-    span {
-      position: relative;
-      color: $grey-one;
-      font-weight: 700;
-      font-size: 1.3rem;
-    }
-  }
-}
-
 .menu {
   position: absolute;
   top: 80px;

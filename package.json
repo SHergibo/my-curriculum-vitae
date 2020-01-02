@@ -13,6 +13,7 @@
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-hook-form": "^4.4.1",
     "react-scripts": "3.3.0",
     "react-typed": "^1.2.0"
   },

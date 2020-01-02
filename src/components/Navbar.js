@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Logo from './Logo';
 
 function Navbar() {
 
@@ -24,7 +25,7 @@ function Navbar() {
         mainMenu.classList.remove("menu-fixed");
       }
     });
-  });
+  },[]);
 
   const burgerMenu = () =>{
     let menuResp = document.getElementsByClassName('menu')[0];
@@ -45,11 +46,7 @@ function Navbar() {
   return (
     <div className="main-menu">
       <div className="wrapper contain-nav">
-        <div className="logo">
-          <a href="#home">
-            <span>Sacha</span>
-          </a>
-        </div>
+        <Logo />
         <nav className="menu" onClick={burgerMenu}>
           <ul className="list-menu">
             <li>
@@ -130,8 +127,6 @@ function Navbar() {
         <div id="delete-svg" className="burger-menu-svg display-svg-menu" onClick={burgerMenu}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
         aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
-          <title>Exit</title>
-          <desc>A solid styled icon from Orion Icon Library.</desc>
           <path data-name="layer1"
           fill="#202020" d="M51 17.25L46.75 13 32 27.75 17.25 13 13 17.25 27.75 32 13 46.75 17.25 51 32 36.25 46.75 51 51 46.75 36.25 32 51 17.25z"></path>
         </svg>
