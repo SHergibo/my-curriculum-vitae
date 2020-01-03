@@ -18,8 +18,8 @@ function Navbar() {
       }else{
         windowHeight = header.scrollHeight - (mainMenu.scrollHeight + 1);
       }
-      let scrollHeight = Math.round(window.scrollY);
-      if (scrollHeight >= windowHeight) {
+      let scroll = Math.round(window.scrollY);
+      if (scroll >= windowHeight) {
         mainMenu.classList.add("menu-fixed");
       } else {
         mainMenu.classList.remove("menu-fixed");

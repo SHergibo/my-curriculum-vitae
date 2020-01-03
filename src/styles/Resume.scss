@@ -15,24 +15,6 @@
 
 .list-resume {
   display: none;
-  margin-top: 80px;
-  font-weight: bolder;
-  ul {
-    font-size: 15px;
-    li {
-      padding: 7px 0;
-      a{
-        color: $grey-two;
-        transition: .5s ease-in-out;
-        &:active{
-          color: #ffffff;
-        }
-        &:hover{
-          color: $grey-one;
-        }
-      }
-    }
-  }
 }
 .edu-expe {
   width: 100%;
@@ -86,8 +68,32 @@
 /*Tablet*/
 @media screen and (min-width: 640px){
 
-  .list-resume{
+  .list-resume {
     display: block;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    font-weight: bolder;
+    ul {
+      font-size: 15px;
+      li {
+        padding: 7px 0;
+        a{
+          color: $grey-two;
+          transition: .5s ease-in-out;
+          &:active{
+            color: #ffffff;
+          }
+          &:hover{
+            color: $grey-one;
+          }
+        }
+      }
+    }
+  }
+
+  .menu-resume-fixed{
+    position: fixed;
+    bottom: unset;
   }
 
   .menu-resume {
