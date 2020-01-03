@@ -6,13 +6,17 @@ function About() {
   return (
     <div id="about" className="about">
       <div className="wrapper about-container">
-        <div></div>
+        <div className="img-about">
+          <img src="./Hergibo_Sacha.jpg" alt="Hergibo Sacha" />
+        </div>
         <div className="text-about">
           <div className="about-title">
             About
           </div>
-          <h2>Hello There!</h2>
-          <p>Text</p>
+          <div className="about-me">
+            <h2>Hello There!</h2>
+            <p>Text</p>
+          </div>
           <div className="info">
             <ul>
               <li><span>Phone</span>: +32/498643049</li>

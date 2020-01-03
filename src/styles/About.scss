@@ -10,13 +10,24 @@
   margin: 0 15px;
 }
 
+.img-about{
+  display: flex;
+  justify-content: center;
+  img{
+    width: 80%;
+  }
+}
+
 .text-about {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  .about-me{
+    padding: 30px 20px;
+  }
   h2 {
     color: #ffffff;
-    font-size: 40px;
+    font-size: 30px;
   }
   p {
     color: $grey-one;
@@ -113,15 +124,35 @@
 
 /*Media queries*/
 
-@media screen and (min-width: 426px) {
+/*Tablet*/
+@media screen and (min-width: 640px){
+  .img-about{
+    img{
+      width: 50%;
+    }
+  }
+}
+
+/*Full-screen*/
+@media screen and (min-width: 960px) {
 
   .about-container {
     flex-direction: row;
     margin: 0 auto;
   }
 
+  .img-about{
+    width: 25%;
+    img{
+      width: 100%;
+    }
+  }
+
   .text-about{
-    width: 50%;
+    width: 75%;
+    .about-me{
+      padding: 0 20px;
+    }
   }
 
   .info {

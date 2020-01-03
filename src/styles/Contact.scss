@@ -147,7 +147,8 @@
 
 /*Media queries*/
 
-@media screen and (min-width: 426px){
+/*Full-screen*/
+@media screen and (min-width: 960px){
   .contact{
     flex-direction: row;
     padding: 0;

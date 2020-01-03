@@ -88,7 +88,21 @@
 
 /*Media queries*/
 
-@media screen and (min-width: 426px){
+/*Tablet*/
+@media screen and (min-width: 640px){
+  .menu{
+    .list-menu{
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  .social-mobile{
+    padding: 0;
+  }
+}
+
+/*Full-screen*/
+@media screen and (min-width: 960px){
 
   .menu{
     display: flex;
@@ -96,9 +110,6 @@
     border: none;
     position: unset;
     top: unset;
-    .list-menu {
-      flex-direction: row;
-    }
   }
 
   .social{
