@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from "react-scroll";
 import Logo from './Logo';
 
 function Navbar() {
@@ -11,11 +12,11 @@ function Navbar() {
       let menuOpen = document.getElementsByClassName('display-block')[0];
       let menuFixed = document.getElementsByClassName('menu-fixed')[0];
       let windowHeight;
-      if(menuOpen && !menuFixed){
-        windowHeight = (header.scrollHeight - menu.scrollHeight) - ((mainMenu.scrollHeight + 1)- menu.scrollHeight);
-      }else if(menuFixed && menuOpen){
-        windowHeight = header.scrollHeight - ((mainMenu.scrollHeight + 1)- menu.scrollHeight);
-      }else{
+      if (menuOpen && !menuFixed) {
+        windowHeight = (header.scrollHeight - menu.scrollHeight) - ((mainMenu.scrollHeight + 1) - menu.scrollHeight);
+      } else if (menuFixed && menuOpen) {
+        windowHeight = header.scrollHeight - ((mainMenu.scrollHeight + 1) - menu.scrollHeight);
+      } else {
         windowHeight = header.scrollHeight - (mainMenu.scrollHeight + 1);
       }
       let scroll = Math.round(window.scrollY);
@@ -25,18 +26,18 @@ function Navbar() {
         mainMenu.classList.remove("menu-fixed");
       }
     });
-  },[]);
+  }, []);
 
-  const burgerMenu = () =>{
+  const burgerMenu = () => {
     let menuResp = document.getElementsByClassName('menu')[0];
     let burgerSvg = document.getElementById('burger-svg');
     let deleteSvg = document.getElementById('delete-svg');
     menuResp.classList.toggle('display-block');
 
-    if(burgerSvg.classList.contains('display-svg-menu')){
+    if (burgerSvg.classList.contains('display-svg-menu')) {
       burgerSvg.classList.remove('display-svg-menu');
       deleteSvg.classList.add('display-svg-menu');
-    }else{
+    } else {
       burgerSvg.classList.add('display-svg-menu');
       deleteSvg.classList.remove('display-svg-menu');
     }
@@ -50,19 +51,24 @@ function Navbar() {
         <nav className="menu" onClick={burgerMenu}>
           <ul className="list-menu">
             <li>
-              <a href="#home">Home</a>
+              <Link activeClass="active" to="home" spy={true} smooth={true} duration={500}>
+                Home
+              </Link>
             </li>
             <li>
-              <a href="#about">About</a>
+              <Link activeClass="active" to="about" spy={true} smooth={true} offset={-80} duration={1000}>
+                About
+              </Link>
             </li>
             <li>
-              <a href="#resume">Resume</a>
+              <Link activeClass="active" to="resume" spy={true} smooth={true} offset={-80} duration={1000}>
+                Resume
+              </Link>
             </li>
             <li>
-              <a href="#portfolio">Portfolio</a>
-            </li>
-            <li>
-              <a href="#contact">Contact</a>
+              <Link activeClass="active" to="contact" spy={true} smooth={true} offset={-81} duration={1000}>
+                Contact
+              </Link>
             </li>
           </ul>
           <div className="social-mobile">
@@ -118,18 +124,18 @@ function Navbar() {
         </div>
         <div id="burger-svg" className="burger-menu-svg" onClick={burgerMenu}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
-          aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
+            aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
             <path data-name="layer2"
-            fill="#202020" d="M2 8h60v8H2zm0 20h60v8H2z"></path>
+              fill="#202020" d="M2 8h60v8H2zm0 20h60v8H2z"></path>
             <path data-name="layer1" fill="#202020" d="M2 48h60v8H2z"></path>
           </svg>
         </div>
         <div id="delete-svg" className="burger-menu-svg display-svg-menu" onClick={burgerMenu}>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
-        aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
-          <path data-name="layer1"
-          fill="#202020" d="M51 17.25L46.75 13 32 27.75 17.25 13 13 17.25 27.75 32 13 46.75 17.25 51 32 36.25 46.75 51 51 46.75 36.25 32 51 17.25z"></path>
-        </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+            aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <path data-name="layer1"
+              fill="#202020" d="M51 17.25L46.75 13 32 27.75 17.25 13 13 17.25 27.75 32 13 46.75 17.25 51 32 36.25 46.75 51 51 46.75 36.25 32 51 17.25z"></path>
+          </svg>
         </div>
       </div>
     </div>

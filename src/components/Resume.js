@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from "react-scroll";
 import EducationExperience from './ResumeComponents/EducationExperience';
 import CanvasResume from './ResumeComponents/CanvasResume';
 import SkillBarResume from './ResumeComponents/SkillBarResume';
@@ -9,10 +10,10 @@ function Resume() {
       let resumeContainer = document.getElementById('resume');
       let menuResume = document.getElementsByClassName('list-resume')[0];
       let getBounding = resumeContainer.getBoundingClientRect();
-      let bottomResume = ((getBounding.height + getBounding.top) - 80) - 180 ;
-      if(bottomResume <= 0){
+      let bottomResume = ((getBounding.height + getBounding.top) - 80) - 180;
+      if (bottomResume <= 0) {
         menuResume.setAttribute('style', 'position: absolute; bottom: 0');
-      }else{
+      } else {
         menuResume.removeAttribute('style');
         menuResume.setAttribute('style', 'top: 30px');
       }
@@ -27,16 +28,28 @@ function Resume() {
     <div id="resume" className="wrapper resume">
       <div className="resume-title">Resume</div>
       <div className="menu-resume">
-        <div className="list-resume" style={{top: 30+'px'}}>
+        <div className="list-resume" style={{ top: 30 + 'px' }}>
           <ul>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#skills">Skill</a></li>
+            <li>
+              <Link activeClass="active" to="education" spy={true} smooth={true} offset={-80} duration={1000}>
+                Education
+              </Link>
+            </li>
+            <li>
+              <Link activeClass="active" to="experience" spy={true} smooth={true} offset={-80} duration={1000}>
+                Experience
+              </Link>
+            </li>
+            <li>
+              <Link activeClass="active" to="skills" spy={true} smooth={true} offset={-80} duration={1000}>
+                Skill
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
-      <div id="education" className="edu-expe">
-        <div className="edu-container">
+      <div className="edu-expe">
+        <div id="education" className="edu-container">
           <h2>Education</h2>
           <EducationExperience begin="2000" end="2005" title="BLA BLA BLA" school="School" />
           <EducationExperience begin="2000" end="2005" title="BLA BLA BLA" school="School" />
@@ -46,7 +59,7 @@ function Resume() {
           <EducationExperience begin="2000" end="2005" title="BLA BLA BLA" school="School" />
           <EducationExperience begin="2000" end="2005" title="BLA BLA BLA" school="School" />
         </div>
-        <div className="skill-container">
+        <div id="skills" className="skill-container">
           <h2>Skills</h2>
           <div className="skill-canvas">
             <CanvasResume id="canvas1" skill="test1" percentage="90" />

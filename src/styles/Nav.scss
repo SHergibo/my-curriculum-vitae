@@ -42,15 +42,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    li {
+      .active{
+        color: #ffffff;
+      }
+    } 
   }
   a {
     color: $grey-one;
     transition: 0.2s ease-in-out;
+    cursor: pointer;
     &:hover {
       color: $grey-two;
-    }
-    &:active {
-      color: #ffffff;
     }
   }
 }

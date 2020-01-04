@@ -1,0 +1,35 @@
+.back-to-top{
+  display: none;
+}
+
+/*Media queries*/
+
+/*Tablet*/
+@media screen and (min-width: 960px){
+  .back-to-top{
+    position: fixed;
+    bottom: 30px;
+    right: -40px;
+    z-index: 100;
+    display: flex;
+    opacity: 0;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $blue;
+    color: #ffffff;
+    transition: opacity .2s ease-in-out, color .2s ease-in-out, transform .2s ease-in-out;
+    cursor: pointer;
+    &:hover{
+      background-color: $blue-hover;
+      transform: scale(1.2);
+    }
+  }
+  
+  .back-to-top-show{
+    right: 40px;
+    opacity: 1;
+  }
+}
