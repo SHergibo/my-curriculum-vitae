@@ -2,7 +2,7 @@ import React from "react";
 import Typed from 'react-typed';
 
 function Home() {
-
+  //incrémenter et décrementer entre 0 et 20 par exemple et entre 0 et 1000px (taille de la home) pour le blur
   return (
     <div id="home">
       <div className="graphic-container">
