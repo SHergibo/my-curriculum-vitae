@@ -13,25 +13,25 @@ function Contact() {
       <div id="contact" className="wrapper contact">
         <div className="contact-title">Contact</div>
         <div className="contact-form">
-          <h2>Get in touch</h2>
-          <p>Feel free to contact me</p>
+          <h2>Entrer en contact</h2>
+          <p>N'hésitez pas à me contacter</p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="input-container">
               <div className="input">
-                <label htmlFor="firstname">Firstname *</label>
+                <label htmlFor="firstname">Prénom *</label>
                 <div>
                   <span><FontAwesomeIcon icon={faUser} /></span>
-                  <input name="firstname" type="text" id="firstname" placeholder="Your firstname here..." ref={register({ required: true })} />
+                  <input name="firstname" type="text" id="firstname" placeholder="Votre prénom ici..." ref={register({ required: true })} />
                 </div>
-                {errors.firstname && <span className="error-message">This field is required</span>}
+                {errors.firstname && <span className="error-message">Ce champ est requis</span>}
               </div>
               <div className="input">
-                <label htmlFor="lastname">Lastname *</label>
+                <label htmlFor="lastname">Nom *</label>
                 <div>
                   <span><FontAwesomeIcon icon={faUser} /></span>
-                  <input name="lastname" type="text" id="lastname" placeholder="Your lastname here..." ref={register({ required: true })} />
+                  <input name="lastname" type="text" id="lastname" placeholder="Votre nom ici..." ref={register({ required: true })} />
                 </div>
-                {errors.lastname && <span className="error-message">This field is required</span>}
+                {errors.lastname && <span className="error-message">Ce champ est requis</span>}
               </div>
             </div>
             <div className="input-container">
@@ -39,42 +39,39 @@ function Contact() {
                 <label htmlFor="email">Email *</label>
                 <div>
                   <span><FontAwesomeIcon icon={faAt} /></span>
-                  <input name="email" type="text" id="email" placeholder="Your email here..." ref={register({ required: true })} />
+                  <input name="email" type="text" id="email" placeholder="Votre adresse mail ici..." ref={register({ required: true })} />
                 </div>
-                {errors.email && <span className="error-message">This field is required</span>}
+                {errors.email && <span className="error-message">Ce champ est requis</span>}
               </div>
               <div className="input">
-                <label htmlFor="phone">Phone *</label>
+                <label htmlFor="phone">Téléphone *</label>
                 <div>
                   <span><FontAwesomeIcon icon={faMobileAlt} /></span>
-                  <input name="phone" type="text" id="phone" placeholder="Your phone here..." ref={register({ required: true })} />
+                  <input name="phone" type="text" id="phone" placeholder="Votre n° de téléphone ici..." ref={register({ required: true })} />
                 </div>
-                {errors.phone && <span className="error-message">This field is required</span>}
+                {errors.phone && <span className="error-message">Ce champ est requis</span>}
               </div>
             </div>
             <div className="input-container">
               <div className="input">
-                <label htmlFor="subject">Subject *</label>
+                <label htmlFor="subject">Sujet *</label>
                 <div>
                   <span><FontAwesomeIcon icon={faEnvelope} /></span>
-                  <input name="subject" type="text" id="subject" placeholder="Your subject here..." ref={register({ required: true })} />
+                  <input name="subject" type="text" id="subject" placeholder="Le sujet du message ici..." ref={register({ required: true })} />
                 </div>
-                {errors.subject && <span className="error-message">This field is required</span>}
+                {errors.subject && <span className="error-message">Ce champ est requis</span>}
               </div>
             </div>
             <div className="text-area">
               <label htmlFor="message">Message*</label>
               <div>
-                <textarea name="message" id="message" placeholder="Your message here..." ref={register({ required: true })} />
+                <textarea name="message" id="message" placeholder="Votre message ici..." ref={register({ required: true })} />
               </div>
-              {errors.message && <span className="error-message">This field is required</span>}
+              {errors.message && <span className="error-message">Ce champ est requis</span>}
             </div>
-            {/* <div className="submit-contact">
-              <input type="submit" />
-              <FontAwesomeIcon icon={faPaperPlane} />
-            </div> */}
+
             <button className="submit-contact" type="submit">
-              Send now
+              Envoyer maintenant
               <FontAwesomeIcon icon={faPaperPlane} />
             </button>
           </form>

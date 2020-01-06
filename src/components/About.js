@@ -11,19 +11,19 @@ function About() {
         </div>
         <div className="text-about">
           <div className="about-title">
-            About
+            À propos
           </div>
           <div className="about-me">
-            <h2>Hello There!</h2>
-            <p>Text</p>
+            <h2>Bonjour !</h2>
+            <p>Développeur dans le domaine du web, je recherche à en apprendre plus pour agrandir mes connaissances et affûter celles que j'ai déjà acquises.</p>
           </div>
           <div className="info">
             <ul>
-              <li><span>Phone</span>: +32/498643049</li>
+              <li><span>Téléphone</span>: +32/498643049</li>
               <li><span>Email</span>: sachahergibo@gmail.com</li>
-              <li><span>Address</span>: Route de Velaines, 24A 7543 Mourcourt</li>
-              <li><span>Birthdate</span>: 24/04/92</li>
-              <li><span>Driver's license</span>: Holder of a B driver license and a car</li>
+              <li><span>Adresse</span>: Route de Velaines, 24A 7543 Mourcourt</li>
+              <li><span>Date de naissance</span>: 24/04/92</li>
+              <li><span>Permis de conduire</span>: Détenteur du permis B et d'une voiture</li>
             </ul>
           </div>
         </div>
@@ -33,11 +33,11 @@ function About() {
           <div></div>
           <div>
             <FontAwesomeIcon icon={faJs} />
-            <h5>Web Developper</h5>
+            <h5>Web Développeur</h5>
           </div>
           <div>
             <FontAwesomeIcon icon={faHtml5} />
-            <h5>Web Integrator</h5>
+            <h5>Web Integrateur</h5>
           </div>
           <div></div>
         </div>

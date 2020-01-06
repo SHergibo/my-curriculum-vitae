@@ -32,10 +32,11 @@
 
 .skill-container{
   margin-top: 70px;
-  @include title-resume(100px);
+  @include title-resume(270px);
 }
 
 .skill-canvas{
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -47,19 +48,14 @@
 
 .skill-bars{
   display: flex;
-  padding-bottom: 50px;
+  flex-direction: column;
+  padding-bottom: 30px;
   .soft-skills, .language-skills{
-    width: 50%;
+    width: 100%;
     h4{
       color: #ffffff;
       font-size: 20px;
     }
-  }
-  .soft-skills{
-    margin-right: 15px;
-  }
-  .language-skills{
-    margin-left: 15px;
   }
 }
 
@@ -143,10 +139,16 @@
   }
 
   .skill-canvas{
-    flex-wrap: nowrap;
+    .canvas-container{
+      width: 25%;
+    }
   }
 
   .skill-bars{
+    flex-direction: row;
+    .soft-skills, .language-skills{
+      width: 50%;
+    }
     .soft-skills{
       margin-right: 25px;
     }

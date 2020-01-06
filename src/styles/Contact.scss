@@ -21,7 +21,7 @@
 .contact-form{
   border-bottom: $border;
   padding-top: 80px;
-  @include title-resume(235px);
+  @include title-resume(325px);
   p{
     margin: 20px 0;
     font-size: 16px;
@@ -33,7 +33,7 @@
     justify-content: center;
     align-items: center;
     margin: 30px 0;
-    width: 150px;
+    padding: 0 25px;
     height: 60px;
     background-color: $blue;
     border-radius: 5px;

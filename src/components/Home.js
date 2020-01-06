@@ -2,7 +2,6 @@ import React from "react";
 import Typed from 'react-typed';
 
 function Home() {
-  //incrémenter et décrementer entre 0 et 20 par exemple et entre 0 et 1000px (taille de la home) pour le blur
   return (
     <div id="home">
       <div className="graphic-container">
@@ -11,7 +10,7 @@ function Home() {
       </div>
       <div className="home wrapper">
         <div className="welcome">
-          welcome
+          Bienvenue
         </div>
         <section className="wrapper">
           <div className="wrapper title-home-div">
@@ -24,8 +23,8 @@ function Home() {
               </svg>
             </div>
             <h1 className="home-gradient">Sacha Hergibo</h1>
-            <div className="job-name">I'm a <Typed
-              strings={['web developper', 'web integrator']}
+            <div className="job-name">Je suis un <Typed
+              strings={['web développeur', 'web integrateur']}
               typeSpeed={80}
               loop
               smartBackspace={false}
