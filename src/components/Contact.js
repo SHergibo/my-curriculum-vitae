@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faMobileAlt, faMapMarkerAlt, faUser, faAt, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faMobileAlt, faMapMarkerAlt, faUser, faAt, faPaperPlane, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
+import Axios from 'axios';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 
 function Contact() {
-  const onSubmit = data => console.log(data);
+  let [success, setSuccess] = useState(false);
+  const onSubmit = async (data) => {
+    const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
+    await Axios.post(registerEndPoint, data)
+      .then((response) => {
+        if (response.status === 200) {
+          let spanSuccess = document.getElementsByClassName('success-message')[0];
+          spanSuccess.style.opacity = 1;
+          setSuccess(true);
+          setTimeout(() => {
+            spanSuccess.style.opacity = 0;
+          }, 3000);
+          setTimeout(() => {
+            setSuccess(false);
+          }, 3500);
+        }
+      })
+      .catch(err => {
+        console.log("err", err);
+      });
+  };
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange"
   });
@@ -69,11 +91,15 @@ function Contact() {
               </div>
               {errors.message && <span className="error-message">Ce champ est requis</span>}
             </div>
-
-            <button className="submit-contact" type="submit">
-              Envoyer maintenant
+            <div className="btn-container">
+              <button className="submit-contact" type="submit">
+                Envoyer maintenant
               <FontAwesomeIcon icon={faPaperPlane} />
-            </button>
+              </button>
+              <span className="success-message">
+                {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
+              </span>
+            </div>
           </form>
         </div>
         <div className="contact-info">
