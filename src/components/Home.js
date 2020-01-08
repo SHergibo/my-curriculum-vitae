@@ -24,7 +24,7 @@ function Home() {
             </div>
             <h1 className="home-gradient">Sacha Hergibo</h1>
             <div className="job-name">Je suis un <Typed
-              strings={['web développeur', 'web integrateur']}
+              strings={['développeur web', 'integrateur web']}
               typeSpeed={80}
               loop
               smartBackspace={false}
