@@ -12,6 +12,10 @@ body {
   background-color: $principal-color;
 }
 
+input, textarea{
+  font-family: "Poppins", sans-serif;
+}
+
 a {
   color: #333;
   text-decoration: none;
