@@ -59,9 +59,9 @@ function Resume() {
         </div>
         <div id="experience" className="exp-container">
           <h2>Éxperience</h2>
-          <EducationExperience begin="2019" end="2019" title="Stage d'un mois suite à la formation développeur Javascript" school="Tryptil SPRL" />
-          <EducationExperience begin="2019" end="2019" title="CDD de 3 mois" school="Tryptil SPRL" />
-          <EducationExperience begin="2019" end="2019" title="CDD de 3 mois" school="Tryptil SPRL" />
+          <EducationExperience begin="2019" end="2019" title="Stage développeur web d'un mois suite à la formation développeur Javascript" school="Tryptil SPRL" />
+          <EducationExperience begin="2019" end="2019" title="Développeur web (CDD de 3 mois)" school="Tryptil SPRL" />
+          <EducationExperience begin="2019" end="2019" title="Développeur web (CDD de 3 mois)" school="Tryptil SPRL" />
         </div>
         <div id="skills" className="skill-container">
           <h2>Compétences</h2>
