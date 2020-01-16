@@ -3,7 +3,9 @@ import { withRouter } from "react-router";
 import { loginIn } from './../utils/Auth';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faAt } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faAt } from '@fortawesome/free-solid-svg-icons';
+import HomeSection from "./HomeSection";
+import PropTypes from 'prop-types';
 
 function Login({ history }) {
 
@@ -17,37 +19,42 @@ function Login({ history }) {
     mode: "onChange"
   });
 
+  const div = <form className="" onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                  <div className="input input-login">
+                    <label htmlFor="email">Email *</label>
+                    <div>
+                      <span><FontAwesomeIcon icon={faAt} /></span>
+                      <input name="email" type="text" id="email" placeholder="Email" ref={register({ required: true })} />
+                    </div>
+                    {errors.email && <span className="error-message">Ce champ est requis</span>}
+                  </div>
+                  <div className="input input-login">
+                    <label htmlFor="lastname">Mot de passe *</label>
+                    <div>
+                      <span><FontAwesomeIcon icon={faKey} /></span>
+                      <input name="password" type="password" id="password" placeholder="Mot de passe" ref={register({ required: true })} />
+                    </div>
+                    {errors.password && <span className="error-message">Ce champ est requis</span>}
+                  </div>
+                </div>
+                <div className="btn-container">
+                  <button className="submit-login" type="submit">
+                    Connection
+                  </button>
+                </div>
+              </form>;
+
   return (
-    <div>
-      <h3>Formulaire de connection</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="input-container">
-          <div className="input">
-            <label htmlFor="email">Email *</label>
-            <div>
-              <span><FontAwesomeIcon icon={faAt} /></span>
-              <input name="email" type="text" id="email" placeholder="Email" ref={register({ required: true })} />
-            </div>
-            {errors.email && <span className="error-message">Ce champ est requis</span>}
-          </div>
-          <div className="input">
-            <label htmlFor="lastname">Mot de passe *</label>
-            <div>
-              <span><FontAwesomeIcon icon={faUser} /></span>
-              <input name="password" type="password" id="password" placeholder="Mot de passe" ref={register({ required: true })} />
-            </div>
-            {errors.password && <span className="error-message">Ce champ est requis</span>}
-          </div>
-        </div>
-        <div className="btn-container">
-              <button className="submit-contact" type="submit">
-                Connection
-              </button>
-            </div>
-      </form>
-    </div>
+    <HomeSection welcome="Connection" name="Bienvenue" div={div} />
   )
 }
+
+
+Login.propTypes = {
+  history: PropTypes.object,
+}
+
 
 export default withRouter(Login)
 

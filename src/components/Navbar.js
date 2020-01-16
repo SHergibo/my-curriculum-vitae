@@ -3,7 +3,6 @@ import { Link } from "react-scroll";
 import Logo from './Logo';
 
 function Navbar() {
-
   useEffect(() => {
     window.addEventListener('scroll', () => {
       let header = document.getElementById('header');

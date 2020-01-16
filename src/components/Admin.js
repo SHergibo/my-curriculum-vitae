@@ -1,15 +1,24 @@
 import React from 'react';
-import { logout } from './../utils/Auth';
+import HomeAdmin from './HomeAdmin';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import BackToTop from './BackToTop';
 
-function Admin({history}) {
-  let logOut = async() =>{
-    await logout();
-    history.push("/");
-  };
+function Admin(props) {
+  console.log(props.location);
   return (
     <div>
-      ADMIN
-      <button onClick={logOut}>Logout</button>
+      <header id="header">
+        <HomeAdmin />
+        <Navbar />
+      </header>
+      <main>
+
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+      <BackToTop />
     </div>
   )
 }

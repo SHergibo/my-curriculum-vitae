@@ -1,0 +1,8 @@
+.input-login {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.submit-login {
+  @include submit-btn(40px, 15px 0, 100%);
+}

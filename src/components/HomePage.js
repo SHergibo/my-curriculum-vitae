@@ -9,7 +9,7 @@ import BackToTop from './BackToTop';
 
 function HomePage() {
   return (
-    <div className="App">
+    <div>
       <header id="header">
         <Home />
         <Navbar />

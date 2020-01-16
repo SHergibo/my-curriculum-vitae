@@ -66,27 +66,27 @@ function Resume() {
         <div id="skills" className="skill-container">
           <h2>Compétences</h2>
           <div className="skill-canvas">
-            <CanvasResume id="canvas1" skill="HTML 5" percentage="90" />
-            <CanvasResume id="canvas2" skill="CSS 3" percentage="80" />
-            <CanvasResume id="canvas3" skill="Sass" percentage="80" />
-            <CanvasResume id="canvas4" skill="Javascript" percentage="75" />
-            <CanvasResume id="canvas5" skill="JQuery" percentage="60" />
-            <CanvasResume id="canvas6" skill="Node js" percentage="70" />
-            <CanvasResume id="canvas7" skill="Ember js" percentage="85" />
-            <CanvasResume id="canvas8" skill="React" percentage="65" />
+            <CanvasResume id="canvas1" skill="HTML 5" percent={90} />
+            <CanvasResume id="canvas2" skill="CSS 3" percent={80} />
+            <CanvasResume id="canvas3" skill="Sass" percent={80} />
+            <CanvasResume id="canvas4" skill="Javascript" percent={75} />
+            <CanvasResume id="canvas5" skill="JQuery" percent={60} />
+            <CanvasResume id="canvas6" skill="Node js" percent={70} />
+            <CanvasResume id="canvas7" skill="Ember js" percent={85} />
+            <CanvasResume id="canvas8" skill="React" percent={65} />
           </div>
           <div className="skill-bars">
             <div className="soft-skills">
               <h4>Compétences générales</h4>
-              <SkillBarResume skill="Autodidacte" percentage="90" />
-              <SkillBarResume skill="Gestion du temps" percentage="80" />
-              <SkillBarResume skill="Travail d'équipe" percentage="85" />
-              <SkillBarResume skill="Résolution de problèmes" percentage="75" />
+              <SkillBarResume skill="Autodidacte" percent={90} />
+              <SkillBarResume skill="Gestion du temps" percent={80} />
+              <SkillBarResume skill="Travail d'équipe" percent={85} />
+              <SkillBarResume skill="Résolution de problèmes" percent={75} />
             </div>
             <div className="language-skills">
               <h4>Langues</h4>
-              <SkillBarResume skill="Français" percentage="90" />
-              <SkillBarResume skill="Anglais" percentage="80" />
+              <SkillBarResume skill="Français" percent={90} />
+              <SkillBarResume skill="Anglais" percent={80} />
             </div>
           </div>
         </div>

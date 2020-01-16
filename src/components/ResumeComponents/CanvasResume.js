@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-function CanvasResume(props) {
+function CanvasResume({ id, percent, skill }) {
   useEffect(() => {
     const percentToRadians = (percentage) => {
       let degrees = percentage * 360 / 100;
@@ -32,8 +33,8 @@ function CanvasResume(props) {
 
     }
 
-    let canvas = document.getElementById(props.id);
-    let percentage = props.percentage;
+    let canvas = document.getElementById(id);
+    let percentage = percent;
     let radius;
     radius = canvas.width / 3;
     
@@ -43,12 +44,18 @@ function CanvasResume(props) {
   return (
     <div className="canvas-container">
       <div className="canvas">
-        <canvas id={props.id} width="135" height="135"></canvas>
-        <span>{props.percentage}%</span>
+        <canvas id={id} width="135" height="135"></canvas>
+        <span>{percent}%</span>
       </div>
-      <p>{props.skill}</p>
+      <p>{skill}</p>
     </div>
   );
+}
+
+CanvasResume.propTypes = {
+  id: PropTypes.string.isRequired,
+  percent: PropTypes.number.isRequired,
+  skill: PropTypes.string.isRequired,
 }
 
 export default CanvasResume;

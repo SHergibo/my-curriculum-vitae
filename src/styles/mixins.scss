@@ -41,7 +41,7 @@
   }
 }
 
-@mixin contact-form-input(){
+@mixin form-input(){
   label{
     display: block;
     color: #ffffff;
@@ -71,5 +71,28 @@
   }
   &:focus-within div{
     border: $border;
+  }
+}
+
+@mixin submit-btn($height, $margin, $width) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+  height: $height;
+  margin: $margin;
+  width: $width;
+  background-color: $blue;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+  &:hover{
+    background-color: $blue-hover;
   }
 }

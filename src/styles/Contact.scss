@@ -1,4 +1,4 @@
-.contact-container{
+.contact-container {
   border-top: $border;
 }
 
@@ -18,135 +18,64 @@
   width: 100%;
 }
 
-.contact-form{
+.contact-form {
   border-bottom: $border;
   padding-top: 80px;
   @include title-resume(325px);
-  p{
+  p {
     margin: 20px 0;
     font-size: 16px;
     font-weight: 900;
     color: $grey-two;
   }
-  .submit-contact{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 0;
-    padding: 0 25px;
-    height: 60px;
-    background-color: $blue;
-    border-radius: 5px;
-    border: none;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 900;
-    font-family: "Poppins", sans-serif;
-    outline: none;
-    cursor: pointer;
-    transition: .2s ease-in-out;
-    &:hover{
-      background-color: $blue-hover;
-    }
-    svg{
-      margin-left: 6px;
-    }
+}
+
+.submit-contact {
+  @include submit-btn(60px, 30px 0, auto);
+  margin: 30px 0;
+  svg {
+    margin-left: 6px;
   }
 }
 
-.input-container{
-  display: flex;
-  flex-direction: column;
-}
-
-.input{
-  margin-bottom: 20px;
-  @include contact-form-input();
-  div{
-    span{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 40px;
-      height: 40px;
-      color: $grey-two;
-      margin: 0 5px;
-      svg{
-        width: 25px !important;
-        height: 25px;
-      }
-    }
-    input{
-      background-color: transparent;
-      border: none;
-      outline: none;
-      width: 100%;
-      padding-right: 10px;
-      font-size: 16px;
-      color: $grey-two;
-    }
-  }
-}
-
-.text-area{
-  @include contact-form-input();
-  div{
-    padding: 5px 0 0 10px;
-    textarea{
-      background-color: transparent;
-      border: none;
-      outline: none;
-      width: 100%;
-      height: 200px;
-      font-size: 16px;
-      color: $grey-two;
-    }
-  }
-}
-
-.btn-container{
-  display: flex;
-  align-items: center;
-}
-
-.error-message{
+.error-message {
   position: absolute;
   color: red;
   font-size: 12px;
 }
 
-.success-message{
+.success-message {
   opacity: 0;
   margin-left: 20px;
   font-size: 20px;
   color: #008000;
-  transition: opacity .5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
-.contact-info{
+.contact-info {
   display: flex;
   flex-direction: column;
-  ul{
+  ul {
     margin: 20px 0 50px 0;
-    li{
+    li {
       display: flex;
       align-items: center;
       color: $grey-two;
       font-size: 15px;
       padding: 10px 0;
-      span{
+      span {
         width: 40px;
         text-align: center;
-        svg{
+        svg {
           color: $blue;
         }
       }
-      &:not(:last-child){
+      &:not(:last-child) {
         border-bottom: $border;
       }
-      div{
+      div {
         display: flex;
-        &:first-child{
+        &:first-child {
           margin-right: 5px;
         }
       }
@@ -154,20 +83,20 @@
   }
 }
 
-.container-img-contact{
+.container-img-contact {
   display: none;
 }
 
 /*Media queries*/
 
 /*Full-screen*/
-@media screen and (min-width: 960px){
-  .contact{
+@media screen and (min-width: 960px) {
+  .contact {
     flex-direction: row;
     padding: 0;
   }
 
-  .contact-form{
+  .contact-form {
     width: 70%;
     padding-right: 35px;
     border-right: $border;
@@ -175,28 +104,16 @@
     padding-bottom: 30px;
   }
 
-  .input-container{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin-bottom: 20px;
-  }
-
-  .input{
-    width: 49%;
-    margin-bottom: 0;
-  }
-
-  .contact-info{
+  .contact-info {
     width: 30%;
     padding-top: 80px;
     padding-left: 35px;
-    ul{
+    ul {
       margin: 30px 0 0;
-      li{
-        div{
+      li {
+        div {
           display: block;
-          &:first-child{
+          &:first-child {
             margin-right: 5px;
           }
         }
@@ -204,7 +121,7 @@
     }
   }
 
-  .container-img-contact{
+  .container-img-contact {
     display: block;
     text-align: center;
     width: 240px;
@@ -213,9 +130,8 @@
     overflow: hidden;
     border-radius: 50%;
     border: 1px solid #ffffff;
-    img{
+    img {
       width: 170px;
     }
   }
-
 }

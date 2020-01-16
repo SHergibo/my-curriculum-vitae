@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function EducationExperience(props) {
+function EducationExperience({ begin, end, title, school}) {
   return (
     <div className="container-resume">
       <div className="date-resume">
@@ -14,14 +15,21 @@ function EducationExperience(props) {
             </path>
           </svg>
         </span>
-        <p>{props.begin} - {props.end}</p>
+        <p>{begin} - {end}</p>
       </div>
       <div className="text-resume">
-        <h3>{props.title}</h3>
-        <p>{props.school}</p>
+        <h3>{title}</h3>
+        <p>{school}</p>
       </div>
     </div>
   );
+}
+
+EducationExperience.propTypes = {
+  begin: PropTypes.string.isRequired,
+  end: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  school: PropTypes.string.isRequired,
 }
 
 export default EducationExperience;

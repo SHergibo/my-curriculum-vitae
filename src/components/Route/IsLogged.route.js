@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { isAuthenticated } from './../../utils/Auth';
+import PropTypes from 'prop-types';
 
 function IsLoggedRoute({ component: Component, ...rest }) {
   return (
@@ -20,6 +21,10 @@ function IsLoggedRoute({ component: Component, ...rest }) {
       }
     } />
   )
+}
+
+IsLoggedRoute.propTypes = {
+  component: PropTypes.func.isRequired
 }
 
 export default IsLoggedRoute;
