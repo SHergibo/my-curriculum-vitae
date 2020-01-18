@@ -24,7 +24,7 @@
   ul{ 
     display: flex;
   }
-  @include svg(20px)
+  @include svgFill(20px);
 }
 
 /*Media queries*/

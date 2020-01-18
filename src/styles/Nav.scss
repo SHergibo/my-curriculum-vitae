@@ -6,7 +6,7 @@
   right: 0;
   bottom: 0;
   z-index: 100;
-  .contain-nav {
+  .container-nav {
     padding: 0 40px;
     display: flex;
     justify-content: space-between;
@@ -72,12 +72,21 @@
   }
 }
 
-.social, .social-mobile {
-  @include svg(20px)
+.social-svg {
+  @include svgFill(20px)
 }
 
 .burger-menu-svg {
-  @include svg(30px)
+  @include svgFill(30px)
+}
+
+.logoutSvg{
+  display: flex;
+  align-items: center;
+  height: 65px;
+  padding: 0 15px;
+  cursor: pointer;
+  @include svgStroke(30px);
 }
 
 .display-block{
@@ -106,6 +115,12 @@
 
 /*Full-screen*/
 @media screen and (min-width: 960px){
+
+  .maine-menu{
+    .container-nav{
+      padding: 0;
+    }
+  }
 
   .menu{
     display: flex;

@@ -7,7 +7,7 @@
   color: $grey-three;
 }
 
-@mixin svg($height) {
+@mixin svgFill($height) {
   svg {
     height: $height;
     path {
@@ -17,6 +17,23 @@
     &:hover {
       path {
         fill: $grey-two;
+      }
+    }
+  }
+}
+
+@mixin svgStroke($height) {
+  svg {
+    height: $height;
+    path {
+      stroke: $grey-one;
+      fill: none;
+      transition: 0.2s ease-in-out;
+    }
+    &:hover {
+      path {
+        stroke: $grey-two;
+        fill: none;
       }
     }
   }
