@@ -1,0 +1,51 @@
+.info-section, .educExpe-section, .skill-section{
+  padding: 0 15px;
+}
+
+.info-container, .educExpe-container, .skill-container {
+  margin-top: 70px;
+  @include title(290px);
+  form{
+    margin-top: 30px;
+  }
+}
+
+.title-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h2{
+    width: 100%;
+    margin-right: 15px;
+  }
+  button{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #50e3c2;
+    color: $principal-color;
+    outline: none;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+    svg{
+      margin-left: 3px;
+    }
+    &:hover{
+      background-color: #2336b6;
+      color: $grey-one;
+    }
+  }
+}
+
+/*Media queries*/
+
+/*Full-screen*/
+@media screen and (min-width: 960px) {
+  .info-section, .educExpe-section, .skill-section{
+    padding: 0;
+  }
+}

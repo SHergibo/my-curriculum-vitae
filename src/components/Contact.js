@@ -33,7 +33,7 @@ function Contact() {
   return (
     <div className="contact-container">
       <div id="contact" className="wrapper contact">
-        <div className="contact-title">Contact</div>
+        <div className="title-left">Contact</div>
         <div className="contact-form">
           <h2>Entrer en contact</h2>
           <p>N'hésitez pas à me contacter</p>

@@ -10,7 +10,7 @@ function About() {
           <img src="./Hergibo_Sacha.jpg" alt="Hergibo Sacha" />
         </div>
         <div className="text-about">
-          <div className="about-title">
+          <div className="title-right">
             À propos
           </div>
           <div className="about-me">

@@ -26,7 +26,7 @@ function Resume() {
   }, []);
   return (
     <div id="resume" className="wrapper resume">
-      <div className="resume-title">Résumé</div>
+      <div className="title-left">Résumé</div>
       <div className="menu-resume">
         <div className="list-resume" style={{ top: 30 + 'px' }}>
           <ul>
