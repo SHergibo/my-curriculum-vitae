@@ -6,6 +6,8 @@ import Footer from './Footer';
 import BackToTop from './BackToTop';
 import { logout } from './../utils/Auth';
 import PropTypes from 'prop-types';
+import EducExpe from './EducExpe';
+import Skills from './Skills';
 
 function Admin({history, location}) {
   let logOut = async() =>{
@@ -20,6 +22,8 @@ function Admin({history, location}) {
       </header>
       <main>
         <GeneralInfo />
+        <EducExpe />
+        <Skills />
       </main>
       <footer>
         <Footer />

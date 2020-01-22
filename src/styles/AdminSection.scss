@@ -1,14 +1,26 @@
 .info-section, .educExpe-section, .skill-section{
-  padding: 0 15px;
-  overflow: hidden;
+  border-bottom: $border;
 }
 
 .info-container, .educExpe-container, .skill-container {
   margin-top: 70px;
-  @include title(280px);
+  overflow: hidden;
+  padding: 0 15px;
   form{
     margin-top: 30px;
   }
+}
+
+.info-container{
+  @include title(280px);
+}
+
+.educExpe-container{
+  @include title(410px);
+}
+
+.skill-container{
+  @include title(265px);
 }
 
 .title-container{
@@ -60,36 +72,51 @@
 
 .form-container{
   width: 50%;
+  margin-bottom: 30px;
+  h3{
+    color: #ffffff;
+  }
 }
 
-.alert-one-enter {
+.add-enter {
   transform: translate3d(-110%, 0, 0);
 }
-.alert-one-enter-active {
+.add-enter-active {
   transform: translate3d(0, 0, 0);
   transition:  transform 500ms;
 }
-.alert-one-exit {
+.add-exit {
   transform: translate3d(0, 0, 0);
 }
-.alert-one-exit-active {
+.add-exit-active {
   transform: translate3d(-110%, 0, 0);
   transition: transform 500ms;
 }
 
-.alert-enter {
+.edit-enter {
   transform: translate3d(10%, 0, 0);
 }
-.alert-enter-active {
+.edit-enter-active {
   transform: translate3d(-100%, 0, 0);
   transition:  transform 500ms;
 }
-.alert-exit {
+.edit-exit {
   transform: translate3d(-100%, 0, 0);
 }
-.alert-exit-active {
+.edit-exit-active {
   transform: translate3d(10%, 0, 0);
   transition: transform 500ms;
+}
+
+.label-checkbox-container{
+  display: flex;
+}
+
+.skills-checkbox-container{
+  flex-direction: column;
+  label{
+    margin-top: 20px;
+  }
 }
 
 /*Media queries*/
@@ -102,6 +129,13 @@
     }
     .btn-switch-container{
       width: 10%;
+    }
+  }
+
+  .skills-checkbox-container{
+    flex-direction: row;
+    label{
+      margin-top: 0;
     }
   }
   

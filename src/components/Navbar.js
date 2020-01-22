@@ -63,8 +63,8 @@ function Navbar({ location, logout }) {
     liList = [
       {name: "Accueil", to : "home", offset : 0, duration : 500},
       {name: "Infos générales", to : "infos", offset : -80, duration : 1000},
-      {name: "Educ/Expe", to : "resume", eduexpe : -80, duration : 1000},
-      {name: "Compétences", to : "resume", competences : -80, duration : 1000},
+      {name: "Éduc/Éxpe", to : "educexpe", offset : -80, duration : 1000},
+      {name: "Compétences", to : "skills", offset : -80, duration : 1000},
     ]
   
     divMobile = <ul>
