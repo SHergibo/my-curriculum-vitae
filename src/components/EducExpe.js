@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck, faEdit, faHourglassStart, faHourglassEnd, faUserGraduate, faSchool } from '@fortawesome/free-solid-svg-icons';
-import Axios from 'axios';
+import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import checkSuccess from './../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
 
 function EducExpe() {
@@ -22,26 +23,11 @@ function EducExpe() {
   }
 
   const onSubmitAdd = async (data) => {
-    console.log("ajout");
-    console.log(data);
-    // const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
-    // await Axios.post(registerEndPoint, data)
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       let spanSuccess = document.getElementsByClassName('success-message')[0];
-    //       spanSuccess.style.opacity = 1;
-    //       setSuccess(true);
-    //       setTimeout(() => {
-    //         spanSuccess.style.opacity = 0;
-    //       }, 3000);
-    //       setTimeout(() => {
-    //         setSuccess(false);
-    //       }, 3500);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log("err", err);
-    //   });
+    const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
+    await axiosInstance.post(addEducExpeEndPoint, data)
+      .then((response) => {
+        checkSuccess(response.status, success, setSuccess, 1);
+      });
   };
 
   const onSubmitEdit = async (data) => {
@@ -122,11 +108,11 @@ function EducExpe() {
                   </div>
                   <div className="label-checkbox-container">
                     <label className="container-checkbox">Éxperience
-                      <input type="radio" defaultChecked="checked" name="radioEducExpe" value="experience" ref={register({ required: true })}  />
+                      <input type="radio" defaultChecked="checked" name="educExpe" value="experience" ref={register({ required: true })}  />
                       <span className="checkmark"></span>
                     </label>
                     <label className="container-checkbox">Éducation
-                      <input type="radio" name="radioEducExpe" value="education" ref={register({ required: true })}  />
+                      <input type="radio" name="educExpe" value="education" ref={register({ required: true })}  />
                       <span className="checkmark"></span>
                     </label>
                   </div>

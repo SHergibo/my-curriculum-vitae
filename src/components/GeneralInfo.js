@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
-import Axios from 'axios';
+import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import checkSuccess from './../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
 import FormGeneralInfo from './FormGeneralInfo';
 
@@ -22,26 +23,24 @@ function GeneralInfo() {
   }
 
   const onSubmitAdd = async (data) => {
-    console.log("ajout");
-    console.log(data);
-    // const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
-    // await Axios.post(registerEndPoint, data)
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       let spanSuccess = document.getElementsByClassName('success-message')[0];
-    //       spanSuccess.style.opacity = 1;
-    //       setSuccess(true);
-    //       setTimeout(() => {
-    //         spanSuccess.style.opacity = 0;
-    //       }, 3000);
-    //       setTimeout(() => {
-    //         setSuccess(false);
-    //       }, 3500);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log("err", err);
-    //   });
+    let workingData = {
+      phone : data.phoneAdd,
+      email : data.emailAdd,
+      address : {
+        street : data.streetAdd,
+        number : data.numberAdd,
+        zip : data.zipAdd,
+        city : data.cityAdd
+      },
+      birthdate : data.birthdateAdd,
+      licence : data.driverLicenceAdd
+    };
+    console.log(workingData);
+    const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
+    await axiosInstance.post(addGenerelInfoEndPoint, workingData)
+      .then((response) => {
+        checkSuccess(response.status, success, setSuccess, 0);
+      });
   };
 
   const onSubmitEdit = async (data) => {

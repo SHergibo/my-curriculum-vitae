@@ -4,6 +4,7 @@ import { faEnvelope, faMobileAlt, faMapMarkerAlt, faUser, faAt, faPaperPlane, fa
 import { useForm } from 'react-hook-form';
 import Axios from 'axios';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import checkSuccess from './../utils/checkSuccess';
 
 function Contact() {
   let [success, setSuccess] = useState(false);
@@ -11,17 +12,7 @@ function Contact() {
     const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
     await Axios.post(registerEndPoint, data)
       .then((response) => {
-        if (response.status === 200) {
-          let spanSuccess = document.getElementsByClassName('success-message')[0];
-          spanSuccess.style.opacity = 1;
-          setSuccess(true);
-          setTimeout(() => {
-            spanSuccess.style.opacity = 0;
-          }, 3000);
-          setTimeout(() => {
-            setSuccess(false);
-          }, 3500);
-        }
+        checkSuccess(response.status, success, setSuccess);
       })
       .catch(err => {
         console.log("err", err);

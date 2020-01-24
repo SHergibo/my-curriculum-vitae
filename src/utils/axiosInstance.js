@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiDomain, apiVersion } from './../apiConfig/config';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 
 
 const axiosInstance = axios.create({

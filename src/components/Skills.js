@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faEdit, faCode, faPercentage, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
-import Axios from 'axios';
+import { faPlus, faCheck, faEdit, faPercentage, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
+import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import checkSuccess from './../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
 
 function Skills() {
@@ -22,26 +23,11 @@ function Skills() {
   }
 
   const onSubmitAdd = async (data) => {
-    console.log("ajout");
-    console.log(data);
-    // const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
-    // await Axios.post(registerEndPoint, data)
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       let spanSuccess = document.getElementsByClassName('success-message')[0];
-    //       spanSuccess.style.opacity = 1;
-    //       setSuccess(true);
-    //       setTimeout(() => {
-    //         spanSuccess.style.opacity = 0;
-    //       }, 3000);
-    //       setTimeout(() => {
-    //         setSuccess(false);
-    //       }, 3500);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log("err", err);
-    //   });
+    const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
+    await axiosInstance.post(addSkillEndPoint, data)
+      .then((response) => {
+        checkSuccess(response.status, success, setSuccess, 2);
+      });
   };
 
   const onSubmitEdit = async (data) => {
@@ -97,22 +83,22 @@ function Skills() {
                       <label htmlFor="percentage">Pourcentage *</label>
                       <div>
                         <span><FontAwesomeIcon icon={faPercentage} /></span>
-                        <input name="percentage" type="text" id="percentage" placeholder="Pourcentage" ref={register({ required: true })} />
+                        <input name="percentage" type="number" id="percentage" placeholder="Pourcentage" ref={register({ required: true })} />
                       </div>
                       {errors.percentage && <span className="error-message">Ce champ est requis</span>}
                     </div>
                   </div>
                   <div className="label-checkbox-container skills-checkbox-container">
                     <label className="container-checkbox">Compétences code
-                      <input type="radio" defaultChecked="checked" name="skills" value="codingSkill" ref={register({ required: true })} />
+                      <input type="radio" defaultChecked="checked" name="skillCategory" value="codingSkill" ref={register({ required: true })} />
                       <span className="checkmark"></span>
                     </label>
                     <label className="container-checkbox">Compétences générales
-                      <input type="radio" name="skills" value="generalSkill" ref={register({ required: true })} />
+                      <input type="radio" name="skillCategory" value="generalSkill" ref={register({ required: true })} />
                       <span className="checkmark"></span>
                     </label>
                     <label className="container-checkbox">Langues
-                      <input type="radio" name="skills" value="language" ref={register({ required: true })} />
+                      <input type="radio" name="skillCategory" value="language" ref={register({ required: true })} />
                       <span className="checkmark"></span>
                     </label>
                   </div>
