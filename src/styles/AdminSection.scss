@@ -45,22 +45,7 @@
     }
   }
   button{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #50e3c2;
-    color: $principal-color;
-    outline: none;
-    cursor: pointer;
-    transition: .3s ease-in-out;
-    &:hover{
-      background-color: #2336b6;
-      color: $grey-one;
-    }
+    @include btn-admin(#50e3c2, #2336b6);
   }
 }
 
@@ -70,11 +55,54 @@
 
 }
 
-.form-container{
+.form-container, .list-container{
   width: 50%;
   margin-bottom: 30px;
-  h3{
+  h3, h4{
     color: #ffffff;
+  }
+}
+
+.list-container{
+  h4{
+    margin: 10px 0;
+  }
+  ul{
+    margin-top: 30px;
+  }
+  li{
+    display: flex;
+    flex-direction: column;
+    color: $grey-two;
+    margin: 15px 0;
+    .div-list-container, .div-list-btn-container{
+      div{
+        margin: 5px 0;
+      }
+    }
+    .div-list-btn-container{
+      display: flex;
+      button{
+        &:first-child{
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .date-list{
+    min-width: 110px;
+  }
+  .title-list{
+    max-width: 650px;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+  }
+  .btn-list-edit{
+    @include btn-admin(#50e3c2, #2336b6);
+  }
+  .btn-list-delete{
+    @include btn-admin(#ee5253, #e92424);
   }
 }
 
@@ -132,6 +160,23 @@
     }
   }
 
+  .list-container{
+    li{
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .div-list-container{
+        display: flex;
+        div{
+          margin: 0;
+        }
+      }
+    }
+    .title-list{
+      max-width: 350px;
+    }
+  }
+
   .skills-checkbox-container{
     flex-direction: row;
     label{
@@ -145,5 +190,11 @@
 @media screen and (min-width: 960px) {
   .info-section, .educExpe-section, .skill-section{
     padding: 0;
+  }
+
+  .list-container{
+    .title-list{
+      max-width: 650px;
+    }
   }
 }

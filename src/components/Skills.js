@@ -30,7 +30,12 @@ function Skills() {
       });
   };
 
-  const onSubmitEdit = async (data) => {
+  const onClickEdit = async (data) => {
+    console.log("edit");
+    console.log(data);
+  };
+
+  const onClickDelete = async (data) => {
     console.log("edit");
     console.log(data);
   };

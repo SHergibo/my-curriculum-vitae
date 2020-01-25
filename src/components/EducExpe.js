@@ -6,21 +6,48 @@ import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
+import DisplayListEducExpe from './DisplayListEducExpe';
 
 function EducExpe() {
   const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
+  const [arrayEduc, setArrayEduc] = useState([]);
+  const [arrayExpe, setArrayExpe] = useState([]);
 
   let switchForm = () => {
     if (addBtn) {
       setAddBtn(false);
       setEditBtn(true);
+      getData();
     } else {
       setEditBtn(false);
       setAddBtn(true);
     }
   }
+
+  const getData = async () => {
+    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
+    await axiosInstance.get(getListEducExpeEndPoint)
+      .then((response) => {
+        workingData(response.data);
+      });
+  };
+
+  const workingData = (data) => {
+    let education = [];
+    let experience = [];
+    data.map((item) => {
+      if (item.educExpe === "education") {
+        education.push(item)
+      } else if (item.educExpe === "experience") {
+        experience.push(item);
+      }
+      return item;
+    });
+    setArrayEduc(education);
+    setArrayExpe(experience);
+  };
 
   const onSubmitAdd = async (data) => {
     const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
@@ -30,7 +57,12 @@ function EducExpe() {
       });
   };
 
-  const onSubmitEdit = async (data) => {
+  const onClickEdit = async (data) => {
+    console.log("edit");
+    console.log(data);
+  };
+
+  const onClickDelete = async (data) => {
     console.log("edit");
     console.log(data);
   };
@@ -43,7 +75,7 @@ function EducExpe() {
     <div className="educExpe-section">
       <div id="educexpe" className="wrapper">
         <div className="title-left">
-        Éducation / Éxperience
+          Éducation / Éxperience
         </div>
         <div className="educExpe-container">
           <div className="title-container">
@@ -108,11 +140,11 @@ function EducExpe() {
                   </div>
                   <div className="label-checkbox-container">
                     <label className="container-checkbox">Éxperience
-                      <input type="radio" defaultChecked="checked" name="educExpe" value="experience" ref={register({ required: true })}  />
+                      <input type="radio" defaultChecked="checked" name="educExpe" value="experience" ref={register({ required: true })} />
                       <span className="checkmark"></span>
                     </label>
                     <label className="container-checkbox">Éducation
-                      <input type="radio" name="educExpe" value="education" ref={register({ required: true })}  />
+                      <input type="radio" name="educExpe" value="education" ref={register({ required: true })} />
                       <span className="checkmark"></span>
                     </label>
                   </div>
@@ -122,7 +154,7 @@ function EducExpe() {
                       <FontAwesomeIcon icon={faPlus} />
                     </button>
                     <span className="success-message">
-                      {success  && <span ><FontAwesomeIcon icon={faCheck} /></span>}
+                      {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
                     </span>
                   </div>
                 </form>
@@ -134,8 +166,14 @@ function EducExpe() {
               classNames="edit"
               unmountOnExit
             >
-              <div className="form-container">
-                Edition Education experience
+              <div className="list-container">
+              <h3>Édition</h3>
+                <ul>
+                  <h4>Éducation</h4>
+                    <DisplayListEducExpe array={arrayEduc} submit={onClickEdit} delete={onClickDelete}/>
+                  <h4>Éxperience</h4>
+                    <DisplayListEducExpe array={arrayExpe}  submit={onClickEdit} delete={onClickDelete} />
+                </ul>
               </div>
             </CSSTransition>
           </div>

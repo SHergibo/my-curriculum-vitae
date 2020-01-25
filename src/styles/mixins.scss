@@ -39,7 +39,7 @@
   }
 }
 
-@mixin  title($left) {
+@mixin title($left) {
   h2{
     color: #ffffff;
     font-size: 35px;
@@ -111,5 +111,24 @@
   transition: .2s ease-in-out;
   &:hover{
     background-color: $blue-hover;
+  }
+}
+
+@mixin btn-admin($color, $color-hover){
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color;
+  color: $principal-color;
+  outline: none;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  &:hover{
+    background-color: $color-hover;
+    color: $grey-one;
   }
 }
