@@ -87,11 +87,11 @@ function EducExpe() {
     <div className="educExpe-section">
       <div id="educexpe" className="wrapper">
         <div className="title-left-admin">
-          Éducation / Éxperience
+          Éducation / Expérience
         </div>
         <div className="educExpe-container">
           <div className="title-container">
-            <h2>Éducation / Éxperience</h2>
+            <h2>Éducation / Expérience</h2>
             <div className="btn-switch-container">
               <button onClick={() => switchForm()}>
                 {addBtn && (
@@ -126,7 +126,7 @@ function EducExpe() {
                 <ul>
                   <h4>Éducation</h4>
                     <DisplayListEducExpe array={arrayEduc} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success}/>
-                  <h4>Éxperience</h4>
+                  <h4>Expérience</h4>
                     <DisplayListEducExpe array={arrayExpe}  submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success}/>
                 </ul>
               </div>

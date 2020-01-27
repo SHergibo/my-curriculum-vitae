@@ -73,7 +73,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
                       </div>
                     </div>
                     <div className="label-checkbox-container">
-                      <label className="container-checkbox">Éxperience
+                      <label className="container-checkbox">Expérience
                         <input type="radio" defaultChecked={checkboxExpe} name="educExpe" value="experience" ref={register({ required: true })} />
                         <span className="checkmark"></span>
                       </label>

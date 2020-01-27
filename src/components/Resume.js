@@ -37,7 +37,7 @@ function Resume() {
             </li>
             <li>
               <Link activeClass="active" to="experience" spy={true} smooth={true} offset={-80} duration={1000}>
-                Éxperience
+                Expérience
               </Link>
             </li>
             <li>
@@ -58,7 +58,7 @@ function Resume() {
           <EducationExperience begin="2006" end="2008" title="Enseignement général en sciences-langues." school="École des Frères de Tournai" />
         </div>
         <div id="experience" className="exp-container">
-          <h2>Éxperience</h2>
+          <h2>Expérience</h2>
           <EducationExperience begin="2019" end="2019" title="Stage développeur web d'un mois suite à la formation développeur Javascript" school="Tryptil SPRL" />
           <EducationExperience begin="2019" end="2019" title="Développeur web (CDD de 3 mois)" school="Tryptil SPRL" />
           <EducationExperience begin="2019" end="2019" title="Développeur web (CDD de 3 mois)" school="Tryptil SPRL" />
