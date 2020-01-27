@@ -35,7 +35,6 @@ function GeneralInfo() {
       birthdate : data.birthdateAdd,
       licence : data.driverLicenceAdd
     };
-    console.log(workingData);
     const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
     await axiosInstance.post(addGenerelInfoEndPoint, workingData)
       .then((response) => {

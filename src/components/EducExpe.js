@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faEdit, faHourglassStart, faHourglassEnd, faUserGraduate, faSchool } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
 import DisplayListEducExpe from './DisplayListEducExpe';
+import FormEducExpe from './FormEducExpe';
 
 function EducExpe() {
   const [success, setSuccess] = useState(false);
@@ -14,6 +14,7 @@ function EducExpe() {
   const [editbtn, setEditBtn] = useState(false);
   const [arrayEduc, setArrayEduc] = useState([]);
   const [arrayExpe, setArrayExpe] = useState([]);
+  const [idItem, setIdItem] = useState();
 
   let switchForm = () => {
     if (addBtn) {
@@ -57,24 +58,35 @@ function EducExpe() {
       });
   };
 
+  const setIdFunc = (data) => {
+    setIdItem(data);
+    console.log(data)
+  }
+
   const onClickEdit = async (data) => {
-    console.log("edit");
-    console.log(data);
+    const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/${idItem}`;
+    await axiosInstance.patch(editEducExpeEndPoint, data)
+    .then((response) => {
+      console.log(response);
+    });
   };
 
   const onClickDelete = async (data) => {
-    console.log("edit");
-    console.log(data);
+    const deleteEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/${data._id}`;
+    await axiosInstance.delete(deleteEducExpeEndPoint, data)
+    .then(() => {
+      if(data.educExpe === "experience"){
+        setArrayExpe([...arrayExpe].filter(item => item._id !== data._id));
+      }else if(data.educExpe === "education"){
+        setArrayEduc([...arrayEduc].filter(item => item._id !== data._id));
+      }
+    });
   };
-
-  const { register, handleSubmit, errors } = useForm({
-    mode: "onChange"
-  });
 
   return (
     <div className="educExpe-section">
       <div id="educexpe" className="wrapper">
-        <div className="title-left">
+        <div className="title-left-admin">
           Éducation / Éxperience
         </div>
         <div className="educExpe-container">
@@ -100,64 +112,7 @@ function EducExpe() {
               unmountOnExit
             >
               <div className="form-container">
-                <h3>Ajout</h3>
-                <form onSubmit={handleSubmit(onSubmitAdd)}>
-                  <div className="input-container">
-                    <div className="input">
-                      <label htmlFor="dateStart">Date de début *</label>
-                      <div>
-                        <span><FontAwesomeIcon icon={faHourglassStart} /></span>
-                        <input name="dateStart" type="text" id="dateStart" placeholder="Date de début" ref={register({ required: true })} />
-                      </div>
-                      {errors.dateStart && <span className="error-message">Ce champ est requis</span>}
-                    </div>
-                    <div className="input">
-                      <label htmlFor="dateEnd">Date de fin *</label>
-                      <div>
-                        <span><FontAwesomeIcon icon={faHourglassEnd} /></span>
-                        <input name="dateEnd" type="text" id="dateEnd" placeholder="Date de fin" ref={register({ required: true })} />
-                      </div>
-                      {errors.dateEnd && <span className="error-message">Ce champ est requis</span>}
-                    </div>
-                  </div>
-                  <div className="input-container">
-                    <div className="input">
-                      <label htmlFor="titleEducExpe">Titre du diplôme / formation *</label>
-                      <div>
-                        <span><FontAwesomeIcon icon={faUserGraduate} /></span>
-                        <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" ref={register({ required: true })} />
-                      </div>
-                      {errors.titleEducExpe && <span className="error-message">Ce champ est requis</span>}
-                    </div>
-                    <div className="input">
-                      <label htmlFor="placeEducExpe">Nom du centre de formation / école *</label>
-                      <div>
-                        <span><FontAwesomeIcon icon={faSchool} /></span>
-                        <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" ref={register({ required: true })} />
-                      </div>
-                      {errors.placeEducExpe && <span className="error-message">Ce champ est requis</span>}
-                    </div>
-                  </div>
-                  <div className="label-checkbox-container">
-                    <label className="container-checkbox">Éxperience
-                      <input type="radio" defaultChecked="checked" name="educExpe" value="experience" ref={register({ required: true })} />
-                      <span className="checkmark"></span>
-                    </label>
-                    <label className="container-checkbox">Éducation
-                      <input type="radio" name="educExpe" value="education" ref={register({ required: true })} />
-                      <span className="checkmark"></span>
-                    </label>
-                  </div>
-                  <div className="btn-container">
-                    <button className="submit-contact" type="submit">
-                      Ajouter
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
-                    <span className="success-message">
-                      {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
-                    </span>
-                  </div>
-                </form>
+                <FormEducExpe handleFunction={onSubmitAdd} formType="add" success={success} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -170,9 +125,9 @@ function EducExpe() {
               <h3>Édition</h3>
                 <ul>
                   <h4>Éducation</h4>
-                    <DisplayListEducExpe array={arrayEduc} submit={onClickEdit} delete={onClickDelete}/>
+                    <DisplayListEducExpe array={arrayEduc} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success}/>
                   <h4>Éxperience</h4>
-                    <DisplayListEducExpe array={arrayExpe}  submit={onClickEdit} delete={onClickDelete} />
+                    <DisplayListEducExpe array={arrayExpe}  submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success}/>
                 </ul>
               </div>
             </CSSTransition>

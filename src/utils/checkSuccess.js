@@ -10,7 +10,6 @@ const checkSuccess = (status, success, setSuccess, numberSpan) => {
       setSuccess(false);
     }, 3500);
   }
-  console.log(success);
   return success;
 }
 
