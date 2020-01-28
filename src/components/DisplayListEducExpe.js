@@ -4,27 +4,37 @@ import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import ModalEditAdmin from "./ModalEditAdmin";
 import PropTypes from 'prop-types';
 
-function DisplayListEducExpe({array, submit, setId, funcDelete, success}) {
-  const [dislayForm, setDisplayForm] = useState(false);
+function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal}) {
   const [value, setValue] = useState({});
   let body = document.getElementsByTagName("body")[0];
-  
+
   const displayModal = (value) => {
     body.setAttribute('style', 'overflow : hidden;');
     setDisplayForm(true);
     setValue(value);
   }
 
-  const closeModal = () => {
-    body.removeAttribute('style');
-    setDisplayForm(false);
-    setValue({});
+  let liListEduc;
+  let liListExpe;
+
+  
+  if(arrayEduc){
+    liListEduc = arrayEduc.map((item) => {
+    return <li key={item._id}>
+            <div className="div-list-container">
+              <div className="date-list">{item.dateStart} - {item.dateEnd}</div> 
+              <div className="title-list">{item.titleEducExpe}</div> 
+            </div>
+            <div className="div-list-btn-container">
+              <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon={faEdit} /></button>
+              <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon={faTrashAlt} /></button>
+            </div>
+          </li>
+    });
   }
 
-  let liList;
-
-  if(array){
-  liList = array.map((item) => {
+  if(arrayExpe){
+    liListExpe = arrayExpe.map((item) => {
     return <li key={item._id}>
             <div className="div-list-container">
               <div className="date-list">{item.dateStart} - {item.dateEnd}</div> 
@@ -40,8 +50,11 @@ function DisplayListEducExpe({array, submit, setId, funcDelete, success}) {
 
   return (
     <div>
-      <div>{liList}</div>
-      {dislayForm  && 
+      <h4>Éducation</h4>
+        <div>{liListEduc}</div>         
+      <h4>Expérience</h4>
+        <div>{liListExpe}</div>
+      {displayForm  && 
         <ModalEditAdmin value={value} submit={submit} setId={setId} success={success} closeModal={closeModal}/>
       }
     </div>
@@ -49,7 +62,8 @@ function DisplayListEducExpe({array, submit, setId, funcDelete, success}) {
 }
 
 DisplayListEducExpe.propTypes = {
-  array: PropTypes.array.isRequired,
+  arrayEduc: PropTypes.array.isRequired,
+  arrayExpe: PropTypes.array.isRequired,
   submit: PropTypes.func.isRequired,
   funcDelete: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,

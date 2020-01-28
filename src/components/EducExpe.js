@@ -15,6 +15,7 @@ function EducExpe() {
   const [arrayEduc, setArrayEduc] = useState([]);
   const [arrayExpe, setArrayExpe] = useState([]);
   const [idItem, setIdItem] = useState();
+  const [displayForm, setDisplayForm] = useState(false);
 
   let switchForm = () => {
     if (addBtn) {
@@ -60,14 +61,42 @@ function EducExpe() {
 
   const setIdFunc = (data) => {
     setIdItem(data);
-    console.log(data)
   }
+
+  const closeModal = () => {
+    let body = document.getElementsByTagName("body")[0];
+    body.removeAttribute('style');
+    setDisplayForm(false);
+  }  
 
   const onClickEdit = async (data) => {
     const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/${idItem}`;
     await axiosInstance.patch(editEducExpeEndPoint, data)
     .then((response) => {
-      console.log(response);
+
+      let arrayResponse = [response.data];
+      if(data.educExpe === "experience"){
+        let dataInArrayEduc = arrayEduc.find(v => v._id === response.data._id);
+
+        if(!dataInArrayEduc){
+          setArrayExpe([...arrayExpe].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        } else {
+          setArrayEduc([...arrayEduc].filter(item => item._id !== idItem));
+          setArrayExpe(arrayExpe => [...arrayExpe, response.data]);
+        }
+      }
+
+      if(data.educExpe === "education"){
+        let dataInArrayExpe = arrayExpe.find(v => v._id === response.data._id);
+
+        if(!dataInArrayExpe){
+          setArrayEduc([...arrayEduc].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        } else {
+          setArrayExpe([...arrayExpe].filter(item => item._id !== idItem));
+          setArrayEduc(arrayEduc => [...arrayEduc, response.data]);
+        }
+      }
+      closeModal();
     });
   };
 
@@ -124,10 +153,7 @@ function EducExpe() {
               <div className="list-container">
               <h3>Édition</h3>
                 <ul>
-                  <h4>Éducation</h4>
-                    <DisplayListEducExpe array={arrayEduc} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success}/>
-                  <h4>Expérience</h4>
-                    <DisplayListEducExpe array={arrayExpe}  submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success}/>
+                    <DisplayListEducExpe arrayEduc={arrayEduc} arrayExpe={arrayExpe} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal}/>
                 </ul>
               </div>
             </CSSTransition>
