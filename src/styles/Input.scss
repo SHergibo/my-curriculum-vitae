@@ -29,6 +29,39 @@
       font-size: 16px;
       color: $grey-two;
     }
+    .react-datepicker-wrapper{
+      width: 90%;
+    }
+    .react-datepicker-wrapper, .react-datepicker__input-container{
+      background-color: transparent;
+      border: none;
+    }
+    .react-datepicker, .react-datepicker__header  {
+      flex-direction: column;
+      background-color: $principal-color;
+      border-radius: 0;
+    }
+    .react-datepicker__month-container{
+      flex-direction: column;
+      width: 250px;
+    }
+    .react-datepicker__month{
+      flex-wrap: wrap;
+    }
+    .react-datepicker__current-month, .react-datepicker__day-name, .react-datepicker__day{
+      color: #ffffff;
+    }
+    .react-datepicker__day{
+      transition: .2s ease-in-out;
+      &:hover{
+        color: $blue;
+      }
+    }
+    .react-datepicker__close-icon{
+      &:after{
+        background-color: $blue;
+      }
+    }
   }
 }
 

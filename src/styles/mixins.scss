@@ -65,7 +65,7 @@
     font-size: 14px;
     margin-bottom: 10px;
   }
-  div{
+  .input-block{
     display: flex;
     align-items: center;
     background-color: $grey-four;
@@ -86,7 +86,7 @@
     color: $grey-two;
     font-family: "Poppins", sans-serif;
   }
-  &:focus-within div{
+  &:focus-within .input-block{
     border: $border;
   }
 }

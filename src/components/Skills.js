@@ -78,7 +78,7 @@ function Skills() {
                   <div className="input-container">
                     <div className="input">
                       <label htmlFor="nameSkill">Nom de la compétences *</label>
-                      <div>
+                      <div className="input-block">
                         <span><FontAwesomeIcon icon={faGraduationCap} /></span>
                         <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" ref={register({ required: true })} />
                       </div>
@@ -86,7 +86,7 @@ function Skills() {
                     </div>
                     <div className="input">
                       <label htmlFor="percentage">Pourcentage *</label>
-                      <div>
+                      <div className="input-block">
                         <span><FontAwesomeIcon icon={faPercentage} /></span>
                         <input name="percentage" type="number" id="percentage" placeholder="Pourcentage" ref={register({ required: true })} />
                       </div>

@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 
 function ModalEditAdmin({ value, submit, setId, success, closeModal }) {
 
+  window.addEventListener("click", (event) => {
+    if(event.target.className === "modal"){
+      closeModal();
+    }
+  });
+
   return (
     <div className="modal">
       <div className="modal-container">
@@ -17,6 +23,7 @@ function ModalEditAdmin({ value, submit, setId, success, closeModal }) {
 ModalEditAdmin.propTypes = {
   value: PropTypes.object.isRequired,
   submit: PropTypes.func.isRequired,
+  setId: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
 }

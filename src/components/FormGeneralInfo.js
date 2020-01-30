@@ -1,10 +1,29 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMobileAlt, faPlus, faRoad, faAt, faHome, faEnvelopeOpenText, faCity, faBirthdayCake, faCheck, faCar, faEdit } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
+import DatePicker, { registerLocale } from "react-datepicker";
+import { parseISO } from 'date-fns';
+import { fr } from 'date-fns/locale'
+import "react-datepicker/dist/react-datepicker.css";
+registerLocale("fr", fr);
 
 function FormGeneralInfo({handleFunction, formType, success}) {
+  const [dateBirthday, setDateBirthday] = useState(null);
+
+  const { register, handleSubmit, errors, value, setValue } = useForm({
+    mode: "onChange"
+  });
+
+  useEffect(() => {
+    register({ name: "dateBirthday" }, {required : true});
+    if(formType === "edit"){
+      setDateBirthday(parseISO(value.birthdate));
+      setValue("dateBirthday", parseISO(value.birthdate));
+    }
+  }, []);
+
   let titleForm = "Ajout";
   let button = "Ajouter";
   let objectInput= {
@@ -33,10 +52,6 @@ function FormGeneralInfo({handleFunction, formType, success}) {
     };
   }
 
-  const { register, handleSubmit, errors } = useForm({
-    mode: "onChange"
-  });
-
   return (
     <div className="form-container">
       <h3>{titleForm}</h3>
@@ -44,7 +59,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
         <div className="input-container">
           <div className="input">
             <label htmlFor={objectInput.email}>Email *</label>
-            <div>
+            <div className="input-block">
               <span><FontAwesomeIcon icon={faAt} /></span>
               <input name={objectInput.email} type="text" id={objectInput.email} placeholder="Adresse mail" ref={register({ required: true })} />
             </div>
@@ -53,7 +68,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
           </div>
           <div className="input">
             <label htmlFor={objectInput.phone}>Téléphone *</label>
-            <div>
+            <div className="input-block">
               <span><FontAwesomeIcon icon={faMobileAlt} /></span>
               <input name={objectInput.phone} type="text" id={objectInput.phone} placeholder="N° de téléphone" ref={register({ required: true })} />
             </div>
@@ -64,7 +79,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
         <div className="input-container">
           <div className="input">
             <label htmlFor={objectInput.street}>Rue *</label>
-            <div>
+            <div className="input-block">
               <span><FontAwesomeIcon icon={faRoad} /></span>
               <input name={objectInput.street} type="text" id={objectInput.street} placeholder="Rue" ref={register({ required: true })} />
             </div>
@@ -73,7 +88,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
           </div>
           <div className="input">
             <label htmlFor={objectInput.number}>Numéro *</label>
-            <div>
+            <div className="input-block">
               <span><FontAwesomeIcon icon={faHome} /></span>
               <input name={objectInput.number} type="text" id={objectInput.number} placeholder="Numéro" ref={register({ required: true })} />
             </div>
@@ -84,7 +99,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
         <div className="input-container">
           <div className="input">
             <label htmlFor={objectInput.zip}>Code postal *</label>
-            <div>
+            <div className="input-block">
               <span><FontAwesomeIcon icon={faEnvelopeOpenText} /></span>
               <input name={objectInput.zip} type="text" id={objectInput.zip} placeholder="Code postal" ref={register({ required: true })} />
             </div>
@@ -93,7 +108,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
           </div>
           <div className="input">
             <label htmlFor={objectInput.city}>Ville *</label>
-            <div>
+            <div className="input-block">
               <span><FontAwesomeIcon icon={faCity} /></span>
               <input name={objectInput.city} type="text" id={objectInput.city} placeholder="Ville" ref={register({ required: true })} />
             </div>
@@ -104,9 +119,20 @@ function FormGeneralInfo({handleFunction, formType, success}) {
         <div className="input-container">
           <div className="input">
             <label htmlFor={objectInput.birthdate}>Date de naissance *</label>
-            <div>
+            <div className="input-block">
               <span><FontAwesomeIcon icon={faBirthdayCake} /></span>
-              <input name={objectInput.birthdate} type="date" id={objectInput.birthdate} placeholder="Date de naissance" ref={register({ required: true })} />
+              <DatePicker
+                id={objectInput.birthdate}
+                isClearable
+                placeholderText="Date de naissance"
+                dateFormat="dd/MM/yyyy"
+                locale="fr"
+                selected={dateBirthday}
+                onChange={val => {
+                  setDateBirthday(val); 
+                  setValue("dateBirthday", val);
+                  }} 
+                />
             </div>
             {formType === "add" && <span>{errors.birthdateAdd && <span className="error-message">Ce champ est requis</span>}</span>}
             {formType === "edit" && <span>{errors.birthdateEdit && <span className="error-message">Ce champ est requis</span>}</span>}
@@ -115,7 +141,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
         <div className="input-container">
           <div className="input">
             <label htmlFor={objectInput.driverLicence}>Permis de conduire *</label>
-            <div>
+            <div className="input-block">
               <span><FontAwesomeIcon icon={faCar} /></span>
               <input name={objectInput.driverLicence} type="text" id={objectInput.driverLicence} placeholder="Permis de conduire" ref={register({ required: true })} />
             </div>

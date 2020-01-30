@@ -32,7 +32,7 @@ function Contact() {
             <div className="input-container">
               <div className="input">
                 <label htmlFor="firstname">Prénom *</label>
-                <div>
+                <div className="input-block">
                   <span><FontAwesomeIcon icon={faUser} /></span>
                   <input name="firstname" type="text" id="firstname" placeholder="Votre prénom ici..." ref={register({ required: true })} />
                 </div>
@@ -40,7 +40,7 @@ function Contact() {
               </div>
               <div className="input">
                 <label htmlFor="lastname">Nom *</label>
-                <div>
+                <div className="input-block">
                   <span><FontAwesomeIcon icon={faUser} /></span>
                   <input name="lastname" type="text" id="lastname" placeholder="Votre nom ici..." ref={register({ required: true })} />
                 </div>
@@ -50,7 +50,7 @@ function Contact() {
             <div className="input-container">
               <div className="input">
                 <label htmlFor="email">Email *</label>
-                <div>
+                <div className="input-block">
                   <span><FontAwesomeIcon icon={faAt} /></span>
                   <input name="email" type="text" id="email" placeholder="Votre adresse mail ici..." ref={register({ required: true })} />
                 </div>
@@ -58,7 +58,7 @@ function Contact() {
               </div>
               <div className="input">
                 <label htmlFor="phone">Téléphone *</label>
-                <div>
+                <div className="input-block">
                   <span><FontAwesomeIcon icon={faMobileAlt} /></span>
                   <input name="phone" type="text" id="phone" placeholder="Votre n° de téléphone ici..." ref={register({ required: true })} />
                 </div>
@@ -68,7 +68,7 @@ function Contact() {
             <div className="input-container">
               <div className="input">
                 <label htmlFor="subject">Sujet *</label>
-                <div>
+                <div className="input-block">
                   <span><FontAwesomeIcon icon={faEnvelope} /></span>
                   <input name="subject" type="text" id="subject" placeholder="Le sujet du message ici..." ref={register({ required: true })} />
                 </div>
@@ -77,7 +77,7 @@ function Contact() {
             </div>
             <div className="text-area">
               <label htmlFor="message">Message*</label>
-              <div>
+              <div className="input-block">
                 <textarea name="message" id="message" placeholder="Votre message ici..." ref={register({ required: true })} />
               </div>
               {errors.message && <span className="error-message">Ce champ est requis</span>}
