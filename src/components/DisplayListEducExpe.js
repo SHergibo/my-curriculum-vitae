@@ -17,34 +17,42 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, s
   let liListEduc;
   let liListExpe;
 
+  const formatDate = (date) => {
+    let year = date.split('-')[0];
+    return year;
+  };
   
   if(arrayEduc){
     liListEduc = arrayEduc.map((item) => {
-    return <li key={item._id}>
-            <div className="div-list-container">
-              <div className="date-list">{item.dateStart} - {item.dateEnd}</div> 
-              <div className="title-list">{item.titleEducExpe}</div> 
-            </div>
-            <div className="div-list-btn-container">
-              <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon={faEdit} /></button>
-              <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon={faTrashAlt} /></button>
-            </div>
-          </li>
+      let formatDateStart = formatDate(item.dateStart);
+      let formatDateEnd = formatDate(item.dateEnd);
+      return <li key={item._id}>
+              <div className="div-list-container">
+                <div className="date-list">{formatDateStart} - {formatDateEnd}</div> 
+                <div className="title-list">{item.titleEducExpe}</div> 
+              </div>
+              <div className="div-list-btn-container">
+                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon={faEdit} /></button>
+                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon={faTrashAlt} /></button>
+              </div>
+            </li>
     });
   }
 
   if(arrayExpe){
     liListExpe = arrayExpe.map((item) => {
-    return <li key={item._id}>
-            <div className="div-list-container">
-              <div className="date-list">{item.dateStart} - {item.dateEnd}</div> 
-              <div className="title-list">{item.titleEducExpe}</div> 
-            </div>
-            <div className="div-list-btn-container">
-              <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon={faEdit} /></button>
-              <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon={faTrashAlt} /></button>
-            </div>
-          </li>
+      let formatDateStart = formatDate(item.dateStart);
+      let formatDateEnd = formatDate(item.dateEnd);
+      return <li key={item._id}>
+              <div className="div-list-container">
+                <div className="date-list">{formatDateStart} - {formatDateEnd}</div> 
+                <div className="title-list">{item.titleEducExpe}</div> 
+              </div>
+              <div className="div-list-btn-container">
+                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon={faEdit} /></button>
+                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon={faTrashAlt} /></button>
+              </div>
+            </li>
     });
   }
 

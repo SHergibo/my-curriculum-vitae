@@ -15,14 +15,14 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
   const [dateStart, setDateStart] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
 
-  const { register, handleSubmit, errors, setValue } = useForm({
+  const { register, handleSubmit, errors, setValue, setError, clearError } = useForm({
     mode: "onChange"
   });
 
   useEffect(() => {
     register({ name: "dateStart" }, {required : true});
     register({ name: "dateEnd" }, {required : true});
-  }, []);
+  }, [register]);
 
   useLayoutEffect(() => {
     setCheckboxExpe("checked");
@@ -37,7 +37,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
         setCheckboxEduc("checked");
       }
     }
-  }, [value, formType, setCheckboxExpe, checkboxEduc]);
+  }, [register, setValue, value, formType, setCheckboxExpe, checkboxEduc]);
 
   let titleForm = "Ajout";
   let button = "Ajouter";
@@ -46,8 +46,6 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
     titleForm = "Édition";
     button = "Éditer";
   }
-
-
 
   const form = <div>
                 <div className="input-container">
@@ -82,12 +80,25 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
                       locale="fr"
                       selected={dateEnd}
                       onChange={val => {
-                        setDateEnd(val); 
-                        setValue("dateEnd", val);
+                          if(val && dateStart){
+                            if((dateStart.getYear() + (dateStart.getMonth() + 1)) <= (val.getYear() + (val.getMonth() + 1))){
+                              clearError("lowerDateEnd");
+                              setDateEnd(val); 
+                              setValue("dateEnd", val);
+                            } else {
+                              setError(
+                                "lowerDateEnd",
+                              );
+                            }
+                          }else{
+                            setDateEnd(val); 
+                            setValue("dateEnd", val);
+                          }
                         }} 
                       />
                     </div>
                     {errors.dateEnd && <span className="error-message">Ce champ est requis</span>}
+                    {errors.lowerDateEnd && <span className="error-message">La date de fin ne peut pas être antérieur à la date de début</span>}
                   </div>
                 </div>
                 <div className="input-container">

@@ -22,7 +22,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
       setDateBirthday(parseISO(value.birthdate));
       setValue("dateBirthday", parseISO(value.birthdate));
     }
-  }, []);
+  }, [register, setValue, formType, value]);
 
   let titleForm = "Ajout";
   let button = "Ajouter";

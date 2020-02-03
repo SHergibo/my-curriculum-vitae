@@ -79,7 +79,13 @@ function EducExpe() {
         let dataInArrayEduc = arrayEduc.find(v => v._id === response.data._id);
 
         if(!dataInArrayEduc){
-          setArrayExpe([...arrayExpe].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+          if(arrayExpe.find(v => v._id === response.data._id).dateStart === response.data.dateStart){
+            setArrayExpe([...arrayExpe].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+          }else{
+            let arrayAfterEdit = [...arrayExpe].map(obj => arrayResponse.find(o => o._id === obj._id) || obj);
+            let sortArrayByDate = arrayAfterEdit.slice().sort((a, b) => new Date(b.dateStart) - new Date(a.dateStart));
+            setArrayExpe(sortArrayByDate);
+          }
         } else {
           setArrayEduc([...arrayEduc].filter(item => item._id !== idItem));
           setArrayExpe(arrayExpe => [...arrayExpe, response.data]);
@@ -90,7 +96,13 @@ function EducExpe() {
         let dataInArrayExpe = arrayExpe.find(v => v._id === response.data._id);
 
         if(!dataInArrayExpe){
-          setArrayEduc([...arrayEduc].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+          if(arrayEduc.find(v => v._id === response.data._id).dateStart === response.data.dateStart){
+            setArrayEduc([...arrayEduc].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+          }else{
+            let arrayAfterEdit = [...arrayEduc].map(obj => arrayResponse.find(o => o._id === obj._id) || obj);
+            let sortArrayByDate = arrayAfterEdit.slice().sort((a, b) => new Date(b.dateStart) - new Date(a.dateStart));
+            setArrayEduc(sortArrayByDate);
+          }
         } else {
           setArrayExpe([...arrayExpe].filter(item => item._id !== idItem));
           setArrayEduc(arrayEduc => [...arrayEduc, response.data]);
