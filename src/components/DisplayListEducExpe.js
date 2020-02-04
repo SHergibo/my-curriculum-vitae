@@ -59,11 +59,11 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, s
   return (
     <div>
       <h4>Éducation</h4>
-        <div>{liListEduc}</div>         
+      <div>{liListEduc}</div>         
       <h4>Expérience</h4>
-        <div>{liListExpe}</div>
+      <div>{liListExpe}</div>
       {displayForm  && 
-        <ModalEditAdmin value={value} submit={submit} setId={setId} success={success} closeModal={closeModal}/>
+        <ModalEditAdmin value={value} formType={"educExpe"} submit={submit} setId={setId} success={success} closeModal={closeModal}/>
       }
     </div>
   );

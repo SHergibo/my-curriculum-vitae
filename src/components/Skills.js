@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import FormSkill from './FormSkill';
+import DisplayListSkill from './DisplayListSkill';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faEdit, faPercentage, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
@@ -10,17 +11,50 @@ import { CSSTransition } from 'react-transition-group';
 function Skills() {
   const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
-  const [editbtn, setEditBtn] = useState(false);
+  const [editbtn, setEditBtn] = useState(false);  
+  const [arrayCodingSkill, setArrayCodingSkill] = useState([]);
+  const [arrayGeneralSkill, setArrayGeneralSkill] = useState([]);
+  const [arrayLanguage, setArrayLanguage] = useState([]);
+  const [idItem, setIdItem] = useState();
+  const [displayForm, setDisplayForm] = useState(false);
 
   let switchForm = () => {
     if (addBtn) {
       setAddBtn(false);
       setEditBtn(true);
+      getData();
     } else {
       setEditBtn(false);
       setAddBtn(true);
     }
   }
+
+  const getData = async () => {
+    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
+    await axiosInstance.get(getListSkillEndPoint)
+      .then((response) => {
+        workingData(response.data);
+      });
+  };
+
+  const workingData = (data) => {
+    let generalSkill = [];
+    let codingSkill = [];
+    let language = [];
+    data.map((item) => {
+      if (item.skillCategory === "codingSkill") {
+        codingSkill.push(item)
+      } else if (item.skillCategory === "generalSkill") {
+        generalSkill.push(item);
+      }else if (item.skillCategory === "language") {
+        language.push(item);
+      }
+      return item;
+    });
+    setArrayCodingSkill(codingSkill);
+    setArrayGeneralSkill(generalSkill);
+    setArrayLanguage(language);
+  };
 
   const onSubmitAdd = async (data) => {
     const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
@@ -30,19 +64,87 @@ function Skills() {
       });
   };
 
+  const setIdFunc = (data) => {
+    setIdItem(data);
+  }
+
+  const closeModal = () => {
+    let body = document.getElementsByTagName("body")[0];
+    body.removeAttribute('style');
+    setDisplayForm(false);
+  }  
+
   const onClickEdit = async (data) => {
-    console.log("edit");
-    console.log(data);
+    const editSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/${idItem}`;
+    await axiosInstance.patch(editSkillEndPoint, data)
+    .then((response) => {
+
+      let arrayResponse = [response.data];
+      if(data.skillCategory === "codingSkill"){
+        let dataInArrayGeneralSkill = arrayGeneralSkill.find(v => v._id === response.data._id);
+        let dataInArrayLanguage = arrayLanguage.find(v => v._id === response.data._id);
+
+        if(!dataInArrayGeneralSkill && !dataInArrayLanguage){
+          setArrayCodingSkill([...arrayCodingSkill].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        } else {
+          if(dataInArrayGeneralSkill){
+            setArrayGeneralSkill([...arrayGeneralSkill].filter(item => item._id !== idItem));
+          } else if(dataInArrayLanguage){
+            setArrayLanguage([...arrayLanguage].filter(item => item._id !== idItem));
+          }
+          setArrayCodingSkill(arrayCodingSkill => [...arrayCodingSkill, response.data]);
+        }
+      }
+
+      if(data.skillCategory === "generalSkill"){
+        let dataInArrayCodingSkill = arrayCodingSkill.find(v => v._id === response.data._id);
+        let dataInArrayLanguage = arrayLanguage.find(v => v._id === response.data._id);
+
+        if(!dataInArrayCodingSkill && !dataInArrayLanguage){
+          setArrayGeneralSkill([...arrayGeneralSkill].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        } else {
+          if(dataInArrayCodingSkill){
+            setArrayCodingSkill([...arrayCodingSkill].filter(item => item._id !== idItem));
+          } else if(dataInArrayLanguage){
+            setArrayLanguage([...arrayLanguage].filter(item => item._id !== idItem));
+          }
+          setArrayGeneralSkill(arrayGeneralSkill => [...arrayGeneralSkill, response.data]);
+        }
+      }
+
+      if(data.skillCategory === "language"){
+        let dataInArrayCodingSkill = arrayCodingSkill.find(v => v._id === response.data._id);
+        let dataInGeneralSkill = arrayGeneralSkill.find(v => v._id === response.data._id);
+
+        if(!dataInArrayCodingSkill && !dataInGeneralSkill){
+          setArrayLanguage([...arrayLanguage].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        } else {
+          if(dataInArrayCodingSkill){
+            setArrayCodingSkill([...arrayCodingSkill].filter(item => item._id !== idItem));
+          } else if(dataInGeneralSkill){
+            setArrayGeneralSkill([...arrayGeneralSkill].filter(item => item._id !== idItem));
+          }
+          setArrayLanguage(arrayLanguage => [...arrayLanguage, response.data]);
+        }
+      }
+      closeModal();
+    });
   };
 
   const onClickDelete = async (data) => {
-    console.log("edit");
-    console.log(data);
+    const deleteSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/${data._id}`;
+    await axiosInstance.delete(deleteSkillEndPoint, data)
+    .then(() => {
+      if(data.skillCategory === "codingSkill"){
+        setArrayCodingSkill([...arrayCodingSkill].filter(item => item._id !== data._id));
+      }else if(data.skillCategory === "generalSkill"){
+        setArrayGeneralSkill([...arrayGeneralSkill].filter(item => item._id !== data._id));
+      }else if(data.skillCategory === "language"){
+        setArrayLanguage([...arrayLanguage].filter(item => item._id !== data._id));
+      }
+    });
   };
 
-  const { register, handleSubmit, errors } = useForm({
-    mode: "onChange"
-  });
 
   return (
     <div className="skill-section">
@@ -73,50 +175,7 @@ function Skills() {
               unmountOnExit
             >
               <div className="form-container">
-                <h3>Ajout</h3>
-                <form onSubmit={handleSubmit(onSubmitAdd)}>
-                  <div className="input-container">
-                    <div className="input">
-                      <label htmlFor="nameSkill">Nom de la compétences *</label>
-                      <div className="input-block">
-                        <span><FontAwesomeIcon icon={faGraduationCap} /></span>
-                        <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" ref={register({ required: true })} />
-                      </div>
-                      {errors.nameSkill && <span className="error-message">Ce champ est requis</span>}
-                    </div>
-                    <div className="input">
-                      <label htmlFor="percentage">Pourcentage *</label>
-                      <div className="input-block">
-                        <span><FontAwesomeIcon icon={faPercentage} /></span>
-                        <input name="percentage" type="number" id="percentage" placeholder="Pourcentage" ref={register({ required: true })} />
-                      </div>
-                      {errors.percentage && <span className="error-message">Ce champ est requis</span>}
-                    </div>
-                  </div>
-                  <div className="label-checkbox-container skills-checkbox-container">
-                    <label className="container-checkbox">Compétences code
-                      <input type="radio" defaultChecked="checked" name="skillCategory" value="codingSkill" ref={register({ required: true })} />
-                      <span className="checkmark"></span>
-                    </label>
-                    <label className="container-checkbox">Compétences générales
-                      <input type="radio" name="skillCategory" value="generalSkill" ref={register({ required: true })} />
-                      <span className="checkmark"></span>
-                    </label>
-                    <label className="container-checkbox">Langues
-                      <input type="radio" name="skillCategory" value="language" ref={register({ required: true })} />
-                      <span className="checkmark"></span>
-                    </label>
-                  </div>
-                  <div className="btn-container">
-                    <button className="submit-contact" type="submit">
-                      Ajouter
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
-                    <span className="success-message">
-                      {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
-                    </span>
-                  </div>
-                </form>
+                <FormSkill handleFunction={onSubmitAdd} formType="add" success={success} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -125,8 +184,11 @@ function Skills() {
               classNames="edit"
               unmountOnExit
             >
-              <div className="form-container">
-                Edition Education experience
+              <div className="list-container">
+                <h3>Édition</h3>
+                  <ul>
+                    <DisplayListSkill arrayCodingSkill={arrayCodingSkill} arrayGeneralSkill={arrayGeneralSkill} arrayLanguage={arrayLanguage} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal}/>
+                  </ul>
               </div>
             </CSSTransition>
           </div>

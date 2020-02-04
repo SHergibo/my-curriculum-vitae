@@ -1,8 +1,9 @@
 import React from "react";
 import FormEducExpe from "./FormEducExpe";
+import FormSkill from "./FormSkill";
 import PropTypes from 'prop-types';
 
-function ModalEditAdmin({ value, submit, setId, success, closeModal }) {
+function ModalEditAdmin({ value, formType, submit, setId, success, closeModal }) {
 
   window.addEventListener("click", (event) => {
     if(event.target.className === "modal"){
@@ -14,7 +15,12 @@ function ModalEditAdmin({ value, submit, setId, success, closeModal }) {
     <div className="modal">
       <div className="modal-container">
         <button className="close-modal" onClick={() => closeModal()}>X</button>
-        <FormEducExpe handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />
+        {formType === "educExpe" && 
+          <FormEducExpe handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />
+        }
+        {formType === "skill" && 
+          <FormSkill handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />
+        }
       </div>
     </div>
   );
@@ -22,6 +28,7 @@ function ModalEditAdmin({ value, submit, setId, success, closeModal }) {
 
 ModalEditAdmin.propTypes = {
   value: PropTypes.object.isRequired,
+  formType: PropTypes.string.isRequired,
   submit: PropTypes.func.isRequired,
   setId: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
