@@ -163,10 +163,8 @@ function EducExpe() {
               unmountOnExit
             >
               <div className="list-container">
-              <h3>Édition</h3>
-                <ul>
-                  <DisplayListEducExpe arrayEduc={arrayEduc} arrayExpe={arrayExpe} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal}/>
-                </ul>
+                <h3>Édition</h3>
+                <DisplayListEducExpe arrayEduc={arrayEduc} arrayExpe={arrayExpe} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal}/>
               </div>
             </CSSTransition>
           </div>

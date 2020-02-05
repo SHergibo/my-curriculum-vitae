@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
-import { CSSTransition } from 'react-transition-group';
 import FormGeneralInfo from './FormGeneralInfo';
 
 function GeneralInfo() {
+  const [generalInfo, setGeneralInfo] = useState();
   const [success, setSuccess] = useState(false);
-  const [addBtn, setAddBtn] = useState(true);
-  const [editbtn, setEditBtn] = useState(false);
 
-  let switchForm = () => {
-    if (addBtn) {
-      setAddBtn(false);
-      setEditBtn(true);
-    } else {
-      setEditBtn(false);
-      setAddBtn(true);
-    }
-  }
+  useLayoutEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
+    await axiosInstance.get(getGeneralInfoEndPoint)
+      .then((response) => {
+        setGeneralInfo(response.data[0]);
+      });
+  };
 
   const onSubmitAdd = async (data) => {
     let workingData = {
-      phone : data.phoneAdd,
-      email : data.emailAdd,
+      phone : data.phone,
+      email : data.email,
       address : {
-        street : data.streetAdd,
-        number : data.numberAdd,
-        zip : data.zipAdd,
-        city : data.cityAdd
+        street : data.street,
+        number : data.number,
+        zip : data.zip,
+        city : data.city
       },
-      birthdate : data.birthdateAdd,
-      licence : data.driverLicenceAdd
+      birthdate : data.dateBirthday,
+      licence : data.driverLicence
     };
     const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
     await axiosInstance.post(addGenerelInfoEndPoint, workingData)
@@ -43,8 +43,24 @@ function GeneralInfo() {
   };
 
   const onSubmitEdit = async (data) => {
-    console.log("edit");
-    console.log(data);
+    let workingData = {
+      phone : data.phone,
+      email : data.email,
+      address : {
+        street : data.street,
+        number : data.number,
+        zip : data.zip,
+        city : data.city
+      },
+      birthdate : data.dateBirthday,
+      licence : data.driverLicence
+    };
+    const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
+    await axiosInstance.patch(editGeneralInfoEndPoint, workingData)
+    .then((response) => {
+      checkSuccess(response.status, success, setSuccess, 0);
+      setGeneralInfo(response.data);
+    });
   };
 
   return (
@@ -55,36 +71,16 @@ function GeneralInfo() {
         </div>
         <div className="info-container">
           <div className="title-container">
-            <h2>Infos générales</h2>
-            <div className="btn-switch-container">
-              <button onClick={() => switchForm()}>
-                {addBtn && (
-                  <FontAwesomeIcon icon={faEdit} />
-                )}
-                {editbtn && (
-                  <FontAwesomeIcon icon={faPlus} />
-                )}
-              </button>
-            </div>
+            <h2 className="title-info-gen">Infos générales</h2>
           </div>
 
           <div className="forms-block">
-            <CSSTransition
-              in={addBtn}
-              timeout={500}
-              classNames="add"
-              unmountOnExit
-            >
+            {!generalInfo && (
               <FormGeneralInfo handleFunction={onSubmitAdd} formType="add" success={success} />
-            </CSSTransition>
-            <CSSTransition
-              in={editbtn}
-              timeout={500}
-              classNames="edit"
-              unmountOnExit
-            >
-              <FormGeneralInfo handleFunction={onSubmitEdit} formType="edit" success={success} />
-            </CSSTransition>
+            )}
+            {generalInfo && (
+            <FormGeneralInfo handleFunction={onSubmitEdit} formType="edit" value={generalInfo} success={success} />     
+            )}
           </div>
         </div>
       </div>

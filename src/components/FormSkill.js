@@ -53,10 +53,22 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
                       <label htmlFor="percentage">Pourcentage *</label>
                       <div className="input-block">
                         <span><FontAwesomeIcon icon={faPercentage} /></span>
-                        {formType === "add" && <input name="percentage" type="number" id="percentage" placeholder="Pourcentage" ref={register({ required: true })} />}
-                        {formType === "edit" && <input name="percentage" type="number" id="percentage" placeholder="Pourcentage" defaultValue={value.percentage} ref={register({ required: true })} />}
+                        {formType === "add" && <input name="percentage" id="percentage" placeholder="Pourcentage" ref={register({
+                          required: "Ce champ est requis",
+                          pattern: {
+                            value: /^[0-9]+$/,
+                            message: "Entrez un nombre entre 0 et 100"
+                          }
+                        })} />}
+                        {formType === "edit" && <input name="percentage" id="percentage" placeholder="Pourcentage" defaultValue={value.percentage} ref={register({ 
+                          required: "Ce champ est requis",
+                          pattern: {
+                            value: /^[0-9]+$/,
+                            message: "Entrez un nombre"
+                          }
+                        })} />}
                       </div>
-                      {errors.percentage && <span className="error-message">Ce champ est requis</span>}
+                      <span className="error-message">{errors.percentage && errors.percentage.message}</span>
                     </div>
                   </div>
                   <div className="label-checkbox-container skills-checkbox-container">

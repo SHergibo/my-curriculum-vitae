@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useLayoutEffect, useState} from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMobileAlt, faPlus, faRoad, faAt, faHome, faEnvelopeOpenText, faCity, faBirthdayCake, faCheck, faCar, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -9,47 +9,28 @@ import { fr } from 'date-fns/locale'
 import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
-function FormGeneralInfo({handleFunction, formType, success}) {
-  const [dateBirthday, setDateBirthday] = useState(null);
 
-  const { register, handleSubmit, errors, value, setValue } = useForm({
+function FormGeneralInfo({handleFunction, formType, value, success}) {
+  const [dateBirthday, setDateBirthday] = useState(null);
+  const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange"
   });
 
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     register({ name: "dateBirthday" }, {required : true});
     if(formType === "edit"){
       setDateBirthday(parseISO(value.birthdate));
       setValue("dateBirthday", parseISO(value.birthdate));
     }
-  }, [register, setValue, formType, value]);
+  }, [register, setValue, value, formType]);
 
   let titleForm = "Ajout";
   let button = "Ajouter";
-  let objectInput= {
-    "email" : "emailAdd",
-    "phone" : "phoneAdd",
-    "street" : "streetAdd",
-    "number" : "numberAdd",
-    "zip" : "zipAdd",
-    "city" : "cityAdd",
-    "birthdate" : "birthdateAdd",
-    "driverLicence" : "driverLicenceAdd",
-  };
 
   if (formType === "edit"){
     titleForm = "Édition";
     button = "Éditer";
-    objectInput= {
-      "email" : "emailEdit",
-      "phone" : "phoneEdit",
-      "street" : "streetEdit",
-      "number" : "numberEdit",
-      "zip" : "zipEdit",
-      "city" : "cityEdit",
-      "birthdate" : "birthdateEdit",
-      "driverLicence" : "driverLicenceEdit",
-    };
   }
 
   return (
@@ -58,71 +39,84 @@ function FormGeneralInfo({handleFunction, formType, success}) {
       <form onSubmit={handleSubmit(handleFunction)}>
         <div className="input-container">
           <div className="input">
-            <label htmlFor={objectInput.email}>Email *</label>
+            <label htmlFor="email">Email *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faAt} /></span>
-              <input name={objectInput.email} type="text" id={objectInput.email} placeholder="Adresse mail" ref={register({ required: true })} />
+              {formType === "add" && <input name="email" id="email" placeholder="Adresse mail" ref={register({ 
+                required: 'Ce champ est requis',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "Adresse mail invalide"
+                }
+                })} />}
+              {formType === "edit" && <input name="email" id="email" placeholder="Adresse mail" defaultValue={value.email} ref={register({ 
+                required: 'Ce champ est requis',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "Adresse mail invalide"
+                }
+                })} />}
+              
             </div>
-            {formType === "add" && <span>{errors.emailAdd && <span className="error-message">Ce champ est requis</span>}</span>}
-            {formType === "edit" && <span>{errors.emailEdit && <span className="error-message">Ce champ est requis</span>}</span>}
+            <span className="error-message">{errors.email && errors.email.message}</span>
           </div>
           <div className="input">
-            <label htmlFor={objectInput.phone}>Téléphone *</label>
+            <label htmlFor="phone">Téléphone *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faMobileAlt} /></span>
-              <input name={objectInput.phone} type="text" id={objectInput.phone} placeholder="N° de téléphone" ref={register({ required: true })} />
+              {formType === "add" && <input name="phone" type="text" id="phone" placeholder="N° de téléphone" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="phone" type="text" id="phone" placeholder="N° de téléphone" defaultValue={value.phone} ref={register({ required: true })} />}
             </div>
-            {formType === "add" && <span>{errors.phoneAdd && <span className="error-message">Ce champ est requis</span>}</span>}
-            {formType === "edit" && <span>{errors.phoneEdit && <span className="error-message">Ce champ est requis</span>}</span>}
+            {errors.phone && <span className="error-message">Ce champ est requis</span>}
           </div>
         </div>
         <div className="input-container">
           <div className="input">
-            <label htmlFor={objectInput.street}>Rue *</label>
+            <label htmlFor="street">Rue *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faRoad} /></span>
-              <input name={objectInput.street} type="text" id={objectInput.street} placeholder="Rue" ref={register({ required: true })} />
+              {formType === "add" && <input name="street" type="text" id="street" placeholder="Rue" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="street" type="text" id="street" placeholder="Rue" defaultValue={value.address.street} ref={register({ required: true })} />}
             </div>
-            {formType === "add" && <span>{errors.streetAdd && <span className="error-message">Ce champ est requis</span>}</span>}
-            {formType === "edit" && <span>{errors.streetEdit && <span className="error-message">Ce champ est requis</span>}</span>}
+            {errors.street && <span className="error-message">Ce champ est requis</span>}
           </div>
           <div className="input">
-            <label htmlFor={objectInput.number}>Numéro *</label>
+            <label htmlFor="number">Numéro *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faHome} /></span>
-              <input name={objectInput.number} type="text" id={objectInput.number} placeholder="Numéro" ref={register({ required: true })} />
+              {formType === "add" && <input name="number" type="text" id="number" placeholder="Numéro" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="number" type="text" id="number" placeholder="Numéro" defaultValue={value.address.number} ref={register({ required: true })} />}
             </div>
-            {formType === "add" && <span>{errors.numberAdd && <span className="error-message">Ce champ est requis</span>}</span>}
-            {formType === "edit" && <span>{errors.numberEdit && <span className="error-message">Ce champ est requis</span>}</span>}
+            {errors.number && <span className="error-message">Ce champ est requis</span>}
           </div>
         </div>
         <div className="input-container">
           <div className="input">
-            <label htmlFor={objectInput.zip}>Code postal *</label>
+            <label htmlFor="zip">Code postal *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faEnvelopeOpenText} /></span>
-              <input name={objectInput.zip} type="text" id={objectInput.zip} placeholder="Code postal" ref={register({ required: true })} />
+              {formType === "add" && <input name="zip" type="text" id="zip" placeholder="Code postal" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="zip" type="text" id="zip" placeholder="Code postal" defaultValue={value.address.zip} ref={register({ required: true })} />}
             </div>
-            {formType === "add" && <span>{errors.zipAdd && <span className="error-message">Ce champ est requis</span>}</span>}
-            {formType === "edit" && <span>{errors.zipEdit && <span className="error-message">Ce champ est requis</span>}</span>}
+            {errors.zip && <span className="error-message">Ce champ est requis</span>}
           </div>
           <div className="input">
-            <label htmlFor={objectInput.city}>Ville *</label>
+            <label htmlFor="city">Ville *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faCity} /></span>
-              <input name={objectInput.city} type="text" id={objectInput.city} placeholder="Ville" ref={register({ required: true })} />
+              {formType === "add" && <input name="city" type="text" id="city" placeholder="Ville" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="city" type="text" id="city" placeholder="Ville" defaultValue={value.address.city} ref={register({ required: true })} />}
             </div>
-            {formType === "add" && <span>{errors.cityAdd && <span className="error-message">Ce champ est requis</span>}</span>}
-            {formType === "edit" && <span>{errors.cityEdit && <span className="error-message">Ce champ est requis</span>}</span>}
+            {errors.city && <span className="error-message">Ce champ est requis</span>}
           </div>
         </div>
         <div className="input-container">
           <div className="input">
-            <label htmlFor={objectInput.birthdate}>Date de naissance *</label>
+            <label htmlFor="birthDate">Date de naissance *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faBirthdayCake} /></span>
               <DatePicker
-                id={objectInput.birthdate}
+                id="birthDate"
                 isClearable
                 placeholderText="Date de naissance"
                 dateFormat="dd/MM/yyyy"
@@ -134,19 +128,18 @@ function FormGeneralInfo({handleFunction, formType, success}) {
                   }} 
                 />
             </div>
-            {formType === "add" && <span>{errors.birthdateAdd && <span className="error-message">Ce champ est requis</span>}</span>}
-            {formType === "edit" && <span>{errors.birthdateEdit && <span className="error-message">Ce champ est requis</span>}</span>}
+            {errors.birthDate && <span className="error-message">Ce champ est requis</span>}
           </div>
         </div>
         <div className="input-container">
           <div className="input">
-            <label htmlFor={objectInput.driverLicence}>Permis de conduire *</label>
+            <label htmlFor="driverLicence">Permis de conduire *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faCar} /></span>
-              <input name={objectInput.driverLicence} type="text" id={objectInput.driverLicence} placeholder="Permis de conduire" ref={register({ required: true })} />
+              {formType === "add" && <input name="driverLicence" type="text" id="driverLicence" placeholder="Permis de conduire" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="driverLicence" type="text" id="driverLicence" placeholder="Permis de conduire" defaultValue={value.licence} ref={register({ required: true })} />}
             </div>
-            {formType === "add" && <span>{errors.driverLicenceAdd && <span className="error-message">Ce champ est requis</span>}</span>}
-            {formType === "edit" && <span>{errors.driverLicenceEdit && <span className="error-message">Ce champ est requis</span>}</span>}
+            {errors.driverLicence && <span className="error-message">Ce champ est requis</span>}
           </div>
         </div>
 
@@ -171,6 +164,7 @@ function FormGeneralInfo({handleFunction, formType, success}) {
 
 FormGeneralInfo.propTypes = {
   handleFunction: PropTypes.func.isRequired,
+  value: PropTypes.object,
   formType: PropTypes.string.isRequired,
   success: PropTypes.bool.isRequired,
 }

@@ -186,9 +186,7 @@ function Skills() {
             >
               <div className="list-container">
                 <h3>Édition</h3>
-                  <ul>
-                    <DisplayListSkill arrayCodingSkill={arrayCodingSkill} arrayGeneralSkill={arrayGeneralSkill} arrayLanguage={arrayLanguage} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal}/>
-                  </ul>
+                <DisplayListSkill arrayCodingSkill={arrayCodingSkill} arrayGeneralSkill={arrayGeneralSkill} arrayLanguage={arrayLanguage} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal}/>
               </div>
             </CSSTransition>
           </div>
