@@ -1,8 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faJs, faHtml5 } from '@fortawesome/free-brands-svg-icons';
+import PropTypes from 'prop-types';
 
-function About() {
+function About({data}) {
+  console.log(data);
   return (
     <div id="about" className="about">
       <div className="wrapper about-container">
@@ -19,11 +21,11 @@ function About() {
           </div>
           <div className="info">
             <ul>
-              <li><span>Téléphone</span>: +32/498643049</li>
-              <li><span>Email</span>: sachahergibo@gmail.com</li>
-              <li><span>Adresse</span>: Route de Velaines, 24A 7543 Mourcourt</li>
-              <li><span>Date de naissance</span>: 24/04/92</li>
-              <li><span>Permis de conduire</span>: Détenteur du permis B et d'une voiture</li>
+              <li><span>Téléphone</span>: {data.phone}</li>
+              <li><span>Email</span>: {data.email}</li>
+              <li><span>Adresse</span>: {data.address.street}, {data.address.number} {data.address.zip} {data.address.city}</li>
+              <li><span>Date de naissance</span>: {data.birthdate}</li>
+              <li><span>Permis de conduire</span>: {data.licence}</li>
             </ul>
           </div>
         </div>
@@ -44,6 +46,10 @@ function About() {
       </div>
     </div>
   );
+}
+
+About.propTypes = {
+  data: PropTypes.object.isRequired,
 }
 
 export default About;

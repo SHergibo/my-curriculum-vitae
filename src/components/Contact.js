@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form';
 import Axios from 'axios';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
+import PropTypes from 'prop-types';
 
-function Contact() {
+function Contact({data}) {
   let [success, setSuccess] = useState(false);
   const onSubmit = async (data) => {
     const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
@@ -98,13 +99,13 @@ function Contact() {
             <img src="./Hergibo_Sacha.jpg" alt="Hergibo Sacha" />
           </div>
           <ul>
-            <li><span><FontAwesomeIcon icon={faEnvelope} /></span> sachahergibo@gmail.com</li>
-            <li><span><FontAwesomeIcon icon={faMobileAlt} /></span> +32/498643049</li>
+            <li><span><FontAwesomeIcon icon={faEnvelope} /></span> {data.email}</li>
+            <li><span><FontAwesomeIcon icon={faMobileAlt} /></span> {data.phone}</li>
             <li>
               <span><FontAwesomeIcon icon={faMapMarkerAlt} /></span>
               <div>
-                <div> Route de Velaines, 24A</div>
-                <div>7543 Mourcourt</div>
+                <div> {data.address.street}, {data.address.number}</div>
+                <div>{data.address.zip} {data.address.city}</div>
               </div>
             </li>
           </ul>
@@ -112,6 +113,10 @@ function Contact() {
       </div>
     </div>
   );
+}
+
+Contact.propTypes = {
+  data: PropTypes.object.isRequired,
 }
 
 export default Contact;

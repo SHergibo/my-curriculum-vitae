@@ -1,6 +1,4 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
@@ -8,6 +6,7 @@ import FormGeneralInfo from './FormGeneralInfo';
 
 function GeneralInfo() {
   const [generalInfo, setGeneralInfo] = useState();
+  const [showEditForm, setShowEditForm] = useState(false);
   const [success, setSuccess] = useState(false);
 
   useLayoutEffect(() => {
@@ -19,6 +18,9 @@ function GeneralInfo() {
     await axiosInstance.get(getGeneralInfoEndPoint)
       .then((response) => {
         setGeneralInfo(response.data[0]);
+        if(response.data[0]){
+          setShowEditForm(true);
+        }
       });
   };
 
@@ -39,7 +41,12 @@ function GeneralInfo() {
     await axiosInstance.post(addGenerelInfoEndPoint, workingData)
       .then((response) => {
         checkSuccess(response.status, success, setSuccess, 0);
-      });
+        if(response.status === 200){
+          console.log(response);
+          setGeneralInfo(response.data);
+          setShowEditForm(true);
+        }
+      }); 
   };
 
   const onSubmitEdit = async (data) => {
@@ -63,6 +70,8 @@ function GeneralInfo() {
     });
   };
 
+  console.log(showEditForm);
+
   return (
     <div className="info-section">
       <div id="infos" className="wrapper">
@@ -70,17 +79,19 @@ function GeneralInfo() {
           Infos générales
         </div>
         <div className="info-container">
-          <div className="title-container">
-            <h2 className="title-info-gen">Infos générales</h2>
+          <div className="title-container title-container-info-gen">
+            <h2>Infos générales</h2>
           </div>
 
           <div className="forms-block">
             {!generalInfo && (
               <FormGeneralInfo handleFunction={onSubmitAdd} formType="add" success={success} />
             )}
-            {generalInfo && (
-            <FormGeneralInfo handleFunction={onSubmitEdit} formType="edit" value={generalInfo} success={success} />     
+
+            {showEditForm && (
+              <FormGeneralInfo handleFunction={onSubmitEdit} formType="edit" value={generalInfo} success={success} />     
             )}
+
           </div>
         </div>
       </div>

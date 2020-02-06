@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
@@ -9,6 +9,7 @@ import DisplayListEducExpe from './DisplayListEducExpe';
 import FormEducExpe from './FormEducExpe';
 
 function EducExpe() {
+  const [titleEducExpe, setTitleEducEpxe] = useState("Éducation / Expérience");
   const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
@@ -16,6 +17,18 @@ function EducExpe() {
   const [arrayExpe, setArrayExpe] = useState([]);
   const [idItem, setIdItem] = useState();
   const [displayForm, setDisplayForm] = useState(false);
+
+  useEffect(() => {
+    let windowWidth = window.innerWidth;
+    let titleContainer = document.getElementsByClassName("title-container")[1].firstChild;
+    if(windowWidth < 560){
+      setTitleEducEpxe("Éduc / Expé");
+      titleContainer.classList.add("title-mobile-educ-expe");
+    } else if(windowWidth >= 560){
+      setTitleEducEpxe("Éducation / Expérience");
+      titleContainer.classList.remove("title-mobile-educ-expe");
+    }
+  }, []);
 
   let switchForm = () => {
     if (addBtn) {
@@ -132,7 +145,7 @@ function EducExpe() {
         </div>
         <div className="educExpe-container">
           <div className="title-container">
-            <h2>Éducation / Expérience</h2>
+            <h2 className="title-mobile-educ-expe">{titleEducExpe}</h2>
             <div className="btn-switch-container">
               <button onClick={() => switchForm()}>
                 {addBtn && (

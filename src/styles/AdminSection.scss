@@ -33,6 +33,22 @@
   .title-info-gen{
     width: 100%;
   }
+  .title-mobile-educ-expe{
+    color: #ffffff;
+    font-size: 35px;
+    font-weight: bolder;
+    position: relative;
+    overflow: hidden;
+    &:after{
+      content: "";
+      position: absolute;
+      background: $grey-four;
+      width: 100%;
+      height: 1px;
+      bottom: 25px;
+      left: 215px;
+    }
+  }
   .btn-switch-container{
     margin-left: 15px;
     position: relative;
@@ -49,6 +65,12 @@
   }
   button{
     @include btn-admin(#50e3c2, #2336b6);
+  }
+}
+
+.title-container-info-gen{
+  h2{
+    width: 100%;
   }
 }
 
@@ -175,6 +197,12 @@
     }
     .btn-switch-container{
       width: 10%;
+    }
+  }
+
+  .title-container-info-gen{
+    h2{
+      width: 100%;
     }
   }
 
