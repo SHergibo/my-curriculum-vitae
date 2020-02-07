@@ -1,10 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-scroll";
 import EducationExperience from './ResumeComponents/EducationExperience';
 import CanvasResume from './ResumeComponents/CanvasResume';
 import SkillBarResume from './ResumeComponents/SkillBarResume';
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import workingData from './../utils/workingData';
 
 function Resume() {
+  const objectEducExpe = {
+    "_id": "",
+    "dateStart": "",
+    "dateEnd": "",
+    "titleEducExpe": "",
+    "placeEducExpe": "",
+    "educExpe": ""
+  };
+  const [arrayEduc, setArrayEduc] = useState([objectEducExpe]);
+  const [arrayExpe, setArrayExpe] = useState([objectEducExpe]);
+
+  const objectSkill = {
+    "_id": "",
+    "nameSkill": "",
+    "percentage": "",
+    "skillCategory": "",
+  }
+
+  const [arrayCodingSkill, setArrayCodingSkill] = useState([objectSkill]);
+  const [arrayGeneralSkill, setArrayGeneralSkill] = useState([objectSkill]);
+  const [arrayLanguage, setArrayLanguage] = useState([objectSkill]);
+
   useEffect(() => {
     window.addEventListener('scroll', () => {
       let resumeContainer = document.getElementById('resume');
@@ -23,7 +48,28 @@ function Resume() {
         menuResume.classList.remove("menu-resume-fixed");
       }
     });
+    getData();
   }, []);
+
+  const getData = async () => {
+    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
+    await axiosInstance.get(getListEducExpeEndPoint)
+      .then((response) => {
+        const workingDatas = workingData(response.data, "educExpe");
+        setArrayEduc(workingDatas[0]);
+        setArrayExpe(workingDatas[1]);
+      });
+
+    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
+    await axiosInstance.get(getListSkillEndPoint)
+      .then((response) => {
+        const workingDatas = workingData(response.data, "skill");
+        setArrayCodingSkill(workingDatas[0]);
+        setArrayGeneralSkill(workingDatas[1]);
+        setArrayLanguage(workingDatas[2]);
+      });
+  };
+
   return (
     <div id="resume" className="wrapper resume">
       <div className="title-left">Résumé</div>
@@ -51,42 +97,25 @@ function Resume() {
       <div className="edu-expe">
         <div id="education" className="edu-container">
           <h2>Éducation</h2>
-          <EducationExperience begin="2018" end="2019" title="Formation développeur Javascript." school="Téchnocité - Tournai" />
-          <EducationExperience begin="2015" end="2017" title="Formation conseiller technique PC-réseau." school="Centre Ifapme de Tournai" />
-          <EducationExperience begin="2010" end="2016" title="Enseignement Supérieur en E-business." school="Haute École Provinciale de Hainaut – Condorcet" />
-          <EducationExperience begin="2008" end="2010" title="Enseignement technique de transition en sciences informatique." school="École des Frères de Tournai" />
-          <EducationExperience begin="2006" end="2008" title="Enseignement général en sciences-langues." school="École des Frères de Tournai" />
+          <EducationExperience data={arrayEduc} />
         </div>
         <div id="experience" className="exp-container">
           <h2>Expérience</h2>
-          <EducationExperience begin="2019" end="2019" title="Stage développeur web d'un mois suite à la formation développeur Javascript" school="Tryptil SPRL" />
-          <EducationExperience begin="2019" end="2019" title="Développeur web (CDD de 3 mois)" school="Tryptil SPRL" />
-          <EducationExperience begin="2019" end="2019" title="Développeur web (CDD de 3 mois)" school="Tryptil SPRL" />
+          <EducationExperience data={arrayExpe} />
         </div>
         <div id="skills" className="skill-container">
           <h2>Compétences</h2>
-          <div className="skill-canvas">
-            <CanvasResume id="canvas1" skill="HTML 5" percent={90} />
-            <CanvasResume id="canvas2" skill="CSS 3" percent={80} />
-            <CanvasResume id="canvas3" skill="Sass" percent={80} />
-            <CanvasResume id="canvas4" skill="Javascript" percent={75} />
-            <CanvasResume id="canvas5" skill="JQuery" percent={60} />
-            <CanvasResume id="canvas6" skill="Node js" percent={70} />
-            <CanvasResume id="canvas7" skill="Ember js" percent={85} />
-            <CanvasResume id="canvas8" skill="React" percent={65} />
+          <div>
+            <CanvasResume data={arrayCodingSkill} />
           </div>
           <div className="skill-bars">
             <div className="soft-skills">
               <h4>Compétences générales</h4>
-              <SkillBarResume skill="Autodidacte" percent={90} />
-              <SkillBarResume skill="Gestion du temps" percent={80} />
-              <SkillBarResume skill="Travail d'équipe" percent={85} />
-              <SkillBarResume skill="Résolution de problèmes" percent={75} />
+              <SkillBarResume data={arrayGeneralSkill} />
             </div>
             <div className="language-skills">
               <h4>Langues</h4>
-              <SkillBarResume skill="Français" percent={90} />
-              <SkillBarResume skill="Anglais" percent={80} />
+              <SkillBarResume data={arrayLanguage} />
             </div>
           </div>
         </div>

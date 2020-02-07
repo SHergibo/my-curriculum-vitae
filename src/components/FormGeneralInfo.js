@@ -142,6 +142,14 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
             {errors.driverLicence && <span className="error-message">Ce champ est requis</span>}
           </div>
         </div>
+        <div className="text-area">
+          <label htmlFor="description">Description*</label>
+          <div className="input-block">
+            {formType === "add" && <textarea name="description" id="description" placeholder="Votre description ici..." ref={register({ required: true })} />}
+            {formType === "edit" && <textarea name="description" id="description" placeholder="Votre description ici..." defaultValue={value.description} ref={register({ required: true })} />}
+          </div>
+          {errors.description && <span className="error-message">Ce champ est requis</span>}
+        </div>
 
         <div className="btn-container">
           <button className="submit-contact" type="submit">

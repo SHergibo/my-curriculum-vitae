@@ -4,6 +4,7 @@ import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
+import workingData from './../utils/workingData';
 import { CSSTransition } from 'react-transition-group';
 import DisplayListEducExpe from './DisplayListEducExpe';
 import FormEducExpe from './FormEducExpe';
@@ -45,23 +46,10 @@ function EducExpe() {
     const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
     await axiosInstance.get(getListEducExpeEndPoint)
       .then((response) => {
-        workingData(response.data);
+        const workingDatas = workingData(response.data, "educExpe");
+        setArrayEduc(workingDatas[0]);
+        setArrayExpe(workingDatas[1]);
       });
-  };
-
-  const workingData = (data) => {
-    let education = [];
-    let experience = [];
-    data.map((item) => {
-      if (item.educExpe === "education") {
-        education.push(item)
-      } else if (item.educExpe === "experience") {
-        experience.push(item);
-      }
-      return item;
-    });
-    setArrayEduc(education);
-    setArrayExpe(experience);
   };
 
   const onSubmitAdd = async (data) => {

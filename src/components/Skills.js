@@ -6,6 +6,7 @@ import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
+import workingData from './../utils/workingData';
 import { CSSTransition } from 'react-transition-group';
 
 function Skills() {
@@ -33,27 +34,11 @@ function Skills() {
     const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
     await axiosInstance.get(getListSkillEndPoint)
       .then((response) => {
-        workingData(response.data);
+        const workingDatas = workingData(response.data, "skill");
+        setArrayCodingSkill(workingDatas[0]);
+        setArrayGeneralSkill(workingDatas[1]);
+        setArrayLanguage(workingDatas[2]);
       });
-  };
-
-  const workingData = (data) => {
-    let generalSkill = [];
-    let codingSkill = [];
-    let language = [];
-    data.map((item) => {
-      if (item.skillCategory === "codingSkill") {
-        codingSkill.push(item)
-      } else if (item.skillCategory === "generalSkill") {
-        generalSkill.push(item);
-      }else if (item.skillCategory === "language") {
-        language.push(item);
-      }
-      return item;
-    });
-    setArrayCodingSkill(codingSkill);
-    setArrayGeneralSkill(generalSkill);
-    setArrayLanguage(language);
   };
 
   const onSubmitAdd = async (data) => {

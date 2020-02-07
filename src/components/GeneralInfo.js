@@ -35,7 +35,8 @@ function GeneralInfo() {
         city : data.city
       },
       birthdate : data.dateBirthday,
-      licence : data.driverLicence
+      licence : data.driverLicence,
+      description : data.description
     };
     const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
     await axiosInstance.post(addGenerelInfoEndPoint, workingData)
@@ -60,7 +61,8 @@ function GeneralInfo() {
         city : data.city
       },
       birthdate : data.dateBirthday,
-      licence : data.driverLicence
+      licence : data.driverLicence,
+      description : data.description
     };
     const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
     await axiosInstance.patch(editGeneralInfoEndPoint, workingData)
@@ -69,8 +71,6 @@ function GeneralInfo() {
       setGeneralInfo(response.data);
     });
   };
-
-  console.log(showEditForm);
 
   return (
     <div className="info-section">

@@ -23,19 +23,20 @@ function HomePage() {
     "birthdate":"",
     "licence":""
   });
-  const [birthdate, setBirthdate] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
       await axiosInstance.get(getGeneralInfoEndPoint)
       .then((response) => {
-        let formatDate = format(
-          new Date(response.data[0].birthdate),
-          'dd/MM/yyyy'
-        );
-        response.data[0].birthdate = formatDate;
-        setGeneralInfo(response.data[0]);
+        if(response.data.length > 0){
+          let formatDate = format(
+            new Date(response.data[0].birthdate),
+            'dd/MM/yyyy'
+          );
+          response.data[0].birthdate = formatDate;
+          setGeneralInfo(response.data[0]);
+        }
       });
     };
     getData();
