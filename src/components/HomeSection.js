@@ -12,7 +12,7 @@ function HomeSection({welcome, name, div}) {
         <div className="welcome">
           {welcome}
         </div>
-        <section className="wrapper">
+        <section>
           <div className="wrapper title-home-div">
             <div>
               <svg id="svgHome" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"

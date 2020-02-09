@@ -4,5 +4,5 @@
 }
 
 .submit-login {
-  @include submit-btn(40px, 15px 0, 100%);
+  @include btn(40px, 15px 0, 100%);
 }

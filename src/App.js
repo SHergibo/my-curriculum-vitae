@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import IsLoggedRoute from './components/Route/IsLogged.route';
 import ProtectedRoute from './components/Route/Protected.route';
 import Login from './components/Login';
+import Page404 from './components/Page404';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route exact path="/" component={HomePage}/>
         <IsLoggedRoute exact path="/login" component={Login}/>
         <ProtectedRoute exact path="/admin" component={Admin}/>
-        {/* <Route path="*" component={NotFound} /> 404 not found */}
+        <Route path="*" component={Page404} />
       </Switch>
     </div>
   );

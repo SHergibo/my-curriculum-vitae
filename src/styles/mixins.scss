@@ -91,7 +91,7 @@
   }
 }
 
-@mixin submit-btn($height, $margin, $width) {
+@mixin btn($height, $margin, $width) {
   display: flex;
   justify-content: center;
   align-items: center;

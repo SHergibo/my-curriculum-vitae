@@ -3,7 +3,7 @@ import { Link } from "react-scroll";
 import EducationExperience from './ResumeComponents/EducationExperience';
 import CanvasResume from './ResumeComponents/CanvasResume';
 import SkillBarResume from './ResumeComponents/SkillBarResume';
-import axiosInstance from './../utils/axiosInstance';
+import axios from "axios";
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import workingData from './../utils/workingData';
 
@@ -53,7 +53,7 @@ function Resume() {
 
   const getData = async () => {
     const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
-    await axiosInstance.get(getListEducExpeEndPoint)
+    await axios.get(getListEducExpeEndPoint)
       .then((response) => {
         const workingDatas = workingData(response.data, "educExpe");
         setArrayEduc(workingDatas[0]);
@@ -61,7 +61,7 @@ function Resume() {
       });
 
     const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
-    await axiosInstance.get(getListSkillEndPoint)
+    await axios.get(getListSkillEndPoint)
       .then((response) => {
         const workingDatas = workingData(response.data, "skill");
         setArrayCodingSkill(workingDatas[0]);

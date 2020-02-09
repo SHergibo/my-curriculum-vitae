@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from './../utils/axiosInstance';
+import axios from 'axios';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { format } from 'date-fns';
 import Home from './Home';
@@ -27,7 +27,7 @@ function HomePage() {
   useEffect(() => {
     const getData = async () => {
       const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
-      await axiosInstance.get(getGeneralInfoEndPoint)
+      await axios.get(getGeneralInfoEndPoint)
       .then((response) => {
         if(response.data.length > 0){
           let formatDate = format(

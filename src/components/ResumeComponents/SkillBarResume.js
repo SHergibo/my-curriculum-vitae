@@ -5,7 +5,7 @@ function SkillBarResume({ data }) {
 
   const displaySkill = data.map((item) => {
     let percentage = item.percentage;
-    return <div className="skill-bar-container">
+    return <div className="skill-bar-container" key={item._id}>
             <div className="info-skill">
               <p>{item.nameSkill}</p>
               <span>{item.percentage}%</span>

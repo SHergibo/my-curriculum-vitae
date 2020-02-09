@@ -16,7 +16,7 @@ function Home({ location }) {
   let name = "Sacha Hergibo";
 
   if(location === "/admin"){
-    div = <div className="admin-name">
+    div = <div className="sub-name">
             Partie administration
           </div>;
 

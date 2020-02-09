@@ -84,10 +84,21 @@
   }
 }
 
-.admin-name{
+.sub-name{
   color: $grey-one;
   font-size: 25px;
   font-weight: bolder;
+}
+
+.page-404{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.return-hompepage{
+  @include btn(40px, 15px 0, auto);
 }
 
 @media screen and (min-width: 426px) {

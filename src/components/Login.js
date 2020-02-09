@@ -19,11 +19,11 @@ function Login({ history }) {
     mode: "onChange"
   });
 
-  const div = <form className="" onSubmit={handleSubmit(onSubmit)}>
+  const div = <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <div className="input input-login">
                     <label htmlFor="email">Email *</label>
-                    <div>
+                    <div className="input-block">
                       <span><FontAwesomeIcon icon={faAt} /></span>
                       <input name="email" type="text" id="email" placeholder="Email" ref={register({ required: true })} />
                     </div>
@@ -31,7 +31,7 @@ function Login({ history }) {
                   </div>
                   <div className="input input-login">
                     <label htmlFor="lastname">Mot de passe *</label>
-                    <div>
+                    <div className="input-block">
                       <span><FontAwesomeIcon icon={faKey} /></span>
                       <input name="password" type="password" id="password" placeholder="Mot de passe" ref={register({ required: true })} />
                     </div>
