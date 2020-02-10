@@ -1,15 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import checkSuccess from './../utils/checkSuccess';
 import Home from './Home';
 import Navbar from './Navbar';
 import GeneralInfo from './GeneralInfo';
 import Footer from './Footer';
 import BackToTop from './BackToTop';
 import { logout } from './../utils/Auth';
-import PropTypes from 'prop-types';
 import EducExpe from './EducExpe';
 import Skills from './Skills';
+import PropTypes from 'prop-types';
 
 function Admin({history, location}) {
+
+  const [generalInfo, setGeneralInfo] = useState({
+    firstname: "",
+    lastname: "",
+    "address":{
+      "street":"",
+      "number":"",
+      "zip":"",
+      "city":""
+    },
+    "phone":"",
+    "email":"",
+    "birthdate":"",
+    "licence":""
+  });
+  const [success, setSuccess] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+
+  useEffect(() => {
+    const getData = async () => {
+      const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
+      await axiosInstance.get(getGeneralInfoEndPoint)
+      .then((response) => {
+        setGeneralInfo(response.data[0]);
+        if(response.data[0]){
+          setShowEditForm(true);
+        }
+      });
+    };
+    getData();
+  }, []);
+
+  const workingData = (data) =>{
+    return {
+      firstname : data.firstname,
+      lastname : data.lastname,
+      phone : data.phone,
+      email : data.email,
+      address : {
+        street : data.street,
+        number : data.number,
+        zip : data.zip,
+        city : data.city
+      },
+      birthdate : data.dateBirthday,
+      licence : data.driverLicence,
+      description : data.description
+    };
+  };
+
+  const onSubmitAdd = async (data) => {
+    const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
+    await axiosInstance.post(addGenerelInfoEndPoint, workingData(data))
+      .then((response) => {
+        checkSuccess(response.status, success, setSuccess, 0);
+        if(response.status === 200){
+          setGeneralInfo(response.data);
+          setShowEditForm(true);
+        }
+      }); 
+  };
+
+  const onSubmitEdit = async (data) => {
+    const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
+    await axiosInstance.patch(editGeneralInfoEndPoint, workingData(data))
+    .then((response) => {
+      checkSuccess(response.status, success, setSuccess, 0);
+      setGeneralInfo(response.data);
+    });
+  };
+
   let logOut = async() =>{
     await logout();
     history.push("/");
@@ -17,11 +91,11 @@ function Admin({history, location}) {
   return (
     <div>
       <header id="header">
-        <Home location={location.pathname}/>
+        <Home location={location.pathname} data={generalInfo}/>
         <Navbar location={location.pathname} logout={logOut}/>
       </header>
       <main>
-        <GeneralInfo />
+        <GeneralInfo data={generalInfo} onSubmitAdd={onSubmitAdd} onSubmitEdit={onSubmitEdit} success={success} showEditForm={showEditForm} />
         <EducExpe />
         <Skills />
       </main>

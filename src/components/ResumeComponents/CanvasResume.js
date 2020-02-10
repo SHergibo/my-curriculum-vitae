@@ -43,6 +43,7 @@ function CanvasResume({ data }) {
               <p>{item.nameSkill}</p>
             </div>
     }
+    return <div key={"canvas" + item._id}></div>;
   });
 
   Promise.all(displayCodingSkill).then( res => {
@@ -56,6 +57,7 @@ function CanvasResume({ data }) {
         
         drawCanvas(percentage, radius, canvas);
       }
+      return item;
     });
   });
   

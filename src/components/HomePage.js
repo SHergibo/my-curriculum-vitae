@@ -12,6 +12,8 @@ import BackToTop from './BackToTop';
 
 function HomePage() {
   const [generalInfo, setGeneralInfo] = useState({
+    firstname: "",
+    lastname: "",
     "address":{
       "street":"",
       "number":"",
@@ -47,7 +49,7 @@ function HomePage() {
   return (
     <div>
       <header id="header">
-        <Home />
+        <Home data={generalInfo} />
         <Navbar />
       </header>
       <main>

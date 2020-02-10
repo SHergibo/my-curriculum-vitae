@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState} from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMobileAlt, faPlus, faRoad, faAt, faHome, faEnvelopeOpenText, faCity, faBirthdayCake, faCheck, faCar, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faMobileAlt, faPlus, faRoad, faAt, faHome, faEnvelopeOpenText, faCity, faBirthdayCake, faCheck, faCar, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from "react-datepicker";
 import { parseISO } from 'date-fns';
@@ -37,6 +37,26 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
     <div className="form-container">
       <h3>{titleForm}</h3>
       <form onSubmit={handleSubmit(handleFunction)}>
+      <div className="input-container">
+          <div className="input">
+            <label htmlFor="firstname">Prénom *</label>
+            <div className="input-block">
+              <span><FontAwesomeIcon icon={faUser} /></span>
+              {formType === "add" && <input name="firstname" type="text" id="firstname" placeholder="Prénom" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="firstname" type="text" id="firstname" placeholder="Prénom" defaultValue={value.firstname} ref={register({ required: true })} />}
+            </div>
+            {errors.firstname && <span className="error-message">Ce champ est requis</span>}
+          </div>
+          <div className="input">
+            <label htmlFor="lastname">Nom de famille *</label>
+            <div className="input-block">
+              <span><FontAwesomeIcon icon={faUser} /></span>
+              {formType === "add" && <input name="lastname" type="text" id="lastname" placeholder="Nom de famille" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="lastname" type="text" id="lastname" placeholder="Nom de famille" defaultValue={value.lastname} ref={register({ required: true })} />}
+            </div>
+            {errors.lastname && <span className="error-message">Ce champ est requis</span>}
+          </div>
+        </div>
         <div className="input-container">
           <div className="input">
             <label htmlFor="email">Email *</label>
@@ -130,8 +150,6 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
             </div>
             {errors.birthDate && <span className="error-message">Ce champ est requis</span>}
           </div>
-        </div>
-        <div className="input-container">
           <div className="input">
             <label htmlFor="driverLicence">Permis de conduire *</label>
             <div className="input-block">
