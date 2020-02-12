@@ -76,7 +76,6 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
                   message: "Adresse mail invalide"
                 }
                 })} />}
-              
             </div>
             <span className="error-message">{errors.email && errors.email.message}</span>
           </div>

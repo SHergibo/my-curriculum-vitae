@@ -38,7 +38,7 @@ function About({data}) {
           </div>
           <div>
             <FontAwesomeIcon icon={faHtml5} />
-            <h5>Web Integrateur</h5>
+            <h5>Web Intégrateur</h5>
           </div>
           <div></div>
         </div>

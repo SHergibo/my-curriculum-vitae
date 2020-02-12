@@ -36,8 +36,8 @@ function Admin({history, location}) {
       const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
       await axiosInstance.get(getGeneralInfoEndPoint)
       .then((response) => {
-        setGeneralInfo(response.data[0]);
-        if(response.data[0]){
+        setGeneralInfo(response.data);
+        if(response.data){
           setShowEditForm(true);
         }
       });

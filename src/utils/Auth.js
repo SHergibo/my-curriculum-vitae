@@ -1,39 +1,31 @@
 import Axios from 'axios';
 import {apiDomain, apiVersion} from './../apiConfig/ApiConfig';
 
-let needVerifiedAccount = false;
+let response;
 let authenticated = false;
 
 const loginIn = async (data) =>{
   const loginEndpoint = `${apiDomain}/api/${apiVersion}/auth/login`;
-  try {
 
-    Axios.interceptors.response.use(response => {
-      return response;
-      }, error => {
-        if (error.response.status === 403) {
-          needVerifiedAccount = true;
-        }
-      return error;
-    });
-
-    let response = await Axios.post(loginEndpoint, data);
-    if(response.status === 200 && response.data.token.accessToken && response.data.token.expiresIn){
-      let accessToken = response.data.token.accessToken;
-      let refresh_token = response.data.token.refreshToken.token;
-      let user_id = response.data.user._id;
-      let user_email = response.data.user.email;
-
+  await Axios.post(loginEndpoint, data)
+  .then((res) =>{
+    if(res.status === 200 && res.data.token.accessToken && res.data.token.expiresIn){
+      response = res.status;
+      let accessToken = res.data.token.accessToken;
+      let refresh_token = res.data.token.refreshToken.token;
+      let user_id = res.data.user._id;
+      let user_email = res.data.user.email;
+  
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem('refresh_token', refresh_token);
       localStorage.setItem('user_id', user_id);
       localStorage.setItem('user_email', user_email);
     }
-  } catch (error) {
-    console.log(error);
-  }
-
-  return needVerifiedAccount;
+  })
+  .catch((error) =>{
+    response = 401;
+  })
+  return response;
 };
 
 const logout = async() =>{

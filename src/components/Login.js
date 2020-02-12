@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from "react-router";
 import { loginIn } from './../utils/Auth';
 import { useForm } from 'react-hook-form';
@@ -8,12 +8,16 @@ import HomeSection from "./HomeSection";
 import PropTypes from 'prop-types';
 
 function Login({ history }) {
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const onSubmit = async (data) => {
     let responseLogin = await loginIn(data);
-    if (!responseLogin) {
+    if (responseLogin !== 401) {
       history.push("/admin");
+    }else{
+      setErrorMessage(true);
     }
+
   };
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange"
@@ -43,6 +47,7 @@ function Login({ history }) {
                     Connection
                   </button>
                 </div>
+                {errorMessage && <span className="error-message">Adresse mail ou mot de passe invalide !</span>}
               </form>;
 
   return (

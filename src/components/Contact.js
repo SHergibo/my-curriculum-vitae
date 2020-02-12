@@ -53,9 +53,15 @@ function Contact({data}) {
                 <label htmlFor="email">Email *</label>
                 <div className="input-block">
                   <span><FontAwesomeIcon icon={faAt} /></span>
-                  <input name="email" type="text" id="email" placeholder="Votre adresse mail ici..." ref={register({ required: true })} />
+                  <input name="email" id="email" placeholder="Votre adresse mail ici..." ref={register({ 
+                  required: 'Ce champ est requis',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "Adresse mail invalide"
+                  }
+                  })} />
                 </div>
-                {errors.email && <span className="error-message">Ce champ est requis</span>}
+                <span className="error-message">{errors.email && errors.email.message}</span>
               </div>
               <div className="input">
                 <label htmlFor="phone">Téléphone *</label>

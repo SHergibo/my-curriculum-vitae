@@ -15,7 +15,7 @@ function Home({ location, data }) {
   }, [data]);
 
   let div = <div className="job-name">Je suis un <Typed
-                strings={['développeur web', 'integrateur web']}
+                strings={['développeur web', 'intégrateur web']}
                 typeSpeed={80}
                 loop
                 smartBackspace={false}
