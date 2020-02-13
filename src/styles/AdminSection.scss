@@ -49,7 +49,7 @@
       left: 215px;
     }
   }
-  .btn-switch-container{
+  .btn-switch-container, .btn-delete-info{
     margin-left: 15px;
     position: relative;
     overflow: hidden;
@@ -62,15 +62,35 @@
       bottom: 22px;
       left: 54px;
     }
+    button{
+      @include btn-admin(#50e3c2, #2336b6);
+    }
   }
-  button{
-    @include btn-admin(#50e3c2, #2336b6);
+
+  .btn-delete-info{
+    button{
+      @include btn-admin(#ee5253, #e92424);
+    }
   }
 }
 
 .title-container-info-gen{
   h2{
     width: 100%;
+  }
+}
+
+.delete-info-div{
+  div{
+    display: flex;
+    justify-content: center;
+  }
+  h2{
+    color: #ffffff;
+    text-align: center;
+  }
+  button{
+    @include btn(60px, 30px 10px, 100px);
   }
 }
 
@@ -195,7 +215,7 @@
     h2{
       width: 90%;
     }
-    .btn-switch-container{
+    .btn-switch-container, .btn-delete-info{
       width: 10%;
     }
   }

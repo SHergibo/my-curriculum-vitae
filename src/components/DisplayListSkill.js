@@ -5,7 +5,7 @@ import ModalEditAdmin from "./ModalEditAdmin";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 
-function DisplayListEducExpe({arrayCodingSkill, arrayGeneralSkill , arrayLanguage, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal }) {
+function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill , arrayLanguage, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal }) {
   const [value, setValue] = useState({});
   let body = document.getElementsByTagName("body")[0];
 
@@ -112,7 +112,7 @@ function DisplayListEducExpe({arrayCodingSkill, arrayGeneralSkill , arrayLanguag
   );
 }
 
-DisplayListEducExpe.propTypes = {
+DisplayListSkill.propTypes = {
   arrayCodingSkill: PropTypes.array.isRequired,
   arrayGeneralSkill: PropTypes.array.isRequired,
   arrayLanguage: PropTypes.array.isRequired,
@@ -121,4 +121,4 @@ DisplayListEducExpe.propTypes = {
   success: PropTypes.bool.isRequired,
 }
 
-export default DisplayListEducExpe;
+export default DisplayListSkill;

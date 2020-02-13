@@ -95,7 +95,7 @@ function Admin({history, location}) {
         <Navbar location={location.pathname} logout={logOut}/>
       </header>
       <main>
-        <GeneralInfo data={generalInfo} onSubmitAdd={onSubmitAdd} onSubmitEdit={onSubmitEdit} success={success} showEditForm={showEditForm} />
+        <GeneralInfo data={generalInfo} onSubmitAdd={onSubmitAdd} onSubmitEdit={onSubmitEdit} success={success} showEditForm={showEditForm} setShowEditForm={setShowEditForm} />
         <EducExpe />
         <Skills />
       </main>

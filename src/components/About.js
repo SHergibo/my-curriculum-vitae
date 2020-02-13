@@ -4,6 +4,8 @@ import { faJs, faHtml5 } from '@fortawesome/free-brands-svg-icons';
 import PropTypes from 'prop-types';
 
 function About({data}) {
+  console.log(data);
+  
   return (
     <div id="about" className="about">
       <div className="wrapper about-container">

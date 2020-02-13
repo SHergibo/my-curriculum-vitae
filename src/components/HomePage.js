@@ -31,13 +31,13 @@ function HomePage() {
       const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
       await axios.get(getGeneralInfoEndPoint)
       .then((response) => {
-        if(response.data.length > 0){
+        if(response.data){
           let formatDate = format(
-            new Date(response.data[0].birthdate),
+            new Date(response.data.birthdate),
             'dd/MM/yyyy'
           );
-          response.data[0].birthdate = formatDate;
-          setGeneralInfo(response.data[0]);
+          response.data.birthdate = formatDate;
+          setGeneralInfo(response.data);
         }
       });
     };

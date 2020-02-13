@@ -3,7 +3,7 @@ import FormEducExpe from "./FormEducExpe";
 import FormSkill from "./FormSkill";
 import PropTypes from 'prop-types';
 
-function ModalEditAdmin({ value, formType, submit, setId, success, closeModal }) {
+function ModalEditAdmin({ value, formType, submit, setId, success, closeModal, div }) {
 
   window.addEventListener("click", (event) => {
     if(event.target.className === "modal"){
@@ -21,18 +21,24 @@ function ModalEditAdmin({ value, formType, submit, setId, success, closeModal })
         {formType === "skill" && 
           <FormSkill handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />
         }
+        {formType === "deleteInfo" && 
+          <div>
+            {div}
+          </div>
+        }
       </div>
     </div>
   );
 }
 
 ModalEditAdmin.propTypes = {
-  value: PropTypes.object.isRequired,
+  value: PropTypes.object,
   formType: PropTypes.string.isRequired,
-  submit: PropTypes.func.isRequired,
-  setId: PropTypes.func.isRequired,
-  success: PropTypes.bool.isRequired,
+  submit: PropTypes.func,
+  setId: PropTypes.func,
+  success: PropTypes.bool,
   closeModal: PropTypes.func.isRequired,
+  div: PropTypes.object,
 }
 
 export default ModalEditAdmin;
