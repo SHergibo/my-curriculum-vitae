@@ -7,7 +7,7 @@ import Navbar from './Navbar';
 import GeneralInfo from './GeneralInfo';
 import Footer from './Footer';
 import BackToTop from './BackToTop';
-import { logout } from './../utils/Auth';
+import { logout, refreshToken } from './../utils/Auth';
 import EducExpe from './EducExpe';
 import Skills from './Skills';
 import PropTypes from 'prop-types';
@@ -31,7 +31,12 @@ function Admin({history, location}) {
   const [success, setSuccess] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
+
   useEffect(() => {
+    refreshToken();
+    setInterval(() => {
+      refreshToken();
+    }, 900000);
     const getData = async () => {
       const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
       await axiosInstance.get(getGeneralInfoEndPoint)
@@ -43,7 +48,7 @@ function Admin({history, location}) {
       });
     };
     getData();
-  }, []);
+  }, [history]);
 
   const workingData = (data) =>{
     return {

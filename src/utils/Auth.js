@@ -13,12 +13,10 @@ const loginIn = async (data) =>{
       response = res.status;
       let accessToken = res.data.token.accessToken;
       let refresh_token = res.data.token.refreshToken.token;
-      let user_id = res.data.user._id;
       let user_email = res.data.user.email;
   
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem('refresh_token', refresh_token);
-      localStorage.setItem('user_id', user_id);
       localStorage.setItem('user_email', user_email);
     }
   })
@@ -37,7 +35,6 @@ const logout = async() =>{
     });
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
-    localStorage.removeItem('user_id');
     localStorage.removeItem('user_email');
 
   } catch (error) {
@@ -45,13 +42,37 @@ const logout = async() =>{
   }
 };
 
-const isAuthenticated = () =>{
-  if(localStorage.getItem("access_token")){
-    authenticated = true;
-  }else{
-    authenticated = false;
-  }
-  return authenticated;
-}
+const refreshToken = async() =>{
+  const refreshToken = localStorage.getItem('refresh_token');
+  const email = localStorage.getItem('user_email');
+  const refresh = Axios.create({
+    baseURL: apiDomain,
+    timeout: 5000,
+    headers: {
+      ContentType: 'applications/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('access_token')}`
+    }
+  });
+  await refresh
+    .post(`/api/${apiVersion}/auth/refresh-token`, { 
+      refreshToken,
+      email
+    })
+    .then((response) => {
+      localStorage.setItem('access_token', response.data.accessToken);
+      localStorage.setItem('refresh_token', response.data.refreshToken.token);
+    });
+};
 
-export { loginIn, logout, isAuthenticated };
+const isAuthenticated = () =>{
+    if(localStorage.getItem("access_token")){
+      authenticated = true;
+    }else{
+      authenticated = false;
+    }
+
+  return authenticated;
+}; //TODO corriger le if (créer router pour test si access token existe???)
+
+export { loginIn, logout, isAuthenticated, refreshToken };
