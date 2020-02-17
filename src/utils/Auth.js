@@ -77,7 +77,6 @@ const refreshToken = async() =>{
 };
 
 const isAuthenticated = async() =>{
-  console.log(await refreshToken())
     if(await refreshToken()){
       authenticated = true;
     }else{
@@ -85,6 +84,6 @@ const isAuthenticated = async() =>{
     }
 
   return authenticated;
-}; //TODO corriger le if (créer router pour test si access token existe???)
+};
 
 export { loginIn, logout, isAuthenticated, refreshToken };
