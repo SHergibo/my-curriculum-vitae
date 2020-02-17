@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 function IsLoggedRoute({ component: Component, ...rest }) {
   return (
     <Route {...rest} render={(props) =>{
-        if(isAuthenticated()){
+        if(isAuthenticated() === true){
           return <Redirect to={
             {
               pathname: "/admin",

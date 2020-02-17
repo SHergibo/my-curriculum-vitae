@@ -45,28 +45,40 @@ const logout = async() =>{
 const refreshToken = async() =>{
   const refreshToken = localStorage.getItem('refresh_token');
   const email = localStorage.getItem('user_email');
-  const refresh = Axios.create({
-    baseURL: apiDomain,
-    timeout: 5000,
-    headers: {
-      ContentType: 'applications/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('access_token')}`
-    }
-  });
-  await refresh
-    .post(`/api/${apiVersion}/auth/refresh-token`, { 
-      refreshToken,
-      email
-    })
-    .then((response) => {
-      localStorage.setItem('access_token', response.data.accessToken);
-      localStorage.setItem('refresh_token', response.data.refreshToken.token);
+  if(refreshToken && email){
+    const refresh = Axios.create({
+      baseURL: apiDomain,
+      timeout: 5000,
+      headers: {
+        ContentType: 'applications/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`
+      }
     });
+    try {
+      await refresh
+      .post(`/api/${apiVersion}/auth/refresh-token`, { 
+        refreshToken,
+        email
+      })
+      .then((response) => {
+        localStorage.setItem('access_token', response.data.accessToken);
+        localStorage.setItem('refresh_token', response.data.refreshToken.token);
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
+   
+  }else{
+    return false;
+  }
+
 };
 
-const isAuthenticated = () =>{
-    if(localStorage.getItem("access_token")){
+const isAuthenticated = async() =>{
+  console.log(await refreshToken())
+    if(await refreshToken()){
       authenticated = true;
     }else{
       authenticated = false;

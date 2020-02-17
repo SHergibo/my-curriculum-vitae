@@ -33,7 +33,6 @@ function Admin({history, location}) {
 
 
   useEffect(() => {
-    refreshToken();
     setInterval(() => {
       refreshToken();
     }, 900000);
