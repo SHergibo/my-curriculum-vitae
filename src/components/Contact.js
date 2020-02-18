@@ -13,7 +13,7 @@ function Contact({data}) {
     const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
     await Axios.post(registerEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, success, setSuccess);
+        checkSuccess(response.status, success, setSuccess, 0);
       })
       .catch(err => {
         console.log("err", err);
