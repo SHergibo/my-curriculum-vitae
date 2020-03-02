@@ -48,3 +48,25 @@ main{
   background-color: $principal-color;
   position: relative;
 }
+
+.title-left{
+  @include sub-title;
+  justify-content: flex-start;
+  border-left: $border;
+  padding-left: 15px;
+  position: absolute;
+}
+
+.title-left-admin{
+  @include sub-title;
+  justify-content: flex-start;
+  border-left: $border;
+  padding-left: 15px;
+}
+
+.title-right{
+  @include sub-title;
+  justify-content: flex-end;
+  border-right: $border;
+  padding-right: 15px;
+}

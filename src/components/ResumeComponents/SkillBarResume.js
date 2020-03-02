@@ -1,17 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function SkillBarResume(props) {
+function SkillBarResume({ data }) {
+
+  const displaySkill = data.map((item) => {
+    let percentage = item.percentage;
+    return <div className="skill-bar-container" key={item._id}>
+            <div className="info-skill">
+              <p>{item.nameSkill}</p>
+              <span>{item.percentage}%</span>
+            </div>
+            <div className="skill-bar">
+              <div style={{ width: percentage + '%' }}></div>
+            </div>
+          </div>
+  });
+
   return (
-    <div className="skill-bar-container">
-      <div className="info-skill">
-        <p>{props.skill}</p>
-        <span>{props.percentage}%</span>
-      </div>
-      <div className="skill-bar">
-        <div style={{ width: props.percentage + '%' }}></div>
-      </div>
+    <div>
+      {displaySkill}
     </div>
   );
+}
+
+SkillBarResume.propTypes = {
+  data: PropTypes.array.isRequired,
 }
 
 export default SkillBarResume;

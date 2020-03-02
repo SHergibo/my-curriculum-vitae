@@ -7,7 +7,7 @@
   color: $grey-three;
 }
 
-@mixin svg($height) {
+@mixin svgFill($height) {
   svg {
     height: $height;
     path {
@@ -22,7 +22,24 @@
   }
 }
 
-@mixin  title-resume($left) {
+@mixin svgStroke($height) {
+  svg {
+    height: $height;
+    path {
+      stroke: $grey-one;
+      fill: none;
+      transition: 0.2s ease-in-out;
+    }
+    &:hover {
+      path {
+        stroke: $grey-two;
+        fill: none;
+      }
+    }
+  }
+}
+
+@mixin title($left) {
   h2{
     color: #ffffff;
     font-size: 35px;
@@ -41,14 +58,14 @@
   }
 }
 
-@mixin contact-form-input(){
+@mixin form-input(){
   label{
     display: block;
     color: #ffffff;
     font-size: 14px;
     margin-bottom: 10px;
   }
-  div{
+  .input-block{
     display: flex;
     align-items: center;
     background-color: $grey-four;
@@ -69,7 +86,49 @@
     color: $grey-two;
     font-family: "Poppins", sans-serif;
   }
-  &:focus-within div{
+  &:focus-within .input-block{
     border: $border;
+  }
+}
+
+@mixin btn($height, $margin, $width) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+  height: $height;
+  margin: $margin;
+  width: $width;
+  background-color: $blue;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+  &:hover{
+    background-color: $blue-hover;
+  }
+}
+
+@mixin btn-admin($color, $color-hover){
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color;
+  color: $principal-color;
+  outline: none;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  &:hover{
+    background-color: $color-hover;
+    color: $grey-one;
   }
 }

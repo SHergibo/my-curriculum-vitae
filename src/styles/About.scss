@@ -34,13 +34,6 @@
   }
 }
 
-.about-title {
-  @include sub-title;
-  justify-content: flex-end;
-  border-right: $border;
-  padding-right: 15px;
-}
-
 .info {
   background-color: rgba(255, 255, 255, 0.02);
   position: relative;

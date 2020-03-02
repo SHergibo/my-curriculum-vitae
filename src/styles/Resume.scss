@@ -4,15 +4,6 @@
   padding: 0 15px;
 }
 
-.resume-title {
-  @include sub-title;
-  justify-content: flex-start;
-  border-left: $border;
-  padding-left: 15px;
-  position: absolute;
-  width: 100%;
-}
-
 .list-resume {
   display: none;
 }
@@ -22,17 +13,17 @@
 
 .edu-container{
   margin-top: 70px;
-  @include title-resume(190px);
+  @include title(190px);
 }
 
 .exp-container{
   margin-top: 70px;
-  @include title-resume(210px);
+  @include title(210px);
 }
 
 .skill-container{
   margin-top: 70px;
-  @include title-resume(270px);
+  @include title(270px);
 }
 
 .skill-canvas{

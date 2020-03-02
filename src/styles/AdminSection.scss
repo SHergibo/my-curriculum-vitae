@@ -1,0 +1,266 @@
+.info-section, .educExpe-section, .skill-section{
+  border-bottom: $border;
+}
+
+.info-container, .educExpe-container, .skill-container {
+  margin-top: 70px;
+  overflow: hidden;
+  padding: 0 15px;
+  form{
+    margin-top: 30px;
+  }
+}
+
+.info-container{
+  @include title(280px);
+}
+
+.educExpe-container{
+  @include title(410px);
+}
+
+.skill-container{
+  @include title(265px);
+}
+
+.title-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h2{
+    width: 85%;
+  }
+  .title-info-gen{
+    width: 100%;
+  }
+  .title-mobile-educ-expe{
+    color: #ffffff;
+    font-size: 35px;
+    font-weight: bolder;
+    position: relative;
+    overflow: hidden;
+    &:after{
+      content: "";
+      position: absolute;
+      background: $grey-four;
+      width: 100%;
+      height: 1px;
+      bottom: 25px;
+      left: 215px;
+    }
+  }
+  .btn-switch-container, .btn-delete-info{
+    margin-left: 15px;
+    position: relative;
+    overflow: hidden;
+    &:after{
+      content: "";
+      position: absolute;
+      background: $grey-four;
+      width: 100%;
+      height: 1px;
+      bottom: 22px;
+      left: 54px;
+    }
+    button{
+      @include btn-admin(#50e3c2, #2336b6);
+    }
+  }
+
+  .btn-delete-info{
+    button{
+      @include btn-admin(#ee5253, #e92424);
+    }
+  }
+}
+
+.title-container-info-gen{
+  h2{
+    width: 100%;
+  }
+}
+
+.delete-info-div{
+  div{
+    display: flex;
+    justify-content: center;
+  }
+  h2{
+    color: #ffffff;
+    text-align: center;
+  }
+  button{
+    @include btn(60px, 30px 10px, 100px);
+  }
+}
+
+.forms-block{
+  display: flex;
+  width: 200%;
+
+}
+
+.form-container, .list-container{
+  width: 50%;
+  margin-bottom: 30px;
+  h3, h4{
+    color: #ffffff;
+  }
+}
+
+.list-container{
+  h4{
+    margin: 10px 0;
+  }
+  ul{
+    margin-top: 30px;
+  }
+  li{
+    display: flex;
+    flex-direction: column;
+    color: $grey-two;
+    margin: 15px 0;
+    .div-list-container, .div-list-btn-container{
+      div{
+        margin: 5px 0;
+      }
+    }
+    .div-list-btn-container{
+      display: flex;
+      button{
+        &:first-child{
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .date-list, .skill-list{
+    min-width: 110px;
+  }
+  .title-list{
+    max-width: 650px;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+  }
+  .btn-list-edit{
+    @include btn-admin(#50e3c2, #2336b6);
+  }
+  .btn-list-delete{
+    @include btn-admin(#ee5253, #e92424);
+  }
+}
+
+.add-enter {
+  transform: translate3d(-110%, 0, 0);
+}
+.add-enter-active {
+  transform: translate3d(0, 0, 0);
+  transition:  transform 500ms;
+}
+.add-exit {
+  transform: translate3d(0, 0, 0);
+}
+.add-exit-active {
+  transform: translate3d(-110%, 0, 0);
+  transition: transform 500ms;
+}
+
+.edit-enter {
+  transform: translate3d(10%, 0, 0);
+}
+.edit-enter-active {
+  transform: translate3d(-100%, 0, 0);
+  transition:  transform 500ms;
+}
+.edit-exit {
+  transform: translate3d(-100%, 0, 0);
+}
+.edit-exit-active {
+  transform: translate3d(10%, 0, 0);
+  transition: transform 500ms;
+}
+
+.item-list-enter {
+  opacity: 0;
+}
+.item-list-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.item-list-exit {
+  opacity: 1;
+}
+.item-list-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.label-checkbox-container{
+  display: flex;
+}
+
+.skills-checkbox-container{
+  flex-direction: column;
+  label{
+    margin-top: 20px;
+  }
+}
+
+/*Media queries*/
+
+/*Tablet*/
+@media screen and (min-width: 640px){
+  .title-container{
+    h2{
+      width: 90%;
+    }
+    .btn-switch-container, .btn-delete-info{
+      width: 10%;
+    }
+  }
+
+  .title-container-info-gen{
+    h2{
+      width: 100%;
+    }
+  }
+
+  .list-container{
+    li{
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .div-list-container{
+        display: flex;
+        div{
+          margin: 0;
+        }
+      }
+    }
+    .title-list{
+      max-width: 350px;
+    }
+  }
+
+  .skills-checkbox-container{
+    flex-direction: row;
+    label{
+      margin-top: 0;
+    }
+  }
+  
+}
+
+/*Full-screen*/
+@media screen and (min-width: 960px) {
+  .info-container, .educExpe-container, .skill-container{
+    padding: 0;
+  }
+
+  .list-container{
+    .title-list{
+      max-width: 650px;
+    }
+  }
+}
