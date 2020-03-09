@@ -1,0 +1,55 @@
+.portfolio-container{
+  border-top: $border;
+}
+
+.portfolio {
+
+}
+
+.projects{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 60px 0;
+}
+
+.project{
+  position: relative;
+  width: calc(33% - 40px);
+  height: 200px;
+  margin: 20px;
+  background-color: red;
+  border-radius: 7px;
+  cursor: pointer;
+  .project-name{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: $principal-color;
+    padding: 3px 9px;
+    border-top-right-radius: 7px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 5;
+    transition: color ease-in-out .2s;
+  }
+  .project-more{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 20px);
+    margin: 10px;
+    border-radius: 7px;
+    background-color: $principal-hover;
+    color: $blue;
+    div{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &:hover{
+    .project-name{
+      color: $blue;
+    }
+  }
+}
