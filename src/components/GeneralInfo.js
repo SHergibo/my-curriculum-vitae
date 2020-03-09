@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import FormGeneralInfo from './FormGeneralInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import ModalEditAdmin from "./ModalEditAdmin";
+import Modal from "./Modal";
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
@@ -83,7 +83,7 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, s
         </div>
       </div>
       {displayForm &&
-        <ModalEditAdmin formType={"deleteInfo"} closeModal={closeModal} div={doubleCheckDelete} />
+        <Modal formType={"deleteInfo"} closeModal={closeModal} div={doubleCheckDelete} />
       }
     </div>
   )

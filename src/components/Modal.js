@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-function ModalEditAdmin({ div, closeModal }) {
+function Modal({ div, closeModal }) {
 
   window.addEventListener("click", (event) => {
     if(event.target.className === "modal"){
@@ -19,9 +19,9 @@ function ModalEditAdmin({ div, closeModal }) {
   );
 }
 
-ModalEditAdmin.propTypes = {
+Modal.propTypes = {
   div: PropTypes.object.isRequired,
   closeModal: PropTypes.func.isRequired,
 }
 
-export default ModalEditAdmin;
+export default Modal;

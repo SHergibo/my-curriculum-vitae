@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import ModalEditAdmin from "./ModalEditAdmin";
+import Modal from "./Modal";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormEducExpe from "./FormEducExpe";
 import PropTypes from 'prop-types';
@@ -89,7 +89,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, s
         </ul>
       </div>
       {displayForm  && 
-        <ModalEditAdmin div={<FormEducExpe handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />} closeModal={closeModal}/>
+        <Modal div={<FormEducExpe handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />} closeModal={closeModal}/>
       }
     </div>
   );
