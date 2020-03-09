@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faJs, faHtml5 } from '@fortawesome/free-brands-svg-icons';
+import { faPlus, faLink } from '@fortawesome/free-solid-svg-icons';
 // import PropTypes from 'prop-types';
 
 function Portfolio() {
@@ -13,13 +13,16 @@ function Portfolio() {
         </div>
         <div className="projects">
           <div className="project">
+            <img src="./site_cv_portfolio.png" alt="Site CV Hergibo Sacha" />
             <div className="project-name">
-              Project Name
+              Site CV
             </div>
             <div className="project-more">
               <div>
-                <span>+</span>
-                <span>link</span>
+                <span><FontAwesomeIcon icon={faPlus} /></span>
+                <span>
+                  <a href="#"><FontAwesomeIcon icon={faLink} /></a>
+                </span>
               </div>
             </div>
           </div>

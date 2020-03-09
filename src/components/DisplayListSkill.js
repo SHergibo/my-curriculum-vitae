@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import ModalEditAdmin from "./ModalEditAdmin";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import FormSkill from "./FormSkill";
 import PropTypes from 'prop-types';
 
 function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill , arrayLanguage, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal }) {
@@ -106,7 +107,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill , arrayLanguage, 
         </ul>
       </div>
       {displayForm &&
-        <ModalEditAdmin value={value} formType={"skill"} submit={submit} setId={setId} success={success} closeModal={closeModal} />
+        <ModalEditAdmin div={<FormSkill handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />} closeModal={closeModal}/>
       }
     </div>
   );
