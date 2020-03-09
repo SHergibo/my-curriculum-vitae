@@ -41,10 +41,24 @@
     margin: 10px;
     border-radius: 7px;
     background-color: $principal-hover;
-    color: $blue;
     div{
+      width: 100px;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      span{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45px;
+        height: 45px;
+        background-color: $blue;
+        border-radius: 5px;
+        color: #ffffff;
+        transition: background-color ease-in-out .2s;
+        &:hover{
+          background-color: $blue-hover;
+        }
+      }
     }
   }
   &:hover{
