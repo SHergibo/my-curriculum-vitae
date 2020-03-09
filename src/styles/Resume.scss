@@ -13,17 +13,17 @@
 
 .edu-container{
   margin-top: 70px;
-  @include title(190px);
+  @include title();
 }
 
 .exp-container{
   margin-top: 70px;
-  @include title(210px);
+  @include title();
 }
 
 .skill-container{
   margin-top: 70px;
-  @include title(270px);
+  @include title();
 }
 
 .skill-canvas{

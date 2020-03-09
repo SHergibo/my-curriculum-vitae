@@ -12,7 +12,7 @@
 .contact-form {
   border-bottom: $border;
   padding-top: 80px;
-  @include title(325px);
+  @include title();
   p {
     margin: 20px 0;
     font-size: 16px;
