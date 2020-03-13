@@ -66,6 +66,7 @@ function Navbar({ location, logout }) {
       {name: "Infos générales", to : "infos", offset : -80, duration : 1000},
       {name: "Éduc/Éxpe", to : "educexpe", offset : -80, duration : 1000},
       {name: "Compétences", to : "skills", offset : -80, duration : 1000},
+      {name: "Projets", to : "projects", offset : -80, duration : 1000},
     ]
   
     divMobile = <ul>

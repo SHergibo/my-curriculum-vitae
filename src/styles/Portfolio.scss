@@ -113,6 +113,16 @@
     }
   }
 }
+
+.form-project-admin{
+  display: flex;
+  flex-direction: column;
+  .project-from-container-first, .project-from-container-last{
+    .input{
+      width: 100%;
+    }
+  }
+}
 /*Media queries*/
 
 /*Tablet*/
@@ -153,6 +163,19 @@
       p{
         color: #ffffff;
       }
+    }
+  }
+
+  .form-project-admin{
+    flex-direction: row;
+    .project-from-container-first, .project-from-container-last{
+      width: 50%;
+    }
+    .project-from-container-first{
+      margin-right: 10px;
+    }
+    .project-from-container-last{
+      margin-left: 10px;
     }
   }
 }

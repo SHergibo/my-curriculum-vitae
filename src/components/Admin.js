@@ -10,6 +10,7 @@ import BackToTop from './BackToTop';
 import { logout, refreshToken } from './../utils/Auth';
 import EducExpe from './EducExpe';
 import Skills from './Skills';
+import Projects from './Projects';
 import PropTypes from 'prop-types';
 
 function Admin({history, location}) {
@@ -102,6 +103,7 @@ function Admin({history, location}) {
         <GeneralInfo data={generalInfo} onSubmitAdd={onSubmitAdd} onSubmitEdit={onSubmitEdit} success={success} showEditForm={showEditForm} setShowEditForm={setShowEditForm} />
         <EducExpe />
         <Skills />
+        <Projects />
       </main>
       <footer>
         <Footer />
