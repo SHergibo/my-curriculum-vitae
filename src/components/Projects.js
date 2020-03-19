@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from '../utils/axiosInstance';
+import axios from 'axios';
 import { apiDomain, apiVersion } from '../apiConfig/ApiConfig';
 import checkSuccess from '../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
@@ -37,10 +38,28 @@ function Projects() {
   };
 
   const onSubmitAdd = async (data) => {
+    console.log(data.projectImg[0]);
+    const formData = new FormData();
+    formData.append('projectName', data.projectName);
+    formData.append('url', data.projectUrl);
+    formData.append('img', data.projectImg[0]);
+    formData.append('altImg', data.projectAltImg);
+    formData.append('description', data.descriptionProject);
+    // const workingData = {
+    //   projectName : data.projectName,
+    //   url : data.projectUrl,
+    //   img : data.projectImg[0],
+    //   altImg : data.projectAltImg,
+    //   description : data.descriptionProject,
+    // };
     const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project`;
-    await axiosInstance.post(getListProjectPoint, data)
+    await axios.post(getListProjectPoint, formData, {
+      headers: { 'content-type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem('access_token')}`
+     }
+    })
       .then((response) => {
-        checkSuccess(response.status, success, setSuccess, 1);
+        // checkSuccess(response.status, success, setSuccess, 1);
       });
   };
 

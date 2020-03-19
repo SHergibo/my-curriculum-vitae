@@ -50,8 +50,8 @@ function FormProject({ handleFunction, setId, formType, value, success }) {
             <label htmlFor="projectImg">Image du projet *</label>
             <div className="input-block">
               <span><FontAwesomeIcon icon={faImages} /></span>
-              {formType === "add" && <input name="projectImg" type="text" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} />}
-              {formType === "edit" && <input name="projectImg" type="text" id="projectImg" placeholder="Image du projet" defaultValue={value.img} ref={register({ required: true })} />}
+              {formType === "add" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} />}
+              {formType === "edit" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" defaultValue={value.img} ref={register({ required: true })} />}
             </div>
             {errors.projectImg && <span className="error-message">Une image est requise</span>}
           </div>
