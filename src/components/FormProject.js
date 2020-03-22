@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck, faLink, faImages, faInfoCircle, faFileSignature, faEdit } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
 function FormProject({ handleFunction, setId, formType, value, success }) {
+  const [imgEdit, setImgEdit] = useState(false);
+
+  useEffect(() => {
+    if(formType === "edit"){
+      setImgEdit(true);
+    }
+  }, [formType]);
+
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange"
   });
@@ -16,6 +24,10 @@ function FormProject({ handleFunction, setId, formType, value, success }) {
     titleForm = "Édition";
     button = "Éditer";
   }
+
+  const switchToInput = () =>{
+    setImgEdit(false);
+  };
 
   const form = <div>
     <div className="form-project-admin">
@@ -45,17 +57,29 @@ function FormProject({ handleFunction, setId, formType, value, success }) {
         <div>Used Technology</div>
       </div>
       <div className="project-from-container-last">
-        <div className="input-container">
-          <div className="input">
-            <label htmlFor="projectImg">Image du projet *</label>
-            <div className="input-block">
-              <span><FontAwesomeIcon icon={faImages} /></span>
-              {formType === "add" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} />}
-              {formType === "edit" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" defaultValue={value.img} ref={register({ required: true })} />}
+        { imgEdit && 
+          <div className="container-img-project-edit">
+            <p>Image du projet</p>
+            <div>
+              <button className="switch-to-input-project-img" onClick={switchToInput}>X</button>
+              <img src={`http://localhost:8001/api/v1/project/image/${value.img.filename}`} alt={value.altImg}/>
             </div>
-            {errors.projectImg && <span className="error-message">Une image est requise</span>}
           </div>
-        </div>
+        }
+        { !imgEdit &&
+        //TODO rajouter condition pour l'input file => seulement img et jpg
+          <div className="input-container">
+            <div className="input">
+              <label htmlFor="projectImg">Image du projet *</label>
+              <div className="input-block">
+                <span><FontAwesomeIcon icon={faImages} /></span>
+                {formType === "add" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} />}
+                {formType === "edit" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: false })} />}
+              </div>
+              {errors.projectImg && <span className="error-message">Une image est requise</span>}
+            </div>
+          </div>
+        }
         <div className="input-container">
           <div className="input">
             <label htmlFor="projectAltImg">Description de la l'image du projet *</label>

@@ -132,3 +132,22 @@
     color: $grey-one;
   }
 }
+
+@mixin btn-close($top, $right, $size, $fSize) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  width: $size;
+  height: $size;
+  border: none;
+  border-radius: 50%;
+  background-color: $blue;
+  font-size: $fSize;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    color: $principal-color;
+    transform: scale(1.1);
+  }
+}

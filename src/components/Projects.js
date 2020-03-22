@@ -30,7 +30,7 @@ function Projects() {
   }
 
   const getData = async () => {
-    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project`;
+    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project/project-list`;
     await axiosInstance.get(getListProjectPoint)
       .then((response) => {
         setArrayProject(response.data);
@@ -38,20 +38,12 @@ function Projects() {
   };
 
   const onSubmitAdd = async (data) => {
-    console.log(data.projectImg[0]);
     const formData = new FormData();
     formData.append('projectName', data.projectName);
     formData.append('url', data.projectUrl);
     formData.append('img', data.projectImg[0]);
     formData.append('altImg', data.projectAltImg);
     formData.append('description', data.descriptionProject);
-    // const workingData = {
-    //   projectName : data.projectName,
-    //   url : data.projectUrl,
-    //   img : data.projectImg[0],
-    //   altImg : data.projectAltImg,
-    //   description : data.descriptionProject,
-    // };
     const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project`;
     await axios.post(getListProjectPoint, formData, {
       headers: { 'content-type': 'multipart/form-data',
@@ -59,7 +51,8 @@ function Projects() {
      }
     })
       .then((response) => {
-        // checkSuccess(response.status, success, setSuccess, 1);
+        console.log(response);
+        checkSuccess(response.status, success, setSuccess, 3);
       });
   };
 
@@ -74,8 +67,17 @@ function Projects() {
   }
 
   const onClickEdit = async (data) => {
+    console.log(data);
+    const formData = new FormData();
+    formData.append('projectName', data.projectName);
+    formData.append('url', data.projectUrl);
+    if(data.projectImg){
+      formData.append('img', data.projectImg[0]);
+    }
+    formData.append('altImg', data.projectAltImg);
+    formData.append('description', data.descriptionProject);
     const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/project/${idItem}`;
-    await axiosInstance.patch(editEducExpeEndPoint, data)
+    await axiosInstance.patch(editEducExpeEndPoint, formData)
       .then(() => {
         closeModal();
       });
