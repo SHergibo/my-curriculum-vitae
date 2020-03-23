@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck, faLink, faImages, faInfoCircle, faFileSignature, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -31,7 +31,7 @@ function FormProject({ handleFunction, setId, formType, value, success }) {
 
   const form = <div>
     <div className="form-project-admin">
-      <div className="project-from-container-first">
+      <div className="project-form-container-first">
         <div className="input-container">
           <div className="input">
             <label htmlFor="projectName">Nom du projet *</label>
@@ -54,9 +54,50 @@ function FormProject({ handleFunction, setId, formType, value, success }) {
             {errors.projectUrl && <span className="error-message">Ce champ est requis</span>}
           </div>
         </div>
-        <div>Used Technology</div>
+        <div>
+        <div className="label-checkbox-container code-used-checkbox-container">
+          <p>Framework utilisé(s)</p>
+          <div>
+            <label className="container-checkbox">React
+              {formType === "add" && <input type="checkbox" name="react" ref={register({ required: false })} />}
+              {formType === "edit" && <input type="checkbox" name="react" defaultChecked={value.technoUsedFront.react} ref={register({ required: false })} />}
+              <span className="checkmark-checkbox"></span>
+            </label>
+            <label className="container-checkbox">Ember
+              {formType === "add" && <input type="checkbox" name="ember" ref={register({ required: false })} />}
+              {formType === "edit" && <input type="checkbox" name="ember" defaultChecked={value.technoUsedFront.ember} ref={register({ required: false })} />}
+              <span className="checkmark-checkbox"></span>
+            </label>
+            <label className="container-checkbox">Angular
+              {formType === "add" && <input type="checkbox" name="angular" ref={register({ required: false })} />}
+              {formType === "edit" && <input type="checkbox" name="angular" defaultChecked={value.technoUsedFront.angular} ref={register({ required: false })} />}
+              <span className="checkmark-checkbox"></span>
+            </label>
+          </div>
+        </div>
+        <div className="label-checkbox-container code-used-checkbox-container">
+          <p>Technologie(s) utilisée(s) pour le back-office</p>
+          <div>
+            <label className="container-checkbox">Express
+              {formType === "add" && <input type="checkbox" name="express" ref={register({ required: false })} />}
+              {formType === "edit" && <input type="checkbox" name="express" defaultChecked={value.technoUsedBack.express} ref={register({ required: false })} />}
+              <span className="checkmark-checkbox"></span>
+            </label>
+            <label className="container-checkbox">NodeJS
+              {formType === "add" && <input type="checkbox" name="nodejs" ref={register({ required: false })} />}
+              {formType === "edit" && <input type="checkbox" name="nodejs" defaultChecked={value.technoUsedBack.nodejs} ref={register({ required: false })} />}
+              <span className="checkmark-checkbox"></span>
+            </label>
+            <label className="container-checkbox">MongoDB
+              {formType === "add" && <input type="checkbox" name="mongodb" ref={register({ required: false })} />}
+              {formType === "edit" && <input type="checkbox" name="mongodb" defaultChecked={value.technoUsedBack.mongodb} ref={register({ required: false })} />}
+              <span className="checkmark-checkbox"></span>
+            </label>
+          </div>
+        </div>
+        </div>
       </div>
-      <div className="project-from-container-last">
+      <div className="project-form-container-last">
         { imgEdit && 
           <div className="container-img-project-edit">
             <p>Image du projet</p>

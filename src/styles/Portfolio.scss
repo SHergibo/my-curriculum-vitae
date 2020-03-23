@@ -117,7 +117,7 @@
 .form-project-admin{
   display: flex;
   flex-direction: column;
-  .project-from-container-first, .project-from-container-last{
+  .project-form-container-first, .project-form-container-last{
     .input{
       width: 100%;
     }
@@ -151,26 +151,7 @@
 /*Media queries*/
 
 /*Tablet*/
-@media screen and (min-width: 640px){
-  .info-project-modal{
-    .img-project{
-      img{
-        width: 80%;
-      }
-    }
-  }
-  .form-project-admin{
-    .container-img-project-edit{
-      div{
-        width: 375px;
-        height: 200px;
-      }
-    }
-  }
-}
-
-/*Full-screen*/
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 640px) {
   .projects{
     justify-content: flex-start;
   }
@@ -201,14 +182,34 @@
 
   .form-project-admin{
     flex-direction: row;
-    .project-from-container-first, .project-from-container-last{
+    .project-form-container-first, .project-form-container-last{
       width: 50%;
     }
-    .project-from-container-first{
+    .project-form-container-first{
       margin-right: 10px;
     }
-    .project-from-container-last{
+    .project-form-container-last{
       margin-left: 10px;
+    }
+    .container-img-project-edit{
+      div{
+        margin: 0 auto;
+        width: 250px;
+        height: 150px;
+      }
     }
   }
 }
+
+/*Full-screen*/
+@media screen and (min-width: 960px){
+  .form-project-admin{
+    .container-img-project-edit{
+      div{
+        width: 375px;
+        height: 200px;
+      }
+    }
+  }
+}
+

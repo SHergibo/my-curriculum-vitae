@@ -13,11 +13,11 @@
 
 .modal-container {
   display: flex;
-  align-items: center;
   height: 100%;
   position: relative;
   background-color: $principal-color;
-  padding: 0 15px;
+  padding: 20px 15px;
+  overflow-y: auto;
 
 }
 

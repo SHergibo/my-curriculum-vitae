@@ -72,17 +72,17 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
                     </div>
                   </div>
                   <div className="label-checkbox-container skills-checkbox-container">
-                    <label className="container-checkbox">Compétences code
+                    <label className="container-radio">Compétences code
                       <input type="radio" defaultChecked={checkboxCodingSkill} name="skillCategory" value="codingSkill" ref={register({ required: true })} />
-                      <span className="checkmark"></span>
+                      <span className="checkmark-radio"></span>
                     </label>
-                    <label className="container-checkbox">Compétences générales
+                    <label className="container-radio">Compétences générales
                       <input type="radio" defaultChecked={checkboxGeneralSkill} name="skillCategory" value="generalSkill" ref={register({ required: true })} />
-                      <span className="checkmark"></span>
+                      <span className="checkmark-radio"></span>
                     </label>
-                    <label className="container-checkbox">Langues
+                    <label className="container-radio">Langues
                       <input type="radio" defaultChecked={checkboxLanguage} name="skillCategory" value="language" ref={register({ required: true })} />
-                      <span className="checkmark"></span>
+                      <span className="checkmark-radio"></span>
                     </label>
                   </div>
                   <div className="btn-container">

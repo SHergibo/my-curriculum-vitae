@@ -44,6 +44,8 @@ function Projects() {
     formData.append('img', data.projectImg[0]);
     formData.append('altImg', data.projectAltImg);
     formData.append('description', data.descriptionProject);
+    formData.append('technoUsedFront', JSON.stringify({"react" : data.react, "ember" : data.ember, "angular" : data.angular}));
+    formData.append('technoUsedBack', JSON.stringify({"express" : data.express, "nodejs" : data.nodejs, "mongodb" : data.mongodb}));
     const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project`;
     await axios.post(getListProjectPoint, formData, {
       headers: { 'content-type': 'multipart/form-data',
@@ -67,7 +69,6 @@ function Projects() {
   }
 
   const onClickEdit = async (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append('projectName', data.projectName);
     formData.append('url', data.projectUrl);
@@ -76,9 +77,13 @@ function Projects() {
     }
     formData.append('altImg', data.projectAltImg);
     formData.append('description', data.descriptionProject);
+    formData.append('technoUsedFront', JSON.stringify({"react" : data.react, "ember" : data.ember, "angular" : data.angular}));
+    formData.append('technoUsedBack', JSON.stringify({"express" : data.express, "nodejs" : data.nodejs, "mongodb" : data.mongodb}));
     const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/project/${idItem}`;
     await axiosInstance.patch(editEducExpeEndPoint, formData)
-      .then(() => {
+      .then((response) => {
+        let arrayResponse = [response.data];
+        setArrayProject([...arrayProject].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
         closeModal();
       });
   };
@@ -92,13 +97,12 @@ function Projects() {
   };
 
   return (
-    <div className="educExpe-section"> 
-      {/* TODO changer nom de classe css */}
+    <div className="project-section"> 
       <div id="projects" className="wrapper">
         <div className="title-left-admin">
           Projets
         </div>
-        <div className="educExpe-container">
+        <div className="project-container">
           <div className="title-container">
             <h2>Projets</h2>
             <div className="btn-switch-container">
