@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck, faLink, faImages, faInfoCircle, faFileSignature, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
 function FormProject({ handleFunction, setId, formType, value, success }) {
@@ -103,7 +104,7 @@ function FormProject({ handleFunction, setId, formType, value, success }) {
             <p>Image du projet</p>
             <div>
               <button className="switch-to-input-project-img" onClick={switchToInput}>X</button>
-              <img src={`http://localhost:8001/api/v1/project/image/${value.img.filename}`} alt={value.altImg}/>
+              <img src={`${apiDomain}/api/${apiVersion}/project/image/${value.img.filename}`} alt={value.altImg}/>
             </div>
           </div>
         }

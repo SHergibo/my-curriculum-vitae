@@ -1,53 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InfoProjectModal from "./InfoProjectModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faLink } from '@fortawesome/free-solid-svg-icons';
 import Modal from "./Modal";
-// import PropTypes from 'prop-types';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import axios from "axios";
 
 function Portfolio() {
   const [value, setValue] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
-  const [arrayProject, setArrayProject] = useState([{
-    _id: "0",
-    projectName : "Site CV",
-    img : "site_cv_portfolio.png",
-    altImg : "Site CV Hergibo Sacha",
-    description : "Lorem Ipsum",
-    url : "#"
-  },
-  {
-    _id: "1",
-    projectName : "Site CV",
-    img : "site_cv_portfolio.png",
-    altImg : "Site CV Hergibo Sacha",
-    description : "Lorem Ipsum",
-    url : "#"
-  },
-  {
-    _id: "2",
-    projectName : "Site CV",
-    img : "site_cv_portfolio.png",
-    altImg : "Site CV Hergibo Sacha",
-    description : "Lorem Ipsum",
-    url : "#"
-  }]);
+  const [arrayProject, setArrayProject] = useState([]);
   let body = document.getElementsByTagName("body")[0];
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const displayModal = (value) => {
     body.setAttribute('style', 'overflow : hidden;');
     setValue(value);
     setDisplayForm(true);
-  }
+  };
 
   const closeModal = () => {
     body.removeAttribute('style');
     setDisplayForm(false);
-  } 
+  };
+
+  const getData = async () => {
+    const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/project-list`;
+    await axios.get(getListProjectEndPoint)
+      .then((response) => {
+        setArrayProject(response.data);
+      });
+  };
 
   let projectPortfolio = arrayProject.map((item) => {
     return <div className="project" key={item._id}>     
-            <img src={`./${item.img}`} alt={item.altImg} />
+            <img src={`${apiDomain}/api/${apiVersion}/project/image/${item.img.filename}`} alt={item.altImg} />
             <div className="project-name">
               {item.projectName}
             </div>
@@ -78,9 +68,5 @@ function Portfolio() {
     </div>
   );
 }
-
-// Portfolio.propTypes = {
-//   data: PropTypes.object.isRequired,
-// }
 
 export default Portfolio;
