@@ -128,12 +128,16 @@
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: #eee;
+  border: 1px solid $grey-one;
+  border-radius: 5px;
   transition: .3s ease-in-out;
 }
 
-.container-radio:hover input ~ .checkmark-radio, .container-checkbox:hover input ~ .checkmark-checkbox {
+.container-radio:hover input ~ .checkmark-radio {
   background-color: #ccc;
+}
+.container-checkbox:hover input ~ .checkmark-checkbox{
+  border-color: $blue;
 }
 
 .container-radio input:checked ~ .checkmark-radio, .container-checkbox input:checked ~ .checkmark-checkbox {
@@ -160,8 +164,8 @@
 }
 
 .container-checkbox .checkmark-checkbox:after {
-  left: 9px;
-  top: 5px;
+  left: 8px;
+  top: 4px;
   width: 5px;
   height: 10px;
   border: solid white;
