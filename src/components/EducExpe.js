@@ -18,6 +18,8 @@ function EducExpe() {
   const [arrayExpe, setArrayExpe] = useState([]);
   const [idItem, setIdItem] = useState();
   const [displayForm, setDisplayForm] = useState(false);
+  const [dateStart, setDateStart] = useState(null);
+  const [dateEnd, setDateEnd] = useState(null);
 
   useEffect(() => {
     let windowWidth = window.innerWidth;
@@ -52,11 +54,14 @@ function EducExpe() {
       });
   };
 
-  const onSubmitAdd = async (data) => {
+  const onSubmitAdd = async (data, e) => {
     const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
     await axiosInstance.post(addEducExpeEndPoint, data)
       .then((response) => {
         checkSuccess(response.status, success, setSuccess, 1);
+        e.target.reset();
+        setDateStart(null);
+        setDateEnd(null);
       });
   };
 
@@ -154,7 +159,7 @@ function EducExpe() {
               unmountOnExit
             >
               <div className="form-container">
-                <FormEducExpe handleFunction={onSubmitAdd} formType="add" success={success} />
+                <FormEducExpe handleFunction={onSubmitAdd} formType="add" success={success} dateStart={dateStart} setDateStart={setDateStart} dateEnd={dateEnd} setDateEnd={setDateEnd} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -165,7 +170,7 @@ function EducExpe() {
             >
               <div className="list-container">
                 <h3>Édition</h3>
-                <DisplayListEducExpe arrayEduc={arrayEduc} arrayExpe={arrayExpe} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal}/>
+                <DisplayListEducExpe arrayEduc={arrayEduc} arrayExpe={arrayExpe} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal} dateStart={dateStart} setDateStart={setDateStart} dateEnd={dateEnd} setDateEnd={setDateEnd}/>
               </div>
             </CSSTransition>
           </div>

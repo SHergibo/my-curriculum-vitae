@@ -6,7 +6,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormEducExpe from "./FormEducExpe";
 import PropTypes from 'prop-types';
 
-function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal}) {
+function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal, dateStart, setDateStart, dateEnd, setDateEnd}) {
   const [value, setValue] = useState({});
   let body = document.getElementsByTagName("body")[0];
 
@@ -89,7 +89,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, s
         </ul>
       </div>
       {displayForm  && 
-        <Modal div={<FormEducExpe handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />} closeModal={closeModal}/>
+        <Modal div={<FormEducExpe handleFunction={submit} setId={setId} formType="edit" value={value} success={success} dateStart={dateStart} setDateStart={setDateStart} dateEnd={dateEnd} setDateEnd={setDateEnd} />} closeModal={closeModal}/>
       }
     </div>
   );

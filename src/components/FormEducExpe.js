@@ -9,11 +9,9 @@ import { fr } from 'date-fns/locale'
 import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
-function FormEducExpe({ handleFunction, setId, formType, value, success }) {
+function FormEducExpe({ handleFunction, setId, formType, value, success, dateStart, setDateStart, dateEnd, setDateEnd }) {
   const [checkboxExpe, setCheckboxExpe] = useState();
   const [checkboxEduc, setCheckboxEduc] = useState();
-  const [dateStart, setDateStart] = useState(null);
-  const [dateEnd, setDateEnd] = useState(null);
 
   const { register, handleSubmit, errors, setValue, setError, clearError } = useForm({
     mode: "onChange"

@@ -37,7 +37,7 @@ function Projects() {
       });
   };
 
-  const onSubmitAdd = async (data) => {
+  const onSubmitAdd = async (data, e) => {
     const formData = new FormData();
     formData.append('projectName', data.projectName);
     formData.append('url', data.projectUrl);
@@ -53,8 +53,8 @@ function Projects() {
      }
     })
       .then((response) => {
-        console.log(response);
         checkSuccess(response.status, success, setSuccess, 3);
+        e.target.reset();
       });
   };
 
