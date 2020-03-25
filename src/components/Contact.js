@@ -9,11 +9,12 @@ import PropTypes from 'prop-types';
 
 function Contact({data}) {
   let [success, setSuccess] = useState(false);
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
     const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
     await Axios.post(registerEndPoint, data)
       .then((response) => {
         checkSuccess(response.status, success, setSuccess, 0);
+        e.target.reset();
       })
       .catch(err => {
         console.log("err", err);
