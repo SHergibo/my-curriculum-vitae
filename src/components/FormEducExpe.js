@@ -35,7 +35,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, dateSta
         setCheckboxEduc("checked");
       }
     }
-  }, [register, setValue, value, formType, setCheckboxExpe, checkboxEduc]);
+  }, [register, setValue, value, formType, setCheckboxExpe, checkboxEduc, setDateStart, setDateEnd]);
 
   let titleForm = "Ajout";
   let button = "Ajouter";
