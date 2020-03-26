@@ -26,6 +26,13 @@
       background-color: $blue-hover;
       transform: scale(1.2);
     }
+    &:focus{
+      outline-style:none;
+      box-shadow:none;
+      border-color:transparent;
+      background-color: $blue-hover;
+      transform: scale(1.2);
+    }
   }
   
   .back-to-top-show{

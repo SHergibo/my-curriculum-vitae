@@ -70,24 +70,28 @@ function Resume() {
       });
   };
 
+  const focusOnKeypress = (elem) => {
+    document.getElementById(elem).scrollIntoView();
+  }
+
   return (
     <div id="resume" className="wrapper resume">
       <div className="title-left">Résumé</div>
       <div className="menu-resume">
         <div className="list-resume" style={{ top: 30 + 'px' }}>
           <ul>
-            <li>
-              <Link tabIndex={0} activeClass="active" to="education" spy={true} smooth={true} offset={-80} duration={1000}>
+            <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("education")}}>
+              <Link activeClass="active" to="education" spy={true} smooth={true} offset={-80} duration={1000}>
                 Éducation
               </Link>
             </li>
-            <li>
-              <Link tabIndex={0} activeClass="active" to="experience" spy={true} smooth={true} offset={-80} duration={1000}>
+            <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("experience")}}>
+              <Link activeClass="active" to="experience" spy={true} smooth={true} offset={-80} duration={1000}>
                 Expérience
               </Link>
             </li>
-            <li>
-              <Link tabIndex={0} activeClass="active" to="skills" spy={true} smooth={true} offset={-80} duration={1000}>
+            <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("skills")}}>
+              <Link activeClass="active" to="skills" spy={true} smooth={true} offset={-80} duration={1000}>
                 Compétences
               </Link>
             </li>

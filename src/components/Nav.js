@@ -43,9 +43,13 @@ function Nav({ li, divMobile, divNonMobile }) {
     }
   };
 
+  const focusOnKeypress = (elem) => {
+    document.getElementById(elem).scrollIntoView();
+  }
+
   let liList = li.map((item, index) => {
-    return <li key={"nav"+index}>
-            <Link tabIndex={0} activeClass="active" to={item.to} spy={true} smooth={true} offset={item.offset} duration={item.duration}>
+    return <li tabIndex={0} onKeyPress={()=>{focusOnKeypress(item.to)}} key={"nav"+index}>
+            <Link activeClass="active" to={item.to} spy={true} smooth={true} offset={item.offset} duration={item.duration}>
               {item.name}
             </Link>
           </li>;

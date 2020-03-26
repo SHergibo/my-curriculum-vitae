@@ -46,6 +46,14 @@
       .active{
         color: #ffffff;
       }
+      &:focus{
+        outline-style:none;
+        box-shadow:none;
+        border-color:transparent;
+        a{
+          color: #ffffff;
+        }
+      }
     } 
   }
   a {
@@ -73,7 +81,19 @@
 }
 
 .social-svg {
-  @include svgFill(20px)
+  @include svgFill(20px);
+  a{
+    &:focus{
+      outline-style:none;
+      box-shadow:none;
+      border-color:transparent;
+      svg{
+        path{
+          fill:#ffffff
+        }
+      }
+    }
+  }
 }
 
 .burger-menu-svg {

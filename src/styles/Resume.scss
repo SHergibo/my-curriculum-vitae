@@ -6,6 +6,16 @@
 
 .list-resume {
   display: none;
+  li {
+    &:focus{
+      outline-style:none;
+      box-shadow:none;
+      border-color:transparent;
+      a{
+        color: #ffffff;
+      }
+    }
+  } 
 }
 .edu-expe {
   width: 100%;
