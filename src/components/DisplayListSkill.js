@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Modal from "./Modal";
@@ -81,27 +81,33 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill , arrayLanguage, 
   }
 
   return (
-    <div>
-      <h4>Compétences</h4>
+    <Fragment>
       <div>
+        <h4>Compétences</h4>
         <ul>
-          <TransitionGroup>
+          <TransitionGroup
+          component={null}
+          >
             {liListCodingSkill}
           </TransitionGroup>
         </ul>
       </div>
-      <h4>Compétences générales</h4>
       <div>
+        <h4>Compétences générales</h4>
         <ul>
-          <TransitionGroup>
+          <TransitionGroup
+          component={null}
+          >
             {liListGeneralSkill}
           </TransitionGroup>
         </ul>
       </div>
-      <h4>Langues</h4>
       <div>
+        <h4>Langues</h4>
         <ul>
-          <TransitionGroup>
+          <TransitionGroup
+          component={null}
+          >
             {liListLanguage}
           </TransitionGroup>
         </ul>
@@ -109,7 +115,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill , arrayLanguage, 
       {displayForm &&
         <Modal div={<FormSkill handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />} closeModal={closeModal}/>
       }
-    </div>
+    </Fragment>
   );
 }
 

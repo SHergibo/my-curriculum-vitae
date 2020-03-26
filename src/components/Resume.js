@@ -105,9 +105,7 @@ function Resume() {
         </div>
         <div id="skills" className="skill-container">
           <h2>Compétences</h2>
-          <div>
-            <CanvasResume data={arrayCodingSkill} />
-          </div>
+          <CanvasResume data={arrayCodingSkill} />
           <div className="skill-bars">
             <div className="soft-skills">
               <h4>Compétences générales</h4>

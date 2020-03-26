@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Modal from "./Modal";
@@ -35,11 +35,13 @@ function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success,
   });
 
   return (
-    <div>
-      <h4>Projets</h4>
+    <Fragment>
       <div>
+        <h4>Projets</h4>
         <ul>
-          <TransitionGroup>
+          <TransitionGroup
+          component={null}
+          >
             {liListProjects}
           </TransitionGroup>
         </ul>
@@ -47,7 +49,7 @@ function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success,
       {displayForm &&
         <Modal div={<FormProject handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />} closeModal={closeModal} />
       }
-    </div>
+    </Fragment>
   );
 }
 

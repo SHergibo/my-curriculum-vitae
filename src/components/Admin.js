@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
@@ -94,7 +94,7 @@ function Admin({history, location}) {
     history.push("/");
   };
   return (
-    <div>
+    <Fragment>
       <header id="header">
         <Home location={location.pathname} data={generalInfo}/>
         <Navbar location={location.pathname} logout={logOut}/>
@@ -109,7 +109,7 @@ function Admin({history, location}) {
         <Footer />
       </footer>
       <BackToTop />
-    </div>
+    </Fragment>
   )
 }
 

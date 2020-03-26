@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, Fragment } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck, faGraduationCap, faPercentage, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -38,7 +38,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
     button = "Éditer";
   }
 
-  const form = <div>
+  const form = <Fragment>
                   <div className="input-container">
                     <div className="input">
                       <label htmlFor="nameSkill">Nom de la compétences *</label>
@@ -99,10 +99,10 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
                       {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
                     </span>
                   </div>
-                </div>;
+                </Fragment>;
 
   return (
-    <div>
+    <Fragment>
       <h3>{titleForm}</h3>
       {formType === "add" &&
         <form onSubmit={handleSubmit(handleFunction)}>
@@ -114,7 +114,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
           {form}
         </form>
       }
-    </div>
+    </Fragment>
   );
 }
 

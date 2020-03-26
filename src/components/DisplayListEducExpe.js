@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Modal from "./Modal";
@@ -71,19 +71,23 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, s
   }
 
   return (
-    <div>
-      <h4>Éducation</h4>
+    <Fragment>
       <div>
+        <h4>Éducation</h4>
         <ul>
-          <TransitionGroup>
+          <TransitionGroup
+          component={null}
+          >
             {liListEduc}
           </TransitionGroup>
         </ul>
-      </div>         
-      <h4>Expérience</h4>
+      </div>
       <div>
+        <h4>Expérience</h4>
         <ul>
-          <TransitionGroup>
+          <TransitionGroup
+          component={null}
+          >
             {liListExpe}
           </TransitionGroup>
         </ul>
@@ -91,7 +95,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, s
       {displayForm  && 
         <Modal div={<FormEducExpe handleFunction={submit} setId={setId} formType="edit" value={value} success={success} dateStart={dateStart} setDateStart={setDateStart} dateEnd={dateEnd} setDateEnd={setDateEnd} />} closeModal={closeModal}/>
       }
-    </div>
+    </Fragment>
   );
 }
 

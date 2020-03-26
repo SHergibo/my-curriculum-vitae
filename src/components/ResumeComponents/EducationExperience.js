@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 function EducationExperience({ data }) {
@@ -33,9 +33,9 @@ function EducationExperience({ data }) {
   });
 
   return (
-    <div>
+    <Fragment>
       {displayEducExpe}
-    </div>
+    </Fragment>
   );
 }
 

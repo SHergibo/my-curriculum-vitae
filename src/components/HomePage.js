@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { format } from 'date-fns';
@@ -48,7 +48,7 @@ function HomePage() {
 
 
   return (
-    <div>
+    <Fragment>
       <header id="header">
         <Home data={generalInfo} />
         <Navbar />
@@ -63,7 +63,7 @@ function HomePage() {
         <Footer />
       </footer>
       <BackToTop />
-    </div>
+    </Fragment>
   );
 }
 

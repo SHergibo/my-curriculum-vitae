@@ -65,8 +65,6 @@ function CanvasResume({ data }) {
     <div className="skill-canvas">
       {displayCodingSkill}
     </div>
-      
-    
   );
 }
 

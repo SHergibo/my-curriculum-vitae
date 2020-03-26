@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { animateScroll as scroll } from 'react-scroll';
 
 
@@ -7,13 +7,13 @@ function Logo() {
     scroll.scrollToTop();
   }
   return (
-    <div>
+    <Fragment>
       <div className="logo" onClick={scrollToTop}>
         <a href="#home">
           <span>Sacha</span>
         </a>
       </div>
-    </div>
+    </Fragment>
   );
 }
 

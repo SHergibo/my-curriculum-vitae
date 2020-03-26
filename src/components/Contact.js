@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 function Contact({data}) {
   let [success, setSuccess] = useState(false);
+
   const onSubmit = async (data, e) => {
     const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
     await Axios.post(registerEndPoint, data)
@@ -20,9 +21,11 @@ function Contact({data}) {
         console.log("err", err);
       });
   };
+
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange"
   });
+  
   return (
     <div className="contact-container">
       <div id="contact" className="wrapper contact">
