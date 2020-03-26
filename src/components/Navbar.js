@@ -70,7 +70,7 @@ function Navbar({ location, logout }) {
     ]
   
     divMobile = <ul>
-                  <li className="logoutSvg" onClick={logout} title="Déconnexion">
+                  <li tabIndex={0} className="logoutSvg" onClick={logout} onKeyPress={logout} title="Déconnexion">
                     <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title"
                       aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
                         <path d="M34 22V6H2v52h32V42"
@@ -84,7 +84,7 @@ function Navbar({ location, logout }) {
                 </ul>;
   
     divNonMobile = <ul>
-                    <li className="logoutSvg" onClick={logout} title="Déconnexion">
+                    <li tabIndex={0} className="logoutSvg" onClick={logout} onKeyPress={logout} title="Déconnexion">
                       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title"
                       aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
                         <path d="M34 22V6H2v52h32V42"

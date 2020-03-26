@@ -77,17 +77,17 @@ function Resume() {
         <div className="list-resume" style={{ top: 30 + 'px' }}>
           <ul>
             <li>
-              <Link activeClass="active" to="education" spy={true} smooth={true} offset={-80} duration={1000}>
+              <Link tabIndex={0} activeClass="active" to="education" spy={true} smooth={true} offset={-80} duration={1000}>
                 Éducation
               </Link>
             </li>
             <li>
-              <Link activeClass="active" to="experience" spy={true} smooth={true} offset={-80} duration={1000}>
+              <Link tabIndex={0} activeClass="active" to="experience" spy={true} smooth={true} offset={-80} duration={1000}>
                 Expérience
               </Link>
             </li>
             <li>
-              <Link activeClass="active" to="skills" spy={true} smooth={true} offset={-80} duration={1000}>
+              <Link tabIndex={0} activeClass="active" to="skills" spy={true} smooth={true} offset={-80} duration={1000}>
                 Compétences
               </Link>
             </li>

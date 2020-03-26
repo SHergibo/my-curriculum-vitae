@@ -45,7 +45,7 @@ function Nav({ li, divMobile, divNonMobile }) {
 
   let liList = li.map((item, index) => {
     return <li key={"nav"+index}>
-            <Link activeClass="active" to={item.to} spy={true} smooth={true} offset={item.offset} duration={item.duration}>
+            <Link tabIndex={0} activeClass="active" to={item.to} spy={true} smooth={true} offset={item.offset} duration={item.duration}>
               {item.name}
             </Link>
           </li>;

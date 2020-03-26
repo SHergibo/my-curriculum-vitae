@@ -9,7 +9,7 @@ function Logo() {
   return (
     <Fragment>
       <div className="logo" onClick={scrollToTop}>
-        <a href="#home">
+        <a tabIndex={0} href="#home">
           <span>Sacha</span>
         </a>
       </div>

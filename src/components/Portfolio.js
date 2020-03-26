@@ -43,9 +43,9 @@ function Portfolio() {
             </div>
             <div className="project-more">
               <div>
-                <span onClick={() => displayModal(item)}><FontAwesomeIcon icon={faPlus} /></span>
+                <span tabIndex={0} onClick={() => displayModal(item)} onKeyPress={() => displayModal(item)}><FontAwesomeIcon icon={faPlus} /></span>
                 <span>
-                  <a href={item.url}><FontAwesomeIcon icon={faLink} /></a>
+                  <a tabIndex={0} href={item.url}><FontAwesomeIcon icon={faLink} /></a>
                 </span>
               </div>
             </div>

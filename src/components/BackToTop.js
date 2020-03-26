@@ -20,7 +20,7 @@ function BackToTop() {
     scroll.scrollToTop();
   }
   return (
-    <div className="back-to-top" onClick={scrollToTop}>
+    <div tabIndex={0} className="back-to-top" onClick={scrollToTop} onKeyPress={scrollToTop}>
       <FontAwesomeIcon icon={faChevronUp} />
     </div>
   );
