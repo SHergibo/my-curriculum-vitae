@@ -119,17 +119,8 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
                     { !imgEdit &&
                     //TODO rajouter condition pour l'input file => seulement img et jpg
                       <div className="input-container">
-                        {/* <div className="input">
-                          <label htmlFor="projectImg">Image du projet *</label>
-                          <div className="input-block">
-                            <span><FontAwesomeIcon icon={faImages} /></span>
-                            {formType === "add" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} />}
-                            {formType === "edit" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: false })} />}
-                          </div>
-                          {errors.projectImg && <span className="error-message">Une image est requise</span>}
-                        </div> */}
                         <div className="input">
-                          <p>Image du Projet *</p>
+                          <label htmlFor="projectImg">Image du projet *</label>
                           <div className="input-block input-file">
                             <span><FontAwesomeIcon icon={faImages} /></span>
                             <div className="container-input-file">
