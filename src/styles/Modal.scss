@@ -24,6 +24,11 @@
 
 .close-modal {
   @include btn-close(15px, 5px, 35px, 20px);
+  &:focus{
+    outline-style:none;
+    box-shadow:none;
+    border-color:transparent;
+  }
 }
 
 

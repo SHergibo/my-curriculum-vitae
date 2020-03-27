@@ -29,6 +29,22 @@
       font-size: 16px;
       color: $grey-two;
     }
+    input[type=file]{
+      opacity: 0;
+      z-index: 10;
+      position: absolute;
+      top: 0;
+      height: 100%;
+    }
+    .container-input-file{
+      width: 100%;
+      position: relative;
+      span{
+        justify-content: flex-start;
+        width: 100%;
+        z-index: 9;
+      }
+    }
     .react-datepicker-wrapper{
       width: 90%;
     }
@@ -62,6 +78,24 @@
         background-color: $blue;
       }
     }
+  }
+  p{
+    display: block;
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+}
+
+.input-file{
+  overflow: hidden;
+  label{
+    display: flex;
+    align-items: center;
+    background-color: $blue;
+    height: 40px;
+    padding: 0 20px;
+    margin: 0;
   }
 }
 

@@ -5,7 +5,7 @@ import { faPlus, faCheck, faLink, faImages, faInfoCircle, faFileSignature, faEdi
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
-function FormProject({ handleFunction, setId, formType, value, success }) {
+function FormProject({ handleFunction, setId, formType, value, success, imgProjectName, setImgProjectName }) {
   const [imgEdit, setImgEdit] = useState(false);
 
   useEffect(() => {
@@ -28,6 +28,14 @@ function FormProject({ handleFunction, setId, formType, value, success }) {
 
   const switchToInput = () =>{
     setImgEdit(false);
+  };
+
+  const onAddFile = (e) =>{
+    if(e.target.files.length === 1){
+      setImgProjectName(e.target.files[0].name);
+    }else{
+      setImgProjectName("Image du projet");
+    }
   };
 
   const form = <Fragment>
@@ -111,12 +119,25 @@ function FormProject({ handleFunction, setId, formType, value, success }) {
                     { !imgEdit &&
                     //TODO rajouter condition pour l'input file => seulement img et jpg
                       <div className="input-container">
-                        <div className="input">
+                        {/* <div className="input">
                           <label htmlFor="projectImg">Image du projet *</label>
                           <div className="input-block">
                             <span><FontAwesomeIcon icon={faImages} /></span>
                             {formType === "add" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} />}
                             {formType === "edit" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: false })} />}
+                          </div>
+                          {errors.projectImg && <span className="error-message">Une image est requise</span>}
+                        </div> */}
+                        <div className="input">
+                          <p>Image du Projet *</p>
+                          <div className="input-block input-file">
+                            <span><FontAwesomeIcon icon={faImages} /></span>
+                            <div className="container-input-file">
+                              <span>{imgProjectName}</span>
+                              {formType === "add" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} onChange={(e) => onAddFile(e)} />}
+                              {formType === "edit" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: false })} onChange={(e) => onAddFile(e)} />}
+                            </div>
+                            <label htmlFor="projectImg">Ajout</label>
                           </div>
                           {errors.projectImg && <span className="error-message">Une image est requise</span>}
                         </div>
@@ -183,6 +204,8 @@ FormProject.propTypes = {
   formType: PropTypes.string.isRequired,
   value: PropTypes.object,
   success: PropTypes.bool.isRequired,
+  imgProjectName: PropTypes.string.isRequired,
+  setImgProjectName: PropTypes.func.isRequired
 }
 
 export default FormProject;

@@ -14,12 +14,14 @@
     height: 80px;
     a{
       display: flex;
+      justify-content: center;
       align-items: center;
       padding: 0 15px;
       text-transform: none;
       text-decoration: none;
       font-weight: 700;
       height: 65px;
+      width: 100%;
     }
   }
 }
@@ -43,6 +45,7 @@
     flex-direction: column;
     align-items: center;
     li {
+      width: 100%;
       .active{
         color: #ffffff;
       }
@@ -107,6 +110,17 @@
   padding: 0 15px;
   cursor: pointer;
   @include svgStroke(30px);
+  &:focus{
+    outline-style:none;
+    box-shadow:none;
+    border-color:transparent;
+    svg {
+      path {
+        stroke: #ffffff;
+        fill: none;
+      }
+    }
+  }
 }
 
 .display-block{
@@ -126,6 +140,9 @@
     .list-menu{
       flex-direction: row;
       justify-content: center;
+      li{
+        width: auto;
+      }
     }
   }
   .social-mobile{

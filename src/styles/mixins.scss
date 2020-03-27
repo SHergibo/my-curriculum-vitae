@@ -30,7 +30,7 @@
       fill: none;
       transition: 0.2s ease-in-out;
     }
-    &:hover {
+    &:hover, &:focus {
       path {
         stroke: $grey-two;
         fill: none;
@@ -106,10 +106,15 @@
   font-size: 15px;
   font-weight: 900;
   font-family: "Poppins", sans-serif;
-  outline: none;
   cursor: pointer;
   transition: .2s ease-in-out;
   &:hover{
+    background-color: $blue-hover;
+  }
+  &:focus{
+    outline-style:none;
+    box-shadow:none;
+    border-color:transparent;
     background-color: $blue-hover;
   }
 }

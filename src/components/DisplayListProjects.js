@@ -6,7 +6,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormProject from "./FormProject";
 import PropTypes from 'prop-types';
 
-function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal }) {
+function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal, imgProjectName, setImgProjectName }) {
   const [value, setValue] = useState({});
   let body = document.getElementsByTagName("body")[0];
 
@@ -47,7 +47,16 @@ function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success,
         </ul>
       </div>
       {displayForm &&
-        <Modal div={<FormProject handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />} closeModal={closeModal} />
+        <Modal div={
+          <FormProject 
+          handleFunction={submit} 
+          setId={setId} 
+          formType="edit" 
+          value={value} 
+          success={success}
+          imgProjectName={imgProjectName} 
+          setImgProjectName={setImgProjectName} />} 
+        closeModal={closeModal}/>
       }
     </Fragment>
   );
@@ -58,6 +67,8 @@ DisplayListProjects.propTypes = {
   submit: PropTypes.func.isRequired,
   funcDelete: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
+  imgProjectName: PropTypes.string.isRequired,
+  setImgProjectName: PropTypes.func.isRequired
 }
 
 export default DisplayListProjects;

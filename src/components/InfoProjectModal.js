@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 function InfoProjectModal({ value }) {
-  console.log(value);
   let descriptionArray = value.description.split(/\n/ig);
 
   let displayDesc = descriptionArray.map((item, index) => {

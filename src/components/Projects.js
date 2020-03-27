@@ -16,16 +16,19 @@ function Projects() {
   const [arrayProject, setArrayProject] = useState([]);
   const [idItem, setIdItem] = useState();
   const [displayForm, setDisplayForm] = useState(false);
+  const [imgProjectName, setImgProjectName] = useState("Image du projet");
 
 
   let switchForm = () => {
     if (addBtn) {
       setAddBtn(false);
       setEditBtn(true);
+      setImgProjectName("Image du projet");
       getData();
     } else {
       setEditBtn(false);
       setAddBtn(true);
+      setImgProjectName("Image du projet");
     }
   }
 
@@ -55,6 +58,7 @@ function Projects() {
       .then((response) => {
         checkSuccess(response.status, success, setSuccess, 3);
         e.target.reset();
+        setImgProjectName('Image du projet');
       });
   };
 
@@ -125,7 +129,12 @@ function Projects() {
               unmountOnExit
             >
               <div className="form-container">
-                <FormProject handleFunction={onSubmitAdd} formType="add" success={success} />
+                <FormProject 
+                handleFunction={onSubmitAdd} 
+                formType="add" 
+                success={success} 
+                imgProjectName={imgProjectName} 
+                setImgProjectName={setImgProjectName} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -136,7 +145,17 @@ function Projects() {
             >
               <div className="list-container">
                 <h3>Édition</h3>
-                <DisplayListProjects arrayProject={arrayProject} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal} />
+                <DisplayListProjects 
+                arrayProject={arrayProject} 
+                submit={onClickEdit} 
+                setId={setIdFunc} 
+                funcDelete={onClickDelete} 
+                success={success} 
+                displayForm={displayForm} 
+                setDisplayForm={setDisplayForm} 
+                closeModal={closeModal} 
+                imgProjectName={imgProjectName} 
+                setImgProjectName={setImgProjectName} />
               </div>
             </CSSTransition>
           </div>
