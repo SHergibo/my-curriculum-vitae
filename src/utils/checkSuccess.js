@@ -1,4 +1,4 @@
-const checkSuccess = (status, success, setSuccess, numberSpan) => {
+const checkSuccess = (status, setSuccess, numberSpan) => {
   if (status === 200) {
     let spanSuccess = document.getElementsByClassName('success-message')[numberSpan];
     spanSuccess.style.opacity = 1;
@@ -6,11 +6,8 @@ const checkSuccess = (status, success, setSuccess, numberSpan) => {
     setTimeout(() => {
       spanSuccess.style.opacity = 0;
     }, 3000);
-    setTimeout(() => {
-      setSuccess(false);
-    }, 3500);
   }
-  return success;
+  return;
 }
 
 export default checkSuccess;

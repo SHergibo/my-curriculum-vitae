@@ -179,7 +179,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
             }
           </button>
           <span className="success-message">
-            {{success} && <span ><FontAwesomeIcon icon={faCheck} /></span>}
+            {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
           </span>
         </div>
       </form>

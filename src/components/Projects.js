@@ -56,7 +56,7 @@ function Projects() {
      }
     })
       .then((response) => {
-        checkSuccess(response.status, success, setSuccess, 3);
+        checkSuccess(response.status, setSuccess, 3);
         e.target.reset();
         setImgProjectName('Image du projet');
       });

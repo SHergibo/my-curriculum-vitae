@@ -73,7 +73,6 @@ function Admin({history, location}) {
     const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
     await axiosInstance.post(addGenerelInfoEndPoint, workingData(data))
       .then((response) => {
-        checkSuccess(response.status, success, setSuccess, 0);
         if(response.status === 200){
           setGeneralInfo(response.data);
           setShowEditForm(true);
@@ -85,7 +84,7 @@ function Admin({history, location}) {
     const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
     await axiosInstance.patch(editGeneralInfoEndPoint, workingData(data))
     .then((response) => {
-      checkSuccess(response.status, success, setSuccess, 0);
+      checkSuccess(response.status, setSuccess, 0);
       setGeneralInfo(response.data);
     });
   };

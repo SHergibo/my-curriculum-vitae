@@ -59,7 +59,7 @@ function EducExpe() {
     const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
     await axiosInstance.post(addEducExpeEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, success, setSuccess, 1);
+        checkSuccess(response.status, setSuccess, 1);
         e.target.reset();
         setDateStart(null);
         setDateEnd(null);

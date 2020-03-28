@@ -45,7 +45,7 @@ function Skills() {
     const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
     await axiosInstance.post(addSkillEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, success, setSuccess, 2);
+        checkSuccess(response.status, setSuccess, 2);
         e.target.reset();
       });
   };
