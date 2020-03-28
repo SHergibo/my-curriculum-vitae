@@ -33,7 +33,10 @@ function Home({ location, data }) {
   }  
 
   return (
-    <HomeSection welcome={welcome} name={fullName} div={div} />
+    <HomeSection 
+    welcome={welcome} 
+    name={fullName} 
+    div={div} />
   );
 }
 

@@ -113,7 +113,15 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill , arrayLanguage, 
         </ul>
       </div>
       {displayForm &&
-        <Modal div={<FormSkill handleFunction={submit} setId={setId} formType="edit" value={value} success={success} />} closeModal={closeModal}/>
+        <Modal div={
+          <FormSkill 
+          handleFunction={submit} 
+          setId={setId} 
+          formType="edit" 
+          value={value} 
+          success={success} />
+        } 
+        closeModal={closeModal}/>
       }
     </Fragment>
   );

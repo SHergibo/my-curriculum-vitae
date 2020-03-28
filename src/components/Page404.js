@@ -15,7 +15,10 @@ function Page404({ history }) {
               </div>
 
   return (
-    <HomeSection welcome="404 not found" name="404" div={div} />
+    <HomeSection 
+    welcome="404 page non trouvée !" 
+    name="404" 
+    div={div} />
   )
 }
 

@@ -34,6 +34,7 @@ function Admin({history, location}) {
 
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setInterval(() => {
       refreshToken();
     }, 900000);
@@ -96,11 +97,21 @@ function Admin({history, location}) {
   return (
     <Fragment>
       <header id="header">
-        <Home location={location.pathname} data={generalInfo}/>
-        <Navbar location={location.pathname} logout={logOut}/>
+        <Home 
+        location={location.pathname} 
+        data={generalInfo}/>
+        <Navbar
+        location={location.pathname} 
+        logout={logOut}/>
       </header>
       <main>
-        <GeneralInfo data={generalInfo} onSubmitAdd={onSubmitAdd} onSubmitEdit={onSubmitEdit} success={success} showEditForm={showEditForm} setShowEditForm={setShowEditForm} />
+        <GeneralInfo 
+        data={generalInfo} 
+        onSubmitAdd={onSubmitAdd} 
+        onSubmitEdit={onSubmitEdit} 
+        success={success} 
+        showEditForm={showEditForm} 
+        setShowEditForm={setShowEditForm} />
         <EducExpe />
         <Skills />
         <Projects />

@@ -28,6 +28,7 @@ function HomePage() {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const getData = async () => {
       const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
       await axios.get(getGeneralInfoEndPoint)

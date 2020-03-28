@@ -161,7 +161,10 @@ function Skills() {
               unmountOnExit
             >
               <div className="form-container">
-                <FormSkill handleFunction={onSubmitAdd} formType="add" success={success} />
+                <FormSkill 
+                handleFunction={onSubmitAdd} 
+                formType="add" 
+                success={success} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -172,7 +175,17 @@ function Skills() {
             >
               <div className="list-container">
                 <h3>Édition</h3>
-                <DisplayListSkill arrayCodingSkill={arrayCodingSkill} arrayGeneralSkill={arrayGeneralSkill} arrayLanguage={arrayLanguage} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal}/>
+                <DisplayListSkill 
+                arrayCodingSkill={arrayCodingSkill} 
+                arrayGeneralSkill={arrayGeneralSkill} 
+                arrayLanguage={arrayLanguage} 
+                submit={onClickEdit} 
+                setId={setIdFunc} 
+                funcDelete={onClickDelete} 
+                success={success} 
+                displayForm={displayForm} 
+                setDisplayForm={setDisplayForm} 
+                closeModal={closeModal}/>
               </div>
             </CSSTransition>
           </div>

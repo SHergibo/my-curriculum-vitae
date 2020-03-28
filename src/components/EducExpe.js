@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
@@ -11,6 +11,7 @@ import FormEducExpe from './FormEducExpe';
 
 function EducExpe() {
   const [titleEducExpe, setTitleEducEpxe] = useState("Éducation / Expérience");
+  const titleRef = useRef(null);
   const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
@@ -23,7 +24,7 @@ function EducExpe() {
 
   useEffect(() => {
     let windowWidth = window.innerWidth;
-    let titleContainer = document.getElementsByClassName("title-container")[1].firstChild;
+    let titleContainer = titleRef.current;
     if(windowWidth < 560){
       setTitleEducEpxe("Éduc / Expé");
       titleContainer.classList.add("title-mobile-educ-expe");
@@ -138,7 +139,7 @@ function EducExpe() {
         </div>
         <div className="educExpe-container">
           <div className="title-container">
-            <h2 className="title-mobile-educ-expe">{titleEducExpe}</h2>
+            <h2 ref={titleRef} className="title-mobile-educ-expe">{titleEducExpe}</h2>
             <div className="btn-switch-container">
               <button onClick={() => switchForm()}>
                 {addBtn && (
@@ -159,7 +160,14 @@ function EducExpe() {
               unmountOnExit
             >
               <div className="form-container">
-                <FormEducExpe handleFunction={onSubmitAdd} formType="add" success={success} dateStart={dateStart} setDateStart={setDateStart} dateEnd={dateEnd} setDateEnd={setDateEnd} />
+                <FormEducExpe 
+                handleFunction={onSubmitAdd} 
+                formType="add" 
+                success={success} 
+                dateStart={dateStart} 
+                setDateStart={setDateStart} 
+                dateEnd={dateEnd} 
+                setDateEnd={setDateEnd} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -170,7 +178,20 @@ function EducExpe() {
             >
               <div className="list-container">
                 <h3>Édition</h3>
-                <DisplayListEducExpe arrayEduc={arrayEduc} arrayExpe={arrayExpe} submit={onClickEdit} setId={setIdFunc} funcDelete={onClickDelete} success={success} displayForm={displayForm} setDisplayForm={setDisplayForm} closeModal={closeModal} dateStart={dateStart} setDateStart={setDateStart} dateEnd={dateEnd} setDateEnd={setDateEnd}/>
+                <DisplayListEducExpe 
+                arrayEduc={arrayEduc} 
+                arrayExpe={arrayExpe} 
+                submit={onClickEdit} 
+                setId={setIdFunc} 
+                funcDelete={onClickDelete} 
+                success={success} 
+                displayForm={displayForm} 
+                setDisplayForm={setDisplayForm} 
+                closeModal={closeModal} 
+                dateStart={dateStart} 
+                setDateStart={setDateStart} 
+                dateEnd={dateEnd} 
+                setDateEnd={setDateEnd}/>
               </div>
             </CSSTransition>
           </div>

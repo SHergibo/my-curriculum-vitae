@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from "react-scroll";
 import EducationExperience from './ResumeComponents/EducationExperience';
 import CanvasResume from './ResumeComponents/CanvasResume';
@@ -29,11 +29,13 @@ function Resume() {
   const [arrayCodingSkill, setArrayCodingSkill] = useState([objectSkill]);
   const [arrayGeneralSkill, setArrayGeneralSkill] = useState([objectSkill]);
   const [arrayLanguage, setArrayLanguage] = useState([objectSkill]);
+  const resumeContainerRef = useRef(null);
+  const menuResumeRef = useRef(null);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
-      let resumeContainer = document.getElementById('resume');
-      let menuResume = document.getElementsByClassName('list-resume')[0];
+      let resumeContainer = resumeContainerRef.current
+      let menuResume = menuResumeRef.current;
       let getBounding = resumeContainer.getBoundingClientRect();
       let bottomResume = ((getBounding.height + getBounding.top) - 80) - 180;
       if (bottomResume <= 0) {
@@ -75,23 +77,41 @@ function Resume() {
   }
 
   return (
-    <div id="resume" className="wrapper resume">
+    <div ref={resumeContainerRef} id="resume" className="wrapper resume">
       <div className="title-left">Résumé</div>
       <div className="menu-resume">
-        <div className="list-resume" style={{ top: 30 + 'px' }}>
+        <div ref={menuResumeRef} className="list-resume" style={{ top: 30 + 'px' }}>
           <ul>
             <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("education")}}>
-              <Link activeClass="active" to="education" spy={true} smooth={true} offset={-80} duration={1000}>
+              <Link 
+              activeClass="active" 
+              to="education" 
+              spy={true} 
+              smooth={true} 
+              offset={-80} 
+              duration={1000}>
                 Éducation
               </Link>
             </li>
             <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("experience")}}>
-              <Link activeClass="active" to="experience" spy={true} smooth={true} offset={-80} duration={1000}>
+              <Link 
+              activeClass="active" 
+              to="experience" 
+              spy={true} 
+              smooth={true} 
+              offset={-80} 
+              duration={1000}>
                 Expérience
               </Link>
             </li>
             <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("skills")}}>
-              <Link activeClass="active" to="skills" spy={true} smooth={true} offset={-80} duration={1000}>
+              <Link 
+              activeClass="active" 
+              to="skills" 
+              spy={true} 
+              smooth={true} 
+              offset={-80} 
+              duration={1000}>
                 Compétences
               </Link>
             </li>

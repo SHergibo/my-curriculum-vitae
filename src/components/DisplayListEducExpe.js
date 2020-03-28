@@ -93,7 +93,19 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, s
         </ul>
       </div>
       {displayForm  && 
-        <Modal div={<FormEducExpe handleFunction={submit} setId={setId} formType="edit" value={value} success={success} dateStart={dateStart} setDateStart={setDateStart} dateEnd={dateEnd} setDateEnd={setDateEnd} />} closeModal={closeModal}/>
+        <Modal div={
+          <FormEducExpe 
+          handleFunction={submit} 
+          setId={setId} 
+          formType="edit" 
+          value={value} 
+          success={success} 
+          dateStart={dateStart} 
+          setDateStart={setDateStart} 
+          dateEnd={dateEnd} 
+          setDateEnd={setDateEnd} />
+        } 
+        closeModal={closeModal}/>
       }
     </Fragment>
   );

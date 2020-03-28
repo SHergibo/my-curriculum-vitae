@@ -100,7 +100,10 @@ function Navbar({ location, logout }) {
   }
   
   return (
-    <Nav li={liList} divMobile={divMobile} divNonMobile={divNonMobile} />
+    <Nav 
+    li={liList} 
+    divMobile={divMobile} 
+    divNonMobile={divNonMobile} />
   );
 }
 

@@ -62,7 +62,12 @@ function Portfolio() {
           {projectPortfolio}
         </div>
         {displayForm  && 
-          <Modal div={<InfoProjectModal value={value} />} closeModal={closeModal}/>
+          <Modal 
+          div={
+            <InfoProjectModal 
+            value={value} />
+          } 
+          closeModal={closeModal}/>
         }
       </div>
     </div>

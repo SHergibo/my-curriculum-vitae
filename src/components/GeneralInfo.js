@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useRef } from 'react';
 import FormGeneralInfo from './FormGeneralInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -10,9 +10,10 @@ import PropTypes from 'prop-types';
 function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, setShowEditForm }) {
   const [generalInfo, setGeneralInfo] = useState();
   const [displayForm, setDisplayForm] = useState(false);
+  const divTitleRef = useRef(null);
 
   useLayoutEffect(() => {
-    let divTitle = document.getElementById("info-gen-div-title");
+    let divTitle = divTitleRef.current;
     if(data){
       setGeneralInfo(data);
       divTitle.classList.remove('title-container-info-gen');
@@ -33,7 +34,7 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, s
   }
   
   const deleteInfoGen = async () =>{
-    let divTitle = document.getElementById("info-gen-div-title");
+    let divTitle = divTitleRef.current;
     const deleteInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${data._id}`;
     await axiosInstance.delete(deleteInfoEndPoint, data)
     .then(() => {
@@ -58,7 +59,7 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, s
         <div className="title-right">
           Infos générales
         </div>
-        <div id="info-gen-div-title" className="info-container">
+        <div ref={divTitleRef} className="info-container">
           <div className="title-container">
             <h2>Infos générales</h2>
             {generalInfo && (
@@ -72,18 +73,28 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, s
 
           <div className="forms-block">
             {!generalInfo && (
-              <FormGeneralInfo handleFunction={onSubmitAdd} formType="add" success={success} />
+              <FormGeneralInfo 
+              handleFunction={onSubmitAdd} 
+              formType="add" 
+              success={success} />
             )}
 
             {showEditForm && (
-              <FormGeneralInfo handleFunction={onSubmitEdit} formType="edit" value={generalInfo} success={success} />     
+              <FormGeneralInfo 
+              handleFunction={onSubmitEdit} 
+              formType="edit" 
+              value={generalInfo} 
+              success={success} />     
             )}
 
           </div>
         </div>
       </div>
       {displayForm &&
-        <Modal formType={"deleteInfo"} closeModal={closeModal} div={doubleCheckDelete} />
+        <Modal 
+        formType={"deleteInfo"} 
+        closeModal={closeModal} 
+        div={doubleCheckDelete} />
       }
     </div>
   )
