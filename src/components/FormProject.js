@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 function FormProject({ handleFunction, setId, formType, value, success, imgProjectName, setImgProjectName }) {
   const [imgEdit, setImgEdit] = useState(false);
+  const [errorMessageImg, setErrorMessageImg] = useState(false);
 
   useEffect(() => {
     if(formType === "edit"){
@@ -31,8 +32,15 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
   };
 
   const onAddFile = (e) =>{
+    const file = e.target.files[0];
     if(e.target.files.length === 1){
-      setImgProjectName(e.target.files[0].name);
+      if(file.type === "image/png" || file.type === "image/jpeg"){
+        setImgProjectName(e.target.files[0].name);
+        setErrorMessageImg(false);
+      }else{
+        setImgProjectName("Image du projet");
+        setErrorMessageImg(true);
+      }
     }else{
       setImgProjectName("Image du projet");
     }
@@ -117,7 +125,6 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
                       </div>
                     }
                     { !imgEdit &&
-                    //TODO rajouter condition pour l'input file => seulement img et jpg
                       <div className="input-container">
                         <div className="input">
                           <label htmlFor="projectImg">Image du projet *</label>
@@ -125,12 +132,13 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
                             <span><FontAwesomeIcon icon={faImages} /></span>
                             <div className="container-input-file">
                               <span>{imgProjectName}</span>
-                              {formType === "add" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} onChange={(e) => onAddFile(e)} />}
-                              {formType === "edit" && <input name="projectImg" type="file" id="projectImg" placeholder="Image du projet" ref={register({ required: false })} onChange={(e) => onAddFile(e)} />}
+                              {formType === "add" && <input name="projectImg" type="file" accept=".jpg,.jpeg,.png" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} onChange={(e) => onAddFile(e)} />}
+                              {formType === "edit" && <input name="projectImg" type="file" accept=".jpg,.jpeg,.png" id="projectImg" placeholder="Image du projet" ref={register({ required: false })} onChange={(e) => onAddFile(e)} />}
                             </div>
                             <label htmlFor="projectImg">Ajout</label>
                           </div>
                           {errors.projectImg && <span className="error-message">Une image est requise</span>}
+                          {errorMessageImg && <span className="error-message">Seulement une image de type .jpg/.jpeg/.png est autorisée</span>}
                         </div>
                       </div>
                     }
