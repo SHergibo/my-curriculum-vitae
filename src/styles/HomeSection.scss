@@ -29,22 +29,22 @@
 
 .graphic-one {
   position: absolute;
-  top: -100px;
+  top: -80px;
   right: -60px;
   display: block;
-  width: 220px;
-  height: 220px;
+  width: 150px;
+  height: 150px;
   transform: rotate(-45deg);
   background-image: linear-gradient(90deg, #2336b6 0%, rgba(31, 38, 103, 0.9) 100%);
 }
 
 .graphic-two {
   position: absolute;
-  top: -100px;
-  right: 80px;
+  top: -80px;
+  right: 30px;
   display: block;
-  width: 200px;
-  height: 200px;
+  width: 130px;
+  height: 130px;
   border-radius: 100px;
   background-image: linear-gradient(-90deg, rgba(49, 207, 171, 0.5) 0%, #50e3c2 100%);
 }
@@ -76,7 +76,7 @@
 
 .job-name {
   color: $grey-one;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bolder;
   span {
     color: $blue;
@@ -101,8 +101,36 @@
   @include btn(40px, 15px 0, auto);
 }
 
+@media screen and (min-width: 371px) {
+  .job-name {
+    font-size: 24px;
+  }
+  .graphic-one {
+    top: -100px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .graphic-two {
+    top: -100px;
+    right: 80px;
+    width: 180px;
+    height: 180px;
+  }
+}
+
 @media screen and (min-width: 426px) {
   .home {
     padding: 0;
+  }
+  .graphic-one {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .graphic-two {
+    width: 200px;
+    height: 200px;
   }
 }

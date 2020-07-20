@@ -65,7 +65,7 @@
         border-bottom: $border;
       }
       div {
-        display: flex;
+        display: inline-block;
         &:first-child {
           margin-right: 5px;
         }

@@ -8,7 +8,7 @@ function Navbar({ location, logout }) {
     {name: "Accueil", to : "home", offset : 0, duration : 500},
     {name: "À propos", to : "about", offset : -80, duration : 1000},
     {name: "Résumé", to : "resume", offset : -80, duration : 1000},
-    {name: "Portfolio", to : "portfolio", offset : -80, duration : 1000},
+    // {name: "Portfolio", to : "portfolio", offset : -80, duration : 1000},
     {name: "Contact", to : "contact", offset : -81, duration : 1000},
   ]
 

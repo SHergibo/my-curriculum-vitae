@@ -6,7 +6,7 @@ import Home from './Home';
 import Navbar from './Navbar';
 import About from './About';
 import Resume from './Resume';
-import Portfolio from './Portfolio';
+// import Portfolio from './Portfolio';
 import Contact from './Contact';
 import Footer from './Footer';
 import BackToTop from './BackToTop';
@@ -57,7 +57,7 @@ function HomePage() {
       <main>
         <About data={generalInfo} />
         <Resume />
-        <Portfolio />
+        {/* <Portfolio /> */}
         <Contact data={generalInfo} />
       </main>
       <footer>

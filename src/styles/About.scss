@@ -40,15 +40,20 @@
   ul {
     padding: 20px 20px;
     li {
+      display: flex;
+      align-items: center;
       margin: 10px 0;
       color: $grey-two;
       font-size: 13px;
+      div{
+        width: 70%;
+      }
     }
   }
   span {
     display: inline-block;
     color: $grey-one;
-    width: 100px;
+    width: 30%;
   }
   &:before {
     content: "";
@@ -124,6 +129,11 @@
       width: 50%;
     }
   }
+  .info {
+    span {
+      width: 140px;
+    }
+  }
 }
 
 /*Full-screen*/
@@ -151,9 +161,6 @@
   .info {
     ul {
       padding: 20px 40px;
-    }
-    span {
-      width: 140px;
     }
   }
 

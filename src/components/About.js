@@ -21,11 +21,21 @@ function About({data}) {
           </div>
           <div className="info">
             <ul>
-              <li><span>Téléphone</span>: {data.phone}</li>
-              <li><span>Email</span>: {data.email}</li>
-              <li><span>Adresse</span>: {data.address.street}, {data.address.number} {data.address.zip} {data.address.city}</li>
-              <li><span>Date de naissance</span>: {data.birthdate}</li>
-              <li><span>Permis de conduire</span>: {data.licence}</li>
+              <li>
+                <span>Téléphone :</span><div>{data.phone}</div>
+              </li>
+              <li>
+                <span>Email :</span><div>{data.email}</div>
+              </li>
+              <li>
+                <span>Adresse :</span><div>{data.address.street}, {data.address.number} {data.address.zip} {data.address.city}</div>
+              </li>
+              <li>
+                <span>Date de naissance :</span><div>{data.birthdate}</div>
+              </li>
+              <li>
+                <span>Permis de conduire :</span><div>{data.licence}</div>
+              </li>
             </ul>
           </div>
         </div>

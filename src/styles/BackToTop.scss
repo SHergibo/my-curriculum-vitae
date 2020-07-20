@@ -4,11 +4,11 @@
 
 /*Media queries*/
 
-/*Tablet*/
-@media screen and (min-width: 960px){
+/*Full-screen*/
+@media screen and (min-width: 1130px){
   .back-to-top{
     position: fixed;
-    bottom: 30px;
+    bottom: 20px;
     right: -40px;
     z-index: 100;
     display: flex;
