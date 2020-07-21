@@ -49,7 +49,7 @@ function Nav({ li, divMobile, divNonMobile }) {
 
   let liList = li.map((item, index) => {
     return <li tabIndex={0} onKeyPress={()=>{focusOnKeypress(item.to)}} key={"nav"+index}>
-            <Link activeClass="active" to={item.to} spy={true} smooth={true} offset={item.offset} duration={item.duration}>
+            <Link activeClass="active" to={item.to} spy={true} smooth={true} offset={item.offset} duration={item.duration} onClick={burgerMenu}>
               {item.name}
             </Link>
           </li>;
@@ -59,7 +59,7 @@ function Nav({ li, divMobile, divNonMobile }) {
     <div className="main-menu">
       <div className="wrapper container-nav">
         <Logo />
-        <nav className="menu" onClick={burgerMenu}>
+        <nav className="menu">
           <ul className="list-menu">
             {liList}
           </ul>
