@@ -5,20 +5,27 @@ import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 function BackToTop() {
   const backToTop = useRef(null);
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      let btnBackToTop = backToTop.current;
-      let scrollpage = Math.round(window.scrollY);
-      let windowHeight = window.innerHeight;
-      if(btnBackToTop){
-        if (scrollpage > windowHeight) {
-          btnBackToTop.classList.add("back-to-top-show");
-        } else {
-          btnBackToTop.classList.remove("back-to-top-show");
-        }
+
+  const handleBackToTopScroll = () => {
+    let btnBackToTop = backToTop.current;
+    let scrollpage = Math.round(window.scrollY);
+    let windowHeight = window.innerHeight;
+    if(btnBackToTop){
+      if (scrollpage > windowHeight) {
+        btnBackToTop.classList.add("back-to-top-show");
+      } else {
+        btnBackToTop.classList.remove("back-to-top-show");
       }
-    });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleBackToTopScroll);
+    return () => {
+      window.removeEventListener('scroll', handleBackToTopScroll);
+    }
   }, []);
+  
   const scrollToTop = () =>{
     scroll.scrollToTop();
   }

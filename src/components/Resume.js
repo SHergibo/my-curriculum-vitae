@@ -32,25 +32,30 @@ function Resume() {
   const resumeContainerRef = useRef(null);
   const menuResumeRef = useRef(null);
 
+  const handleResumeMenuOnScroll = () => {
+    let resumeContainer = resumeContainerRef.current
+    let menuResume = menuResumeRef.current;
+    let getBounding = resumeContainer.getBoundingClientRect();
+    let bottomResume = ((getBounding.height + getBounding.top) - 80) - 180;
+    if (bottomResume <= 0) {
+      menuResume.setAttribute('style', 'position: absolute; bottom: 0');
+    } else {
+      menuResume.removeAttribute('style');
+      menuResume.setAttribute('style', 'top: 30px');
+    }
+    if (getBounding.top < 20) {
+      menuResume.classList.add("menu-resume-fixed");
+    } else {
+      menuResume.classList.remove("menu-resume-fixed");
+    }
+  };
+
   useEffect(() => {
-    window.addEventListener('scroll', () => {
-      let resumeContainer = resumeContainerRef.current
-      let menuResume = menuResumeRef.current;
-      let getBounding = resumeContainer.getBoundingClientRect();
-      let bottomResume = ((getBounding.height + getBounding.top) - 80) - 180;
-      if (bottomResume <= 0) {
-        menuResume.setAttribute('style', 'position: absolute; bottom: 0');
-      } else {
-        menuResume.removeAttribute('style');
-        menuResume.setAttribute('style', 'top: 30px');
-      }
-      if (getBounding.top < 20) {
-        menuResume.classList.add("menu-resume-fixed");
-      } else {
-        menuResume.classList.remove("menu-resume-fixed");
-      }
-    });
+    window.addEventListener('scroll', handleResumeMenuOnScroll);
     getData();
+    return () => {
+      window.removeEventListener('scroll', handleResumeMenuOnScroll);
+    }
   }, []);
 
   const getData = async () => {
