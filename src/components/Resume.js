@@ -31,6 +31,9 @@ function Resume() {
   const [arrayLanguage, setArrayLanguage] = useState([objectSkill]);
   const resumeContainerRef = useRef(null);
   const menuResumeRef = useRef(null);
+  const educRef = useRef(null);
+  const expRef = useRef(null);
+  const skillref = useRef(null);
 
   const handleResumeMenuOnScroll = () => {
     let resumeContainer = resumeContainerRef.current
@@ -78,7 +81,13 @@ function Resume() {
   };
 
   const focusOnKeypress = (elem) => {
-    document.getElementById(elem).scrollIntoView();
+    if(elem === "eduction"){
+      educRef.current.scrollIntoView();
+    }else if (elem === "experience"){
+      expRef.current.scrollIntoView();
+    }else if (elem === "skills"){
+      skillref.current.scrollIntoView();
+    }
   }
 
   return (
@@ -124,15 +133,15 @@ function Resume() {
         </div>
       </div>
       <div className="edu-expe">
-        <div id="education" className="edu-container">
+        <div ref={educRef} id="education" className="edu-container">
           <h2>Éducation</h2>
           <EducationExperience data={arrayEduc} />
         </div>
-        <div id="experience" className="exp-container">
+        <div ref={expRef} id="experience" className="exp-container">
           <h2>Expérience</h2>
           <EducationExperience data={arrayExpe} />
         </div>
-        <div id="skills" className="skill-container">
+        <div ref={skillref} id="skills" className="skill-container">
           <h2>Compétences</h2>
           <CanvasResume data={arrayCodingSkill} />
           <div className="skill-bars">
