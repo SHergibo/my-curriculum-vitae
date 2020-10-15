@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import FormSkill from './FormSkill';
 import DisplayListSkill from './DisplayListSkill';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +9,7 @@ import workingData from './../utils/workingData';
 import { CSSTransition } from 'react-transition-group';
 
 function Skills() {
+  const successMessage = useRef(null);
   const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);  
@@ -44,7 +45,7 @@ function Skills() {
     const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
     await axiosInstance.post(addSkillEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, setSuccess, 2);
+        checkSuccess(response.status, setSuccess, successMessage);
         e.target.reset();
       });
   };
@@ -163,7 +164,8 @@ function Skills() {
                 <FormSkill 
                 handleFunction={onSubmitAdd} 
                 formType="add" 
-                success={success} />
+                success={success} 
+                successMessage={successMessage} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -182,6 +184,7 @@ function Skills() {
                 setId={setIdFunc} 
                 funcDelete={onClickDelete} 
                 success={success} 
+                successMessage={successMessage}
                 displayForm={displayForm} 
                 setDisplayForm={setDisplayForm} 
                 closeModal={closeModal}/>

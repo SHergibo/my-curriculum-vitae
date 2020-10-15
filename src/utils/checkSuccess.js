@@ -1,6 +1,6 @@
-const checkSuccess = (status, setSuccess, numberSpan) => {
+const checkSuccess = (status, setSuccess, ref) => {
   if (status === 200) {
-    let spanSuccess = document.getElementsByClassName('success-message')[numberSpan];
+    let spanSuccess = ref.current;
     spanSuccess.style.opacity = 1;
     setSuccess(true);
     setTimeout(() => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axiosInstance from '../utils/axiosInstance';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import DisplayListProjects from './DisplayListProjects';
 import FormProject from './FormProject';
 
 function Projects() {
+  const successMessage = useRef(null);
   const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
@@ -55,7 +56,7 @@ function Projects() {
      }
     })
       .then((response) => {
-        checkSuccess(response.status, setSuccess, 3);
+        checkSuccess(response.status, setSuccess, successMessage);
         e.target.reset();
         setImgProjectName('Image du projet');
       });
@@ -132,6 +133,7 @@ function Projects() {
                 handleFunction={onSubmitAdd} 
                 formType="add" 
                 success={success} 
+                successMessage={successMessage}
                 imgProjectName={imgProjectName} 
                 setImgProjectName={setImgProjectName} />
               </div>
@@ -150,6 +152,7 @@ function Projects() {
                 setId={setIdFunc} 
                 funcDelete={onClickDelete} 
                 success={success} 
+                successMessage={successMessage}
                 displayForm={displayForm} 
                 setDisplayForm={setDisplayForm} 
                 closeModal={closeModal} 

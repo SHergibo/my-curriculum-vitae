@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
@@ -14,6 +14,8 @@ import Projects from './Projects';
 import PropTypes from 'prop-types';
 
 function Admin({history, location}) {
+  const headerRef = useRef(null);
+  const successMessage = useRef(null);
 
   const [generalInfo, setGeneralInfo] = useState({
     firstname: "",
@@ -84,7 +86,7 @@ function Admin({history, location}) {
     const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
     await axiosInstance.patch(editGeneralInfoEndPoint, workingData(data))
     .then((response) => {
-      checkSuccess(response.status, setSuccess, 0);
+      checkSuccess(response.status, setSuccess, successMessage);
       setGeneralInfo(response.data);
     });
   };
@@ -94,12 +96,13 @@ function Admin({history, location}) {
     history.push("/");
   };
   return (
-    <Fragment>
-      <header id="header">
+    <>
+      <header ref={headerRef} id="header">
         <Home 
         location={location.pathname} 
         data={generalInfo}/>
         <Navbar
+        headerRef={headerRef}
         location={location.pathname} 
         logout={logOut}/>
       </header>
@@ -109,6 +112,7 @@ function Admin({history, location}) {
         onSubmitAdd={onSubmitAdd} 
         onSubmitEdit={onSubmitEdit} 
         success={success} 
+        successMessage={successMessage}
         showEditForm={showEditForm} 
         setShowEditForm={setShowEditForm} />
         <EducExpe />
@@ -119,7 +123,7 @@ function Admin({history, location}) {
         <Footer />
       </footer>
       <BackToTop />
-    </Fragment>
+    </>
   )
 }
 

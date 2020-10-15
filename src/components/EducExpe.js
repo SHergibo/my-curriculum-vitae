@@ -11,6 +11,7 @@ import FormEducExpe from './FormEducExpe';
 function EducExpe() {
   const [titleEducExpe, setTitleEducEpxe] = useState("Éducation / Expérience");
   const titleRef = useRef(null);
+  const successMessage = useRef(null);
   const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
@@ -58,7 +59,7 @@ function EducExpe() {
     const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
     await axiosInstance.post(addEducExpeEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, setSuccess, 1);
+        checkSuccess(response.status, setSuccess, successMessage);
         e.target.reset();
         setDateStart(null);
         setDateEnd(null);
@@ -163,6 +164,7 @@ function EducExpe() {
                 handleFunction={onSubmitAdd} 
                 formType="add" 
                 success={success} 
+                successMessage={successMessage}
                 dateStart={dateStart} 
                 setDateStart={setDateStart} 
                 dateEnd={dateEnd} 
@@ -184,6 +186,7 @@ function EducExpe() {
                 setId={setIdFunc} 
                 funcDelete={onClickDelete} 
                 success={success} 
+                successMessage={successMessage}
                 displayForm={displayForm} 
                 setDisplayForm={setDisplayForm} 
                 closeModal={closeModal} 

@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
 
-function FormGeneralInfo({handleFunction, formType, value, success}) {
+function FormGeneralInfo({handleFunction, formType, value, success, successMessage}) {
   const [dateBirthday, setDateBirthday] = useState(null);
   const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange"
@@ -177,7 +177,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
               <FontAwesomeIcon icon="edit" />
             }
           </button>
-          <span className="success-message">
+          <span ref={successMessage} className="success-message">
             {success && <span ><FontAwesomeIcon icon="check" /></span>}
           </span>
         </div>
@@ -191,6 +191,7 @@ FormGeneralInfo.propTypes = {
   value: PropTypes.object,
   formType: PropTypes.string.isRequired,
   success: PropTypes.bool.isRequired,
+  successMessage: PropTypes.object.isRequired,
 }
 
 export default FormGeneralInfo;

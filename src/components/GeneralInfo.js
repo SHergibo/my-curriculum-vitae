@@ -6,7 +6,7 @@ import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
-function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, setShowEditForm }) {
+function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, successMessage, showEditForm, setShowEditForm }) {
   const [generalInfo, setGeneralInfo] = useState();
   const [displayForm, setDisplayForm] = useState(false);
   const divTitleRef = useRef(null);
@@ -75,7 +75,8 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, s
               <FormGeneralInfo 
               handleFunction={onSubmitAdd} 
               formType="add" 
-              success={success} />
+              success={success}
+              successMessage={successMessage} />
             )}
 
             {showEditForm && (
@@ -83,7 +84,8 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, s
               handleFunction={onSubmitEdit} 
               formType="edit" 
               value={generalInfo} 
-              success={success} />     
+              success={success}
+              successMessage={successMessage} />     
             )}
 
           </div>
@@ -104,6 +106,7 @@ GeneralInfo.propTypes = {
   onSubmitAdd: PropTypes.func.isRequired,
   onSubmitEdit: PropTypes.func.isRequired,
   success: PropTypes.bool,
+  successMessage: PropTypes.object.isRequired,
   showEditForm: PropTypes.bool.isRequired,
   setShowEditForm: PropTypes.func.isRequired,
 }

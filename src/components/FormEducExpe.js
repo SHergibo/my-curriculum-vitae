@@ -8,7 +8,7 @@ import { fr } from 'date-fns/locale'
 import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
-function FormEducExpe({ handleFunction, setId, formType, value, success, dateStart, setDateStart, dateEnd, setDateEnd }) {
+function FormEducExpe({ handleFunction, setId, formType, value, success, successMessage, dateStart, setDateStart, dateEnd, setDateEnd }) {
   const [checkboxExpe, setCheckboxExpe] = useState();
   const [checkboxEduc, setCheckboxEduc] = useState();
 
@@ -138,7 +138,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, dateSta
                       <FontAwesomeIcon icon="edit" />
                     }
                   </button>
-                  <span className="success-message">
+                  <span ref={successMessage} className="success-message">
                     {success && <span ><FontAwesomeIcon icon="check" /></span>}
                   </span>
                 </div>
@@ -166,6 +166,7 @@ FormEducExpe.propTypes = {
   formType: PropTypes.string.isRequired,
   value: PropTypes.object,
   success: PropTypes.bool.isRequired,
+  successMessage: PropTypes.object.isRequired,
 }
 
 export default FormEducExpe;

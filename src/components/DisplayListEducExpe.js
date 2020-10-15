@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormEducExpe from "./FormEducExpe";
 import PropTypes from 'prop-types';
 
-function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, success, displayForm, setDisplayForm, closeModal, dateStart, setDateStart, dateEnd, setDateEnd}) {
+function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, success, successMessage, displayForm, setDisplayForm, closeModal, dateStart, setDateStart, dateEnd, setDateEnd}) {
   const [value, setValue] = useState({});
   let body = document.getElementsByTagName("body")[0];
 
@@ -99,6 +99,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setId, funcDelete, s
           formType="edit" 
           value={value} 
           success={success} 
+          successMessage={successMessage}
           dateStart={dateStart} 
           setDateStart={setDateStart} 
           dateEnd={dateEnd} 
@@ -116,6 +117,7 @@ DisplayListEducExpe.propTypes = {
   submit: PropTypes.func.isRequired,
   funcDelete: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
+  successMessage: PropTypes.object.isRequired,
 }
 
 export default DisplayListEducExpe;
