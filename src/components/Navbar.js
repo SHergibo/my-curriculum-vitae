@@ -2,7 +2,7 @@ import React from 'react';
 import Nav from './Nav';
 import PropTypes from 'prop-types';
 
-function Navbar({ location, logout }) {
+function Navbar({ headerRef, location, logout }) {
 
   let liList = [
     {name: "Accueil", to : "home", offset : 0, duration : 500},
@@ -101,6 +101,7 @@ function Navbar({ location, logout }) {
   
   return (
     <Nav 
+    headerRef={headerRef}
     li={liList} 
     divMobile={divMobile} 
     divNonMobile={divNonMobile} />
@@ -108,6 +109,7 @@ function Navbar({ location, logout }) {
 }
 
 Navbar.propTypes = {
+  headerRef: PropTypes.object.isRequired,
   location: PropTypes.string,
   logout: PropTypes.func,
 }

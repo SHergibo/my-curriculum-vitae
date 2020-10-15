@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { format } from 'date-fns';
@@ -12,6 +12,7 @@ import Footer from './Footer';
 import BackToTop from './BackToTop';
 
 function HomePage() {
+  const headerRef = useRef(null);
   const [generalInfo, setGeneralInfo] = useState({
     firstname: "",
     lastname: "",
@@ -49,10 +50,12 @@ function HomePage() {
 
 
   return (
-    <Fragment>
-      <header id="header">
+    <>
+      <header ref={headerRef} id="header">
         <Home data={generalInfo} />
-        <Navbar />
+        <Navbar
+          headerRef={headerRef}
+        />
       </header>
       <main>
         <About data={generalInfo} />
@@ -64,7 +67,7 @@ function HomePage() {
         <Footer />
       </footer>
       <BackToTop />
-    </Fragment>
+    </>
   );
 }
 

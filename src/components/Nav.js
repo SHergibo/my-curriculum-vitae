@@ -1,44 +1,39 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, useRef, useCallback } from 'react';
 import { Link } from "react-scroll";
 import Logo from './Logo';
 import PropTypes from 'prop-types';
 
-function Nav({ li, divMobile, divNonMobile }) {
+function Nav({ headerRef, li, divMobile, divNonMobile }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const mainMenu = useRef(null);
+  const menu = useRef(null);
+  const burgerSvg = useRef(null);
+  const deleteSvg = useRef(null);
 
-  const handleMenuScroll = () => {
-    let header = document.getElementById('header');
-    let mainMenu = document.getElementsByClassName('main-menu')[0];
-    let menuOpen = document.getElementsByClassName('display-block')[0];
-    let menu;
-    if (menuOpen) {
-      menu = document.getElementsByClassName('menu')[0];
-    }
-    let menuFixed = document.getElementsByClassName('menu-fixed')[0];
+  const handleMenuScroll = useCallback(() => {
     let windowHeight;
-    if (menuOpen && !menuFixed) {
-      windowHeight = (header.scrollHeight - menu.scrollHeight) - ((mainMenu.scrollHeight + 1) - menu.scrollHeight);
-    } else if (menuFixed && menuOpen) {
-      windowHeight = header.scrollHeight - ((mainMenu.scrollHeight + 1) - menu.scrollHeight);
+    if (menu.current.classList[1] === "display-block" && mainMenu.current.classList[1] === undefined) {
+      windowHeight = (headerRef.current.scrollHeight - menu.current.scrollHeight) - ((mainMenu.current.scrollHeight + 1) - menu.current.scrollHeight);
+    } else if (mainMenu.current.classList[1] === "menu-fixed" && menu.current.classList[1] === "display-block") {
+      windowHeight = headerRef.current.scrollHeight - ((mainMenu.current.scrollHeight + 1) - menu.current.scrollHeight);
     } else {
-      windowHeight = header.scrollHeight - (mainMenu.scrollHeight + 1);
+      windowHeight = headerRef.current.scrollHeight - (mainMenu.current.scrollHeight + 1);
     }
     let scroll = Math.round(window.scrollY);
 
     if (scroll >= windowHeight) {
-      mainMenu.classList.add("menu-fixed");
+      mainMenu.current.classList.add("menu-fixed");
     } else {
-      mainMenu.classList.remove("menu-fixed");
+      mainMenu.current.classList.remove("menu-fixed");
     }
-  };
-
+  },[headerRef]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleMenuScroll);
     return () => {
       window.removeEventListener('scroll', handleMenuScroll);
     }
-  }, []);
+  }, [handleMenuScroll]);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -52,17 +47,14 @@ function Nav({ li, divMobile, divNonMobile }) {
   }, []);
 
   const burgerMenu = () => {
-    let menuResp = document.getElementsByClassName('menu')[0];
-    let burgerSvg = document.getElementById('burger-svg');
-    let deleteSvg = document.getElementById('delete-svg');
-    menuResp.classList.toggle('display-block');
+    menu.current.classList.toggle('display-block');
 
-    if (burgerSvg.classList.contains('display-svg-menu')) {
-      burgerSvg.classList.remove('display-svg-menu');
-      deleteSvg.classList.add('display-svg-menu');
+    if (burgerSvg.current.classList.contains('display-svg-menu')) {
+      burgerSvg.current.classList.remove('display-svg-menu');
+      deleteSvg.current.classList.add('display-svg-menu');
     } else {
-      burgerSvg.classList.add('display-svg-menu');
-      deleteSvg.classList.remove('display-svg-menu');
+      burgerSvg.current.classList.add('display-svg-menu');
+      deleteSvg.current.classList.remove('display-svg-menu');
     }
   };
 
@@ -86,10 +78,10 @@ function Nav({ li, divMobile, divNonMobile }) {
   });
 
   return (
-    <div className="main-menu">
+    <div ref={mainMenu} className="main-menu">
       <div className="wrapper container-nav">
         <Logo />
-        <nav className="menu">
+        <nav ref={menu} className="menu">
           <ul className="list-menu">
             {liList}
           </ul>
@@ -102,7 +94,7 @@ function Nav({ li, divMobile, divNonMobile }) {
         </div>
         {windowWidth < 960 &&
           <Fragment>
-            <div id="burger-svg" className="burger-menu-svg" onClick={burgerMenu}>
+            <div ref={burgerSvg} id="burger-svg" className="burger-menu-svg" onClick={burgerMenu}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
                 aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <path data-name="layer2"
@@ -110,7 +102,7 @@ function Nav({ li, divMobile, divNonMobile }) {
                 <path data-name="layer1" fill="#202020" d="M2 48h60v8H2z"></path>
               </svg>
             </div>
-            <div id="delete-svg" className="burger-menu-svg display-svg-menu" onClick={burgerMenu}>
+            <div ref={deleteSvg} id="delete-svg" className="burger-menu-svg display-svg-menu" onClick={burgerMenu}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
                 aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <path data-name="layer1"
@@ -126,6 +118,7 @@ function Nav({ li, divMobile, divNonMobile }) {
 }
 
 Nav.propTypes = {
+  headerRef: PropTypes.object.isRequired,
   li: PropTypes.array.isRequired,
   divMobile: PropTypes.object.isRequired,
   divNonMobile: PropTypes.object.isRequired,
