@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 function CanvasResume({ data }) {
+  let canvasRef = useRef([]);
 
   const percentToRadians = (percentage) => {
     let degrees = percentage * 360 / 100;
@@ -37,7 +38,7 @@ function CanvasResume({ data }) {
     if(item._id !== ""){
       return <div className="canvas-container" key={"canvas" + item._id}>
               <div className="canvas">
-                <canvas id={item._id} width="135" height="135"></canvas>
+                <canvas ref={(el) => (canvasRef.current[item._id] = el)} id={item._id} width="135" height="135"></canvas>
                 <span>{item.percentage}%</span>
               </div>
               <p>{item.nameSkill}</p>
@@ -49,7 +50,7 @@ function CanvasResume({ data }) {
   Promise.all(displayCodingSkill).then( res => {
     data.map((item) => {
       if(item._id !== ""){
-        let canvas = document.getElementById(item._id);
+        let canvas = canvasRef.current[item._id];
 
         let percentage = item.percentage;
         let radius;
