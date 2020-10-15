@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 
 function Modal({ div, closeModal }) {
 
-  window.addEventListener("click", (event) => {
-    if(event.target.className === "modal"){
-      closeModal();
+  useEffect(() => {
+    const closeModalEventListener = window.addEventListener("click", (event) => {
+      if(event.target.className === "modal"){
+        closeModal();
+      }
+    });
+    return () => {
+      window.removeEventListener('click', closeModalEventListener);
     }
-  });
+  }, [closeModal])
+
+
 
   return (
     <div className="modal">

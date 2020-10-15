@@ -37,9 +37,9 @@ function Admin({history, location}) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setInterval(() => {
+    const refreshTokenInterval = setInterval(() => {
       refreshToken();
-    }, 900000);
+    }, 870000);
     const getData = async () => {
       const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
       await axiosInstance.get(getGeneralInfoEndPoint)
@@ -51,6 +51,11 @@ function Admin({history, location}) {
       });
     };
     getData();
+
+    return () => {
+      clearInterval(refreshTokenInterval);
+    }
+
   }, [history]);
 
   const workingData = (data) =>{
