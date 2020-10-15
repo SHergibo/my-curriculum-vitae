@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import PropTypes from 'prop-types';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 function InfoProjectModal({ value }) {
   let descriptionArray = value.description.split(/\n/ig);
@@ -47,7 +46,7 @@ function InfoProjectModal({ value }) {
     <div className="info-project-modal">
       <div className="img-project">
         <img src={`${apiDomain}/api/${apiVersion}/project/image/${value.img.filename}`} alt={value.altImg} />
-        <span><a href={value.url}><FontAwesomeIcon icon={faLink} />Lien vers le projet</a></span>
+        <span><a href={value.url}><FontAwesomeIcon icon="link" />Lien vers le projet</a></span>
       </div>
       <div className="info-project">
         <h2>{value.projectName}</h2>

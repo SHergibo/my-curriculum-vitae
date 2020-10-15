@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState, useRef } from 'react';
 import FormGeneralInfo from './FormGeneralInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Modal from "./Modal";
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
@@ -65,7 +64,7 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, showEditForm, s
             {generalInfo && (
               <div className="btn-delete-info">
                 <button title="Supprimer" onClick={() => modalDeleteInfo()}>
-                  <FontAwesomeIcon icon={faTrashAlt} />
+                  <FontAwesomeIcon icon="trash-alt" />
                 </button>
               </div>
             )}  

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faMobileAlt, faMapMarkerAlt, faUser, faAt, faPaperPlane, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import Axios from 'axios';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
@@ -38,7 +37,7 @@ function Contact({data}) {
               <div className="input">
                 <label htmlFor="firstname">Prénom *</label>
                 <div className="input-block">
-                  <span><FontAwesomeIcon icon={faUser} /></span>
+                  <span><FontAwesomeIcon icon="user" /></span>
                   <input name="firstname" type="text" id="firstname" placeholder="Votre prénom ici..." ref={register({ required: true })} />
                 </div>
                 {errors.firstname && <span className="error-message">Ce champ est requis</span>}
@@ -46,7 +45,7 @@ function Contact({data}) {
               <div className="input">
                 <label htmlFor="lastname">Nom *</label>
                 <div className="input-block">
-                  <span><FontAwesomeIcon icon={faUser} /></span>
+                  <span><FontAwesomeIcon icon="user" /></span>
                   <input name="lastname" type="text" id="lastname" placeholder="Votre nom ici..." ref={register({ required: true })} />
                 </div>
                 {errors.lastname && <span className="error-message">Ce champ est requis</span>}
@@ -56,7 +55,7 @@ function Contact({data}) {
               <div className="input">
                 <label htmlFor="email">Email *</label>
                 <div className="input-block">
-                  <span><FontAwesomeIcon icon={faAt} /></span>
+                  <span><FontAwesomeIcon icon="at" /></span>
                   <input name="email" id="email" placeholder="Votre adresse mail ici..." ref={register({ 
                   required: 'Ce champ est requis',
                   pattern: {
@@ -70,7 +69,7 @@ function Contact({data}) {
               <div className="input">
                 <label htmlFor="phone">Téléphone *</label>
                 <div className="input-block">
-                  <span><FontAwesomeIcon icon={faMobileAlt} /></span>
+                  <span><FontAwesomeIcon icon="mobile-alt" /></span>
                   <input name="phone" type="text" id="phone" placeholder="Votre n° de téléphone ici..." ref={register({ required: true })} />
                 </div>
                 {errors.phone && <span className="error-message">Ce champ est requis</span>}
@@ -80,7 +79,7 @@ function Contact({data}) {
               <div className="input">
                 <label htmlFor="subject">Sujet *</label>
                 <div className="input-block">
-                  <span><FontAwesomeIcon icon={faEnvelope} /></span>
+                  <span><FontAwesomeIcon icon="envelope" /></span>
                   <input name="subject" type="text" id="subject" placeholder="Le sujet du message ici..." ref={register({ required: true })} />
                 </div>
                 {errors.subject && <span className="error-message">Ce champ est requis</span>}
@@ -96,10 +95,10 @@ function Contact({data}) {
             <div className="btn-container">
               <button className="submit-contact" type="submit">
                 Envoyer maintenant
-              <FontAwesomeIcon icon={faPaperPlane} />
+              <FontAwesomeIcon icon="paper-plane" />
               </button>
               <span className="success-message">
-                {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
+                {success && <span ><FontAwesomeIcon icon="check" /></span>}
               </span>
             </div>
           </form>
@@ -109,10 +108,10 @@ function Contact({data}) {
             <img src="./Hergibo_Sacha.jpg" alt="Hergibo Sacha" />
           </div>
           <ul>
-            <li><span><FontAwesomeIcon icon={faEnvelope} /></span> {data.email}</li>
-            <li><span><FontAwesomeIcon icon={faMobileAlt} /></span> {data.phone}</li>
+            <li><span><FontAwesomeIcon icon="envelope" /></span> {data.email}</li>
+            <li><span><FontAwesomeIcon icon="mobile-alt" /></span> {data.phone}</li>
             <li>
-              <span><FontAwesomeIcon icon={faMapMarkerAlt} /></span>
+              <span><FontAwesomeIcon icon="map-marker-alt" /></span>
               <div>
                 <div> {data.address.street}, {data.address.number}</div>
                 <div>{data.address.zip} {data.address.city}</div>

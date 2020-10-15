@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { loginIn } from './../utils/Auth';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey, faAt } from '@fortawesome/free-solid-svg-icons';
 import HomeSection from "./HomeSection";
 import PropTypes from 'prop-types';
 
@@ -28,7 +27,7 @@ function Login({ history }) {
                   <div className="input input-login">
                     <label htmlFor="email">Email *</label>
                     <div className="input-block">
-                      <span><FontAwesomeIcon icon={faAt} /></span>
+                      <span><FontAwesomeIcon icon="at" /></span>
                       <input name="email" type="text" id="email" placeholder="Email" ref={register({ required: true })} />
                     </div>
                     {errors.email && <span className="error-message">Ce champ est requis</span>}
@@ -36,7 +35,7 @@ function Login({ history }) {
                   <div className="input input-login">
                     <label htmlFor="lastname">Mot de passe *</label>
                     <div className="input-block">
-                      <span><FontAwesomeIcon icon={faKey} /></span>
+                      <span><FontAwesomeIcon icon="key" /></span>
                       <input name="password" type="password" id="password" placeholder="Mot de passe" ref={register({ required: true })} />
                     </div>
                     {errors.password && <span className="error-message">Ce champ est requis</span>}

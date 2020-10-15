@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from '../utils/axiosInstance';
 import axios from 'axios';
 import { apiDomain, apiVersion } from '../apiConfig/ApiConfig';
@@ -112,10 +111,10 @@ function Projects() {
             <div className="btn-switch-container">
               <button onClick={() => switchForm()}>
                 {addBtn && (
-                  <FontAwesomeIcon icon={faEdit} />
+                  <FontAwesomeIcon icon="edit" />
                 )}
                 {editbtn && (
-                  <FontAwesomeIcon icon={faPlus} />
+                  <FontAwesomeIcon icon="plus" />
                 )}
               </button>
             </div>

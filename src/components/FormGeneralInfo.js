@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState} from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMobileAlt, faPlus, faRoad, faAt, faHome, faEnvelopeOpenText, faCity, faBirthdayCake, faCheck, faCar, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from "react-datepicker";
 import { parseISO } from 'date-fns';
@@ -41,7 +40,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="firstname">Prénom *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faUser} /></span>
+              <span><FontAwesomeIcon icon="user" /></span>
               {formType === "add" && <input name="firstname" type="text" id="firstname" placeholder="Prénom" ref={register({ required: true })} />}
               {formType === "edit" && <input name="firstname" type="text" id="firstname" placeholder="Prénom" defaultValue={value.firstname} ref={register({ required: true })} />}
             </div>
@@ -50,7 +49,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="lastname">Nom de famille *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faUser} /></span>
+              <span><FontAwesomeIcon icon="user" /></span>
               {formType === "add" && <input name="lastname" type="text" id="lastname" placeholder="Nom de famille" ref={register({ required: true })} />}
               {formType === "edit" && <input name="lastname" type="text" id="lastname" placeholder="Nom de famille" defaultValue={value.lastname} ref={register({ required: true })} />}
             </div>
@@ -61,7 +60,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="email">Email *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faAt} /></span>
+              <span><FontAwesomeIcon icon="at" /></span>
               {formType === "add" && <input name="email" id="email" placeholder="Adresse mail" ref={register({ 
                 required: 'Ce champ est requis',
                 pattern: {
@@ -82,7 +81,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="phone">Téléphone *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faMobileAlt} /></span>
+              <span><FontAwesomeIcon icon="mobile-alt" /></span>
               {formType === "add" && <input name="phone" type="text" id="phone" placeholder="N° de téléphone" ref={register({ required: true })} />}
               {formType === "edit" && <input name="phone" type="text" id="phone" placeholder="N° de téléphone" defaultValue={value.phone} ref={register({ required: true })} />}
             </div>
@@ -93,7 +92,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="street">Rue *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faRoad} /></span>
+              <span><FontAwesomeIcon icon="road" /></span>
               {formType === "add" && <input name="street" type="text" id="street" placeholder="Rue" ref={register({ required: true })} />}
               {formType === "edit" && <input name="street" type="text" id="street" placeholder="Rue" defaultValue={value.address.street} ref={register({ required: true })} />}
             </div>
@@ -102,7 +101,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="number">Numéro *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faHome} /></span>
+              <span><FontAwesomeIcon icon="home" /></span>
               {formType === "add" && <input name="number" type="text" id="number" placeholder="Numéro" ref={register({ required: true })} />}
               {formType === "edit" && <input name="number" type="text" id="number" placeholder="Numéro" defaultValue={value.address.number} ref={register({ required: true })} />}
             </div>
@@ -113,7 +112,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="zip">Code postal *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faEnvelopeOpenText} /></span>
+              <span><FontAwesomeIcon icon="envelope-open-text" /></span>
               {formType === "add" && <input name="zip" type="text" id="zip" placeholder="Code postal" ref={register({ required: true })} />}
               {formType === "edit" && <input name="zip" type="text" id="zip" placeholder="Code postal" defaultValue={value.address.zip} ref={register({ required: true })} />}
             </div>
@@ -122,7 +121,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="city">Ville *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faCity} /></span>
+              <span><FontAwesomeIcon icon="city" /></span>
               {formType === "add" && <input name="city" type="text" id="city" placeholder="Ville" ref={register({ required: true })} />}
               {formType === "edit" && <input name="city" type="text" id="city" placeholder="Ville" defaultValue={value.address.city} ref={register({ required: true })} />}
             </div>
@@ -133,7 +132,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="birthDate">Date de naissance *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faBirthdayCake} /></span>
+              <span><FontAwesomeIcon icon='birthday-cake' /></span>
               <DatePicker
                 id="birthDate"
                 isClearable
@@ -152,7 +151,7 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <div className="input">
             <label htmlFor="driverLicence">Permis de conduire *</label>
             <div className="input-block">
-              <span><FontAwesomeIcon icon={faCar} /></span>
+              <span><FontAwesomeIcon icon="car" /></span>
               {formType === "add" && <input name="driverLicence" type="text" id="driverLicence" placeholder="Permis de conduire" ref={register({ required: true })} />}
               {formType === "edit" && <input name="driverLicence" type="text" id="driverLicence" placeholder="Permis de conduire" defaultValue={value.licence} ref={register({ required: true })} />}
             </div>
@@ -172,14 +171,14 @@ function FormGeneralInfo({handleFunction, formType, value, success}) {
           <button className="submit-contact" type="submit">
             {button}
             {formType === "add" && 
-              <FontAwesomeIcon icon={faPlus} />
+              <FontAwesomeIcon icon="plus" />
             }
             {formType === "edit" && 
-              <FontAwesomeIcon icon={faEdit} />
+              <FontAwesomeIcon icon="edit" />
             }
           </button>
           <span className="success-message">
-            {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
+            {success && <span ><FontAwesomeIcon icon="check" /></span>}
           </span>
         </div>
       </form>

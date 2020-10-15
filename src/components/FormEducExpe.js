@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useEffect, useState, Fragment } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faHourglassStart, faHourglassEnd, faUserGraduate, faSchool, faEdit } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from "react-datepicker";
 import { parseISO } from 'date-fns';
@@ -50,7 +49,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, dateSta
                   <div className="input">
                     <label htmlFor="dateStart">Date de début *</label>
                     <div className="input-block">
-                      <span><FontAwesomeIcon icon={faHourglassStart} /></span>
+                      <span><FontAwesomeIcon icon="hourglass-start" /></span>
                       <DatePicker
                       id="dateStart"
                       isClearable
@@ -69,7 +68,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, dateSta
                   <div className="input">
                     <label htmlFor="dateEnd">Date de fin *</label>
                     <div className="input-block">
-                      <span><FontAwesomeIcon icon={faHourglassEnd} /></span>
+                      <span><FontAwesomeIcon icon="hourglass-end" /></span>
                       <DatePicker
                       id="dateEnd"
                       isClearable
@@ -103,7 +102,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, dateSta
                   <div className="input">
                     <label htmlFor="titleEducExpe">Titre du diplôme / formation *</label>
                     <div className="input-block">
-                      <span><FontAwesomeIcon icon={faUserGraduate} /></span>
+                      <span><FontAwesomeIcon icon="user-graduate" /></span>
                       {formType === "add" && <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" ref={register({ required: true })} />}
                       {formType === "edit" && <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" defaultValue={value.titleEducExpe} ref={register({ required: true })} />}
                     </div>
@@ -112,7 +111,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, dateSta
                   <div className="input">
                     <label htmlFor="placeEducExpe">Nom du centre de formation / école *</label>
                     <div className="input-block">
-                      <span><FontAwesomeIcon icon={faSchool} /></span>
+                      <span><FontAwesomeIcon icon="school" /></span>
                       {formType === "add" && <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" ref={register({ required: true })} />}
                       {formType === "edit" && <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" defaultValue={value.placeEducExpe} ref={register({ required: true })} />}
                     </div>
@@ -133,14 +132,14 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, dateSta
                   <button className="submit-contact" type="submit">
                     {button}
                     {formType === "add" && 
-                      <FontAwesomeIcon icon={faPlus} />
+                      <FontAwesomeIcon icon="plus" />
                     }
                     {formType === "edit" && 
-                      <FontAwesomeIcon icon={faEdit} />
+                      <FontAwesomeIcon icon="edit" />
                     }
                   </button>
                   <span className="success-message">
-                    {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
+                    {success && <span ><FontAwesomeIcon icon="check" /></span>}
                   </span>
                 </div>
               </Fragment>;

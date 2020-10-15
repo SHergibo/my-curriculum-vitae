@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import FormSkill from './FormSkill';
 import DisplayListSkill from './DisplayListSkill';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
@@ -144,10 +143,10 @@ function Skills() {
             <div className="btn-switch-container">
               <button onClick={() => switchForm()}>
                 {addBtn && (
-                  <FontAwesomeIcon icon={faEdit} />
+                  <FontAwesomeIcon icon="edit" />
                 )}
                 {editbtn && (
-                  <FontAwesomeIcon icon={faPlus} />
+                  <FontAwesomeIcon icon="plus" />
                 )}
               </button>
             </div>

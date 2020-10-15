@@ -1,6 +1,5 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faJs, faHtml5 } from '@fortawesome/free-brands-svg-icons';
 import PropTypes from 'prop-types';
 
 function About({data}) {
@@ -44,11 +43,11 @@ function About({data}) {
         <div className="wrapper about-job">
           <div></div>
           <div>
-            <FontAwesomeIcon icon={faJs} />
+            <FontAwesomeIcon icon={['fab', 'js']} />
             <h5>Web Développeur</h5>
           </div>
           <div>
-            <FontAwesomeIcon icon={faHtml5} />
+            <FontAwesomeIcon icon={['fab', 'html5']} />
             <h5>Web Intégrateur</h5>
           </div>
           <div></div>

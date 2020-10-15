@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Modal from "./Modal";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormProject from "./FormProject";
@@ -27,8 +26,8 @@ function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success,
           <div className="title-list">{item.projectName}</div>
         </div>
         <div className="div-list-btn-container">
-          <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon={faEdit} /></button>
-          <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon={faTrashAlt} /></button>
+          <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+          <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
         </div>
       </li>
     </CSSTransition>

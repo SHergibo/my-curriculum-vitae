@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import InfoProjectModal from "./InfoProjectModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faLink } from '@fortawesome/free-solid-svg-icons';
 import Modal from "./Modal";
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import axios from "axios";
@@ -43,9 +42,9 @@ function Portfolio() {
             </div>
             <div className="project-more">
               <div>
-                <span tabIndex={0} onClick={() => displayModal(item)} onKeyPress={() => displayModal(item)}><FontAwesomeIcon icon={faPlus} /></span>
+                <span tabIndex={0} onClick={() => displayModal(item)} onKeyPress={() => displayModal(item)}><FontAwesomeIcon icon="plus" /></span>
                 <span>
-                  <a tabIndex={0} href={item.url}><FontAwesomeIcon icon={faLink} /></a>
+                  <a tabIndex={0} href={item.url}><FontAwesomeIcon icon="link" /></a>
                 </span>
               </div>
             </div>

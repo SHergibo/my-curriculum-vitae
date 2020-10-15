@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faLink, faImages, faInfoCircle, faFileSignature, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
@@ -53,7 +52,7 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
                       <div className="input">
                         <label htmlFor="projectName">Nom du projet *</label>
                         <div className="input-block">
-                          <span><FontAwesomeIcon icon={faFileSignature} /></span>
+                          <span><FontAwesomeIcon icon="file-signature" /></span>
                           {formType === "add" && <input name="projectName" type="text" id="projectName" placeholder="Nom du projet" ref={register({ required: true })} />}
                           {formType === "edit" && <input name="projectName" type="text" id="projectName" placeholder="Nom du projet" defaultValue={value.projectName} ref={register({ required: true })} />}
                         </div>
@@ -64,7 +63,7 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
                       <div className="input">
                         <label htmlFor="projectUrl">Lien du projet *</label>
                         <div className="input-block">
-                          <span><FontAwesomeIcon icon={faLink} /></span>
+                          <span><FontAwesomeIcon icon="link" /></span>
                           {formType === "add" && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" ref={register({ required: true })} />}
                           {formType === "edit" && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" defaultValue={value.url} ref={register({ required: true })} />}
                         </div>
@@ -129,7 +128,7 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
                         <div className="input">
                           <label htmlFor="projectImg">Image du projet *</label>
                           <div className="input-block input-file">
-                            <span><FontAwesomeIcon icon={faImages} /></span>
+                            <span><FontAwesomeIcon icon="images" /></span>
                             <div className="container-input-file">
                               <span>{imgProjectName}</span>
                               {formType === "add" && <input name="projectImg" type="file" accept=".jpg,.jpeg,.png" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} onChange={(e) => onAddFile(e)} />}
@@ -146,7 +145,7 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
                       <div className="input">
                         <label htmlFor="projectAltImg">Description de la l'image du projet *</label>
                         <div className="input-block">
-                          <span><FontAwesomeIcon icon={faInfoCircle} /></span>
+                          <span><FontAwesomeIcon icon="info-circle" /></span>
                           {formType === "add" && <input name="projectAltImg" type="text" id="projectAltImg" placeholder="Description de l'image du projet" ref={register({ required: true })} />}
                           {formType === "edit" && <input name="projectAltImg" type="text" id="projectAltImg" placeholder="Description de l'image du projet" defaultValue={value.altImg} ref={register({ required: true })} />}
                         </div>
@@ -169,14 +168,14 @@ function FormProject({ handleFunction, setId, formType, value, success, imgProje
                   <button className="submit-contact" type="submit">
                     {button}
                     {formType === "add" &&
-                      <FontAwesomeIcon icon={faPlus} />
+                      <FontAwesomeIcon icon="plus" />
                     }
                     {formType === "edit" &&
-                      <FontAwesomeIcon icon={faEdit} />
+                      <FontAwesomeIcon icon="edit" />
                     }
                   </button>
                   <span className="success-message">
-                    {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
+                    {success && <span ><FontAwesomeIcon icon="check" /></span>}
                   </span>
                 </div>
               </Fragment>;

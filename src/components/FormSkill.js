@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState, Fragment } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faGraduationCap, faPercentage, faEdit } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
 function FormEducExpe({ handleFunction, setId, formType, value, success }) {
@@ -43,7 +42,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
                     <div className="input">
                       <label htmlFor="nameSkill">Nom de la compétences *</label>
                       <div className="input-block">
-                        <span><FontAwesomeIcon icon={faGraduationCap} /></span>
+                        <span><FontAwesomeIcon icon="graduation-cap" /></span>
                         {formType === "add" && <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" ref={register({ required: true })} />}
                         {formType === "edit" && <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" defaultValue={value.nameSkill} ref={register({ required: true })} />}
                       </div>
@@ -52,7 +51,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
                     <div className="input">
                       <label htmlFor="percentage">Pourcentage *</label>
                       <div className="input-block">
-                        <span><FontAwesomeIcon icon={faPercentage} /></span>
+                        <span><FontAwesomeIcon icon="percentage" /></span>
                         {formType === "add" && <input name="percentage" id="percentage" placeholder="Pourcentage" ref={register({
                           required: "Ce champ est requis",
                           pattern: {
@@ -89,14 +88,14 @@ function FormEducExpe({ handleFunction, setId, formType, value, success }) {
                     <button className="submit-contact" type="submit">
                       {button}
                       {formType === "add" && 
-                        <FontAwesomeIcon icon={faPlus} />
+                        <FontAwesomeIcon icon="plus" />
                       }
                       {formType === "edit" && 
-                        <FontAwesomeIcon icon={faEdit} />
+                        <FontAwesomeIcon icon="edit" />
                       }
                     </button>
                     <span className="success-message">
-                      {success && <span ><FontAwesomeIcon icon={faCheck} /></span>}
+                      {success && <span ><FontAwesomeIcon icon="check" /></span>}
                     </span>
                   </div>
                 </Fragment>;
