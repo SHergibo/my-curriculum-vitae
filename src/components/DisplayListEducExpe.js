@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -70,7 +70,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
   }
 
   return (
-    <Fragment>
+    <>
       <div>
         <h4>Éducation</h4>
         <ul>
@@ -107,7 +107,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
         } 
         closeModal={closeModal}/>
       }
-    </Fragment>
+    </>
   );
 }
 

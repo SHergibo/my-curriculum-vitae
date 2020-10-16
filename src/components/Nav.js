@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link } from "react-scroll";
 import Logo from './Logo';
 import PropTypes from 'prop-types';
@@ -93,7 +93,7 @@ function Nav({ headerRef, li, divMobile, divNonMobile }) {
           {divNonMobile}
         </div>
         {windowWidth < 960 &&
-          <Fragment>
+          <>
             <div ref={burgerSvg} id="burger-svg" className="burger-menu-svg" onClick={burgerMenu}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
                 aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -109,7 +109,7 @@ function Nav({ headerRef, li, divMobile, divNonMobile }) {
                   fill="#202020" d="M51 17.25L46.75 13 32 27.75 17.25 13 13 17.25 27.75 32 13 46.75 17.25 51 32 36.25 46.75 51 51 46.75 36.25 32 51 17.25z"></path>
               </svg>
             </div>
-          </Fragment>
+          </>
         }
 
       </div>

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,9 +8,7 @@ function InfoProjectModal({ value }) {
 
   let displayDesc = descriptionArray.map((item, index) => {
     if(item.length > 0){
-      return <Fragment key={`descProject-${index}`}>
-              <p>{item}</p>
-            </Fragment>
+      return <p key={`descProject-${index}`}>{item}</p> 
     } else{
       return null;
     }
@@ -24,9 +22,7 @@ function InfoProjectModal({ value }) {
   };
 
   let displayFrameWorkUsed = frameWorkUsed.map((item, index) => {
-    return <Fragment key={`frameworkUsed-${index}`}>
-              <li>{item}</li>
-            </Fragment>
+    return <li key={`frameworkUsed-${index}`}>{item}</li>
   });
 
   let technoUsedBack = [];
@@ -37,9 +33,7 @@ function InfoProjectModal({ value }) {
   };
 
   let displayTechnoUsedBack = technoUsedBack.map((item, index) => {
-    return <Fragment key={`technoUsedBack-${index}`}>
-              <li>{item}</li>
-            </Fragment>
+    return  <li key={`technoUsedBack-${index}`}>{item}</li>
   });
 
   return (

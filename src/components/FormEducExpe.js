@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, Fragment } from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -51,7 +51,7 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, success, suc
     button = "Éditer";
   }
 
-  const form = <Fragment>
+  const form = <>
                 <div className="input-container">
                   <div className="input">
                     <label htmlFor="dateStart">Date de début *</label>
@@ -149,10 +149,10 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, success, suc
                     {success && <span ><FontAwesomeIcon icon="check" /></span>}
                   </span>
                 </div>
-              </Fragment>;
+              </>;
 
   return (
-    <Fragment>
+    <>
       <h3>{titleForm}</h3>
       {formType === "add" && 
         <form onSubmit={handleSubmit(handleFunction)}>
@@ -164,7 +164,7 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, success, suc
           {form}
         </form>
       }
-    </Fragment>
+    </>
   );
 }
 

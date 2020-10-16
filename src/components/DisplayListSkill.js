@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -80,7 +80,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
   }
 
   return (
-    <Fragment>
+    <>
       <div>
         <h4>Compétences</h4>
         <ul>
@@ -123,7 +123,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
         } 
         closeModal={closeModal}/>
       }
-    </Fragment>
+    </>
   );
 }
 

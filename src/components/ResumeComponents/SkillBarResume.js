@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 function SkillBarResume({ data }) {
@@ -17,9 +17,9 @@ function SkillBarResume({ data }) {
   });
 
   return (
-    <Fragment>
+    <>
       {displaySkill}
-    </Fragment>
+    </>
   );
 }
 
