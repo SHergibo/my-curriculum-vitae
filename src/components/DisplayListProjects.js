@@ -16,34 +16,31 @@ function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, succ
   }
 
   let liListProjects = arrayProject.map((item) => {
-    return <CSSTransition
-      key={item._id}
-      timeout={500}
-      classNames="item-list"
-    >
-      <li>
-        <div className="div-list-container">
-          <div className="title-list">{item.projectName}</div>
-        </div>
-        <div className="div-list-btn-container">
-          <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
-          <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-        </div>
-      </li>
-    </CSSTransition>
+    return <li key={item._id}>
+            <div className="div-list-container">
+              <div className="title-list">{item.projectName}</div>
+            </div>
+            <div className="div-list-btn-container">
+              <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+              <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
+            </div>
+          </li>
   });
 
   return (
     <>
       <div>
         <h4>Projets</h4>
-        <ul>
-          <TransitionGroup
-          component={null}
-          >
-            {liListProjects}
+          <TransitionGroup component={null} >
+            <CSSTransition
+              timeout={500}
+              classNames="item-list"
+            >
+              <ul>
+              {liListProjects}
+              </ul>
+            </CSSTransition>
           </TransitionGroup>
-        </ul>
       </div>
       {displayForm &&
         <Modal div={

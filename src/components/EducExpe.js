@@ -21,6 +21,8 @@ function EducExpe() {
   const [displayForm, setDisplayForm] = useState(false);
   const [dateStart, setDateStart] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
+  const nodeRef = useRef(null);
+  const nodeRefTwo = useRef(null);
 
   useEffect(() => {
     let windowWidth = window.innerWidth;
@@ -150,12 +152,13 @@ function EducExpe() {
 
           <div className="forms-block">
             <CSSTransition
+              nodeRef={nodeRef}
               in={addBtn}
               timeout={500}
               classNames="add"
               unmountOnExit
             >
-              <div className="form-container">
+              <div ref={nodeRef} className="form-container">
                 <FormEducExpe 
                 handleFunction={onSubmitAdd} 
                 formType="add" 
@@ -168,12 +171,13 @@ function EducExpe() {
               </div>
             </CSSTransition>
             <CSSTransition
+              nodeRef={nodeRefTwo}
               in={editbtn}
               timeout={500}
               classNames="edit"
               unmountOnExit
             >
-              <div className="list-container">
+              <div ref={nodeRefTwo} className="list-container">
                 <h3>Édition</h3>
                 <DisplayListEducExpe 
                 arrayEduc={arrayEduc} 

@@ -17,6 +17,8 @@ function Projects() {
   const [idItem, setIdItem] = useState(null);
   const [displayForm, setDisplayForm] = useState(false);
   const [imgProjectName, setImgProjectName] = useState("Image du projet");
+  const nodeRef = useRef(null);
+  const nodeRefTwo = useRef(null);
 
 
   let switchForm = () => {
@@ -119,12 +121,13 @@ function Projects() {
 
           <div className="forms-block">
             <CSSTransition
+              nodeRef={nodeRef}
               in={addBtn}
               timeout={500}
               classNames="add"
               unmountOnExit
             >
-              <div className="form-container">
+              <div ref={nodeRef} className="form-container">
                 <FormProject 
                 handleFunction={onSubmitAdd} 
                 formType="add" 
@@ -135,12 +138,13 @@ function Projects() {
               </div>
             </CSSTransition>
             <CSSTransition
+              nodeRef={nodeRefTwo}
               in={editbtn}
               timeout={500}
               classNames="edit"
               unmountOnExit
             >
-              <div className="list-container">
+              <div ref={nodeRefTwo} className="list-container">
                 <h3>Édition</h3>
                 <DisplayListProjects 
                 arrayProject={arrayProject} 

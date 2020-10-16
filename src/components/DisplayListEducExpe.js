@@ -27,12 +27,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
     liListEduc = arrayEduc.map((item) => {
       let formatDateStart = formatDate(item.dateStart);
       let formatDateEnd = formatDate(item.dateEnd);
-      return <CSSTransition
-                key={item._id}
-                timeout={500}
-                classNames="item-list"
-              >
-              <li>
+      return <li key={item._id}>
                 <div className="div-list-container">
                   <div className="date-list">{formatDateStart} - {formatDateEnd}</div> 
                   <div className="title-list">{item.titleEducExpe}</div> 
@@ -42,7 +37,6 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
                   <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
                 </div>
               </li>
-            </CSSTransition>
     });
   }
 
@@ -50,12 +44,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
     liListExpe = arrayExpe.map((item) => {
       let formatDateStart = formatDate(item.dateStart);
       let formatDateEnd = formatDate(item.dateEnd);
-      return <CSSTransition
-                key={item._id}
-                timeout={500}
-                classNames="item-list"
-              >
-              <li>
+      return <li key={item._id}>
                 <div className="div-list-container">
                   <div className="date-list">{formatDateStart} - {formatDateEnd}</div> 
                   <div className="title-list">{item.titleEducExpe}</div> 
@@ -65,7 +54,6 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
                   <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
                 </div>
               </li>
-            </CSSTransition>
     });
   }
 
@@ -73,23 +61,29 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
     <>
       <div>
         <h4>Éducation</h4>
-        <ul>
-          <TransitionGroup
-          component={null}
-          >
-            {liListEduc}
-          </TransitionGroup>
-        </ul>
+        <TransitionGroup component={null} >
+          <CSSTransition
+              timeout={500}
+              classNames="item-list"
+            >
+              <ul >
+                {liListEduc}
+              </ul>
+            </CSSTransition>
+        </TransitionGroup>
       </div>
       <div>
         <h4>Expérience</h4>
-        <ul>
-          <TransitionGroup
-          component={null}
-          >
-            {liListExpe}
+          <TransitionGroup component={null} >
+            <CSSTransition
+              timeout={500}
+              classNames="item-list"
+            >
+              <ul >
+                {liListExpe}
+              </ul>
+            </CSSTransition>
           </TransitionGroup>
-        </ul>
       </div>
       {displayForm  && 
         <Modal div={

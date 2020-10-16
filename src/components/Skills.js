@@ -18,6 +18,8 @@ function Skills() {
   const [arrayLanguage, setArrayLanguage] = useState([]);
   const [idItem, setIdItem] = useState();
   const [displayForm, setDisplayForm] = useState(false);
+  const nodeRef = useRef(null);
+  const nodeRefTwo = useRef(null);
 
   let switchForm = () => {
     if (addBtn) {
@@ -151,12 +153,13 @@ function Skills() {
 
           <div className="forms-block">
             <CSSTransition
+              nodeRef={nodeRef}
               in={addBtn}
               timeout={500}
               classNames="add"
               unmountOnExit
             >
-              <div className="form-container">
+              <div ref={nodeRef} className="form-container">
                 <FormSkill 
                 handleFunction={onSubmitAdd} 
                 formType="add" 
@@ -165,12 +168,13 @@ function Skills() {
               </div>
             </CSSTransition>
             <CSSTransition
+              nodeRef={nodeRefTwo}
               in={editbtn}
               timeout={500}
               classNames="edit"
               unmountOnExit
             >
-              <div className="list-container">
+              <div ref={nodeRefTwo} className="list-container">
                 <h3>Édition</h3>
                 <DisplayListSkill 
                 arrayCodingSkill={arrayCodingSkill} 

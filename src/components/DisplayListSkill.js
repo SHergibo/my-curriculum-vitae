@@ -21,61 +21,43 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
 
   if (arrayCodingSkill) {
     liListCodingSkill = arrayCodingSkill.map((item) => {
-      return <CSSTransition
-                key={item._id}
-                timeout={500}
-                classNames="item-list"
-              >
-                <li>
-                  <div className="div-list-container">
-                    <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
-                  </div>
-                  <div className="div-list-btn-container">
-                    <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
-                    <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-                  </div>
-                </li>
-              </CSSTransition>
+      return <li key={item._id}>
+              <div className="div-list-container">
+                <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
+              </div>
+              <div className="div-list-btn-container">
+                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
+              </div>
+            </li>
     });
   }
 
   if (arrayGeneralSkill) {
     liListGeneralSkill = arrayGeneralSkill.map((item) => {
-      return <CSSTransition
-                key={item._id}
-                timeout={500}
-                classNames="item-list"
-              >
-                <li>
-                  <div className="div-list-container">
-                    <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
-                  </div>
-                  <div className="div-list-btn-container">
-                    <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
-                    <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-                  </div>
-                </li>
-              </CSSTransition>
+      return <li key={item._id}>
+              <div className="div-list-container">
+                <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
+              </div>
+              <div className="div-list-btn-container">
+                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
+              </div>
+            </li>
     });
   }
 
   if (arrayLanguage) {
     liListLanguage = arrayLanguage.map((item) => {
-      return <CSSTransition
-                key={item._id}
-                timeout={500}
-                classNames="item-list"
-              >
-                <li>
-                  <div className="div-list-container">
-                    <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
-                  </div>
-                  <div className="div-list-btn-container">
-                    <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
-                    <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-                  </div>
-                </li>
-              </CSSTransition>
+      return <li key={item._id}>
+              <div className="div-list-container">
+                <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
+              </div>
+              <div className="div-list-btn-container">
+                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
+              </div>
+            </li>
       });
   }
 
@@ -83,33 +65,42 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
     <>
       <div>
         <h4>Compétences</h4>
-        <ul>
-          <TransitionGroup
-          component={null}
-          >
-            {liListCodingSkill}
+          <TransitionGroup component={null} >
+            <CSSTransition
+              timeout={500}
+              classNames="item-list"
+            >
+              <ul>
+              {liListCodingSkill}
+              </ul>
+            </CSSTransition>
           </TransitionGroup>
-        </ul>
       </div>
       <div>
         <h4>Compétences générales</h4>
-        <ul>
-          <TransitionGroup
-          component={null}
-          >
-            {liListGeneralSkill}
+          <TransitionGroup component={null} >
+            <CSSTransition
+              timeout={500}
+              classNames="item-list"
+            >
+              <ul>
+                {liListGeneralSkill}
+              </ul>
+            </CSSTransition>
           </TransitionGroup>
-        </ul>
       </div>
       <div>
         <h4>Langues</h4>
-        <ul>
-          <TransitionGroup
-          component={null}
-          >
-            {liListLanguage}
+          <TransitionGroup component={null}>
+            <CSSTransition
+              timeout={500}
+              classNames="item-list"
+            >
+              <ul>
+                {liListLanguage}
+              </ul>
+            </CSSTransition>
           </TransitionGroup>
-        </ul>
       </div>
       {displayForm &&
         <Modal div={
