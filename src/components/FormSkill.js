@@ -1,9 +1,9 @@
-import React, { useLayoutEffect, useState, Fragment } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-function FormEducExpe({ handleFunction, setId, formType, value, success, successMessage }) {
+function FormEducExpe({ handleFunction, setIdItem, formType, value, success, successMessage }) {
   const [checkboxCodingSkill, setCheckboxCodingSkill] = useState();
   const [checkboxGeneralSkill, setCheckboxGeneralSkill] = useState();
   const [checkboxLanguage, setCheckboxLanguage] = useState();
@@ -11,6 +11,12 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, success
   const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange"
   });
+
+  useEffect(() => {
+    if(value){
+      setIdItem(value._id);
+    }
+  }, [value, setIdItem]);
 
   useLayoutEffect(() => {
     setCheckboxCodingSkill("checked");
@@ -37,7 +43,7 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, success
     button = "Éditer";
   }
 
-  const form = <Fragment>
+  const form = <>
                   <div className="input-container">
                     <div className="input">
                       <label htmlFor="nameSkill">Nom de la compétences *</label>
@@ -98,10 +104,10 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, success
                       {success && <span ><FontAwesomeIcon icon="check" /></span>}
                     </span>
                   </div>
-                </Fragment>;
+                </>;
 
   return (
-    <Fragment>
+    <>
       <h3>{titleForm}</h3>
       {formType === "add" &&
         <form onSubmit={handleSubmit(handleFunction)}>
@@ -109,16 +115,17 @@ function FormEducExpe({ handleFunction, setId, formType, value, success, success
         </form>
       }
       {formType === "edit" &&
-        <form onSubmit={handleSubmit(handleFunction, setId(value._id))}>
+        <form onSubmit={handleSubmit(handleFunction)}>
           {form}
         </form>
       }
-    </Fragment>
+    </>
   );
 }
 
 FormEducExpe.propTypes = {
   handleFunction: PropTypes.func.isRequired,
+  setIdItem: PropTypes.func,
   formType: PropTypes.string.isRequired,
   value: PropTypes.object,
   success: PropTypes.bool.isRequired,

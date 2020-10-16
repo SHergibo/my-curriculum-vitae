@@ -17,7 +17,7 @@ function EducExpe() {
   const [editbtn, setEditBtn] = useState(false);
   const [arrayEduc, setArrayEduc] = useState([]);
   const [arrayExpe, setArrayExpe] = useState([]);
-  const [idItem, setIdItem] = useState();
+  const [idItem, setIdItem] = useState(null);
   const [displayForm, setDisplayForm] = useState(false);
   const [dateStart, setDateStart] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
@@ -65,10 +65,6 @@ function EducExpe() {
         setDateEnd(null);
       });
   };
-
-  const setIdFunc = (data) => {
-    setIdItem(data);
-  }
 
   const closeModal = () => {
     let body = document.getElementsByTagName("body")[0];
@@ -183,7 +179,7 @@ function EducExpe() {
                 arrayEduc={arrayEduc} 
                 arrayExpe={arrayExpe} 
                 submit={onClickEdit} 
-                setId={setIdFunc} 
+                setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
                 success={success} 
                 successMessage={successMessage}

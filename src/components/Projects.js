@@ -14,7 +14,7 @@ function Projects() {
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
   const [arrayProject, setArrayProject] = useState([]);
-  const [idItem, setIdItem] = useState();
+  const [idItem, setIdItem] = useState(null);
   const [displayForm, setDisplayForm] = useState(false);
   const [imgProjectName, setImgProjectName] = useState("Image du projet");
 
@@ -61,10 +61,6 @@ function Projects() {
         setImgProjectName('Image du projet');
       });
   };
-
-  const setIdFunc = (data) => {
-    setIdItem(data);
-  }
 
   const closeModal = () => {
     let body = document.getElementsByTagName("body")[0];
@@ -149,7 +145,7 @@ function Projects() {
                 <DisplayListProjects 
                 arrayProject={arrayProject} 
                 submit={onClickEdit} 
-                setId={setIdFunc} 
+                setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
                 success={success} 
                 successMessage={successMessage}

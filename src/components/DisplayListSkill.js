@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormSkill from "./FormSkill";
 import PropTypes from 'prop-types';
 
-function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setId, funcDelete, success, successMessage, displayForm, setDisplayForm, closeModal }) {
+function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setIdItem, funcDelete, success, successMessage, displayForm, setDisplayForm, closeModal }) {
   const [value, setValue] = useState({});
   let body = document.getElementsByTagName("body")[0];
 
@@ -115,7 +115,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
         <Modal div={
           <FormSkill 
           handleFunction={submit} 
-          setId={setId} 
+          setIdItem={setIdItem} 
           formType="edit" 
           value={value} 
           success={success}
@@ -132,6 +132,7 @@ DisplayListSkill.propTypes = {
   arrayGeneralSkill: PropTypes.array.isRequired,
   arrayLanguage: PropTypes.array.isRequired,
   submit: PropTypes.func.isRequired,
+  setIdItem: PropTypes.func,
   funcDelete: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
   successMessage: PropTypes.object.isRequired,

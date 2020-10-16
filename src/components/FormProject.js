@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
-function FormProject({ handleFunction, setId, formType, value, success, successMessage, imgProjectName, setImgProjectName }) {
+function FormProject({ handleFunction, setIdItem, formType, value, success, successMessage, imgProjectName, setImgProjectName }) {
   const [imgEdit, setImgEdit] = useState(false);
   const [errorMessageImg, setErrorMessageImg] = useState(false);
 
@@ -14,9 +14,14 @@ function FormProject({ handleFunction, setId, formType, value, success, successM
     }
   }, [formType]);
 
-  const { register, handleSubmit, errors } = useForm({
-    mode: "onChange"
-  });
+  useEffect(() => {
+    if(value){
+      setIdItem(value._id)
+    }
+  }, [value, setIdItem]);
+
+
+  const { register, handleSubmit, errors } = useForm();
 
   let titleForm = "Ajout";
   let button = "Ajouter";
@@ -45,7 +50,7 @@ function FormProject({ handleFunction, setId, formType, value, success, successM
     }
   };
 
-  const form = <Fragment>
+  const form = <>
                 <div className="form-project-admin">
                   <div className="project-form-container-first">
                     <div className="input-container">
@@ -178,10 +183,10 @@ function FormProject({ handleFunction, setId, formType, value, success, successM
                     {success && <span ><FontAwesomeIcon icon="check" /></span>}
                   </span>
                 </div>
-              </Fragment>;
+              </>;
 
   return (
-    <Fragment>
+    <>
       <h3>{titleForm}</h3>
       {formType === "add" &&
         <form onSubmit={handleSubmit(handleFunction)}>
@@ -189,16 +194,17 @@ function FormProject({ handleFunction, setId, formType, value, success, successM
         </form>
       }
       {formType === "edit" &&
-        <form onSubmit={handleSubmit(handleFunction, setId(value._id))}>
+        <form onSubmit={handleSubmit(handleFunction)}>
           {form}
         </form>
       }
-    </Fragment>
+    </>
   );
 }
 
 FormProject.propTypes = {
   handleFunction: PropTypes.func.isRequired,
+  setIdItem: PropTypes.func,
   formType: PropTypes.string.isRequired,
   value: PropTypes.object,
   success: PropTypes.bool.isRequired,

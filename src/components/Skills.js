@@ -50,10 +50,6 @@ function Skills() {
       });
   };
 
-  const setIdFunc = (data) => {
-    setIdItem(data);
-  }
-
   const closeModal = () => {
     let body = document.getElementsByTagName("body")[0];
     body.removeAttribute('style');
@@ -181,7 +177,7 @@ function Skills() {
                 arrayGeneralSkill={arrayGeneralSkill} 
                 arrayLanguage={arrayLanguage} 
                 submit={onClickEdit} 
-                setId={setIdFunc} 
+                setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
                 success={success} 
                 successMessage={successMessage}

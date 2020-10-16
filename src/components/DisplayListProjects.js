@@ -1,11 +1,11 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormProject from "./FormProject";
 import PropTypes from 'prop-types';
 
-function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success, successMessage, displayForm, setDisplayForm, closeModal, imgProjectName, setImgProjectName }) {
+function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, success, successMessage, displayForm, setDisplayForm, closeModal, imgProjectName, setImgProjectName }) {
   const [value, setValue] = useState({});
   let body = document.getElementsByTagName("body")[0];
 
@@ -34,7 +34,7 @@ function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success,
   });
 
   return (
-    <Fragment>
+    <>
       <div>
         <h4>Projets</h4>
         <ul>
@@ -49,7 +49,7 @@ function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success,
         <Modal div={
           <FormProject 
           handleFunction={submit} 
-          setId={setId} 
+          setIdItem={setIdItem} 
           formType="edit" 
           value={value} 
           success={success}
@@ -58,13 +58,14 @@ function DisplayListProjects({ arrayProject, submit, setId, funcDelete, success,
           setImgProjectName={setImgProjectName} />} 
           closeModal={closeModal} />
       }
-    </Fragment>
+    </>
   );
 }
 
 DisplayListProjects.propTypes = {
   arrayProject: PropTypes.array.isRequired,
   submit: PropTypes.func.isRequired,
+  setIdItem: PropTypes.func,
   funcDelete: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
   successMessage: PropTypes.object.isRequired,
