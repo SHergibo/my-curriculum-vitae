@@ -40,6 +40,9 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, success, suc
         setCheckboxExpe("");
         setCheckboxEduc("checked");
       }
+    }else if (formType === "add"){
+      setDateStart(null);
+      setDateEnd(null);
     }
   }, [register, setValue, value, formType, setCheckboxExpe, checkboxEduc, setDateStart, setDateEnd]);
 
