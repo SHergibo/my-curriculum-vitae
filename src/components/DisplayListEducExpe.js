@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
+import { displayModal } from "./../utils/modalDisplay";
 import FormEducExpe from "./FormEducExpe";
 import PropTypes from 'prop-types';
 
-function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelete, success, successMessage, displayForm, setDisplayForm, closeModal, dateStart, setDateStart, dateEnd, setDateEnd}) {
+function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelete, success, successMessage, displayForm, setDisplayForm, dateStart, setDateStart, dateEnd, setDateEnd}) {
   const [value, setValue] = useState({});
-  let body = document.getElementsByTagName("body")[0];
-
-  const displayModal = (value) => {
-    body.setAttribute('style', 'overflow : hidden;');
-    setDisplayForm(true);
-    setValue(value);
-  }
 
   let liListEduc;
   let liListExpe;
@@ -32,7 +26,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
                   <div className="title-list">{item.titleEducExpe}</div> 
                 </div>
                 <div className="div-list-btn-container">
-                  <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+                  <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
                   <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
                 </div>
               </li>
@@ -49,7 +43,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
                   <div className="title-list">{item.titleEducExpe}</div> 
                 </div>
                 <div className="div-list-btn-container">
-                  <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+                  <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
                   <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
                 </div>
               </li>
@@ -83,8 +77,8 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
           setDateStart={setDateStart} 
           dateEnd={dateEnd} 
           setDateEnd={setDateEnd} />
-        } 
-        closeModal={closeModal}/>
+        }
+        setDisplayForm={setDisplayForm} />
       }
     </>
   );

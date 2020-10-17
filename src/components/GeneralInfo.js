@@ -27,8 +27,7 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, successMessage,
   };
 
   const closeModal = () => {
-    let body = document.getElementsByTagName("body")[0];
-    body.removeAttribute('style');
+    document.body.removeAttribute('style');
     setDisplayForm(false);
   }
   

@@ -9,20 +9,19 @@ function Portfolio() {
   const [value, setValue] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
   const [arrayProject, setArrayProject] = useState([]);
-  let body = document.getElementsByTagName("body")[0];
 
   useEffect(() => {
     getData();
   }, []);
 
   const displayModal = (value) => {
-    body.setAttribute('style', 'overflow : hidden;');
+    document.body.setAttribute('style', 'overflow : hidden;');
     setValue(value);
     setDisplayForm(true);
   };
 
   const closeModal = () => {
-    body.removeAttribute('style');
+    document.body.removeAttribute('style');
     setDisplayForm(false);
   };
 

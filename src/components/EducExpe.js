@@ -7,6 +7,7 @@ import workingData from './../utils/workingData';
 import { CSSTransition } from 'react-transition-group';
 import DisplayListEducExpe from './DisplayListEducExpe';
 import FormEducExpe from './FormEducExpe';
+import { closeModal } from './../utils/modalDisplay';
 
 function EducExpe() {
   const [titleEducExpe, setTitleEducEpxe] = useState("Éducation / Expérience");
@@ -68,12 +69,6 @@ function EducExpe() {
       });
   };
 
-  const closeModal = () => {
-    let body = document.getElementsByTagName("body")[0];
-    body.removeAttribute('style');
-    setDisplayForm(false);
-  }  
-
   const onClickEdit = async (data) => {
     const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/${idItem}`;
     await axiosInstance.patch(editEducExpeEndPoint, data)
@@ -113,7 +108,7 @@ function EducExpe() {
           setArrayEduc(arrayEduc => [...arrayEduc, response.data]);
         }
       }
-      closeModal();
+      closeModal(setDisplayForm);
     });
   };
 
@@ -188,8 +183,7 @@ function EducExpe() {
                 success={success} 
                 successMessage={successMessage}
                 displayForm={displayForm} 
-                setDisplayForm={setDisplayForm} 
-                closeModal={closeModal} 
+                setDisplayForm={setDisplayForm}
                 dateStart={dateStart} 
                 setDateStart={setDateStart} 
                 dateEnd={dateEnd} 

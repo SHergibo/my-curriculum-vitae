@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
+import { displayModal } from './../utils/modalDisplay';
 import FormSkill from "./FormSkill";
 import PropTypes from 'prop-types';
 
-function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setIdItem, funcDelete, success, successMessage, displayForm, setDisplayForm, closeModal }) {
+function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setIdItem, funcDelete, success, successMessage, displayForm, setDisplayForm }) {
   const [value, setValue] = useState({});
-  let body = document.getElementsByTagName("body")[0];
-
-  const displayModal = (value) => {
-    body.setAttribute('style', 'overflow : hidden;');
-    setDisplayForm(true);
-    setValue(value);
-  }
 
   let liListCodingSkill;
   let liListGeneralSkill;
@@ -25,7 +19,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
                 <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
               </div>
               <div className="div-list-btn-container">
-                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
                 <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
               </div>
             </li>
@@ -39,7 +33,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
                     <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
                   </div>
                   <div className="div-list-btn-container">
-                    <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+                    <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
                     <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
                   </div>
               </li>
@@ -53,7 +47,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
                 <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
               </div>
               <div className="div-list-btn-container">
-                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item)}><FontAwesomeIcon icon="edit" /></button>
+                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
                 <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
               </div>
             </li>
@@ -90,7 +84,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
           success={success}
           successMessage={successMessage} />
         } 
-        closeModal={closeModal}/>
+        setDisplayForm={setDisplayForm}/>
       }
     </>
   );

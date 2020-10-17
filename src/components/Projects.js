@@ -7,6 +7,7 @@ import checkSuccess from '../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
 import DisplayListProjects from './DisplayListProjects';
 import FormProject from './FormProject';
+import { closeModal } from './../utils/modalDisplay';
 
 function Projects() {
   const successMessage = useRef(null);
@@ -64,12 +65,6 @@ function Projects() {
       });
   };
 
-  const closeModal = () => {
-    let body = document.getElementsByTagName("body")[0];
-    body.removeAttribute('style');
-    setDisplayForm(false);
-  }
-
   const onClickEdit = async (data) => {
     const formData = new FormData();
     formData.append('projectName', data.projectName);
@@ -86,7 +81,7 @@ function Projects() {
       .then((response) => {
         let arrayResponse = [response.data];
         setArrayProject([...arrayProject].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
-        closeModal();
+        closeModal(setDisplayForm);
       });
   };
 
@@ -154,8 +149,7 @@ function Projects() {
                 success={success} 
                 successMessage={successMessage}
                 displayForm={displayForm} 
-                setDisplayForm={setDisplayForm} 
-                closeModal={closeModal} 
+                setDisplayForm={setDisplayForm}  
                 imgProjectName={imgProjectName} 
                 setImgProjectName={setImgProjectName} />
               </div>

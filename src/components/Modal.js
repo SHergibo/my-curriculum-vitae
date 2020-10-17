@@ -1,25 +1,24 @@
 import React, { useEffect } from "react";
+import { closeModal } from './../utils/modalDisplay';
 import PropTypes from 'prop-types';
 
-function Modal({ div, closeModal }) {
+function Modal({ div, setDisplayForm }) {
 
   useEffect(() => {
     const closeModalEventListener = window.addEventListener("click", (event) => {
       if(event.target.className === "modal"){
-        closeModal();
+        closeModal(setDisplayForm);
       }
     });
     return () => {
       window.removeEventListener('click', closeModalEventListener);
     }
-  }, [closeModal])
-
-
+  }, [setDisplayForm])
 
   return (
     <div className="modal">
       <div className="modal-container">
-        <button className="close-modal" onClick={() => closeModal()}>X</button>
+        <button className="close-modal" onClick={() => closeModal(setDisplayForm)}>X</button>
         {div}
       </div>
     </div>
@@ -28,7 +27,7 @@ function Modal({ div, closeModal }) {
 
 Modal.propTypes = {
   div: PropTypes.object.isRequired,
-  closeModal: PropTypes.func.isRequired,
+  setDisplayForm: PropTypes.func.isRequired,
 }
 
 export default Modal;

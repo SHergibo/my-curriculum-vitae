@@ -7,6 +7,7 @@ import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
 import workingData from './../utils/workingData';
 import { CSSTransition } from 'react-transition-group';
+import { closeModal } from './../utils/modalDisplay';
 
 function Skills() {
   const successMessage = useRef(null);
@@ -51,12 +52,6 @@ function Skills() {
         e.target.reset();
       });
   };
-
-  const closeModal = () => {
-    let body = document.getElementsByTagName("body")[0];
-    body.removeAttribute('style');
-    setDisplayForm(false);
-  }  
 
   const onClickEdit = async (data) => {
     const editSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/${idItem}`;
@@ -111,7 +106,7 @@ function Skills() {
           setArrayLanguage(arrayLanguage => [...arrayLanguage, response.data]);
         }
       }
-      closeModal();
+      closeModal(setDisplayForm);
     });
   };
 
@@ -186,8 +181,7 @@ function Skills() {
                 success={success} 
                 successMessage={successMessage}
                 displayForm={displayForm} 
-                setDisplayForm={setDisplayForm} 
-                closeModal={closeModal}/>
+                setDisplayForm={setDisplayForm} />
               </div>
             </CSSTransition>
           </div>
