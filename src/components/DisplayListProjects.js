@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormProject from "./FormProject";
 import PropTypes from 'prop-types';
 
@@ -31,16 +30,9 @@ function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, succ
     <>
       <div>
         <h4>Projets</h4>
-          <TransitionGroup component={null} >
-            <CSSTransition
-              timeout={500}
-              classNames="item-list"
-            >
-              <ul>
-              {liListProjects}
-              </ul>
-            </CSSTransition>
-          </TransitionGroup>
+        <ul>
+        {liListProjects}
+        </ul>
       </div>
       {displayForm &&
         <Modal div={

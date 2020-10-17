@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import FormEducExpe from "./FormEducExpe";
 import PropTypes from 'prop-types';
 
@@ -61,29 +60,15 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
     <>
       <div>
         <h4>Éducation</h4>
-        <TransitionGroup component={null} >
-          <CSSTransition
-              timeout={500}
-              classNames="item-list"
-            >
-              <ul >
-                {liListEduc}
-              </ul>
-            </CSSTransition>
-        </TransitionGroup>
+        <ul >
+          {liListEduc}
+        </ul>
       </div>
       <div>
         <h4>Expérience</h4>
-          <TransitionGroup component={null} >
-            <CSSTransition
-              timeout={500}
-              classNames="item-list"
-            >
-              <ul >
-                {liListExpe}
-              </ul>
-            </CSSTransition>
-          </TransitionGroup>
+        <ul >
+          {liListExpe}
+        </ul>
       </div>
       {displayForm  && 
         <Modal div={
