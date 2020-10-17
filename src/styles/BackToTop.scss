@@ -9,10 +9,10 @@
   .back-to-top{
     position: fixed;
     bottom: 20px;
-    right: -40px;
+    right: 40px;
     z-index: 100;
     display: flex;
-    opacity: 0;
+    opacity: 1;
     justify-content: center;
     align-items: center;
     width: 40px;
@@ -31,12 +31,6 @@
       box-shadow:none;
       border-color:transparent;
       background-color: $blue-hover;
-      transform: scale(1.2);
     }
-  }
-  
-  .back-to-top-show{
-    right: 40px;
-    opacity: 1;
   }
 }

@@ -1,37 +1,38 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { animateScroll as scroll } from 'react-scroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function BackToTop() {
-  const backToTop = useRef(null);
+  const [show, setShow] = useState(false);
 
-  const handleBackToTopScroll = () => {
-    let btnBackToTop = backToTop.current;
+  const handleBackToTopScroll= useCallback(() => {
     let scrollpage = Math.round(window.scrollY);
     let windowHeight = window.innerHeight;
-    if(btnBackToTop){
-      if (scrollpage > windowHeight) {
-        btnBackToTop.classList.add("back-to-top-show");
-      } else {
-        btnBackToTop.classList.remove("back-to-top-show");
-      }
+    if (scrollpage > windowHeight) {
+      setShow(true);
+    } else {
+      setShow(false);
     }
-  };
+  },[]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleBackToTopScroll);
     return () => {
       window.removeEventListener('scroll', handleBackToTopScroll);
     }
-  }, []);
+  }, [handleBackToTopScroll]);
   
   const scrollToTop = () =>{
     scroll.scrollToTop();
   }
   return (
-    <div ref={backToTop} tabIndex={0} className="back-to-top" onClick={scrollToTop} onKeyPress={scrollToTop}>
-      <FontAwesomeIcon icon="chevron-up" />
-    </div>
+    <>
+      {show && 
+        <div tabIndex={0} className="back-to-top" onClick={scrollToTop} onKeyPress={scrollToTop}>
+          <FontAwesomeIcon icon="chevron-up" />
+        </div>
+      }
+    </>
   );
 }
 
