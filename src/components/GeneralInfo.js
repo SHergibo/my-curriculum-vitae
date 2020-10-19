@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState, useRef } from 'react';
 import FormGeneralInfo from './FormGeneralInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
+import { closeModal } from './../utils/modalDisplay';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
@@ -25,11 +26,6 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, successMessage,
   const modalDeleteInfo = () => {
     setDisplayForm(true);
   };
-
-  const closeModal = () => {
-    document.body.removeAttribute('style');
-    setDisplayForm(false);
-  }
   
   const deleteInfoGen = async () =>{
     let divTitle = divTitleRef.current;
@@ -39,7 +35,7 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, successMessage,
       divTitle.classList.add('title-container-info-gen');
       setShowEditForm(false);
       setGeneralInfo();
-      closeModal();
+      closeModal(setDisplayForm);
     });
   };
 
@@ -47,7 +43,7 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, successMessage,
                               <h2>Êtes-vous sur de vouloir supprimer toutes vos informations générales ?</h2>
                               <div>
                                 <button onClick={()=>{deleteInfoGen()}}>Oui</button>
-                                <button onClick={()=>{closeModal()}}>Non</button>
+                                <button onClick={()=>{closeModal(setDisplayForm)}}>Non</button>
                               </div>
                             </div>;
 
@@ -93,7 +89,7 @@ function GeneralInfo({ data, onSubmitAdd, onSubmitEdit, success, successMessage,
       {displayForm &&
         <Modal 
         formType={"deleteInfo"} 
-        closeModal={closeModal} 
+        setDisplayForm={setDisplayForm}
         div={doubleCheckDelete} />
       }
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import InfoProjectModal from "./InfoProjectModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
+import { displayModal } from './../utils/modalDisplay';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import axios from "axios";
 
@@ -13,17 +14,6 @@ function Portfolio() {
   useEffect(() => {
     getData();
   }, []);
-
-  const displayModal = (value) => {
-    document.body.setAttribute('style', 'overflow : hidden;');
-    setValue(value);
-    setDisplayForm(true);
-  };
-
-  const closeModal = () => {
-    document.body.removeAttribute('style');
-    setDisplayForm(false);
-  };
 
   const getData = async () => {
     const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/project-list`;
@@ -41,7 +31,7 @@ function Portfolio() {
             </div>
             <div className="project-more">
               <div>
-                <span tabIndex={0} onClick={() => displayModal(item)} onKeyPress={() => displayModal(item)}><FontAwesomeIcon icon="plus" /></span>
+                <span tabIndex={0} onClick={() => displayModal(item, setDisplayForm, setValue)} onKeyPress={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="plus" /></span>
                 <span>
                   <a tabIndex={0} href={item.url}><FontAwesomeIcon icon="link" /></a>
                 </span>
@@ -65,7 +55,7 @@ function Portfolio() {
             <InfoProjectModal 
             value={value} />
           } 
-          closeModal={closeModal}/>
+          setDisplayForm={setDisplayForm}/>
         }
       </div>
     </div>
