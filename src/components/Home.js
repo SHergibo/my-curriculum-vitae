@@ -4,17 +4,17 @@ import HomeSection from "./HomeSection";
 import Typed from 'react-typed';
 import PropTypes from 'prop-types';
 
-function Home({ data }) {
+function Home({ generalInfo }) {
   const [fullName, setFullName] = useState("");
   const location = useLocation();
 
   useEffect(() => {
-    if(data){
-      setFullName(`${data.firstname} ${data.lastname}`);
+    if(generalInfo){
+      setFullName(`${generalInfo.firstname} ${generalInfo.lastname}`);
     }else{
       setFullName('Mon site CV')
     }
-  }, [data]);
+  }, [generalInfo]);
 
   let div = <div className="job-name">Je suis un <Typed
                 strings={['développeur web', 'intégrateur web']}
@@ -43,7 +43,7 @@ function Home({ data }) {
 }
 
 Home.propTypes = {
-  data: PropTypes.object,
+  generalInfo: PropTypes.object,
 }
 
 

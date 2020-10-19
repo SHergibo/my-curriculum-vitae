@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-function About({data}) {
+function About({ generalInfo }) {
   
   return (
     <div id="about" className="about">
@@ -16,24 +16,24 @@ function About({data}) {
           </div>
           <div className="about-me">
             <h2>Bonjour !</h2>
-            <p>{data.description}</p>
+            <p>{generalInfo.description}</p>
           </div>
           <div className="info">
             <ul>
               <li>
-                <span>Téléphone :</span><div>{data.phone}</div>
+                <span>Téléphone :</span><div>{generalInfo.phone}</div>
               </li>
               <li>
-                <span>Email :</span><div>{data.email}</div>
+                <span>Email :</span><div>{generalInfo.email}</div>
               </li>
               <li>
-                <span>Adresse :</span><div>{data.address.street}, {data.address.number} {data.address.zip} {data.address.city}</div>
+                <span>Adresse :</span><div>{generalInfo.address.street}, {generalInfo.address.number} {generalInfo.address.zip} {generalInfo.address.city}</div>
               </li>
               <li>
-                <span>Date de naissance :</span><div>{data.birthdate}</div>
+                <span>Date de naissance :</span><div>{generalInfo.birthdate}</div>
               </li>
               <li>
-                <span>Permis de conduire :</span><div>{data.licence}</div>
+                <span>Permis de conduire :</span><div>{generalInfo.licence}</div>
               </li>
             </ul>
           </div>
@@ -58,7 +58,7 @@ function About({data}) {
 }
 
 About.propTypes = {
-  data: PropTypes.object.isRequired,
+  generalInfo: PropTypes.object.isRequired,
 }
 
 export default About;

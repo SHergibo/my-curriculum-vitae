@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useState} from "react";
+import { useSuccessData } from './../components/Admin';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -9,7 +10,8 @@ import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
 
-function FormGeneralInfo({handleFunction, formType, value, success, successMessage}) {
+function FormGeneralInfo({handleFunction, formType, value}) {
+  const { success, successMessage } = useSuccessData();
   const [dateBirthday, setDateBirthday] = useState(null);
   const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange"
@@ -189,9 +191,7 @@ function FormGeneralInfo({handleFunction, formType, value, success, successMessa
 FormGeneralInfo.propTypes = {
   handleFunction: PropTypes.func.isRequired,
   value: PropTypes.object,
-  formType: PropTypes.string.isRequired,
-  success: PropTypes.bool.isRequired,
-  successMessage: PropTypes.object.isRequired,
+  formType: PropTypes.string.isRequired
 }
 
 export default FormGeneralInfo;

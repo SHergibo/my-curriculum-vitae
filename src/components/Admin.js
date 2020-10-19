@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext, createContext } from 'react';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
@@ -13,7 +13,13 @@ import Skills from './Skills';
 import Projects from './Projects';
 import PropTypes from 'prop-types';
 
-function Admin({history}) {
+const SuccessUseContext = createContext();
+
+export function useSuccessData(){
+  return useContext(SuccessUseContext);
+}
+
+function Admin({ history }) {
   const headerRef = useRef(null);
   const successMessage = useRef(null);
 
@@ -100,24 +106,24 @@ function Admin({history}) {
     await logout();
     history.push("/");
   };
+
   return (
     <>
       <header ref={headerRef} id="header">
         <Home
-        data={generalInfo}/>
+        generalInfo={generalInfo}/>
         <Navbar
         headerRef={headerRef}
         logout={logOut}/>
       </header>
       <main>
-        <GeneralInfo 
-        data={generalInfo} 
-        onSubmitAdd={onSubmitAdd} 
-        onSubmitEdit={onSubmitEdit} 
-        success={success} 
-        successMessage={successMessage}
-        showEditForm={showEditForm} 
-        setShowEditForm={setShowEditForm} />
+        <SuccessUseContext.Provider value={{ success, successMessage }}>
+          <GeneralInfo 
+          generalInfoState={{generalInfo, setGeneralInfo}} 
+          onSubmitAdd={onSubmitAdd} 
+          onSubmitEdit={onSubmitEdit}
+          showEditFormState={{showEditForm, setShowEditForm}} />
+        </SuccessUseContext.Provider>
         <EducExpe />
         <Skills />
         <Projects />

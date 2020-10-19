@@ -52,16 +52,16 @@ function HomePage() {
   return (
     <>
       <header ref={headerRef} id="header">
-        <Home data={generalInfo} />
+        <Home generalInfo={generalInfo} />
         <Navbar
           headerRef={headerRef}
         />
       </header>
       <main>
-        <About data={generalInfo} />
+        <About generalInfo={generalInfo} />
         <Resume />
         {/* <Portfolio /> */}
-        <Contact data={generalInfo} />
+        <Contact generalInfo={generalInfo} />
       </main>
       <footer>
         <Footer />

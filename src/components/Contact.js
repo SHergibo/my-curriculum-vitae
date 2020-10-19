@@ -6,7 +6,7 @@ import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
 import PropTypes from 'prop-types';
 
-function Contact({data}) {
+function Contact({ generalInfo }) {
   let [success, setSuccess] = useState(false);
   const successMessage = useRef(null);
   const onSubmit = async (data, e) => {
@@ -108,13 +108,13 @@ function Contact({data}) {
             <img src="./Hergibo_Sacha.jpg" alt="Hergibo Sacha" />
           </div>
           <ul>
-            <li><span><FontAwesomeIcon icon="envelope" /></span> {data.email}</li>
-            <li><span><FontAwesomeIcon icon="mobile-alt" /></span> {data.phone}</li>
+            <li><span><FontAwesomeIcon icon="envelope" /></span> {generalInfo.email}</li>
+            <li><span><FontAwesomeIcon icon="mobile-alt" /></span> {generalInfo.phone}</li>
             <li>
               <span><FontAwesomeIcon icon="map-marker-alt" /></span>
               <div>
-                <div> {data.address.street}, {data.address.number}</div>
-                <div>{data.address.zip} {data.address.city}</div>
+                <div> {generalInfo.address.street}, {generalInfo.address.number}</div>
+                <div>{generalInfo.address.zip} {generalInfo.address.city}</div>
               </div>
             </li>
           </ul>
@@ -125,7 +125,7 @@ function Contact({data}) {
 }
 
 Contact.propTypes = {
-  data: PropTypes.object.isRequired,
+  generalInfo: PropTypes.object.isRequired,
 }
 
 export default Contact;
