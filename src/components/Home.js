@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import HomeSection from "./HomeSection";
 import Typed from 'react-typed';
 import PropTypes from 'prop-types';
 
-function Home({ location, data }) {
+function Home({ data }) {
   const [fullName, setFullName] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
     if(data){
@@ -24,7 +26,7 @@ function Home({ location, data }) {
 
   let welcome = "Bienvenue";
 
-  if(location === "/admin"){
+  if(location.pathname === "/admin"){
     div = <div className="sub-name">
             Partie administration
           </div>;

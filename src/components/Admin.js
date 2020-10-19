@@ -13,7 +13,7 @@ import Skills from './Skills';
 import Projects from './Projects';
 import PropTypes from 'prop-types';
 
-function Admin({history, location}) {
+function Admin({history}) {
   const headerRef = useRef(null);
   const successMessage = useRef(null);
 
@@ -103,12 +103,10 @@ function Admin({history, location}) {
   return (
     <>
       <header ref={headerRef} id="header">
-        <Home 
-        location={location.pathname} 
+        <Home
         data={generalInfo}/>
         <Navbar
         headerRef={headerRef}
-        location={location.pathname} 
         logout={logOut}/>
       </header>
       <main>
@@ -133,8 +131,7 @@ function Admin({history, location}) {
 }
 
 Admin.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 export default Admin;

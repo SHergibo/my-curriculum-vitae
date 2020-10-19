@@ -1,8 +1,10 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
 import Nav from './Nav';
 import PropTypes from 'prop-types';
 
-function Navbar({ headerRef, location, logout }) {
+function Navbar({ headerRef, logout }) {
+  const location = useLocation();
 
   let liList = [
     {name: "Accueil", to : "home", offset : 0, duration : 500},
@@ -60,7 +62,7 @@ function Navbar({ headerRef, location, logout }) {
                           </li>
                         </ul>;
   
-  if(location === "/admin"){
+  if(location.pathname === "/admin"){
     liList = [
       {name: "Accueil", to : "home", offset : 0, duration : 500},
       {name: "Infos générales", to : "infos", offset : -80, duration : 1000},
@@ -110,7 +112,6 @@ function Navbar({ headerRef, location, logout }) {
 
 Navbar.propTypes = {
   headerRef: PropTypes.object.isRequired,
-  location: PropTypes.string,
   logout: PropTypes.func,
 }
 
