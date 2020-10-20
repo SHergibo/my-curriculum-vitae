@@ -5,7 +5,8 @@ import { displayModal } from "./../utils/modalDisplay";
 import FormEducExpe from "./FormEducExpe";
 import PropTypes from 'prop-types';
 
-function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelete, successMessage, displayForm, setDisplayForm, dateStart, setDateStart, dateEnd, setDateEnd}) {
+function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelete, successMessage, displayFormState, dateStartState, dateEndState}) {
+  const { displayForm, setDisplayForm } = displayFormState;
   const [value, setValue] = useState({});
 
   let liListEduc;
@@ -72,10 +73,8 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
           formType="edit" 
           value={value} 
           successMessage={successMessage}
-          dateStart={dateStart} 
-          setDateStart={setDateStart} 
-          dateEnd={dateEnd} 
-          setDateEnd={setDateEnd} />
+          dateStartState={dateStartState}
+          dateEndState={dateEndState} />
         }
         setDisplayForm={setDisplayForm} />
       }
@@ -90,6 +89,18 @@ DisplayListEducExpe.propTypes = {
   setIdItem: PropTypes.func,
   funcDelete: PropTypes.func.isRequired,
   successMessage: PropTypes.object.isRequired,
+  displayFormState: PropTypes.shape({
+    displayForm: PropTypes.bool.isRequired,
+    setDisplayForm: PropTypes.func.isRequired
+  }),
+  dateStartState: PropTypes.shape({
+    dateStart: PropTypes.instanceOf(Date),
+    setDateStart: PropTypes.func.isRequired
+  }),
+  dateEndState: PropTypes.shape({
+    dateEnd: PropTypes.instanceOf(Date),
+    setDateEnd: PropTypes.func.isRequired
+  })
 }
 
 export default DisplayListEducExpe;

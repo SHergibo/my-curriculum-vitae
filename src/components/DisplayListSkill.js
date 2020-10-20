@@ -5,7 +5,8 @@ import { displayModal } from './../utils/modalDisplay';
 import FormSkill from "./FormSkill";
 import PropTypes from 'prop-types';
 
-function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setIdItem, funcDelete, successMessage, displayForm, setDisplayForm }) {
+function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setIdItem, funcDelete, successMessage, displayFormState }) {
+  const { displayForm, setDisplayForm } = displayFormState;
   const [value, setValue] = useState({});
 
   let liListCodingSkill;
@@ -97,6 +98,10 @@ DisplayListSkill.propTypes = {
   setIdItem: PropTypes.func,
   funcDelete: PropTypes.func.isRequired,
   successMessage: PropTypes.object.isRequired,
+  displayFormState: PropTypes.shape({
+    displayForm: PropTypes.bool.isRequired,
+    setDisplayForm: PropTypes.func.isRequired
+  })
 }
 
 export default DisplayListSkill;

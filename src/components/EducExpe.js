@@ -62,9 +62,9 @@ function EducExpe() {
     await axiosInstance.post(addEducExpeEndPoint, data)
       .then((response) => {
         checkSuccess(response.status, successMessage);
-        // e.target.reset();
-        //setDateStart(null);
-        //setDateEnd(null);
+        e.target.reset();
+        setDateStart(null);
+        setDateEnd(null);
       });
   };
 
@@ -157,10 +157,8 @@ function EducExpe() {
                 handleFunction={onSubmitAdd} 
                 formType="add" 
                 successMessage={successMessage}
-                dateStart={dateStart} 
-                setDateStart={setDateStart} 
-                dateEnd={dateEnd} 
-                setDateEnd={setDateEnd} />
+                dateStartState={{dateStart, setDateStart}}
+                dateEndState={{dateEnd, setDateEnd}} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -179,12 +177,9 @@ function EducExpe() {
                 setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
                 successMessage={successMessage}
-                displayForm={displayForm} 
-                setDisplayForm={setDisplayForm}
-                dateStart={dateStart} 
-                setDateStart={setDateStart} 
-                dateEnd={dateEnd} 
-                setDateEnd={setDateEnd}/>
+                displayFormState={{displayForm, setDisplayForm}}
+                dateStartState={{dateStart, setDateStart}}
+                dateEndState={{dateEnd, setDateEnd}} />
               </div>
             </CSSTransition>
           </div>

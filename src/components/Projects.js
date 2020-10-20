@@ -126,8 +126,7 @@ function Projects() {
                 handleFunction={onSubmitAdd} 
                 formType="add" 
                 successMessage={successMessage}
-                imgProjectName={imgProjectName} 
-                setImgProjectName={setImgProjectName} />
+                imgProjectState={{imgProjectName, setImgProjectName}} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -145,10 +144,8 @@ function Projects() {
                 setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
                 successMessage={successMessage}
-                displayForm={displayForm} 
-                setDisplayForm={setDisplayForm}  
-                imgProjectName={imgProjectName} 
-                setImgProjectName={setImgProjectName} />
+                displayFormState={{displayForm, setDisplayForm}} 
+                imgProjectState={{imgProjectName, setImgProjectName}} />
               </div>
             </CSSTransition>
           </div>

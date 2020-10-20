@@ -5,7 +5,8 @@ import { displayModal } from './../utils/modalDisplay';
 import FormProject from "./FormProject";
 import PropTypes from 'prop-types';
 
-function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, successMessage, displayForm, setDisplayForm, imgProjectName, setImgProjectName }) {
+function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, successMessage, displayFormState, imgProjectState }) {
+  const { displayForm, setDisplayForm } = displayFormState;
   const [value, setValue] = useState({});
 
   let liListProjects = arrayProject.map((item) => {
@@ -36,8 +37,7 @@ function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, succ
           formType="edit" 
           value={value} 
           successMessage={successMessage}
-          imgProjectName={imgProjectName} 
-          setImgProjectName={setImgProjectName} />} 
+          imgProjectState={imgProjectState} />} 
           setDisplayForm={setDisplayForm} />
       }
     </>
@@ -50,8 +50,14 @@ DisplayListProjects.propTypes = {
   setIdItem: PropTypes.func,
   funcDelete: PropTypes.func.isRequired,
   successMessage: PropTypes.object.isRequired,
-  imgProjectName: PropTypes.string.isRequired,
-  setImgProjectName: PropTypes.func.isRequired
+  displayFormState: PropTypes.shape({
+    displayForm: PropTypes.bool.isRequired,
+    setDisplayForm: PropTypes.func.isRequired
+  }),
+  imgProjectState: PropTypes.shape({
+    imgProjectName: PropTypes.string.isRequired,
+    setImgProjectName: PropTypes.func.isRequired
+  })
 }
 
 export default DisplayListProjects;

@@ -177,8 +177,7 @@ function Skills() {
                 setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
                 successMessage={successMessage}
-                displayForm={displayForm} 
-                setDisplayForm={setDisplayForm} />
+                displayFormState={{displayForm, setDisplayForm}} />
               </div>
             </CSSTransition>
           </div>

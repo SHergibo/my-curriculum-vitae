@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
-function FormProject({ handleFunction, setIdItem, formType, value, successMessage, imgProjectName, setImgProjectName }) {
+function FormProject({ handleFunction, setIdItem, formType, value, successMessage, imgProjectState, }) {
+  const { imgProjectName, setImgProjectName } = imgProjectState;
   const [imgEdit, setImgEdit] = useState(false);
   const [errorMessageImg, setErrorMessageImg] = useState(false);
 
@@ -206,8 +207,10 @@ FormProject.propTypes = {
   formType: PropTypes.string.isRequired,
   value: PropTypes.object,
   successMessage: PropTypes.object.isRequired,
-  imgProjectName: PropTypes.string.isRequired,
-  setImgProjectName: PropTypes.func.isRequired
+  imgProjectState: PropTypes.shape({
+    imgProjectName: PropTypes.string.isRequired,
+    setImgProjectName: PropTypes.func.isRequired
+  })
 }
 
 export default FormProject;
