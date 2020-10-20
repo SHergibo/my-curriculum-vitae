@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-function FormEducExpe({ handleFunction, setIdItem, formType, value, success, successMessage }) {
+function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessage }) {
   const [checkboxCodingSkill, setCheckboxCodingSkill] = useState();
   const [checkboxGeneralSkill, setCheckboxGeneralSkill] = useState();
   const [checkboxLanguage, setCheckboxLanguage] = useState();
@@ -100,9 +100,7 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, success, suc
                         <FontAwesomeIcon icon="edit" />
                       }
                     </button>
-                    <span ref={successMessage} className="success-message">
-                      {success && <span ><FontAwesomeIcon icon="check" /></span>}
-                    </span>
+                    <span ref={successMessage} className="success-message"><FontAwesomeIcon icon="check" /></span>
                   </div>
                 </>;
 
@@ -128,7 +126,6 @@ FormEducExpe.propTypes = {
   setIdItem: PropTypes.func,
   formType: PropTypes.string.isRequired,
   value: PropTypes.object,
-  success: PropTypes.bool.isRequired,
   successMessage: PropTypes.object.isRequired,
 }
 

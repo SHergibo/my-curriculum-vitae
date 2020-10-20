@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 import Axios from 'axios';
@@ -7,13 +7,12 @@ import checkSuccess from './../utils/checkSuccess';
 import PropTypes from 'prop-types';
 
 function Contact({ generalInfo }) {
-  let [success, setSuccess] = useState(false);
   const successMessage = useRef(null);
   const onSubmit = async (data, e) => {
     const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
     await Axios.post(registerEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, setSuccess, successMessage);
+        checkSuccess(response.status, successMessage);
         e.target.reset();
       })
       .catch(err => {
@@ -97,9 +96,7 @@ function Contact({ generalInfo }) {
                 Envoyer maintenant
               <FontAwesomeIcon icon="paper-plane" />
               </button>
-              <span ref={successMessage} className="success-message">
-                {success && <span ><FontAwesomeIcon icon="check" /></span>}
-              </span>
+              <span ref={successMessage} className="success-message"><FontAwesomeIcon icon="check" /></span>
             </div>
           </form>
         </div>

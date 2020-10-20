@@ -11,7 +11,6 @@ import { closeModal } from './../utils/modalDisplay';
 
 function Skills() {
   const successMessage = useRef(null);
-  const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);  
   const [arrayCodingSkill, setArrayCodingSkill] = useState([]);
@@ -48,7 +47,7 @@ function Skills() {
     const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
     await axiosInstance.post(addSkillEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, setSuccess, successMessage);
+        checkSuccess(response.status, successMessage);
         e.target.reset();
       });
   };
@@ -158,7 +157,6 @@ function Skills() {
                 <FormSkill 
                 handleFunction={onSubmitAdd} 
                 formType="add" 
-                success={success} 
                 successMessage={successMessage} />
               </div>
             </CSSTransition>
@@ -178,7 +176,6 @@ function Skills() {
                 submit={onClickEdit} 
                 setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
-                success={success} 
                 successMessage={successMessage}
                 displayForm={displayForm} 
                 setDisplayForm={setDisplayForm} />

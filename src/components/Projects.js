@@ -11,7 +11,6 @@ import { closeModal } from './../utils/modalDisplay';
 
 function Projects() {
   const successMessage = useRef(null);
-  const [success, setSuccess] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
   const [arrayProject, setArrayProject] = useState([]);
@@ -59,7 +58,7 @@ function Projects() {
      }
     })
       .then((response) => {
-        checkSuccess(response.status, setSuccess, successMessage);
+        checkSuccess(response.status, successMessage);
         e.target.reset();
         setImgProjectName('Image du projet');
       });
@@ -126,7 +125,6 @@ function Projects() {
                 <FormProject 
                 handleFunction={onSubmitAdd} 
                 formType="add" 
-                success={success} 
                 successMessage={successMessage}
                 imgProjectName={imgProjectName} 
                 setImgProjectName={setImgProjectName} />
@@ -146,7 +144,6 @@ function Projects() {
                 submit={onClickEdit} 
                 setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
-                success={success} 
                 successMessage={successMessage}
                 displayForm={displayForm} 
                 setDisplayForm={setDisplayForm}  

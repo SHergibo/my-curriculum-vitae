@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext, createContext } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
@@ -13,11 +13,6 @@ import Skills from './Skills';
 import Projects from './Projects';
 import PropTypes from 'prop-types';
 
-const SuccessUseContext = createContext();
-
-export function useSuccessData(){
-  return useContext(SuccessUseContext);
-}
 
 function Admin({ history }) {
   const headerRef = useRef(null);
@@ -37,7 +32,6 @@ function Admin({ history }) {
     "birthdate":"",
     "licence":""
   });
-  const [success, setSuccess] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
 
@@ -97,7 +91,7 @@ function Admin({ history }) {
     const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
     await axiosInstance.patch(editGeneralInfoEndPoint, workingData(data))
     .then((response) => {
-      checkSuccess(response.status, setSuccess, successMessage);
+      checkSuccess(response.status, successMessage);
       setGeneralInfo(response.data);
     });
   };
@@ -117,13 +111,12 @@ function Admin({ history }) {
         logout={logOut}/>
       </header>
       <main>
-        <SuccessUseContext.Provider value={{ success, successMessage }}>
-          <GeneralInfo 
-          generalInfoState={{generalInfo, setGeneralInfo}} 
-          onSubmitAdd={onSubmitAdd} 
-          onSubmitEdit={onSubmitEdit}
-          showEditFormState={{showEditForm, setShowEditForm}} />
-        </SuccessUseContext.Provider>
+        <GeneralInfo 
+        generalInfoState={{generalInfo, setGeneralInfo}} 
+        onSubmitAdd={onSubmitAdd} 
+        onSubmitEdit={onSubmitEdit}
+        successMessage={successMessage}
+        showEditFormState={{showEditForm, setShowEditForm}} />
         <EducExpe />
         <Skills />
         <Projects />

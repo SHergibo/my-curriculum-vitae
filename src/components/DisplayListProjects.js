@@ -5,7 +5,7 @@ import { displayModal } from './../utils/modalDisplay';
 import FormProject from "./FormProject";
 import PropTypes from 'prop-types';
 
-function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, success, successMessage, displayForm, setDisplayForm, imgProjectName, setImgProjectName }) {
+function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, successMessage, displayForm, setDisplayForm, imgProjectName, setImgProjectName }) {
   const [value, setValue] = useState({});
 
   let liListProjects = arrayProject.map((item) => {
@@ -35,7 +35,6 @@ function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, succ
           setIdItem={setIdItem} 
           formType="edit" 
           value={value} 
-          success={success}
           successMessage={successMessage}
           imgProjectName={imgProjectName} 
           setImgProjectName={setImgProjectName} />} 
@@ -50,7 +49,6 @@ DisplayListProjects.propTypes = {
   submit: PropTypes.func.isRequired,
   setIdItem: PropTypes.func,
   funcDelete: PropTypes.func.isRequired,
-  success: PropTypes.bool.isRequired,
   successMessage: PropTypes.object.isRequired,
   imgProjectName: PropTypes.string.isRequired,
   setImgProjectName: PropTypes.func.isRequired

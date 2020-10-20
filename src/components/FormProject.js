@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
-function FormProject({ handleFunction, setIdItem, formType, value, success, successMessage, imgProjectName, setImgProjectName }) {
+function FormProject({ handleFunction, setIdItem, formType, value, successMessage, imgProjectName, setImgProjectName }) {
   const [imgEdit, setImgEdit] = useState(false);
   const [errorMessageImg, setErrorMessageImg] = useState(false);
 
@@ -179,9 +179,7 @@ function FormProject({ handleFunction, setIdItem, formType, value, success, succ
                       <FontAwesomeIcon icon="edit" />
                     }
                   </button>
-                  <span ref={successMessage} className="success-message">
-                    {success && <span ><FontAwesomeIcon icon="check" /></span>}
-                  </span>
+                  <span ref={successMessage} className="success-message"><FontAwesomeIcon icon="check" /></span>
                 </div>
               </>;
 
@@ -207,7 +205,6 @@ FormProject.propTypes = {
   setIdItem: PropTypes.func,
   formType: PropTypes.string.isRequired,
   value: PropTypes.object,
-  success: PropTypes.bool.isRequired,
   successMessage: PropTypes.object.isRequired,
   imgProjectName: PropTypes.string.isRequired,
   setImgProjectName: PropTypes.func.isRequired

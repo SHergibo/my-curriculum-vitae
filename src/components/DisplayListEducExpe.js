@@ -5,7 +5,7 @@ import { displayModal } from "./../utils/modalDisplay";
 import FormEducExpe from "./FormEducExpe";
 import PropTypes from 'prop-types';
 
-function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelete, success, successMessage, displayForm, setDisplayForm, dateStart, setDateStart, dateEnd, setDateEnd}) {
+function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelete, successMessage, displayForm, setDisplayForm, dateStart, setDateStart, dateEnd, setDateEnd}) {
   const [value, setValue] = useState({});
 
   let liListEduc;
@@ -71,7 +71,6 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
           setIdItem={setIdItem} 
           formType="edit" 
           value={value} 
-          success={success} 
           successMessage={successMessage}
           dateStart={dateStart} 
           setDateStart={setDateStart} 
@@ -90,7 +89,6 @@ DisplayListEducExpe.propTypes = {
   submit: PropTypes.func.isRequired,
   setIdItem: PropTypes.func,
   funcDelete: PropTypes.func.isRequired,
-  success: PropTypes.bool.isRequired,
   successMessage: PropTypes.object.isRequired,
 }
 

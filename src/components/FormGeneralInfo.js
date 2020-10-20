@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, useState} from "react";
-import { useSuccessData } from './../components/Admin';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -10,8 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
 
-function FormGeneralInfo({handleFunction, formType, value}) {
-  const { success, successMessage } = useSuccessData();
+function FormGeneralInfo({handleFunction, formType, value, successMessage}) {
   const [dateBirthday, setDateBirthday] = useState(null);
   const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange"
@@ -179,9 +177,7 @@ function FormGeneralInfo({handleFunction, formType, value}) {
               <FontAwesomeIcon icon="edit" />
             }
           </button>
-          <span ref={successMessage} className="success-message">
-            {success && <span ><FontAwesomeIcon icon="check" /></span>}
-          </span>
+          <span ref={successMessage} className="success-message"><FontAwesomeIcon icon="check" /></span>
         </div>
       </form>
     </div>
@@ -191,7 +187,8 @@ function FormGeneralInfo({handleFunction, formType, value}) {
 FormGeneralInfo.propTypes = {
   handleFunction: PropTypes.func.isRequired,
   value: PropTypes.object,
-  formType: PropTypes.string.isRequired
+  formType: PropTypes.string.isRequired,
+  successMessage: PropTypes.object.isRequired
 }
 
 export default FormGeneralInfo;
