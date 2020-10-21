@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { animateScroll as scroll } from 'react-scroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function BackToTop() {
   const [show, setShow] = useState(false);
 
-  const handleBackToTopScroll= useCallback(() => {
+  const handleBackToTopScroll= () => {
     let scrollpage = Math.round(window.scrollY);
     let windowHeight = window.innerHeight;
     if (scrollpage > windowHeight) {
@@ -13,18 +13,19 @@ function BackToTop() {
     } else {
       setShow(false);
     }
-  },[]);
+  };
 
   useEffect(() => {
     window.addEventListener('scroll', handleBackToTopScroll);
     return () => {
       window.removeEventListener('scroll', handleBackToTopScroll);
     }
-  }, [handleBackToTopScroll]);
+  }, []);
   
   const scrollToTop = () =>{
     scroll.scrollToTop();
   }
+  
   return (
     <>
       {show && 
