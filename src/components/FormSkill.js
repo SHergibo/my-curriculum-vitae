@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessage }) {
+function FormEducExpe({ handleFunction, setIdItem, value, successMessage }) {
+  const [titleForm, setTitleForm] = useState('Ajout');
+  const [button, setButton] = useState('Ajouter');
   const [checkboxCodingSkill, setCheckboxCodingSkill] = useState();
   const [checkboxGeneralSkill, setCheckboxGeneralSkill] = useState();
   const [checkboxLanguage, setCheckboxLanguage] = useState();
@@ -15,6 +17,8 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
   useEffect(() => {
     if(value){
       setIdItem(value._id);
+      setTitleForm('Édition');
+      setButton('Éditer');
     }
   }, [value, setIdItem]);
 
@@ -22,7 +26,7 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
     setCheckboxCodingSkill("checked");
     setCheckboxGeneralSkill("");
     setCheckboxLanguage("");
-    if (formType === "edit") {
+    if (value) {
       if (value.skillCategory === "generalSkill") {
         setCheckboxCodingSkill("");
         setCheckboxGeneralSkill("checked");
@@ -33,15 +37,7 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
         setCheckboxLanguage("checked");
       }
     }
-  }, [register, setValue, value, formType]);
-
-  let titleForm = "Ajout";
-  let button = "Ajouter";
-
-  if (formType === "edit") {
-    titleForm = "Édition";
-    button = "Éditer";
-  }
+  }, [register, setValue, value]);
 
   const form = <>
                   <div className="input-container">
@@ -49,8 +45,8 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
                       <label htmlFor="nameSkill">Nom de la compétences *</label>
                       <div className="input-block">
                         <span><FontAwesomeIcon icon="graduation-cap" /></span>
-                        {formType === "add" && <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" ref={register({ required: true })} />}
-                        {formType === "edit" && <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" defaultValue={value.nameSkill} ref={register({ required: true })} />}
+                        {!value && <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" ref={register({ required: true })} />}
+                        {value && <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" defaultValue={value.nameSkill} ref={register({ required: true })} />}
                       </div>
                       {errors.nameSkill && <span className="error-message">Ce champ est requis</span>}
                     </div>
@@ -58,14 +54,14 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
                       <label htmlFor="percentage">Pourcentage *</label>
                       <div className="input-block">
                         <span><FontAwesomeIcon icon="percentage" /></span>
-                        {formType === "add" && <input name="percentage" id="percentage" placeholder="Pourcentage" ref={register({
+                        {!value && <input name="percentage" id="percentage" placeholder="Pourcentage" ref={register({
                           required: "Ce champ est requis",
                           pattern: {
                             value: /^[0-9]+$/,
                             message: "Entrez un nombre entre 0 et 100"
                           }
                         })} />}
-                        {formType === "edit" && <input name="percentage" id="percentage" placeholder="Pourcentage" defaultValue={value.percentage} ref={register({ 
+                        {value && <input name="percentage" id="percentage" placeholder="Pourcentage" defaultValue={value.percentage} ref={register({ 
                           required: "Ce champ est requis",
                           pattern: {
                             value: /^[0-9]+$/,
@@ -93,10 +89,10 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
                   <div className="btn-container">
                     <button className="submit-contact" type="submit">
                       {button}
-                      {formType === "add" && 
+                      {!value && 
                         <FontAwesomeIcon icon="plus" />
                       }
-                      {formType === "edit" && 
+                      {value && 
                         <FontAwesomeIcon icon="edit" />
                       }
                     </button>
@@ -107,12 +103,12 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
   return (
     <>
       <h3>{titleForm}</h3>
-      {formType === "add" &&
+      {!value &&
         <form onSubmit={handleSubmit(handleFunction)}>
           {form}
         </form>
       }
-      {formType === "edit" &&
+      {value &&
         <form onSubmit={handleSubmit(handleFunction)}>
           {form}
         </form>
@@ -124,7 +120,6 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
 FormEducExpe.propTypes = {
   handleFunction: PropTypes.func.isRequired,
   setIdItem: PropTypes.func,
-  formType: PropTypes.string.isRequired,
   value: PropTypes.object,
   successMessage: PropTypes.object.isRequired,
 }

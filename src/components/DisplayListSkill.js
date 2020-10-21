@@ -13,9 +13,8 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
   let liListGeneralSkill;
   let liListLanguage;
 
-  if (arrayCodingSkill) {
-    liListCodingSkill = arrayCodingSkill.map((item) => {
-      return <li key={item._id}>
+  const liListRender = (item) => {
+    return <li key={item._id}>
               <div className="div-list-container">
                 <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
               </div>
@@ -23,35 +22,24 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
                 <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
                 <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
               </div>
-            </li>
+            </li>;
+  }
+
+  if (arrayCodingSkill) {
+    liListCodingSkill = arrayCodingSkill.map((item) => {
+      return liListRender(item); 
     });
   }
 
   if (arrayGeneralSkill) {
     liListGeneralSkill = arrayGeneralSkill.map((item) => {
-      return <li key={item._id}>
-                  <div className="div-list-container">
-                    <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
-                  </div>
-                  <div className="div-list-btn-container">
-                    <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
-                    <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-                  </div>
-              </li>
+      return liListRender(item); 
     });
   }
 
   if (arrayLanguage) {
     liListLanguage = arrayLanguage.map((item) => {
-      return <li key={item._id}>
-              <div className="div-list-container">
-                <div className="skill-list">{item.nameSkill} - {item.percentage}%</div>
-              </div>
-              <div className="div-list-btn-container">
-                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
-                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-              </div>
-            </li>
+      return liListRender(item); 
       });
   }
 
@@ -79,8 +67,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
         <Modal div={
           <FormSkill 
           handleFunction={submit} 
-          setIdItem={setIdItem} 
-          formType="edit" 
+          setIdItem={setIdItem}
           value={value} 
           successMessage={successMessage} />
         } 

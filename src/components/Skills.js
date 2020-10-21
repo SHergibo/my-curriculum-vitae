@@ -155,8 +155,7 @@ function Skills() {
             >
               <div ref={nodeRef} className="form-container">
                 <FormSkill 
-                handleFunction={onSubmitAdd} 
-                formType="add" 
+                handleFunction={onSubmitAdd}
                 successMessage={successMessage} />
               </div>
             </CSSTransition>
