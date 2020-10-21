@@ -6,6 +6,16 @@ import PropTypes from 'prop-types';
 
 function Home({ generalInfo }) {
   const [fullName, setFullName] = useState("");
+  const [welcome, setWelcome] = useState("Bienvenue");
+  const [div, setDiv] = useState(
+    <div className="job-name">Je suis un <Typed
+    strings={['développeur web', 'intégrateur web']}
+    typeSpeed={80}
+    loop
+    smartBackspace={false}
+    />
+    </div>
+  );
   const location = useLocation();
 
   useEffect(() => {
@@ -16,23 +26,16 @@ function Home({ generalInfo }) {
     }
   }, [generalInfo]);
 
-  let div = <div className="job-name">Je suis un <Typed
-                strings={['développeur web', 'intégrateur web']}
-                typeSpeed={80}
-                loop
-                smartBackspace={false}
-              />
-              </div>;
-
-  let welcome = "Bienvenue";
-
-  if(location.pathname === "/admin"){
-    div = <div className="sub-name">
-            Partie administration
-          </div>;
-
-    welcome = "Administration";
-  }  
+  useEffect(() => {
+    if(location.pathname === "/admin"){
+      setDiv(
+        <div className="sub-name">
+          Partie administration
+        </div>
+      );
+      setWelcome('Administration');
+    }
+  }, [location])
 
   return (
     <HomeSection 
