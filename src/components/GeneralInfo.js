@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import FormGeneralInfo from './FormGeneralInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
@@ -7,28 +7,24 @@ import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
-function GeneralInfo({ generalInfoState, onSubmitAdd, onSubmitEdit, successMessage, showEditFormState }) {
+function GeneralInfo({ generalInfoState, onSubmitAdd, onSubmitEdit, successMessage }) {
   const { generalInfo, setGeneralInfo } = generalInfoState;
-  const { showEditForm, setShowEditForm } = showEditFormState;
   const [displayForm, setDisplayForm] = useState(false);
   const divTitleRef = useRef(null);
 
-  useLayoutEffect(() => {
-    let divTitle = divTitleRef.current;
+  useEffect(() => {
     if(generalInfo){
-      divTitle.classList.remove('title-container-info-gen');
+      divTitleRef.current.classList.remove('title-container-info-gen');
     }else{
-      divTitle.classList.add('title-container-info-gen');
+      divTitleRef.current.classList.add('title-container-info-gen');
     }
   }, [generalInfo]);
   
   const deleteInfoGen = async () =>{
-    let divTitle = divTitleRef.current;
     const deleteInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
     await axiosInstance.delete(deleteInfoEndPoint, generalInfo)
     .then(() => {
-      divTitle.classList.add('title-container-info-gen');
-      setShowEditForm(false);
+      divTitleRef.current.classList.add('title-container-info-gen');
       setGeneralInfo();
       closeModal(setDisplayForm);
     });
@@ -61,21 +57,11 @@ function GeneralInfo({ generalInfoState, onSubmitAdd, onSubmitEdit, successMessa
           </div>
 
           <div className="forms-block">
-            {!generalInfo && (
-              <FormGeneralInfo 
-              handleFunction={onSubmitAdd} 
-              formType="add"
-              successMessage={successMessage} />
-            )}
-
-            {showEditForm && (
-              <FormGeneralInfo 
-              handleFunction={onSubmitEdit} 
-              formType="edit" 
-              value={generalInfo} 
-              successMessage={successMessage} />     
-            )}
-
+            <FormGeneralInfo 
+            onSubmitAdd={onSubmitAdd} 
+            onSubmitEdit={onSubmitEdit} 
+            value={generalInfo}
+            successMessage={successMessage} />
           </div>
         </div>
       </div>
@@ -96,11 +82,7 @@ GeneralInfo.propTypes = {
   }),
   onSubmitAdd: PropTypes.func.isRequired,
   onSubmitEdit: PropTypes.func.isRequired,
-  successMessage: PropTypes.object.isRequired,
-  showEditFormState: PropTypes.shape({
-    showEditForm: PropTypes.bool.isRequired,
-    setShowEditForm: PropTypes.func.isRequired
-  }),
+  successMessage: PropTypes.object.isRequired
 }
 
 export default GeneralInfo;

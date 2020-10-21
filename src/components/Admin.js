@@ -32,8 +32,6 @@ function Admin({ history }) {
     "birthdate":"",
     "licence":""
   });
-  const [showEditForm, setShowEditForm] = useState(false);
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -45,9 +43,6 @@ function Admin({ history }) {
       await axiosInstance.get(getGeneralInfoEndPoint)
       .then((response) => {
         setGeneralInfo(response.data);
-        if(response.data){
-          setShowEditForm(true);
-        }
       });
     };
     getData();
@@ -76,18 +71,20 @@ function Admin({ history }) {
     };
   };
 
-  const onSubmitAdd = async (data) => {
+  const onSubmitAdd = async (data, e) => {
+    e.preventDefault();
     const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
     await axiosInstance.post(addGenerelInfoEndPoint, workingData(data))
       .then((response) => {
         if(response.status === 200){
+          checkSuccess(response.status, successMessage);
           setGeneralInfo(response.data);
-          setShowEditForm(true);
         }
       }); 
   };
 
-  const onSubmitEdit = async (data) => {
+  const onSubmitEdit = async (data, e) => {
+    e.preventDefault();
     const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
     await axiosInstance.patch(editGeneralInfoEndPoint, workingData(data))
     .then((response) => {
@@ -115,8 +112,7 @@ function Admin({ history }) {
         generalInfoState={{generalInfo, setGeneralInfo}} 
         onSubmitAdd={onSubmitAdd} 
         onSubmitEdit={onSubmitEdit}
-        successMessage={successMessage}
-        showEditFormState={{showEditForm, setShowEditForm}} />
+        successMessage={successMessage} />
         <EducExpe />
         <Skills />
         <Projects />
