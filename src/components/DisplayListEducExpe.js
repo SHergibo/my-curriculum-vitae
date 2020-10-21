@@ -16,38 +16,31 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
     let year = date.split('-')[0];
     return year;
   };
+
+  const liListRender = (item) => {
+    let formatDateStart = formatDate(item.dateStart);
+    let formatDateEnd = formatDate(item.dateEnd);
+    return <li key={item._id}>
+              <div className="div-list-container">
+                <div className="date-list">{formatDateStart} - {formatDateEnd}</div> 
+                <div className="title-list">{item.titleEducExpe}</div> 
+              </div>
+              <div className="div-list-btn-container">
+                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
+                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
+              </div>
+            </li>
+  }
   
   if(arrayEduc){
     liListEduc = arrayEduc.map((item) => {
-      let formatDateStart = formatDate(item.dateStart);
-      let formatDateEnd = formatDate(item.dateEnd);
-      return <li key={item._id}>
-                <div className="div-list-container">
-                  <div className="date-list">{formatDateStart} - {formatDateEnd}</div> 
-                  <div className="title-list">{item.titleEducExpe}</div> 
-                </div>
-                <div className="div-list-btn-container">
-                  <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
-                  <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-                </div>
-              </li>
+      return liListRender(item);
     });
   }
 
   if(arrayExpe){
     liListExpe = arrayExpe.map((item) => {
-      let formatDateStart = formatDate(item.dateStart);
-      let formatDateEnd = formatDate(item.dateEnd);
-      return <li key={item._id}>
-                <div className="div-list-container">
-                  <div className="date-list">{formatDateStart} - {formatDateEnd}</div> 
-                  <div className="title-list">{item.titleEducExpe}</div> 
-                </div>
-                <div className="div-list-btn-container">
-                  <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
-                  <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-                </div>
-              </li>
+      return liListRender(item);
     });
   }
 
@@ -69,8 +62,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
         <Modal div={
           <FormEducExpe 
           handleFunction={submit} 
-          setIdItem={setIdItem} 
-          formType="edit" 
+          setIdItem={setIdItem}
           value={value} 
           successMessage={successMessage}
           dateStartState={dateStartState}

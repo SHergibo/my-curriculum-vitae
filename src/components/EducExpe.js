@@ -154,8 +154,7 @@ function EducExpe() {
             >
               <div ref={nodeRef} className="form-container">
                 <FormEducExpe 
-                handleFunction={onSubmitAdd} 
-                formType="add" 
+                handleFunction={onSubmitAdd}
                 successMessage={successMessage}
                 dateStartState={{dateStart, setDateStart}}
                 dateEndState={{dateEnd, setDateEnd}} />

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -8,9 +8,11 @@ import { fr } from 'date-fns/locale'
 import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
-function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessage, dateStartState, dateEndState}) {
+function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateStartState, dateEndState}) {
   const { dateStart, setDateStart } = dateStartState;
   const { dateEnd, setDateEnd } = dateEndState;
+  const [titleForm, setTitleForm] = useState('Ajout');
+  const [button, setButton] = useState('Ajouter');
   const [checkboxExpe, setCheckboxExpe] = useState();
   const [checkboxEduc, setCheckboxEduc] = useState();
 
@@ -21,8 +23,9 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
   useEffect(() => {
     if(value){
       setIdItem(value._id);
+      setTitleForm('Édition');
+      setButton('Éditer');
     }
-
   }, [value, setIdItem]);
 
   useEffect(() => {
@@ -30,10 +33,10 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
     register({ name: "dateEnd" }, {required : true});
   }, [register]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setCheckboxExpe("checked");
     setCheckboxEduc("");
-    if(formType === "edit"){
+    if(value){
       setDateStart(parseISO(value.dateStart));
       setValue("dateStart", parseISO(value.dateStart));
       setDateEnd(parseISO(value.dateEnd));
@@ -42,19 +45,11 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
         setCheckboxExpe("");
         setCheckboxEduc("checked");
       }
-    }else if (formType === "add"){
+    }else if (!value){
       setDateStart(null);
       setDateEnd(null);
     }
-  }, [register, setValue, value, formType, setCheckboxExpe, checkboxEduc, setDateStart, setDateEnd]);
-
-  let titleForm = "Ajout";
-  let button = "Ajouter";
-
-  if (formType === "edit"){
-    titleForm = "Édition";
-    button = "Éditer";
-  }
+  }, [register, setValue, value, setCheckboxExpe, checkboxEduc, setDateStart, setDateEnd]);
 
   const form = <>
                 <div className="input-container">
@@ -115,8 +110,8 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
                     <label htmlFor="titleEducExpe">Titre du diplôme / formation *</label>
                     <div className="input-block">
                       <span><FontAwesomeIcon icon="user-graduate" /></span>
-                      {formType === "add" && <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" ref={register({ required: true })} />}
-                      {formType === "edit" && <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" defaultValue={value.titleEducExpe} ref={register({ required: true })} />}
+                      {!value && <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" ref={register({ required: true })} />}
+                      {value && <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" defaultValue={value.titleEducExpe} ref={register({ required: true })} />}
                     </div>
                     {errors.titleEducExpe && <span className="error-message">Ce champ est requis</span>}
                   </div>
@@ -124,8 +119,8 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
                     <label htmlFor="placeEducExpe">Nom du centre de formation / école *</label>
                     <div className="input-block">
                       <span><FontAwesomeIcon icon="school" /></span>
-                      {formType === "add" && <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" ref={register({ required: true })} />}
-                      {formType === "edit" && <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" defaultValue={value.placeEducExpe} ref={register({ required: true })} />}
+                      {!value && <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" ref={register({ required: true })} />}
+                      {value && <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" defaultValue={value.placeEducExpe} ref={register({ required: true })} />}
                     </div>
                     {errors.placeEducExpe && <span className="error-message">Ce champ est requis</span>}
                   </div>
@@ -143,28 +138,26 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
                 <div className="btn-container">
                   <button className="submit-contact" type="submit">
                     {button}
-                    {formType === "add" && 
+                    {!value && 
                       <FontAwesomeIcon icon="plus" />
                     }
-                    {formType === "edit" && 
+                    {value && 
                       <FontAwesomeIcon icon="edit" />
                     }
-                  </button>
-                  
+                  </button> 
                   <span ref={successMessage} className="success-message" ><FontAwesomeIcon icon="check" /></span>
-                  
                 </div>
               </>;
 
   return (
     <>
       <h3>{titleForm}</h3>
-      {formType === "add" && 
+      {!value && 
         <form onSubmit={handleSubmit(handleFunction)}>
           {form}
         </form>
       }
-      {formType === "edit" && 
+      {value && 
         <form onSubmit={handleSubmit(handleFunction)}>
           {form}
         </form>
@@ -176,7 +169,6 @@ function FormEducExpe({ handleFunction, setIdItem, formType, value, successMessa
 FormEducExpe.propTypes = {
   handleFunction: PropTypes.func.isRequired,
   setIdItem: PropTypes.func,
-  formType: PropTypes.string.isRequired,
   value: PropTypes.object,
   successMessage: PropTypes.object.isRequired,
   dateStartState: PropTypes.shape({
