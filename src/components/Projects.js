@@ -123,8 +123,7 @@ function Projects() {
             >
               <div ref={nodeRef} className="form-container">
                 <FormProject 
-                handleFunction={onSubmitAdd} 
-                formType="add" 
+                handleFunction={onSubmitAdd}  
                 successMessage={successMessage}
                 imgProjectState={{imgProjectName, setImgProjectName}} />
               </div>

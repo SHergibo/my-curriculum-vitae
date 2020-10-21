@@ -4,33 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
-function FormProject({ handleFunction, setIdItem, formType, value, successMessage, imgProjectState, }) {
+function FormProject({ handleFunction, setIdItem, value, successMessage, imgProjectState, }) {
   const { imgProjectName, setImgProjectName } = imgProjectState;
+  const [titleForm, setTitleForm] = useState('Ajout');
+  const [button, setButton] = useState('Ajouter');
   const [imgEdit, setImgEdit] = useState(false);
   const [errorMessageImg, setErrorMessageImg] = useState(false);
 
   useEffect(() => {
-    if(formType === "edit"){
-      setImgEdit(true);
-    }
-  }, [formType]);
-
-  useEffect(() => {
     if(value){
-      setIdItem(value._id)
+      setImgEdit(true);
+      setIdItem(value._id);
+      setTitleForm('Édition');
+      setButton('Éditer');
     }
   }, [value, setIdItem]);
 
-
   const { register, handleSubmit, errors } = useForm();
-
-  let titleForm = "Ajout";
-  let button = "Ajouter";
-
-  if (formType === "edit") {
-    titleForm = "Édition";
-    button = "Éditer";
-  }
 
   const switchToInput = () =>{
     setImgEdit(false);
@@ -59,8 +49,8 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
                         <label htmlFor="projectName">Nom du projet *</label>
                         <div className="input-block">
                           <span><FontAwesomeIcon icon="file-signature" /></span>
-                          {formType === "add" && <input name="projectName" type="text" id="projectName" placeholder="Nom du projet" ref={register({ required: true })} />}
-                          {formType === "edit" && <input name="projectName" type="text" id="projectName" placeholder="Nom du projet" defaultValue={value.projectName} ref={register({ required: true })} />}
+                          {!value && <input name="projectName" type="text" id="projectName" placeholder="Nom du projet" ref={register({ required: true })} />}
+                          {value && <input name="projectName" type="text" id="projectName" placeholder="Nom du projet" defaultValue={value.projectName} ref={register({ required: true })} />}
                         </div>
                         {errors.projectName && <span className="error-message">Ce champ est requis</span>}
                       </div>
@@ -70,8 +60,8 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
                         <label htmlFor="projectUrl">Lien du projet *</label>
                         <div className="input-block">
                           <span><FontAwesomeIcon icon="link" /></span>
-                          {formType === "add" && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" ref={register({ required: true })} />}
-                          {formType === "edit" && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" defaultValue={value.url} ref={register({ required: true })} />}
+                          {!value && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" ref={register({ required: true })} />}
+                          {value && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" defaultValue={value.url} ref={register({ required: true })} />}
                         </div>
                         {errors.projectUrl && <span className="error-message">Ce champ est requis</span>}
                       </div>
@@ -81,18 +71,18 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
                       <p>Framework utilisé(s)</p>
                       <div>
                         <label className="container-checkbox">React
-                          {formType === "add" && <input type="checkbox" name="react" ref={register({ required: false })} />}
-                          {formType === "edit" && <input type="checkbox" name="react" defaultChecked={value.technoUsedFront.react} ref={register({ required: false })} />}
+                          {!value && <input type="checkbox" name="react" ref={register({ required: false })} />}
+                          {value && <input type="checkbox" name="react" defaultChecked={value.technoUsedFront.react} ref={register({ required: false })} />}
                           <span className="checkmark-checkbox"></span>
                         </label>
                         <label className="container-checkbox">Ember
-                          {formType === "add" && <input type="checkbox" name="ember" ref={register({ required: false })} />}
-                          {formType === "edit" && <input type="checkbox" name="ember" defaultChecked={value.technoUsedFront.ember} ref={register({ required: false })} />}
+                          {!value && <input type="checkbox" name="ember" ref={register({ required: false })} />}
+                          {value && <input type="checkbox" name="ember" defaultChecked={value.technoUsedFront.ember} ref={register({ required: false })} />}
                           <span className="checkmark-checkbox"></span>
                         </label>
                         <label className="container-checkbox">Angular
-                          {formType === "add" && <input type="checkbox" name="angular" ref={register({ required: false })} />}
-                          {formType === "edit" && <input type="checkbox" name="angular" defaultChecked={value.technoUsedFront.angular} ref={register({ required: false })} />}
+                          {!value && <input type="checkbox" name="angular" ref={register({ required: false })} />}
+                          {value && <input type="checkbox" name="angular" defaultChecked={value.technoUsedFront.angular} ref={register({ required: false })} />}
                           <span className="checkmark-checkbox"></span>
                         </label>
                       </div>
@@ -101,18 +91,18 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
                       <p>Technologie(s) utilisée(s) pour le back-office</p>
                       <div>
                         <label className="container-checkbox">Express
-                          {formType === "add" && <input type="checkbox" name="express" ref={register({ required: false })} />}
-                          {formType === "edit" && <input type="checkbox" name="express" defaultChecked={value.technoUsedBack.express} ref={register({ required: false })} />}
+                          {!value && <input type="checkbox" name="express" ref={register({ required: false })} />}
+                          {value && <input type="checkbox" name="express" defaultChecked={value.technoUsedBack.express} ref={register({ required: false })} />}
                           <span className="checkmark-checkbox"></span>
                         </label>
                         <label className="container-checkbox">NodeJS
-                          {formType === "add" && <input type="checkbox" name="nodejs" ref={register({ required: false })} />}
-                          {formType === "edit" && <input type="checkbox" name="nodejs" defaultChecked={value.technoUsedBack.nodejs} ref={register({ required: false })} />}
+                          {!value && <input type="checkbox" name="nodejs" ref={register({ required: false })} />}
+                          {value && <input type="checkbox" name="nodejs" defaultChecked={value.technoUsedBack.nodejs} ref={register({ required: false })} />}
                           <span className="checkmark-checkbox"></span>
                         </label>
                         <label className="container-checkbox">MongoDB
-                          {formType === "add" && <input type="checkbox" name="mongodb" ref={register({ required: false })} />}
-                          {formType === "edit" && <input type="checkbox" name="mongodb" defaultChecked={value.technoUsedBack.mongodb} ref={register({ required: false })} />}
+                          {!value && <input type="checkbox" name="mongodb" ref={register({ required: false })} />}
+                          {value && <input type="checkbox" name="mongodb" defaultChecked={value.technoUsedBack.mongodb} ref={register({ required: false })} />}
                           <span className="checkmark-checkbox"></span>
                         </label>
                       </div>
@@ -137,8 +127,8 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
                             <span><FontAwesomeIcon icon="images" /></span>
                             <div className="container-input-file">
                               <span>{imgProjectName}</span>
-                              {formType === "add" && <input name="projectImg" type="file" accept=".jpg,.jpeg,.png" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} onChange={(e) => onAddFile(e)} />}
-                              {formType === "edit" && <input name="projectImg" type="file" accept=".jpg,.jpeg,.png" id="projectImg" placeholder="Image du projet" ref={register({ required: false })} onChange={(e) => onAddFile(e)} />}
+                              {!value && <input name="projectImg" type="file" accept=".jpg,.jpeg,.png" id="projectImg" placeholder="Image du projet" ref={register({ required: true })} onChange={(e) => onAddFile(e)} />}
+                              {value && <input name="projectImg" type="file" accept=".jpg,.jpeg,.png" id="projectImg" placeholder="Image du projet" ref={register({ required: false })} onChange={(e) => onAddFile(e)} />}
                             </div>
                             <label htmlFor="projectImg">Ajout</label>
                           </div>
@@ -152,8 +142,8 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
                         <label htmlFor="projectAltImg">Description de la l'image du projet *</label>
                         <div className="input-block">
                           <span><FontAwesomeIcon icon="info-circle" /></span>
-                          {formType === "add" && <input name="projectAltImg" type="text" id="projectAltImg" placeholder="Description de l'image du projet" ref={register({ required: true })} />}
-                          {formType === "edit" && <input name="projectAltImg" type="text" id="projectAltImg" placeholder="Description de l'image du projet" defaultValue={value.altImg} ref={register({ required: true })} />}
+                          {!value && <input name="projectAltImg" type="text" id="projectAltImg" placeholder="Description de l'image du projet" ref={register({ required: true })} />}
+                          {value && <input name="projectAltImg" type="text" id="projectAltImg" placeholder="Description de l'image du projet" defaultValue={value.altImg} ref={register({ required: true })} />}
                         </div>
                         {errors.projectAltImg && <span className="error-message">Une description pour votre image est requise</span>}
                       </div>
@@ -164,8 +154,8 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
                 <div className="text-area">
                   <label htmlFor="descriptionProject">Description du projet*</label>
                   <div className="input-block">
-                    {formType === "add" && <textarea name="descriptionProject" id="descriptionProject" placeholder="Votre description ici..." ref={register({ required: true })} />}
-                    {formType === "edit" && <textarea name="descriptionProject" id="descriptionProject" placeholder="Votre description ici..." defaultValue={value.description} ref={register({ required: true })} />}
+                    {!value && <textarea name="descriptionProject" id="descriptionProject" placeholder="Votre description ici..." ref={register({ required: true })} />}
+                    {value && <textarea name="descriptionProject" id="descriptionProject" placeholder="Votre description ici..." defaultValue={value.description} ref={register({ required: true })} />}
                   </div>
                   {errors.descriptionProject && <span className="error-message">Ce champ est requis</span>}
                 </div>
@@ -173,10 +163,10 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
                 <div className="btn-container">
                   <button className="submit-contact" type="submit">
                     {button}
-                    {formType === "add" &&
+                    {!value &&
                       <FontAwesomeIcon icon="plus" />
                     }
-                    {formType === "edit" &&
+                    {value &&
                       <FontAwesomeIcon icon="edit" />
                     }
                   </button>
@@ -187,12 +177,12 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
   return (
     <>
       <h3>{titleForm}</h3>
-      {formType === "add" &&
+      {!value &&
         <form onSubmit={handleSubmit(handleFunction)}>
           {form}
         </form>
       }
-      {formType === "edit" &&
+      {value &&
         <form onSubmit={handleSubmit(handleFunction)}>
           {form}
         </form>
@@ -204,7 +194,6 @@ function FormProject({ handleFunction, setIdItem, formType, value, successMessag
 FormProject.propTypes = {
   handleFunction: PropTypes.func.isRequired,
   setIdItem: PropTypes.func,
-  formType: PropTypes.string.isRequired,
   value: PropTypes.object,
   successMessage: PropTypes.object.isRequired,
   imgProjectState: PropTypes.shape({

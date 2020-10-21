@@ -34,7 +34,6 @@ function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, succ
           <FormProject 
           handleFunction={submit} 
           setIdItem={setIdItem} 
-          formType="edit" 
           value={value} 
           successMessage={successMessage}
           imgProjectState={imgProjectState} />} 
