@@ -7,7 +7,7 @@ function Logo() {
   }
   return (
     <div className="logo" onClick={scrollToTop}>
-      <a tabIndex={0} href="#home">
+      <a tabIndex={0}>
         <span>Sacha</span>
       </a>
     </div>
