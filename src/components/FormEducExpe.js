@@ -153,7 +153,11 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
     <>
       <h3>{titleForm}</h3>
       {!value && 
-        <form onSubmit={handleSubmit(handleFunction)}>
+        <form onSubmit={async (e)=> {
+          await handleSubmit(handleFunction)(e);
+          setValue("dateStart", null);
+          setValue("dateEnd", null);
+          }}>
           {form}
         </form>
       }

@@ -58,6 +58,7 @@ function EducExpe() {
   };
 
   const onSubmitAdd = async (data, e) => {
+    e.preventDefault();
     const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
     await axiosInstance.post(addEducExpeEndPoint, data)
       .then((response) => {
