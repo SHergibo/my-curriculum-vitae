@@ -1,15 +1,45 @@
-import React from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import PropTypes from 'prop-types';
 
 function HomeSection({welcome, name, div}) {
+  const graphicOneRef = useRef(null);
+  const graphicTwoRef = useRef(null);
+  const welcomeRef = useRef(null);
+
+  let staticWindowCalc = ((window.innerHeight - Math.round(window.scrollY)) / 100);
+
+  const handleMenuScroll = useCallback(() => {
+    let windowHeight = window.innerHeight;
+    let scroll = Math.round(window.scrollY);
+    if(scroll < windowHeight){
+      let blur = Math.round(staticWindowCalc + 1) - ((windowHeight - scroll) / 100);
+      graphicOneRef.current.style.filter = `blur(${blur}px)`;
+      graphicTwoRef.current.style.filter = `blur(${blur}px)`;
+      welcomeRef.current.style.filter = `blur(${blur}px)`;
+    }
+    
+    if(scroll === 0){
+      graphicOneRef.current.style.filter = null;
+      graphicTwoRef.current.style.filter = null;
+      welcomeRef.current.style.filter = null;
+    }
+  },[staticWindowCalc]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleMenuScroll);
+    return () => {
+      window.removeEventListener('scroll', handleMenuScroll);
+    }
+  }, [handleMenuScroll]);
+
   return (
     <div id="home">
       <div className="graphic-container">
-        <div className="graphic-one"></div>
-        <div className="graphic-two"></div>
+        <div ref={graphicOneRef} className="graphic-one"></div>
+        <div ref={graphicTwoRef} className="graphic-two"></div>
       </div>
       <div className="home wrapper">
-        <div className="welcome">
+        <div ref={welcomeRef} className="welcome">
           {welcome}
         </div>
         <section>
