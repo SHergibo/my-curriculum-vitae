@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link } from "react-scroll";
 import EducationExperience from './ResumeComponents/EducationExperience';
 import CanvasResume from './ResumeComponents/CanvasResume';
@@ -34,6 +34,7 @@ function Resume() {
   const educRef = useRef(null);
   const expRef = useRef(null);
   const skillref = useRef(null);
+  const isMounted = useRef(true);
 
   const handleResumeMenuOnScroll = () => {
     let resumeContainer = resumeContainerRef.current
@@ -52,32 +53,38 @@ function Resume() {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleResumeMenuOnScroll);
-    getData();
-    return () => {
-      window.removeEventListener('scroll', handleResumeMenuOnScroll);
-    }
-  }, []);
-
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
     await axios.get(getListEducExpeEndPoint)
       .then((response) => {
-        const workingDatas = workingData(response.data, "educExpe");
-        setArrayEduc(workingDatas[0]);
-        setArrayExpe(workingDatas[1]);
+        if(isMounted.current){
+          const workingDatas = workingData(response.data, "educExpe");
+          setArrayEduc(workingDatas[0]);
+          setArrayExpe(workingDatas[1]);
+        }
+
       });
 
     const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
     await axios.get(getListSkillEndPoint)
       .then((response) => {
-        const workingDatas = workingData(response.data, "skill");
-        setArrayCodingSkill(workingDatas[0]);
-        setArrayGeneralSkill(workingDatas[1]);
-        setArrayLanguage(workingDatas[2]);
+        if(isMounted.current){
+          const workingDatas = workingData(response.data, "skill");
+          setArrayCodingSkill(workingDatas[0]);
+          setArrayGeneralSkill(workingDatas[1]);
+          setArrayLanguage(workingDatas[2]);
+        }
       });
-  };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleResumeMenuOnScroll);
+    getData();
+    return () => {
+      window.removeEventListener('scroll', handleResumeMenuOnScroll);
+      isMounted.current = false;
+    }
+  }, [getData, isMounted]);
 
   const focusOnKeypress = (elem) => {
     if(elem === "eduction"){

@@ -1,7 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
-import { format } from 'date-fns';
+import React, { useEffect, useRef } from 'react';
 import Home from './Home';
 import Navbar from './Navbar';
 import About from './About';
@@ -10,44 +7,14 @@ import Resume from './Resume';
 import Contact from './Contact';
 import Footer from './Footer';
 import BackToTop from './BackToTop';
+import PropTypes from 'prop-types';
 
-function HomePage() {
+function HomePage({ generalInfo }) {
   const headerRef = useRef(null);
-  const [generalInfo, setGeneralInfo] = useState({
-    firstname: "",
-    lastname: "",
-    "address":{
-      "street":"",
-      "number":"",
-      "zip":"",
-      "city":""
-    },
-    "phone":"",
-    "email":"",
-    "birthdate":"",
-    "licence":""
-  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const getData = async () => {
-      const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
-      await axios.get(getGeneralInfoEndPoint)
-      .then((response) => {
-        if(response.data){
-          let formatDate = format(
-            new Date(response.data.birthdate),
-            'dd/MM/yyyy'
-          );
-          response.data.birthdate = formatDate;
-          setGeneralInfo(response.data);
-        }
-      });
-    };
-    getData();
   }, []);
-
-
 
   return (
     <>
@@ -69,6 +36,10 @@ function HomePage() {
       <BackToTop />
     </>
   );
+}
+
+HomePage.propTypes = {
+  generalInfoAdmin: PropTypes.object.isRequired
 }
 
 export default HomePage;

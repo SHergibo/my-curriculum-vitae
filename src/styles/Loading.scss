@@ -1,0 +1,25 @@
+.loading-container{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background-color: $principal-color;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  transition: .5s ease-in-out;
+  .loader{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    p{
+      font-size: 1.5rem;
+      color: $blue;
+      margin-bottom: 1rem;
+    }
+  }
+}

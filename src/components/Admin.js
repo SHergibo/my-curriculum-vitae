@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useHistory, withRouter } from "react-router-dom";
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
@@ -14,7 +15,8 @@ import Projects from './Projects';
 import PropTypes from 'prop-types';
 
 
-function Admin({ history }) {
+function Admin({ generalInfoAdmin }) {
+  const history = useHistory();
   const headerRef = useRef(null);
   const successMessage = useRef(null);
 
@@ -30,28 +32,26 @@ function Admin({ history }) {
     "phone":"",
     "email":"",
     "birthdate":"",
+    "isoDate":"",
     "licence":""
   });
+
+  useEffect(() => {
+    if(generalInfoAdmin){
+      setGeneralInfo(generalInfoAdmin)
+    }
+  }, [generalInfoAdmin])
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const refreshTokenInterval = setInterval(() => {
       refreshToken();
     }, 870000);
-    const getData = async () => {
-      const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
-      await axiosInstance.get(getGeneralInfoEndPoint)
-      .then((response) => {
-        setGeneralInfo(response.data);
-      });
-    };
-    getData();
 
     return () => {
       clearInterval(refreshTokenInterval);
     }
-
-  }, [history]);
+  }, []);
 
   const workingData = (data) =>{
     return {
@@ -89,6 +89,7 @@ function Admin({ history }) {
     await axiosInstance.patch(editGeneralInfoEndPoint, workingData(data))
     .then((response) => {
       checkSuccess(response.status, successMessage);
+      response.data.isoDate = response.data.birthdate;
       setGeneralInfo(response.data);
     });
   };
@@ -126,8 +127,8 @@ function Admin({ history }) {
 }
 
 Admin.propTypes = {
-  history: PropTypes.object.isRequired
+  generalInfoAdmin: PropTypes.object.isRequired
 }
 
-export default Admin;
+export default withRouter(Admin);
 

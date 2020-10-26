@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -20,16 +20,16 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
   useEffect(() => {
     if(value){
       setTitleForm('Édition');
-      setButton('Éditer')
+      setButton('Éditer');
     }
-  }, [value])
+  }, [value]);
 
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     register({ name: "dateBirthday" }, {required : true});
-    if(value && value.birthdate){
-      setDateBirthday(parseISO(value.birthdate));
-      setValue("dateBirthday", parseISO(value.birthdate));
+    if(value && value.isoDate){
+      setDateBirthday(parseISO(value.isoDate));
+      setValue("dateBirthday", parseISO(value.isoDate));
     }else{
       setDateBirthday(null);
       setValue("dateBirthday", null);
