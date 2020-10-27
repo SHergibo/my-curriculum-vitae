@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import Loading from './components/Loading';
 import HomePage from './components/HomePage';
 import Admin from './components/Admin';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import IsLoggedRoute from './components/Route/IsLogged.route';
 import ProtectedRoute from './components/Route/Protected.route';
 import Login from './components/Login';
@@ -41,7 +41,8 @@ import {
   faFileSignature,
   faGraduationCap, 
   faPercentage,
-  faKey
+  faKey,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -74,10 +75,12 @@ library.add(
   faFileSignature,
   faGraduationCap, 
   faPercentage,
-  faKey
+  faKey,
+  faTimes
 );
 
 function App() {
+  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [errorFetch, setErrorFetch] = useState(false);
   const [generalInfo, setGeneralInfo] = useState({
@@ -126,11 +129,13 @@ function App() {
 
   return (
     <div className="App">
-      <Loading
-        loading={loading}
-        errorFetch={errorFetch}
-        retryFetch={getData}
-      />
+      {location.pathname !== "/login" &&
+        <Loading
+          loading={loading}
+          errorFetch={errorFetch}
+          retryFetch={getData}
+        />
+      }
       <Switch>
         <Route exact path="/" component={() => <HomePage generalInfo={generalInfo} />}/>
         <IsLoggedRoute exact path="/login" component={Login}/>
