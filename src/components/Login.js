@@ -30,7 +30,7 @@ function Login({ history }) {
                       <span><FontAwesomeIcon icon="at" /></span>
                       <input name="email" type="text" id="email" placeholder="Email" ref={register({ required: true })} />
                     </div>
-                    {errors.email && <span className="error-message">Ce champ est requis</span>}
+                    {errors.email && <span className="error-message-form">Ce champ est requis</span>}
                   </div>
                   <div className="input input-login">
                     <label htmlFor="lastname">Mot de passe *</label>
@@ -38,7 +38,7 @@ function Login({ history }) {
                       <span><FontAwesomeIcon icon="key" /></span>
                       <input name="password" type="password" id="password" placeholder="Mot de passe" ref={register({ required: true })} />
                     </div>
-                    {errors.password && <span className="error-message">Ce champ est requis</span>}
+                    {errors.password && <span className="error-message-form">Ce champ est requis</span>}
                   </div>
                 </div>
                 <div className="btn-container">
@@ -46,7 +46,7 @@ function Login({ history }) {
                     Connection
                   </button>
                 </div>
-                {errorMessage && <span className="error-message">Adresse mail ou mot de passe invalide !</span>}
+                {errorMessage && <span className="error-message-form">Adresse mail ou mot de passe invalide !</span>}
               </form>;
 
   return (

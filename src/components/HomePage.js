@@ -39,7 +39,7 @@ function HomePage({ generalInfo }) {
 }
 
 HomePage.propTypes = {
-  generalInfoAdmin: PropTypes.object.isRequired
+  generalInfo: PropTypes.object.isRequired
 }
 
 export default HomePage;

@@ -45,7 +45,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
           {!value && <input name="firstname" type="text" id="firstname" placeholder="Prénom" ref={register({ required: true })} />}
           {value && <input name="firstname" type="text" id="firstname" placeholder="Prénom" defaultValue={value.firstname} ref={register({ required: true })} />}
         </div>
-        {errors.firstname && <span className="error-message">Ce champ est requis</span>}
+        {errors.firstname && <span className="error-message-form">Ce champ est requis</span>}
       </div>
       <div className="input">
         <label htmlFor="lastname">Nom de famille *</label>
@@ -54,7 +54,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
           {!value && <input name="lastname" type="text" id="lastname" placeholder="Nom de famille" ref={register({ required: true })} />}
           {value && <input name="lastname" type="text" id="lastname" placeholder="Nom de famille" defaultValue={value.lastname} ref={register({ required: true })} />}
         </div>
-        {errors.lastname && <span className="error-message">Ce champ est requis</span>}
+        {errors.lastname && <span className="error-message-form">Ce champ est requis</span>}
       </div>
     </div>
     <div className="input-container">
@@ -77,7 +77,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
             }
             })} />}
         </div>
-        <span className="error-message">{errors.email && errors.email.message}</span>
+        <span className="error-message-form">{errors.email && errors.email.message}</span>
       </div>
       <div className="input">
         <label htmlFor="phone">Téléphone *</label>
@@ -86,7 +86,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
           {!value && <input name="phone" type="text" id="phone" placeholder="N° de téléphone" ref={register({ required: true })} />}
           {value && <input name="phone" type="text" id="phone" placeholder="N° de téléphone" defaultValue={value.phone} ref={register({ required: true })} />}
         </div>
-        {errors.phone && <span className="error-message">Ce champ est requis</span>}
+        {errors.phone && <span className="error-message-form">Ce champ est requis</span>}
       </div>
     </div>
     <div className="input-container">
@@ -97,7 +97,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
           {!value && <input name="street" type="text" id="street" placeholder="Rue" ref={register({ required: true })} />}
           {value && <input name="street" type="text" id="street" placeholder="Rue" defaultValue={value.address.street} ref={register({ required: true })} />}
         </div>
-        {errors.street && <span className="error-message">Ce champ est requis</span>}
+        {errors.street && <span className="error-message-form">Ce champ est requis</span>}
       </div>
       <div className="input">
         <label htmlFor="number">Numéro *</label>
@@ -106,7 +106,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
           {!value && <input name="number" type="text" id="number" placeholder="Numéro" ref={register({ required: true })} />}
           {value && <input name="number" type="text" id="number" placeholder="Numéro" defaultValue={value.address.number} ref={register({ required: true })} />}
         </div>
-        {errors.number && <span className="error-message">Ce champ est requis</span>}
+        {errors.number && <span className="error-message-form">Ce champ est requis</span>}
       </div>
     </div>
     <div className="input-container">
@@ -117,7 +117,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
           {!value && <input name="zip" type="text" id="zip" placeholder="Code postal" ref={register({ required: true })} />}
           {value && <input name="zip" type="text" id="zip" placeholder="Code postal" defaultValue={value.address.zip} ref={register({ required: true })} />}
         </div>
-        {errors.zip && <span className="error-message">Ce champ est requis</span>}
+        {errors.zip && <span className="error-message-form">Ce champ est requis</span>}
       </div>
       <div className="input">
         <label htmlFor="city">Ville *</label>
@@ -126,7 +126,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
           {!value && <input name="city" type="text" id="city" placeholder="Ville" ref={register({ required: true })} />}
           {value && <input name="city" type="text" id="city" placeholder="Ville" defaultValue={value.address.city} ref={register({ required: true })} />}
         </div>
-        {errors.city && <span className="error-message">Ce champ est requis</span>}
+        {errors.city && <span className="error-message-form">Ce champ est requis</span>}
       </div>
     </div>
     <div className="input-container">
@@ -147,7 +147,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
               }} 
             />
         </div>
-        {errors.birthDate && <span className="error-message">Ce champ est requis</span>}
+        {errors.birthDate && <span className="error-message-form">Ce champ est requis</span>}
       </div>
       <div className="input">
         <label htmlFor="driverLicence">Permis de conduire *</label>
@@ -156,7 +156,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
           {!value && <input name="driverLicence" type="text" id="driverLicence" placeholder="Permis de conduire" ref={register({ required: true })} />}
           {value && <input name="driverLicence" type="text" id="driverLicence" placeholder="Permis de conduire" defaultValue={value.licence} ref={register({ required: true })} />}
         </div>
-        {errors.driverLicence && <span className="error-message">Ce champ est requis</span>}
+        {errors.driverLicence && <span className="error-message-form">Ce champ est requis</span>}
       </div>
     </div>
     <div className="text-area">
@@ -165,7 +165,7 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
         {!value && <textarea name="description" id="description" placeholder="Votre description ici..." ref={register({ required: true })} />}
         {value && <textarea name="description" id="description" placeholder="Votre description ici..." defaultValue={value.description} ref={register({ required: true })} />}
       </div>
-      {errors.description && <span className="error-message">Ce champ est requis</span>}
+      {errors.description && <span className="error-message-form">Ce champ est requis</span>}
     </div>
 
     <div className="btn-container">

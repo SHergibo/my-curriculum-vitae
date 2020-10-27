@@ -70,7 +70,7 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
                         }} 
                       />
                     </div>
-                    {errors.dateStart && <span className="error-message">Ce champ est requis</span>}
+                    {errors.dateStart && <span className="error-message-form">Ce champ est requis</span>}
                   </div>
                   <div className="input">
                     <label htmlFor="dateEnd">Date de fin *</label>
@@ -101,8 +101,8 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
                         }} 
                       />
                     </div>
-                    {errors.dateEnd && <span className="error-message">Ce champ est requis</span>}
-                    {errors.lowerDateEnd && <span className="error-message">La date de fin ne peut pas être antérieur à la date de début</span>}
+                    {errors.dateEnd && <span className="error-message-form">Ce champ est requis</span>}
+                    {errors.lowerDateEnd && <span className="error-message-form">La date de fin ne peut pas être antérieur à la date de début</span>}
                   </div>
                 </div>
                 <div className="input-container">
@@ -113,7 +113,7 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
                       {!value && <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" ref={register({ required: true })} />}
                       {value && <input name="titleEducExpe" type="text" id="titleEducExpe" placeholder="Titre du diplôme / formation" defaultValue={value.titleEducExpe} ref={register({ required: true })} />}
                     </div>
-                    {errors.titleEducExpe && <span className="error-message">Ce champ est requis</span>}
+                    {errors.titleEducExpe && <span className="error-message-form">Ce champ est requis</span>}
                   </div>
                   <div className="input">
                     <label htmlFor="placeEducExpe">Nom du centre de formation / école *</label>
@@ -122,7 +122,7 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
                       {!value && <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" ref={register({ required: true })} />}
                       {value && <input name="placeEducExpe" type="text" id="placeEducExpe" placeholder="Nom du centre de formation / école" defaultValue={value.placeEducExpe} ref={register({ required: true })} />}
                     </div>
-                    {errors.placeEducExpe && <span className="error-message">Ce champ est requis</span>}
+                    {errors.placeEducExpe && <span className="error-message-form">Ce champ est requis</span>}
                   </div>
                 </div>
                 <div className="label-checkbox-container">

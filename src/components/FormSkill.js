@@ -1,9 +1,10 @@
 import React, { useLayoutEffect, useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ActionButtonSubmit from './ActionButtonSubmit';
 import PropTypes from 'prop-types';
 
-function FormEducExpe({ handleFunction, setIdItem, value, successMessage }) {
+function FormEducExpe({ handleFunction, setIdItem, value, successSpanRef, spanSuccess, loadingRef, loader, errorSpanRef, errorMessageRef, spanError }) {
   const [titleForm, setTitleForm] = useState('Ajout');
   const [button, setButton] = useState('Ajouter');
   const [checkboxCodingSkill, setCheckboxCodingSkill] = useState();
@@ -48,7 +49,7 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage }) {
                         {!value && <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" ref={register({ required: true })} />}
                         {value && <input name="nameSkill" type="text" id="nameSkill" placeholder="Nom de la compétences" defaultValue={value.nameSkill} ref={register({ required: true })} />}
                       </div>
-                      {errors.nameSkill && <span className="error-message">Ce champ est requis</span>}
+                      {errors.nameSkill && <span className="error-message-form">Ce champ est requis</span>}
                     </div>
                     <div className="input">
                       <label htmlFor="percentage">Pourcentage *</label>
@@ -69,7 +70,7 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage }) {
                           }
                         })} />}
                       </div>
-                      <span className="error-message">{errors.percentage && errors.percentage.message}</span>
+                      <span className="error-message-form">{errors.percentage && errors.percentage.message}</span>
                     </div>
                   </div>
                   <div className="label-checkbox-container skills-checkbox-container">
@@ -86,18 +87,16 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage }) {
                       <span className="checkmark-radio"></span>
                     </label>
                   </div>
-                  <div className="btn-container">
-                    <button className="submit-contact" type="submit">
-                      {button}
-                      {!value && 
-                        <FontAwesomeIcon icon="plus" />
-                      }
-                      {value && 
-                        <FontAwesomeIcon icon="edit" />
-                      }
-                    </button>
-                    <span ref={successMessage} className="success-message"><FontAwesomeIcon icon="check" /></span>
-                  </div>
+                  <ActionButtonSubmit 
+                    button={button}
+                    value={value}
+                    loadingRef={loadingRef}
+                    loader={loader}
+                    successSpanRef={successSpanRef}
+                    spanSuccess={spanSuccess}
+                    errorSpanRef={errorSpanRef}
+                    spanError={spanError}
+                  />
                 </>;
 
   return (
@@ -113,6 +112,9 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage }) {
           {form}
         </form>
       }
+      <span ref={errorMessageRef} className="error-message">
+        {spanError && <>Une erreur est survenue, veuillez réessayer plus tard !</>}
+      </span>
     </>
   );
 }
@@ -121,7 +123,7 @@ FormEducExpe.propTypes = {
   handleFunction: PropTypes.func.isRequired,
   setIdItem: PropTypes.func,
   value: PropTypes.object,
-  successMessage: PropTypes.object.isRequired,
+  successSpanRef: PropTypes.object.isRequired,
 }
 
 export default FormEducExpe;

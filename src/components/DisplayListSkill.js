@@ -5,7 +5,7 @@ import { displayModal } from './../utils/modalDisplay';
 import FormSkill from "./FormSkill";
 import PropTypes from 'prop-types';
 
-function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setIdItem, funcDelete, successMessage, displayFormState }) {
+function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setIdItem, funcDelete, successSpanRef, displayFormState }) {
   const { displayForm, setDisplayForm } = displayFormState;
   const [value, setValue] = useState({});
 
@@ -69,7 +69,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
           handleFunction={submit} 
           setIdItem={setIdItem}
           value={value} 
-          successMessage={successMessage} />
+          successSpanRef={successSpanRef} />
         } 
         setDisplayForm={setDisplayForm}/>
       }
@@ -84,7 +84,7 @@ DisplayListSkill.propTypes = {
   submit: PropTypes.func.isRequired,
   setIdItem: PropTypes.func,
   funcDelete: PropTypes.func.isRequired,
-  successMessage: PropTypes.object.isRequired,
+  successSpanRef: PropTypes.object.isRequired,
   displayFormState: PropTypes.shape({
     displayForm: PropTypes.bool.isRequired,
     setDisplayForm: PropTypes.func.isRequired

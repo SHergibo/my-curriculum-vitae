@@ -10,7 +10,13 @@ import { CSSTransition } from 'react-transition-group';
 import { closeModal } from './../utils/modalDisplay';
 
 function Skills() {
-  const successMessage = useRef(null);
+  const successSpanRef = useRef(null);
+  const [spanSuccess, setSpanSuccess] = useState(false);
+  const loadingRef = useRef(null);
+  const [loader, setLoader] = useState(false);
+  const errorSpanRef = useRef(null);
+  const errorMessageRef = useRef(null);
+  const [spanError, setSpanError] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);  
   const [arrayCodingSkill, setArrayCodingSkill] = useState([]);
@@ -22,6 +28,9 @@ function Skills() {
   const nodeRefTwo = useRef(null);
 
   let switchForm = () => {
+    setLoader(false);
+    setSpanError(false);
+    setSpanSuccess(false);
     if (addBtn) {
       setAddBtn(false);
       setEditBtn(true);
@@ -44,10 +53,12 @@ function Skills() {
   };
 
   const onSubmitAdd = async (data, e) => {
+    setLoader(true);
+    setSpanError(false);
     const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
     await axiosInstance.post(addSkillEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, successMessage);
+        checkSuccess(response.status, loadingRef, setLoader, successSpanRef, setSpanSuccess, errorSpanRef, errorMessageRef, setSpanError);
         e.target.reset();
       });
   };
@@ -156,7 +167,13 @@ function Skills() {
               <div ref={nodeRef} className="form-container">
                 <FormSkill 
                 handleFunction={onSubmitAdd}
-                successMessage={successMessage} />
+                successSpanRef={successSpanRef} 
+                spanSuccess={spanSuccess}
+                loadingRef={loadingRef} 
+                loader={loader} 
+                errorSpanRef={errorSpanRef} 
+                errorMessageRef={errorMessageRef}
+                spanError={spanError} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -175,7 +192,7 @@ function Skills() {
                 submit={onClickEdit} 
                 setIdItem={setIdItem} 
                 funcDelete={onClickDelete} 
-                successMessage={successMessage}
+                successSpanRef={successSpanRef}
                 displayFormState={{displayForm, setDisplayForm}} />
               </div>
             </CSSTransition>

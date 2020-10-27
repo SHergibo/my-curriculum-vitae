@@ -39,7 +39,7 @@ function Contact({ generalInfo }) {
                   <span><FontAwesomeIcon icon="user" /></span>
                   <input name="firstname" type="text" id="firstname" placeholder="Votre prénom ici..." ref={register({ required: true })} />
                 </div>
-                {errors.firstname && <span className="error-message">Ce champ est requis</span>}
+                {errors.firstname && <span className="error-message-form">Ce champ est requis</span>}
               </div>
               <div className="input">
                 <label htmlFor="lastname">Nom *</label>
@@ -47,7 +47,7 @@ function Contact({ generalInfo }) {
                   <span><FontAwesomeIcon icon="user" /></span>
                   <input name="lastname" type="text" id="lastname" placeholder="Votre nom ici..." ref={register({ required: true })} />
                 </div>
-                {errors.lastname && <span className="error-message">Ce champ est requis</span>}
+                {errors.lastname && <span className="error-message-form">Ce champ est requis</span>}
               </div>
             </div>
             <div className="input-container">
@@ -63,7 +63,7 @@ function Contact({ generalInfo }) {
                   }
                   })} />
                 </div>
-                <span className="error-message">{errors.email && errors.email.message}</span>
+                <span className="error-message-form">{errors.email && errors.email.message}</span>
               </div>
               <div className="input">
                 <label htmlFor="phone">Téléphone *</label>
@@ -71,7 +71,7 @@ function Contact({ generalInfo }) {
                   <span><FontAwesomeIcon icon="mobile-alt" /></span>
                   <input name="phone" type="text" id="phone" placeholder="Votre n° de téléphone ici..." ref={register({ required: true })} />
                 </div>
-                {errors.phone && <span className="error-message">Ce champ est requis</span>}
+                {errors.phone && <span className="error-message-form">Ce champ est requis</span>}
               </div>
             </div>
             <div className="input-container">
@@ -81,7 +81,7 @@ function Contact({ generalInfo }) {
                   <span><FontAwesomeIcon icon="envelope" /></span>
                   <input name="subject" type="text" id="subject" placeholder="Le sujet du message ici..." ref={register({ required: true })} />
                 </div>
-                {errors.subject && <span className="error-message">Ce champ est requis</span>}
+                {errors.subject && <span className="error-message-form">Ce champ est requis</span>}
               </div>
             </div>
             <div className="text-area">
@@ -89,7 +89,7 @@ function Contact({ generalInfo }) {
               <div className="input-block">
                 <textarea name="message" id="message" placeholder="Votre message ici..." ref={register({ required: true })} />
               </div>
-              {errors.message && <span className="error-message">Ce champ est requis</span>}
+              {errors.message && <span className="error-message-form">Ce champ est requis</span>}
             </div>
             <div className="btn-container">
               <button className="submit-contact" type="submit">

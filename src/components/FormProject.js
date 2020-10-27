@@ -52,7 +52,7 @@ function FormProject({ handleFunction, setIdItem, value, successMessage, imgProj
                           {!value && <input name="projectName" type="text" id="projectName" placeholder="Nom du projet" ref={register({ required: true })} />}
                           {value && <input name="projectName" type="text" id="projectName" placeholder="Nom du projet" defaultValue={value.projectName} ref={register({ required: true })} />}
                         </div>
-                        {errors.projectName && <span className="error-message">Ce champ est requis</span>}
+                        {errors.projectName && <span className="error-message-form">Ce champ est requis</span>}
                       </div>
                     </div>
                     <div className="input-container">
@@ -63,7 +63,7 @@ function FormProject({ handleFunction, setIdItem, value, successMessage, imgProj
                           {!value && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" ref={register({ required: true })} />}
                           {value && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" defaultValue={value.url} ref={register({ required: true })} />}
                         </div>
-                        {errors.projectUrl && <span className="error-message">Ce champ est requis</span>}
+                        {errors.projectUrl && <span className="error-message-form">Ce champ est requis</span>}
                       </div>
                     </div>
                     <div>
@@ -132,8 +132,8 @@ function FormProject({ handleFunction, setIdItem, value, successMessage, imgProj
                             </div>
                             <label htmlFor="projectImg">Ajout</label>
                           </div>
-                          {errors.projectImg && <span className="error-message">Une image est requise</span>}
-                          {errorMessageImg && <span className="error-message">Seulement une image de type .jpg/.jpeg/.png est autorisée</span>}
+                          {errors.projectImg && <span className="error-message-form">Une image est requise</span>}
+                          {errorMessageImg && <span className="error-message-form">Seulement une image de type .jpg/.jpeg/.png est autorisée</span>}
                         </div>
                       </div>
                     }
@@ -145,7 +145,7 @@ function FormProject({ handleFunction, setIdItem, value, successMessage, imgProj
                           {!value && <input name="projectAltImg" type="text" id="projectAltImg" placeholder="Description de l'image du projet" ref={register({ required: true })} />}
                           {value && <input name="projectAltImg" type="text" id="projectAltImg" placeholder="Description de l'image du projet" defaultValue={value.altImg} ref={register({ required: true })} />}
                         </div>
-                        {errors.projectAltImg && <span className="error-message">Une description pour votre image est requise</span>}
+                        {errors.projectAltImg && <span className="error-message-form">Une description pour votre image est requise</span>}
                       </div>
                     </div>
                   </div>
@@ -157,7 +157,7 @@ function FormProject({ handleFunction, setIdItem, value, successMessage, imgProj
                     {!value && <textarea name="descriptionProject" id="descriptionProject" placeholder="Votre description ici..." ref={register({ required: true })} />}
                     {value && <textarea name="descriptionProject" id="descriptionProject" placeholder="Votre description ici..." defaultValue={value.description} ref={register({ required: true })} />}
                   </div>
-                  {errors.descriptionProject && <span className="error-message">Ce champ est requis</span>}
+                  {errors.descriptionProject && <span className="error-message-form">Ce champ est requis</span>}
                 </div>
 
                 <div className="btn-container">
