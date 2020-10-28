@@ -1,96 +1,24 @@
 import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axiosInstance from '../utils/axiosInstance';
-import axios from 'axios';
-import { apiDomain, apiVersion } from '../apiConfig/ApiConfig';
-import checkSuccess from '../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
 import DisplayListProjects from './DisplayListProjects';
 import FormProject from './FormProject';
-import { closeModal } from './../utils/modalDisplay';
 
 function Projects() {
-  const successMessage = useRef(null);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
-  const [arrayProject, setArrayProject] = useState([]);
-  const [idItem, setIdItem] = useState(null);
-  const [displayForm, setDisplayForm] = useState(false);
-  const [imgProjectName, setImgProjectName] = useState("Image du projet");
   const nodeRef = useRef(null);
   const nodeRefTwo = useRef(null);
-
 
   let switchForm = () => {
     if (addBtn) {
       setAddBtn(false);
       setEditBtn(true);
-      setImgProjectName("Image du projet");
-      getData();
     } else {
       setEditBtn(false);
       setAddBtn(true);
-      setImgProjectName("Image du projet");
     }
   }
-
-  const getData = async () => {
-    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project/project-list`;
-    await axiosInstance.get(getListProjectPoint)
-      .then((response) => {
-        setArrayProject(response.data);
-      });
-  };
-
-  const onSubmitAdd = async (data, e) => {
-    const formData = new FormData();
-    formData.append('projectName', data.projectName);
-    formData.append('url', data.projectUrl);
-    formData.append('img', data.projectImg[0]);
-    formData.append('altImg', data.projectAltImg);
-    formData.append('description', data.descriptionProject);
-    formData.append('technoUsedFront', JSON.stringify({"react" : data.react, "ember" : data.ember, "angular" : data.angular}));
-    formData.append('technoUsedBack', JSON.stringify({"express" : data.express, "nodejs" : data.nodejs, "mongodb" : data.mongodb}));
-    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project`;
-    await axios.post(getListProjectPoint, formData, {
-      headers: { 'content-type': 'multipart/form-data',
-      Authorization: `Bearer ${localStorage.getItem('access_token')}`
-     }
-    })
-      .then((response) => {
-        checkSuccess(response.status, successMessage);
-        e.target.reset();
-        setImgProjectName('Image du projet');
-      });
-  };
-
-  const onClickEdit = async (data) => {
-    const formData = new FormData();
-    formData.append('projectName', data.projectName);
-    formData.append('url', data.projectUrl);
-    if(data.projectImg){
-      formData.append('img', data.projectImg[0]);
-    }
-    formData.append('altImg', data.projectAltImg);
-    formData.append('description', data.descriptionProject);
-    formData.append('technoUsedFront', JSON.stringify({"react" : data.react, "ember" : data.ember, "angular" : data.angular}));
-    formData.append('technoUsedBack', JSON.stringify({"express" : data.express, "nodejs" : data.nodejs, "mongodb" : data.mongodb}));
-    const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/project/${idItem}`;
-    await axiosInstance.patch(editEducExpeEndPoint, formData)
-      .then((response) => {
-        let arrayResponse = [response.data];
-        setArrayProject([...arrayProject].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
-        closeModal(setDisplayForm);
-      });
-  };
-
-  const onClickDelete = async (data) => {
-    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/${data._id}`;
-    await axiosInstance.delete(deleteProjectEndPoint, data)
-      .then(() => {
-        setArrayProject([...arrayProject].filter(item => item._id !== data._id));
-      });
-  };
 
   return (
     <div className="project-section"> 
@@ -122,10 +50,7 @@ function Projects() {
               unmountOnExit
             >
               <div ref={nodeRef} className="form-container">
-                <FormProject 
-                handleFunction={onSubmitAdd}  
-                successMessage={successMessage}
-                imgProjectState={{imgProjectName, setImgProjectName}} />
+                <FormProject />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -137,14 +62,7 @@ function Projects() {
             >
               <div ref={nodeRefTwo} className="list-container">
                 <h3>Édition</h3>
-                <DisplayListProjects 
-                arrayProject={arrayProject} 
-                submit={onClickEdit} 
-                setIdItem={setIdItem} 
-                funcDelete={onClickDelete} 
-                successMessage={successMessage}
-                displayFormState={{displayForm, setDisplayForm}} 
-                imgProjectState={{imgProjectName, setImgProjectName}} />
+                <DisplayListProjects />
               </div>
             </CSSTransition>
           </div>

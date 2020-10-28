@@ -1,24 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from 'axios';
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from '../apiConfig/ApiConfig';
 import { useForm } from 'react-hook-form';
+import checkSuccess from './../utils/checkSuccess';
+import ActionButtonSubmit from './ActionButtonSubmit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import { closeModal } from './../utils/modalDisplay';
 import PropTypes from 'prop-types';
 
-function FormProject({ handleFunction, setIdItem, value, successMessage, imgProjectState, }) {
-  const { imgProjectName, setImgProjectName } = imgProjectState;
+function FormProject({ value, projectState, setDisplayForm }) {
+  const successSpanRef = useRef(null);
+  const [spanSuccess, setSpanSuccess] = useState(false);
+  const loadingRef = useRef(null);
+  const [loader, setLoader] = useState(false);
+  const errorSpanRef = useRef(null);
+  const errorMessageRef = useRef(null);
+  const [spanError, setSpanError] = useState(false);
+  const [imgProjectName, setImgProjectName] = useState("Image du projet");
   const [titleForm, setTitleForm] = useState('Ajout');
   const [button, setButton] = useState('Ajouter');
   const [imgEdit, setImgEdit] = useState(false);
   const [errorMessageImg, setErrorMessageImg] = useState(false);
 
   useEffect(() => {
+    setImgProjectName("Image du projet");
     if(value){
       setImgEdit(true);
-      setIdItem(value._id);
       setTitleForm('Édition');
       setButton('Éditer');
     }
-  }, [value, setIdItem]);
+  }, [value]);
 
   const { register, handleSubmit, errors } = useForm();
 
@@ -39,6 +51,51 @@ function FormProject({ handleFunction, setIdItem, value, successMessage, imgProj
     }else{
       setImgProjectName("Image du projet");
     }
+  };
+
+  const onSubmitAdd = async (data, e) => {
+    setLoader(true);
+    setSpanError(false);
+    const formData = new FormData();
+    formData.append('projectName', data.projectName);
+    formData.append('url', data.projectUrl);
+    formData.append('img', data.projectImg[0]);
+    formData.append('altImg', data.projectAltImg);
+    formData.append('description', data.descriptionProject);
+    formData.append('technoUsedFront', JSON.stringify({"react" : data.react, "ember" : data.ember, "angular" : data.angular}));
+    formData.append('technoUsedBack', JSON.stringify({"express" : data.express, "nodejs" : data.nodejs, "mongodb" : data.mongodb}));
+    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project`;
+    await axios.post(getListProjectPoint, formData, {
+      headers: { 'content-type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem('access_token')}`
+     }
+    })
+      .then((response) => {
+        checkSuccess(response.status, loadingRef, setLoader, successSpanRef, setSpanSuccess, errorSpanRef, errorMessageRef, setSpanError);
+        e.target.reset();
+        setImgProjectName('Image du projet');
+      });
+  };
+
+  const onClickEdit = async (data) => {
+    const {arrayProject, setArrayProject} = projectState;
+    const formData = new FormData();
+    formData.append('projectName', data.projectName);
+    formData.append('url', data.projectUrl);
+    if(data.projectImg){
+      formData.append('img', data.projectImg[0]);
+    }
+    formData.append('altImg', data.projectAltImg);
+    formData.append('description', data.descriptionProject);
+    formData.append('technoUsedFront', JSON.stringify({"react" : data.react, "ember" : data.ember, "angular" : data.angular}));
+    formData.append('technoUsedBack', JSON.stringify({"express" : data.express, "nodejs" : data.nodejs, "mongodb" : data.mongodb}));
+    const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/project/${value._id}`;
+    await axiosInstance.patch(editEducExpeEndPoint, formData)
+      .then((response) => {
+        let arrayResponse = [response.data];
+        setArrayProject([...arrayProject].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        closeModal(setDisplayForm);
+      });
   };
 
   const form = <>
@@ -160,30 +217,28 @@ function FormProject({ handleFunction, setIdItem, value, successMessage, imgProj
                   {errors.descriptionProject && <span className="error-message-form">Ce champ est requis</span>}
                 </div>
 
-                <div className="btn-container">
-                  <button className="submit-contact" type="submit">
-                    {button}
-                    {!value &&
-                      <FontAwesomeIcon icon="plus" />
-                    }
-                    {value &&
-                      <FontAwesomeIcon icon="edit" />
-                    }
-                  </button>
-                  <span ref={successMessage} className="success-message"><FontAwesomeIcon icon="check" /></span>
-                </div>
+                <ActionButtonSubmit 
+                  button={button}
+                  value={value}
+                  loadingRef={loadingRef}
+                  loader={loader}
+                  successSpanRef={successSpanRef}
+                  spanSuccess={spanSuccess}
+                  errorSpanRef={errorSpanRef}
+                  spanError={spanError}
+                />
               </>;
 
   return (
     <>
       <h3>{titleForm}</h3>
       {!value &&
-        <form onSubmit={handleSubmit(handleFunction)}>
+        <form onSubmit={handleSubmit(onSubmitAdd)}>
           {form}
         </form>
       }
       {value &&
-        <form onSubmit={handleSubmit(handleFunction)}>
+        <form onSubmit={handleSubmit(onClickEdit)}>
           {form}
         </form>
       }
@@ -192,14 +247,12 @@ function FormProject({ handleFunction, setIdItem, value, successMessage, imgProj
 }
 
 FormProject.propTypes = {
-  handleFunction: PropTypes.func.isRequired,
-  setIdItem: PropTypes.func,
   value: PropTypes.object,
-  successMessage: PropTypes.object.isRequired,
-  imgProjectState: PropTypes.shape({
-    imgProjectName: PropTypes.string.isRequired,
-    setImgProjectName: PropTypes.func.isRequired
-  })
+  projectState: PropTypes.shape({
+    arrayProject: PropTypes.array,
+    setArrayProject: PropTypes.func
+  }),
+  setDisplayForm: PropTypes.func
 }
 
 export default FormProject;

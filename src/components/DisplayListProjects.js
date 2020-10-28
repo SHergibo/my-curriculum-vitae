@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from '../apiConfig/ApiConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
 import { displayModal } from './../utils/modalDisplay';
 import FormProject from "./FormProject";
-import PropTypes from 'prop-types';
 
-function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, successMessage, displayFormState, imgProjectState }) {
-  const { displayForm, setDisplayForm } = displayFormState;
+function DisplayListProjects() {
   const [value, setValue] = useState({});
+  const [arrayProject, setArrayProject] = useState([]);
+  const [displayForm, setDisplayForm] = useState(false);
+
+  const getData = useCallback(async () => {
+    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project/project-list`;
+    await axiosInstance.get(getListProjectPoint)
+      .then((response) => {
+        setArrayProject(response.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const onClickDelete = async (data) => {
+    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/${data._id}`;
+    await axiosInstance.delete(deleteProjectEndPoint, data)
+      .then(() => {
+        setArrayProject([...arrayProject].filter(item => item._id !== data._id));
+      });
+  };
 
   let liListProjects = arrayProject.map((item) => {
     return <li key={item._id}>
@@ -16,7 +38,7 @@ function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, succ
             </div>
             <div className="div-list-btn-container">
               <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
-              <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
+              <button className="btn-list-delete" title="Supprimer" onClick={() => onClickDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
             </div>
           </li>
   });
@@ -32,31 +54,13 @@ function DisplayListProjects({ arrayProject, submit, setIdItem, funcDelete, succ
       {displayForm &&
         <Modal div={
           <FormProject 
-          handleFunction={submit} 
-          setIdItem={setIdItem} 
-          value={value} 
-          successMessage={successMessage}
-          imgProjectState={imgProjectState} />} 
-          setDisplayForm={setDisplayForm} />
+          value={value}
+          projectState={{arrayProject, setArrayProject}}
+          setDisplayForm={setDisplayForm} />} 
+        setDisplayForm={setDisplayForm} />
       }
     </>
   );
-}
-
-DisplayListProjects.propTypes = {
-  arrayProject: PropTypes.array.isRequired,
-  submit: PropTypes.func.isRequired,
-  setIdItem: PropTypes.func,
-  funcDelete: PropTypes.func.isRequired,
-  successMessage: PropTypes.object.isRequired,
-  displayFormState: PropTypes.shape({
-    displayForm: PropTypes.bool.isRequired,
-    setDisplayForm: PropTypes.func.isRequired
-  }),
-  imgProjectState: PropTypes.shape({
-    imgProjectName: PropTypes.string.isRequired,
-    setImgProjectName: PropTypes.func.isRequired
-  })
 }
 
 export default DisplayListProjects;
