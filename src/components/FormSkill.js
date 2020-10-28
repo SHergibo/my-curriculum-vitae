@@ -1,15 +1,27 @@
-import React, { useLayoutEffect, useState, useEffect } from "react";
+import React, { useLayoutEffect, useState, useEffect, useRef } from "react";
 import { useForm } from 'react-hook-form';
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import checkSuccess from './../utils/checkSuccess';
+import { closeModal } from './../utils/modalDisplay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ActionButtonSubmit from './ActionButtonSubmit';
 import PropTypes from 'prop-types';
 
-function FormEducExpe({ handleFunction, setIdItem, value, successSpanRef, spanSuccess, loadingRef, loader, errorSpanRef, errorMessageRef, spanError }) {
+function FormEducExpe({ value, codingSkillState, generalSkillState, languageState, setDisplayForm }) {
+  const successSpanRef = useRef(null);
+  const [spanSuccess, setSpanSuccess] = useState(false);
+  const loadingRef = useRef(null);
+  const [loader, setLoader] = useState(false);
+  const errorSpanRef = useRef(null);
+  const errorMessageRef = useRef(null);
+  const [spanError, setSpanError] = useState(false);
   const [titleForm, setTitleForm] = useState('Ajout');
   const [button, setButton] = useState('Ajouter');
   const [checkboxCodingSkill, setCheckboxCodingSkill] = useState();
   const [checkboxGeneralSkill, setCheckboxGeneralSkill] = useState();
   const [checkboxLanguage, setCheckboxLanguage] = useState();
+  const isMounted = useRef(true);
 
   const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange"
@@ -17,11 +29,10 @@ function FormEducExpe({ handleFunction, setIdItem, value, successSpanRef, spanSu
 
   useEffect(() => {
     if(value){
-      setIdItem(value._id);
       setTitleForm('Édition');
       setButton('Éditer');
     }
-  }, [value, setIdItem]);
+  }, [value]);
 
   useLayoutEffect(() => {
     setCheckboxCodingSkill("checked");
@@ -39,6 +50,85 @@ function FormEducExpe({ handleFunction, setIdItem, value, successSpanRef, spanSu
       }
     }
   }, [register, setValue, value]);
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    }
+  }, [isMounted])
+
+  const onSubmitAdd = async (data, e) => {
+    setLoader(true);
+    setSpanError(false);
+    const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
+    await axiosInstance.post(addSkillEndPoint, data)
+      .then(async (response) => {
+        if(isMounted.current){
+          checkSuccess(response.status, loadingRef, setLoader, successSpanRef, setSpanSuccess, errorSpanRef, errorMessageRef, setSpanError);
+          e.target.reset();
+        }
+      });
+  };
+
+  const onClickEdit = async (data) => {
+    const {arrayCodingSkill, setArrayCodingSkill} = codingSkillState;
+    const {arrayGeneralSkill, setArrayGeneralSkill} = generalSkillState;
+    const {arrayLanguage, setArrayLanguage} = languageState;
+    const editSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/${value._id}`;
+    await axiosInstance.patch(editSkillEndPoint, data)
+    .then((response) => {
+
+      let arrayResponse = [response.data];
+      if(data.skillCategory === "codingSkill"){
+        let dataInArrayGeneralSkill = arrayGeneralSkill.find(v => v._id === response.data._id);
+        let dataInArrayLanguage = arrayLanguage.find(v => v._id === response.data._id);
+
+        if(!dataInArrayGeneralSkill && !dataInArrayLanguage){
+          setArrayCodingSkill([...arrayCodingSkill].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        } else {
+          if(dataInArrayGeneralSkill){
+            setArrayGeneralSkill([...arrayGeneralSkill].filter(item => item._id !== value._id));
+          } else if(dataInArrayLanguage){
+            setArrayLanguage([...arrayLanguage].filter(item => item._id !== value._id));
+          }
+          setArrayCodingSkill(arrayCodingSkill => [...arrayCodingSkill, response.data]);
+        }
+      }
+
+      if(data.skillCategory === "generalSkill"){
+        let dataInArrayCodingSkill = arrayCodingSkill.find(v => v._id === response.data._id);
+        let dataInArrayLanguage = arrayLanguage.find(v => v._id === response.data._id);
+
+        if(!dataInArrayCodingSkill && !dataInArrayLanguage){
+          setArrayGeneralSkill([...arrayGeneralSkill].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        } else {
+          if(dataInArrayCodingSkill){
+            setArrayCodingSkill([...arrayCodingSkill].filter(item => item._id !== value._id));
+          } else if(dataInArrayLanguage){
+            setArrayLanguage([...arrayLanguage].filter(item => item._id !== value._id));
+          }
+          setArrayGeneralSkill(arrayGeneralSkill => [...arrayGeneralSkill, response.data]);
+        }
+      }
+
+      if(data.skillCategory === "language"){
+        let dataInArrayCodingSkill = arrayCodingSkill.find(v => v._id === response.data._id);
+        let dataInGeneralSkill = arrayGeneralSkill.find(v => v._id === response.data._id);
+
+        if(!dataInArrayCodingSkill && !dataInGeneralSkill){
+          setArrayLanguage([...arrayLanguage].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+        } else {
+          if(dataInArrayCodingSkill){
+            setArrayCodingSkill([...arrayCodingSkill].filter(item => item._id !== value._id));
+          } else if(dataInGeneralSkill){
+            setArrayGeneralSkill([...arrayGeneralSkill].filter(item => item._id !== value._id));
+          }
+          setArrayLanguage(arrayLanguage => [...arrayLanguage, response.data]);
+        }
+      }
+      closeModal(setDisplayForm);
+    });
+  };
 
   const form = <>
                   <div className="input-container">
@@ -103,12 +193,12 @@ function FormEducExpe({ handleFunction, setIdItem, value, successSpanRef, spanSu
     <>
       <h3>{titleForm}</h3>
       {!value &&
-        <form onSubmit={handleSubmit(handleFunction)}>
+        <form onSubmit={handleSubmit(onSubmitAdd)}>
           {form}
         </form>
       }
       {value &&
-        <form onSubmit={handleSubmit(handleFunction)}>
+        <form onSubmit={handleSubmit(onClickEdit)}>
           {form}
         </form>
       }
@@ -120,10 +210,20 @@ function FormEducExpe({ handleFunction, setIdItem, value, successSpanRef, spanSu
 }
 
 FormEducExpe.propTypes = {
-  handleFunction: PropTypes.func.isRequired,
-  setIdItem: PropTypes.func,
   value: PropTypes.object,
-  successSpanRef: PropTypes.object.isRequired,
+  codingSkillState: PropTypes.shape({
+    arrayCodingSkill: PropTypes.bool,
+    setArrayCodingSkill: PropTypes.func
+  }),
+  generalSkillState: PropTypes.shape({
+    arrayGeneralSkill: PropTypes.bool,
+    setArrayGeneralSkill: PropTypes.func
+  }),
+  languageState: PropTypes.shape({
+    arrayLanguage: PropTypes.bool,
+    setArrayLanguage: PropTypes.func
+  }),
+  setDisplayForm: PropTypes.func,
 }
 
 export default FormEducExpe;

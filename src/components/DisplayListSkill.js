@@ -1,13 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
+import workingData from './../utils/workingData';
 import { displayModal } from './../utils/modalDisplay';
 import FormSkill from "./FormSkill";
-import PropTypes from 'prop-types';
 
-function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, submit, setIdItem, funcDelete, successSpanRef, displayFormState }) {
-  const { displayForm, setDisplayForm } = displayFormState;
+function DisplayListSkill() {
   const [value, setValue] = useState({});
+  const [arrayCodingSkill, setArrayCodingSkill] = useState([]);
+  const [arrayGeneralSkill, setArrayGeneralSkill] = useState([]);
+  const [arrayLanguage, setArrayLanguage] = useState([]);
+  const [displayForm, setDisplayForm] = useState(false);
+
+  const getData = useCallback(async () => {
+    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
+    await axiosInstance.get(getListSkillEndPoint)
+      .then((response) => {
+        const workingDatas = workingData(response.data, "skill");
+        setArrayCodingSkill(workingDatas[0]);
+        setArrayGeneralSkill(workingDatas[1]);
+        setArrayLanguage(workingDatas[2]);
+      });
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const onClickDelete = async (data) => {
+    const deleteSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/${data._id}`;
+    await axiosInstance.delete(deleteSkillEndPoint, data)
+    .then(() => {
+      if(data.skillCategory === "codingSkill"){
+        setArrayCodingSkill([...arrayCodingSkill].filter(item => item._id !== data._id));
+      }else if(data.skillCategory === "generalSkill"){
+        setArrayGeneralSkill([...arrayGeneralSkill].filter(item => item._id !== data._id));
+      }else if(data.skillCategory === "language"){
+        setArrayLanguage([...arrayLanguage].filter(item => item._id !== data._id));
+      }
+    });
+  };
 
   let liListCodingSkill;
   let liListGeneralSkill;
@@ -20,7 +54,7 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
               </div>
               <div className="div-list-btn-container">
                 <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
-                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
+                <button className="btn-list-delete" title="Supprimer" onClick={() => onClickDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
               </div>
             </li>;
   }
@@ -66,29 +100,16 @@ function DisplayListSkill({arrayCodingSkill, arrayGeneralSkill, arrayLanguage, s
       {displayForm &&
         <Modal div={
           <FormSkill 
-          handleFunction={submit} 
-          setIdItem={setIdItem}
           value={value} 
-          successSpanRef={successSpanRef} />
+          codingSkillState={{arrayCodingSkill, setArrayCodingSkill}}
+          generalSkillState={{arrayGeneralSkill, setArrayGeneralSkill}}
+          languageState={{arrayLanguage, setArrayLanguage}}
+          setDisplayForm={setDisplayForm} />
         } 
         setDisplayForm={setDisplayForm}/>
       }
     </>
   );
-}
-
-DisplayListSkill.propTypes = {
-  arrayCodingSkill: PropTypes.array.isRequired,
-  arrayGeneralSkill: PropTypes.array.isRequired,
-  arrayLanguage: PropTypes.array.isRequired,
-  submit: PropTypes.func.isRequired,
-  setIdItem: PropTypes.func,
-  funcDelete: PropTypes.func.isRequired,
-  successSpanRef: PropTypes.object.isRequired,
-  displayFormState: PropTypes.shape({
-    displayForm: PropTypes.bool.isRequired,
-    setDisplayForm: PropTypes.func.isRequired
-  })
 }
 
 export default DisplayListSkill;

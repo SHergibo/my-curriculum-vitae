@@ -3,7 +3,7 @@ const sleep = m => new Promise(r => setTimeout(r, m))
 const checkSuccess = async (status, loadingRef, setLoader, successSpan, setSpanSuccess, errorSpanRef, errorMessageRef, setSpanError) => {
   let loading = loadingRef.current;
   await sleep(3000);
-  loadingRef.current.style.opacity = 0;
+  loading.style.opacity = 0;
   await sleep(500);
   setLoader(false);
   loading.removeAttribute('style');
