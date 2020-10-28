@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import workingData from './../utils/workingData';
 import Modal from "./Modal";
 import { displayModal } from "./../utils/modalDisplay";
 import FormEducExpe from "./FormEducExpe";
-import PropTypes from 'prop-types';
 
-function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelete, successMessage, displayFormState, dateStartState, dateEndState}) {
-  const { displayForm, setDisplayForm } = displayFormState;
+function DisplayListEducExpe() {
   const [value, setValue] = useState({});
+  const [arrayEduc, setArrayEduc] = useState([]);
+  const [arrayExpe, setArrayExpe] = useState([]);
+  const [displayForm, setDisplayForm] = useState(false);
+
+  const getData = useCallback(async () => {
+    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
+    await axiosInstance.get(getListEducExpeEndPoint)
+      .then((response) => {
+        const workingDatas = workingData(response.data, "educExpe");
+        setArrayEduc(workingDatas[0]);
+        setArrayExpe(workingDatas[1]);
+      });
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   let liListEduc;
   let liListExpe;
@@ -15,6 +33,18 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
   const formatDate = (date) => {
     let year = date.split('-')[0];
     return year;
+  };
+
+  const onClickDelete = async (data) => {
+    const deleteEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/${data._id}`;
+    await axiosInstance.delete(deleteEducExpeEndPoint, data)
+    .then(() => {
+      if(data.educExpe === "experience"){
+        setArrayExpe([...arrayExpe].filter(item => item._id !== data._id));
+      }else if(data.educExpe === "education"){
+        setArrayEduc([...arrayEduc].filter(item => item._id !== data._id));
+      }
+    });
   };
 
   const liListRender = (item) => {
@@ -27,7 +57,7 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
               </div>
               <div className="div-list-btn-container">
                 <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
-                <button className="btn-list-delete" title="Supprimer" onClick={() => funcDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
+                <button className="btn-list-delete" title="Supprimer" onClick={() => onClickDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
               </div>
             </li>
   }
@@ -61,38 +91,15 @@ function DisplayListEducExpe({arrayEduc, arrayExpe, submit, setIdItem, funcDelet
       {displayForm  && 
         <Modal div={
           <FormEducExpe 
-          handleFunction={submit} 
-          setIdItem={setIdItem}
           value={value} 
-          successMessage={successMessage}
-          dateStartState={dateStartState}
-          dateEndState={dateEndState} />
+          setDisplayForm={setDisplayForm} 
+          educState={{arrayEduc, setArrayEduc}}
+          expeState={{arrayExpe, setArrayExpe}}/>
         }
         setDisplayForm={setDisplayForm} />
       }
     </>
   );
-}
-
-DisplayListEducExpe.propTypes = {
-  arrayEduc: PropTypes.array.isRequired,
-  arrayExpe: PropTypes.array.isRequired,
-  submit: PropTypes.func.isRequired,
-  setIdItem: PropTypes.func,
-  funcDelete: PropTypes.func.isRequired,
-  successMessage: PropTypes.object.isRequired,
-  displayFormState: PropTypes.shape({
-    displayForm: PropTypes.bool.isRequired,
-    setDisplayForm: PropTypes.func.isRequired
-  }),
-  dateStartState: PropTypes.shape({
-    dateStart: PropTypes.instanceOf(Date),
-    setDateStart: PropTypes.func.isRequired
-  }),
-  dateEndState: PropTypes.shape({
-    dateEnd: PropTypes.instanceOf(Date),
-    setDateEnd: PropTypes.func.isRequired
-  })
 }
 
 export default DisplayListEducExpe;

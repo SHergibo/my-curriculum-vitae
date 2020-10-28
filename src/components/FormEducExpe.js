@@ -1,5 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { useForm } from 'react-hook-form';
+import checkSuccess from './../utils/checkSuccess';
+import ActionButtonSubmit from './ActionButtonSubmit';
+import { closeModal } from './../utils/modalDisplay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from "react-datepicker";
@@ -8,9 +13,16 @@ import { fr } from 'date-fns/locale'
 import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
-function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateStartState, dateEndState}) {
-  const { dateStart, setDateStart } = dateStartState;
-  const { dateEnd, setDateEnd } = dateEndState;
+function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
+  const successSpanRef = useRef(null);
+  const [spanSuccess, setSpanSuccess] = useState(false);
+  const loadingRef = useRef(null);
+  const [loader, setLoader] = useState(false);
+  const errorSpanRef = useRef(null);
+  const errorMessageRef = useRef(null);
+  const [spanError, setSpanError] = useState(false);
+  const [dateStart, setDateStart] = useState(null);
+  const [dateEnd, setDateEnd] = useState(null);
   const [titleForm, setTitleForm] = useState('Ajout');
   const [button, setButton] = useState('Ajouter');
   const [checkboxExpe, setCheckboxExpe] = useState();
@@ -22,11 +34,10 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
 
   useEffect(() => {
     if(value){
-      setIdItem(value._id);
       setTitleForm('Édition');
       setButton('Éditer');
     }
-  }, [value, setIdItem]);
+  }, [value]);
 
   useEffect(() => {
     register({ name: "dateStart" }, {required : true});
@@ -50,6 +61,64 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
       setDateEnd(null);
     }
   }, [register, setValue, value, setCheckboxExpe, checkboxEduc, setDateStart, setDateEnd]);
+
+  const onSubmitAdd = async (data, e) => {
+    setLoader(true);
+    setSpanError(false);
+    const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
+    await axiosInstance.post(addEducExpeEndPoint, data)
+      .then((response) => {
+        checkSuccess(response.status, loadingRef, setLoader, successSpanRef, setSpanSuccess, errorSpanRef, errorMessageRef, setSpanError);
+        e.target.reset();
+        setDateStart(null);
+        setDateEnd(null);
+      });
+  };
+
+  const onClickEdit = async (data) => {
+    const {arrayEduc, setArrayEduc} = educState;
+    const {arrayExpe, setArrayExpe} = expeState;
+    const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/${value._id}`;
+    await axiosInstance.patch(editEducExpeEndPoint, data)
+    .then((response) => {
+
+      let arrayResponse = [response.data];
+      if(data.educExpe === "experience"){
+        let dataInArrayEduc = arrayEduc.find(v => v._id === response.data._id);
+
+        if(!dataInArrayEduc){
+          if(arrayExpe.find(v => v._id === response.data._id).dateStart === response.data.dateStart){
+            setArrayExpe([...arrayExpe].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+          }else{
+            let arrayAfterEdit = [...arrayExpe].map(obj => arrayResponse.find(o => o._id === obj._id) || obj);
+            let sortArrayByDate = arrayAfterEdit.slice().sort((a, b) => new Date(b.dateStart) - new Date(a.dateStart));
+            setArrayExpe(sortArrayByDate);
+          }
+        } else {
+          setArrayEduc([...arrayEduc].filter(item => item._id !== value._id));
+          setArrayExpe(arrayExpe => [...arrayExpe, response.data]);
+        }
+      }
+
+      if(data.educExpe === "education"){
+        let dataInArrayExpe = arrayExpe.find(v => v._id === response.data._id);
+
+        if(!dataInArrayExpe){
+          if(arrayEduc.find(v => v._id === response.data._id).dateStart === response.data.dateStart){
+            setArrayEduc([...arrayEduc].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
+          }else{
+            let arrayAfterEdit = [...arrayEduc].map(obj => arrayResponse.find(o => o._id === obj._id) || obj);
+            let sortArrayByDate = arrayAfterEdit.slice().sort((a, b) => new Date(b.dateStart) - new Date(a.dateStart));
+            setArrayEduc(sortArrayByDate);
+          }
+        } else {
+          setArrayExpe([...arrayExpe].filter(item => item._id !== value._id));
+          setArrayEduc(arrayEduc => [...arrayEduc, response.data]);
+        }
+      }
+      closeModal(setDisplayForm);
+    });
+  };
 
   const form = <>
                 <div className="input-container">
@@ -135,34 +204,28 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
                     <span className="checkmark-radio"></span>
                   </label>
                 </div>
-                <div className="btn-container">
-                  <button className="submit-contact" type="submit">
-                    {button}
-                    {!value && 
-                      <FontAwesomeIcon icon="plus" />
-                    }
-                    {value && 
-                      <FontAwesomeIcon icon="edit" />
-                    }
-                  </button> 
-                  <span ref={successMessage} className="success-message" ><FontAwesomeIcon icon="check" /></span>
-                </div>
+                <ActionButtonSubmit 
+                  button={button}
+                  value={value}
+                  loadingRef={loadingRef}
+                  loader={loader}
+                  successSpanRef={successSpanRef}
+                  spanSuccess={spanSuccess}
+                  errorSpanRef={errorSpanRef}
+                  spanError={spanError}
+                />
               </>;
 
   return (
     <>
       <h3>{titleForm}</h3>
       {!value && 
-        <form onSubmit={async (e)=> {
-          await handleSubmit(handleFunction)(e);
-          setValue("dateStart", null);
-          setValue("dateEnd", null);
-          }}>
+        <form onSubmit={handleSubmit(onSubmitAdd)}>
           {form}
         </form>
       }
       {value && 
-        <form onSubmit={handleSubmit(handleFunction)}>
+        <form onSubmit={handleSubmit(onClickEdit)}>
           {form}
         </form>
       }
@@ -171,17 +234,15 @@ function FormEducExpe({ handleFunction, setIdItem, value, successMessage, dateSt
 }
 
 FormEducExpe.propTypes = {
-  handleFunction: PropTypes.func.isRequired,
-  setIdItem: PropTypes.func,
   value: PropTypes.object,
-  successMessage: PropTypes.object.isRequired,
-  dateStartState: PropTypes.shape({
-    dateStart: PropTypes.instanceOf(Date),
-    setDateStart: PropTypes.func.isRequired
+  setDisplayForm: PropTypes.func,
+  educState: PropTypes.shape({
+    arrayEduc: PropTypes.array,
+    setArrayEduc: PropTypes.func
   }),
-  dateEndState: PropTypes.shape({
-    dateEnd: PropTypes.instanceOf(Date),
-    setDateEnd: PropTypes.func.isRequired
+  expeState: PropTypes.shape({
+    arrayExpe: PropTypes.array,
+    setArrayExpe: PropTypes.func
   })
 }
 
