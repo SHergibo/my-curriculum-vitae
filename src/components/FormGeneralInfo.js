@@ -1,6 +1,11 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState, useRef } from "react";
+import axiosInstance from './../utils/axiosInstance';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import checkSuccess from './../utils/checkSuccess';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CSSTransition } from 'react-transition-group';
+import ActionButtonSubmit from './ActionButtonSubmit';
 import PropTypes from 'prop-types';
 import DatePicker, { registerLocale } from "react-datepicker";
 import { parseISO } from 'date-fns';
@@ -9,10 +14,22 @@ import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
 
-function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
+function FormGeneralInfo({ generalInfoState }) {
+  const { generalInfo, setGeneralInfo } = generalInfoState;
+  const value = generalInfo;
   const [dateBirthday, setDateBirthday] = useState(null);
   const [titleForm, setTitleForm] = useState('Ajout');
   const [button, setButton] = useState('Ajouter');
+  const successSpanRef = useRef(null);
+  const [spanSuccess, setSpanSuccess] = useState(false);
+  const loadingRef = useRef(null);
+  const [loader, setLoader] = useState(false);
+  const errorSpanRef = useRef(null);
+  const errorMessageRef = useRef(null);
+  const [spanError, setSpanError] = useState(false);
+  const setTimeoutLoader = useRef();
+  const setTimeoutSuccess = useRef();
+  const setTimeoutError = useRef();
   const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange"
   });
@@ -35,6 +52,62 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
       setValue("dateBirthday", null);
     }
   }, [register, setValue, value]);
+
+  const workingData = (data) =>{
+    return {
+      firstname : data.firstname,
+      lastname : data.lastname,
+      phone : data.phone,
+      email : data.email,
+      address : {
+        street : data.street,
+        number : data.number,
+        zip : data.zip,
+        city : data.city
+      },
+      birthdate : data.dateBirthday,
+      licence : data.driverLicence,
+      description : data.description
+    };
+  };
+
+  let timeoutLoader = setTimeoutLoader.current;
+  let timeoutSuccess = setTimeoutSuccess.current;
+  let timeoutError = setTimeoutError.current;
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutLoader);
+      clearTimeout(timeoutSuccess);
+      clearTimeout(timeoutError);
+    }
+  }, [timeoutLoader, timeoutSuccess, timeoutError]);
+
+  const onSubmitAdd = async (data, e) => {
+    setLoader(true);
+    setSpanError(false);
+    e.preventDefault();
+    const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
+    await axiosInstance.post(addGenerelInfoEndPoint, workingData(data))
+      .then((response) => {
+        if(response.status === 200){
+          checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
+          setGeneralInfo(response.data);
+        }
+      }); 
+  };
+
+  const onSubmitEdit = async (data, e) => {
+    setLoader(true);
+    setSpanError(false);
+    e.preventDefault();
+    const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
+    await axiosInstance.patch(editGeneralInfoEndPoint, workingData(data))
+    .then((response) => {
+      checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
+      response.data.isoDate = response.data.birthdate;
+      setGeneralInfo(response.data);
+    });
+  };
 
   const formGeneralInfo = <>
     <div className="input-container">
@@ -168,18 +241,16 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
       {errors.description && <span className="error-message-form">Ce champ est requis</span>}
     </div>
 
-    <div className="btn-container">
-      <button className="submit-contact" type="submit">
-        {button}
-        {!value && 
-          <FontAwesomeIcon icon="plus" />
-        }
-        {value && 
-          <FontAwesomeIcon icon="edit" />
-        }
-      </button>
-      <span ref={successMessage} className="success-message"><FontAwesomeIcon icon="check" /></span>
-    </div>
+    <ActionButtonSubmit 
+      button={button}
+      value={value}
+      loadingRef={loadingRef}
+      loader={loader}
+      successSpanRef={successSpanRef}
+      spanSuccess={spanSuccess}
+      errorSpanRef={errorSpanRef}
+      spanError={spanError}
+    />
   </>;
 
 
@@ -195,15 +266,26 @@ function FormGeneralInfo({onSubmitAdd, onSubmitEdit, value, successMessage}) {
       }}>
         {formGeneralInfo}
       </form>
+      <CSSTransition
+        nodeRef={errorMessageRef}
+        in={spanError}
+        timeout={1000}
+        classNames="btnAnimation"
+        unmountOnExit
+      >
+        <span ref={errorMessageRef} className="error-message">
+          Une erreur est survenue, veuillez réessayer plus tard !
+        </span>
+      </CSSTransition>
     </div>
   );
 }
 
 FormGeneralInfo.propTypes = {
-  onSubmitAdd: PropTypes.func.isRequired,
-  onSubmitEdit: PropTypes.func.isRequired,
-  value: PropTypes.object,
-  successMessage: PropTypes.object.isRequired
+  generalInfoState: PropTypes.shape({
+    generalInfo: PropTypes.object,
+    setGeneralInfo: PropTypes.func
+  })
 }
 
 export default FormGeneralInfo;

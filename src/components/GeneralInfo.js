@@ -7,7 +7,7 @@ import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import PropTypes from 'prop-types';
 
-function GeneralInfo({ generalInfoState, onSubmitAdd, onSubmitEdit, successMessage }) {
+function GeneralInfo({ generalInfoState }) {
   const { generalInfo, setGeneralInfo } = generalInfoState;
   const [displayForm, setDisplayForm] = useState(false);
   const divTitleRef = useRef(null);
@@ -57,11 +57,7 @@ function GeneralInfo({ generalInfoState, onSubmitAdd, onSubmitEdit, successMessa
           </div>
 
           <div className="forms-block">
-            <FormGeneralInfo 
-            onSubmitAdd={onSubmitAdd} 
-            onSubmitEdit={onSubmitEdit} 
-            value={generalInfo}
-            successMessage={successMessage} />
+            <FormGeneralInfo generalInfoState={generalInfoState} />
           </div>
         </div>
       </div>
@@ -79,10 +75,7 @@ GeneralInfo.propTypes = {
   generalInfoState: PropTypes.shape({
     generalInfo: PropTypes.object,
     setGeneralInfo: PropTypes.func
-  }),
-  onSubmitAdd: PropTypes.func.isRequired,
-  onSubmitEdit: PropTypes.func.isRequired,
-  successMessage: PropTypes.object.isRequired
+  })
 }
 
 export default GeneralInfo;
