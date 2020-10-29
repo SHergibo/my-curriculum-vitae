@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory, withRouter } from "react-router-dom";
 import Nav from './Nav';
+import { logout } from './../utils/Auth';
 import PropTypes from 'prop-types';
 
-function Navbar({ headerRef, logout }) {
+function Navbar({ headerRef }) {
   const location = useLocation();
+  const history = useHistory();
   const [liList, setLiList] = useState(
     [
       {name: "Accueil", to : "home", offset : 0, duration : 500},
@@ -69,6 +71,12 @@ function Navbar({ headerRef, logout }) {
 
   useEffect(() => {
     if(location.pathname === "/admin"){
+
+      let logOut = async() =>{
+        await logout();
+        history.push("/");
+      };
+
       setLiList(
         [
           {name: "Accueil", to : "home", offset : 0, duration : 500},
@@ -80,7 +88,7 @@ function Navbar({ headerRef, logout }) {
       );
       setDivMobile(
         <ul>
-          <li tabIndex={0} className="logoutSvg" onClick={logout} onKeyPress={logout} title="Déconnexion">
+          <li tabIndex={0} className="logoutSvg" onClick={logOut} onKeyPress={logOut} title="Déconnexion">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title"
               aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <path d="M34 22V6H2v52h32V42"
@@ -95,7 +103,7 @@ function Navbar({ headerRef, logout }) {
       );
       setDivNonMobile(
         <ul>
-          <li tabIndex={0} className="logoutSvg" onClick={logout} onKeyPress={logout} title="Déconnexion">
+          <li tabIndex={0} className="logoutSvg" onClick={logOut} onKeyPress={logOut} title="Déconnexion">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title"
             aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
               <path d="M34 22V6H2v52h32V42"
@@ -109,7 +117,7 @@ function Navbar({ headerRef, logout }) {
         </ul>
       );
     }
-  }, [location, logout]);
+  }, [location, history]);
 
   return (
     <Nav 
@@ -122,7 +130,6 @@ function Navbar({ headerRef, logout }) {
 
 Navbar.propTypes = {
   headerRef: PropTypes.object.isRequired,
-  logout: PropTypes.func,
 }
 
-export default Navbar;
+export default withRouter(Navbar);
