@@ -228,15 +228,15 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
 FormEducExpe.propTypes = {
   value: PropTypes.object,
   codingSkillState: PropTypes.shape({
-    arrayCodingSkill: PropTypes.bool,
+    arrayCodingSkill: PropTypes.array,
     setArrayCodingSkill: PropTypes.func
   }),
   generalSkillState: PropTypes.shape({
-    arrayGeneralSkill: PropTypes.bool,
+    arrayGeneralSkill: PropTypes.array,
     setArrayGeneralSkill: PropTypes.func
   }),
   languageState: PropTypes.shape({
-    arrayLanguage: PropTypes.bool,
+    arrayLanguage: PropTypes.array,
     setArrayLanguage: PropTypes.func
   }),
   setDisplayForm: PropTypes.func,
