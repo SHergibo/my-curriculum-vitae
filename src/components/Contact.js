@@ -1,18 +1,43 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 import Axios from 'axios';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
+import ActionButtonSubmit from './ActionButtonSubmit';
+import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 
 function Contact({ generalInfo }) {
-  const successMessage = useRef(null);
+  const successSpanRef = useRef(null);
+  const [spanSuccess, setSpanSuccess] = useState(false);
+  const loadingRef = useRef(null);
+  const [loader, setLoader] = useState(false);
+  const errorSpanRef = useRef(null);
+  const errorMessageRef = useRef(null);
+  const [spanError, setSpanError] = useState(false);
+  const setTimeoutLoader = useRef();
+  const setTimeoutSuccess = useRef();
+  const setTimeoutError = useRef();
+
+  let timeoutLoader = setTimeoutLoader.current;
+  let timeoutSuccess = setTimeoutSuccess.current;
+  let timeoutError = setTimeoutError.current;
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutLoader);
+      clearTimeout(timeoutSuccess);
+      clearTimeout(timeoutError);
+    }
+  }, [timeoutLoader, timeoutSuccess, timeoutError]);
+
   const onSubmit = async (data, e) => {
+    setLoader(true);
+    setSpanError(false);
     const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
     await Axios.post(registerEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, successMessage);
+        checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
         e.target.reset();
       })
       .catch(err => {
@@ -91,14 +116,29 @@ function Contact({ generalInfo }) {
               </div>
               {errors.message && <span className="error-message-form">Ce champ est requis</span>}
             </div>
-            <div className="btn-container">
-              <button className="submit-contact" type="submit">
-                Envoyer maintenant
-              <FontAwesomeIcon icon="paper-plane" />
-              </button>
-              <span ref={successMessage} className="success-message"><FontAwesomeIcon icon="check" /></span>
-            </div>
+            <ActionButtonSubmit 
+              button={"Envoyer"}
+              value={{}}
+              loadingRef={loadingRef}
+              loader={loader}
+              successSpanRef={successSpanRef}
+              spanSuccess={spanSuccess}
+              errorSpanRef={errorSpanRef}
+              spanError={spanError}
+              formContact={true}
+            />
           </form>
+          <CSSTransition
+            nodeRef={errorMessageRef}
+            in={spanError}
+            timeout={1000}
+            classNames="btnAnimation"
+            unmountOnExit
+          >
+            <span ref={errorMessageRef} className="error-message">
+              Une erreur est survenue, veuillez réessayer plus tard !
+            </span>
+          </CSSTransition>
         </div>
         <div className="contact-info">
           <div className="container-img-contact">

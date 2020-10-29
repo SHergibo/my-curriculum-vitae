@@ -4,16 +4,19 @@ import { CSSTransition } from 'react-transition-group';
 import PuffLoader from "react-spinners/PuffLoader";
 import PropTypes from 'prop-types';
 
-function ActionButtonSubmit({button, value, loadingRef, loader, successSpanRef, spanSuccess, errorSpanRef, spanError}) {
+function ActionButtonSubmit({button, value, loadingRef, loader, successSpanRef, spanSuccess, errorSpanRef, spanError, formContact}) {
   return (
     <div className="btn-container">
       <button className="submit-contact" type="submit">
         {button}
-        {!value && 
+        {!value && !formContact && 
           <FontAwesomeIcon icon="plus" />
         }
-        {value && 
+        {value && !formContact && 
           <FontAwesomeIcon icon="edit" />
+        }
+        {formContact && 
+          <FontAwesomeIcon icon="paper-plane" />
         }
       </button>
       <CSSTransition
