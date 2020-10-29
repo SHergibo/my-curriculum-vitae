@@ -3,6 +3,7 @@ import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { useForm } from 'react-hook-form';
 import checkSuccess from './../utils/checkSuccess';
+import { CSSTransition } from 'react-transition-group';
 import ActionButtonSubmit from './ActionButtonSubmit';
 import { closeModal } from './../utils/modalDisplay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,6 +28,9 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
   const [button, setButton] = useState('Ajouter');
   const [checkboxExpe, setCheckboxExpe] = useState();
   const [checkboxEduc, setCheckboxEduc] = useState();
+  const setTimeoutLoader = useRef();
+  const setTimeoutSuccess = useRef();
+  const setTimeoutError = useRef();
 
   const { register, handleSubmit, errors, setValue, setError, clearError } = useForm({
     mode: "onChange"
@@ -62,13 +66,24 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
     }
   }, [register, setValue, value, setCheckboxExpe, checkboxEduc, setDateStart, setDateEnd]);
 
+  let timeoutLoader = setTimeoutLoader.current;
+  let timeoutSuccess = setTimeoutSuccess.current;
+  let timeoutError = setTimeoutError.current;
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutLoader);
+      clearTimeout(timeoutSuccess);
+      clearTimeout(timeoutError);
+    }
+  }, [timeoutLoader, timeoutSuccess, timeoutError]);
+
   const onSubmitAdd = async (data, e) => {
     setLoader(true);
     setSpanError(false);
     const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
     await axiosInstance.post(addEducExpeEndPoint, data)
       .then((response) => {
-        checkSuccess(response.status, loadingRef, setLoader, successSpanRef, setSpanSuccess, errorSpanRef, errorMessageRef, setSpanError);
+        checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
         e.target.reset();
         setDateStart(null);
         setDateEnd(null);
@@ -229,6 +244,18 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
           {form}
         </form>
       }
+
+      <CSSTransition
+        nodeRef={errorMessageRef}
+        in={spanError}
+        timeout={1000}
+        classNames="btnAnimation"
+        unmountOnExit
+      >
+        <span ref={errorMessageRef} className="error-message">
+          Une erreur est survenue, veuillez réessayer plus tard !
+        </span>
+      </CSSTransition>
     </>
   );
 }

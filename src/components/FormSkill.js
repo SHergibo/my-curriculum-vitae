@@ -4,6 +4,7 @@ import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import checkSuccess from './../utils/checkSuccess';
 import { closeModal } from './../utils/modalDisplay';
+import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ActionButtonSubmit from './ActionButtonSubmit';
 import PropTypes from 'prop-types';
@@ -21,7 +22,9 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
   const [checkboxCodingSkill, setCheckboxCodingSkill] = useState();
   const [checkboxGeneralSkill, setCheckboxGeneralSkill] = useState();
   const [checkboxLanguage, setCheckboxLanguage] = useState();
-  const isMounted = useRef(true);
+  const setTimeoutLoader = useRef();
+  const setTimeoutSuccess = useRef();
+  const setTimeoutError = useRef();
 
   const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange"
@@ -51,11 +54,16 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
     }
   }, [register, setValue, value]);
 
+  let timeoutLoader = setTimeoutLoader.current;
+  let timeoutSuccess = setTimeoutSuccess.current;
+  let timeoutError = setTimeoutError.current;
   useEffect(() => {
     return () => {
-      isMounted.current = false;
+      clearTimeout(timeoutLoader);
+      clearTimeout(timeoutSuccess);
+      clearTimeout(timeoutError);
     }
-  }, [isMounted])
+  }, [timeoutLoader, timeoutSuccess, timeoutError]);
 
   const onSubmitAdd = async (data, e) => {
     setLoader(true);
@@ -63,10 +71,9 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
     const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
     await axiosInstance.post(addSkillEndPoint, data)
       .then(async (response) => {
-        if(isMounted.current){
-          checkSuccess(response.status, loadingRef, setLoader, successSpanRef, setSpanSuccess, errorSpanRef, errorMessageRef, setSpanError);
-          e.target.reset();
-        }
+        checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
+        e.target.reset();
+        
       });
   };
 
@@ -202,9 +209,18 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
           {form}
         </form>
       }
-      <span ref={errorMessageRef} className="error-message">
-        {spanError && <>Une erreur est survenue, veuillez réessayer plus tard !</>}
-      </span>
+
+      <CSSTransition
+        nodeRef={errorMessageRef}
+        in={spanError}
+        timeout={1000}
+        classNames="btnAnimation"
+        unmountOnExit
+      >
+        <span ref={errorMessageRef} className="error-message">
+          Une erreur est survenue, veuillez réessayer plus tard !
+        </span>
+      </CSSTransition>
     </>
   );
 }

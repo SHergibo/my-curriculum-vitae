@@ -7,6 +7,7 @@ import checkSuccess from './../utils/checkSuccess';
 import ActionButtonSubmit from './ActionButtonSubmit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { closeModal } from './../utils/modalDisplay';
+import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 
 function FormProject({ value, projectState, setDisplayForm }) {
@@ -22,6 +23,9 @@ function FormProject({ value, projectState, setDisplayForm }) {
   const [button, setButton] = useState('Ajouter');
   const [imgEdit, setImgEdit] = useState(false);
   const [errorMessageImg, setErrorMessageImg] = useState(false);
+  const setTimeoutLoader = useRef();
+  const setTimeoutSuccess = useRef();
+  const setTimeoutError = useRef();
 
   useEffect(() => {
     setImgProjectName("Image du projet");
@@ -53,6 +57,17 @@ function FormProject({ value, projectState, setDisplayForm }) {
     }
   };
 
+  let timeoutLoader = setTimeoutLoader.current;
+  let timeoutSuccess = setTimeoutSuccess.current;
+  let timeoutError = setTimeoutError.current;
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutLoader);
+      clearTimeout(timeoutSuccess);
+      clearTimeout(timeoutError);
+    }
+  }, [timeoutLoader, timeoutSuccess, timeoutError]);
+
   const onSubmitAdd = async (data, e) => {
     setLoader(true);
     setSpanError(false);
@@ -71,7 +86,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
      }
     })
       .then((response) => {
-        checkSuccess(response.status, loadingRef, setLoader, successSpanRef, setSpanSuccess, errorSpanRef, errorMessageRef, setSpanError);
+        checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
         e.target.reset();
         setImgProjectName('Image du projet');
       });
@@ -242,6 +257,18 @@ function FormProject({ value, projectState, setDisplayForm }) {
           {form}
         </form>
       }
+
+      <CSSTransition
+        nodeRef={errorMessageRef}
+        in={spanError}
+        timeout={1000}
+        classNames="btnAnimation"
+        unmountOnExit
+      >
+        <span ref={errorMessageRef} className="error-message">
+          Une erreur est survenue, veuillez réessayer plus tard !
+        </span>
+      </CSSTransition>
     </>
   );
 }

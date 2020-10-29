@@ -3,23 +3,37 @@
   font-size: 20px;
   padding-left: 10px;
   color: #008000;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }
 
 .error-svg {
-  opacity: 0;
+  opacity: 1;
   font-size: 25px;
   color: red;
   transition: opacity 0.5s ease-in-out;
 }
 
 .error-message{
-  opacity: 0;
+  opacity: 1;
   color: red;
   transition: opacity 0.5s ease-in-out;
 }
 
 .loading-action{
-  margin-left: 20px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.btnAnimation-enter {
+  opacity: 0;
+}
+.btnAnimation-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+.btnAnimation-exit {
+  opacity: 1;
+}
+.btnAnimation-exit-active {
+  opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
