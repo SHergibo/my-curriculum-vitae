@@ -21,28 +21,6 @@
   }
 }
 
-.submit-contact {
-  @include btn(60px, 30px 0, auto);
-  margin: 30px 30px 30px 0;
-  svg {
-    margin-left: 6px;
-  }
-}
-
-.error-message-form {
-  position: absolute;
-  color: red;
-  font-size: 12px;
-}
-
-.success-message {
-  opacity: 0;
-  margin-left: 20px;
-  font-size: 20px;
-  color: #008000;
-  transition: opacity 0.5s ease-in-out;
-}
-
 .contact-info {
   display: flex;
   flex-direction: column;

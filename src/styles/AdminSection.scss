@@ -182,21 +182,6 @@
   transition: transform 500ms;
 }
 
-.item-list-enter {
-  opacity: 0;
-}
-.item-list-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-.item-list-exit {
-  opacity: 1;
-}
-.item-list-exit-active {
-  opacity: 0;
-  transition: opacity 500ms ease-in;
-}
-
 .label-checkbox-container{
   display: flex;
 }

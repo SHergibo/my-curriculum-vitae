@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 function ActionButtonSubmit({button, value, loadingRef, loader, successSpanRef, spanSuccess, errorSpanRef, spanError, formContact}) {
   return (
     <div className="btn-container">
-      <button className="submit-contact" type="submit">
+      <button className="btn-submit-action" type="submit">
         {button}
         {!value && !formContact && 
           <FontAwesomeIcon icon="plus" />
