@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import axios from 'axios';
+import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { Link } from "react-scroll";
 import EducationExperience from './ResumeComponents/EducationExperience';
 import CanvasResume from './ResumeComponents/CanvasResume';
@@ -6,7 +8,7 @@ import SkillBarResume from './ResumeComponents/SkillBarResume';
 import workingData from './../utils/workingData';
 import PropTypes from 'prop-types';
 
-function Resume({ educExpeData, skillData }) {
+function Resume({ isLoaded }) {
   const objectEducExpe = {
     "_id": "",
     "dateStart": "",
@@ -33,6 +35,7 @@ function Resume({ educExpeData, skillData }) {
   const educRef = useRef(null);
   const expRef = useRef(null);
   const skillref = useRef(null);
+  const isMounted = useRef(true);
 
   const handleResumeMenuOnScroll = () => {
     let resumeContainer = resumeContainerRef.current
@@ -51,26 +54,39 @@ function Resume({ educExpeData, skillData }) {
     }
   };
 
-  useEffect(() => {
-    if(educExpeData){
-      const educExpeWorkingData = workingData(educExpeData, "educExpe");
-      setArrayEduc(educExpeWorkingData[0]);
-      setArrayExpe(educExpeWorkingData[1]);
-    }
-    if(skillData){
-      const skillWorkingDatas = workingData(skillData, "skill");
-      setArrayCodingSkill(skillWorkingDatas[0]);
-      setArrayGeneralSkill(skillWorkingDatas[1]);
-      setArrayLanguage(skillWorkingDatas[2]);
-    }
-  }, [educExpeData, skillData]);
+  const getDataEducExpe = useCallback(async () => {
+    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
+    await axios.get(getListEducExpeEndPoint)
+      .then((response) => {
+        if(response.data && isMounted.current){
+          const educExpeWorkingData = workingData(response.data, "educExpe");
+          setArrayEduc(educExpeWorkingData[0]);
+          setArrayExpe(educExpeWorkingData[1]);
+        }
+      });
+
+    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
+    await axios.get(getListSkillEndPoint)
+      .then((response) => {
+        if(response.data && isMounted.current){
+          const skillWorkingDatas = workingData(response.data, "skill");
+          setArrayCodingSkill(skillWorkingDatas[0]);
+          setArrayGeneralSkill(skillWorkingDatas[1]);
+          setArrayLanguage(skillWorkingDatas[2]);
+        }
+      });
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleResumeMenuOnScroll);
+    if(isLoaded){
+      getDataEducExpe();
+    }
     return () => {
       window.removeEventListener('scroll', handleResumeMenuOnScroll);
+      isMounted.current = false;
     }
-  }, []);
+  }, [isLoaded, getDataEducExpe]);
 
   const focusOnKeypress = (elem) => {
     if(elem === "eduction"){
@@ -153,8 +169,7 @@ function Resume({ educExpeData, skillData }) {
 }
 
 Resume.propTypes = {
-  educExpeData : PropTypes.array.isRequired,
-  skillData: PropTypes.array.isRequired
+  isLoaded: PropTypes.bool.isRequired
 }
 
 export default Resume;

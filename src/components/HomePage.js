@@ -9,7 +9,7 @@ import Footer from './Footer';
 import BackToTop from './BackToTop';
 import PropTypes from 'prop-types';
 
-function HomePage({ generalInfo, educExpeData, skillData }) {
+function HomePage({ generalInfo, isLoaded }) {
   const headerRef = useRef(null);
 
   useEffect(() => {
@@ -26,11 +26,8 @@ function HomePage({ generalInfo, educExpeData, skillData }) {
       </header>
       <main>
         <About generalInfo={generalInfo} />
-        <Resume 
-          educExpeData={educExpeData}
-          skillData={skillData} 
-        />
-        {/* <Portfolio /> */}
+        <Resume isLoaded={isLoaded} />
+        {/* <Portfolio isLoaded={isLoaded} /> */}
         <Contact generalInfo={generalInfo} />
       </main>
       <footer>
@@ -43,8 +40,7 @@ function HomePage({ generalInfo, educExpeData, skillData }) {
 
 HomePage.propTypes = {
   generalInfo: PropTypes.object.isRequired,
-  educExpeData : PropTypes.array.isRequired,
-  skillData: PropTypes.array.isRequired
+  isLoaded: PropTypes.bool.isRequired
 }
 
 export default HomePage;

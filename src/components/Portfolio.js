@@ -1,27 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import InfoProjectModal from "./InfoProjectModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal";
 import { displayModal } from './../utils/modalDisplay';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import axios from "axios";
+import PropTypes from 'prop-types';
 
-function Portfolio() {
+function Portfolio({ isLoaded }) {
   const [value, setValue] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
   const [arrayProject, setArrayProject] = useState([]);
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/project-list`;
     await axios.get(getListProjectEndPoint)
       .then((response) => {
         setArrayProject(response.data);
       });
-  };
+  }, [input]);
+
+  useEffect(() => {
+    if(isLoaded){
+      getData();
+    }
+  }, [isLoaded, getData]);
 
   let projectPortfolio = arrayProject.map((item) => {
     return <div className="project" key={item._id}>     
@@ -60,6 +63,10 @@ function Portfolio() {
       </div>
     </div>
   );
+}
+
+Portfolio.propTypes = {
+  isLoaded: PropTypes.bool.isRequired
 }
 
 export default Portfolio;

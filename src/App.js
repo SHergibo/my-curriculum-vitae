@@ -97,8 +97,7 @@ function App() {
     "birthdate":"",
     "licence":""
   });
-  const [educExpeData, setEducExpeData] = useState([]);
-  const [skillData, setSkillData] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const getData = useCallback(async () => {
     setErrorFetch(false);
@@ -115,6 +114,7 @@ function App() {
         response.data.birthdate = formatDate;
         setGeneralInfo(response.data);
         setLoading(false);
+        setIsLoaded(true);
       }
     })
     .catch((error)=> {
@@ -125,30 +125,9 @@ function App() {
     });
   }, []);
 
-  const getDataEducExpe = useCallback(async () => {
-    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
-    await axios.get(getListEducExpeEndPoint)
-      .then((response) => {
-        if(response.data){
-          setEducExpeData(response.data);
-        }
-      });
-
-    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
-    await axios.get(getListSkillEndPoint)
-      .then((response) => {
-        if(response.data){
-          setSkillData(response.data);
-        }
-      });
-  }, []);
-
   useEffect(() => {
     getData();
-    if(location.pathname === "/"){
-      getDataEducExpe();
-    }
-  }, [location, getData, getDataEducExpe]);
+  }, [getData]);
 
   return (
     <div className="App">
@@ -160,10 +139,10 @@ function App() {
         />
       }
       <Switch>
-        <Route exact path="/" component={() => <HomePage 
+        <Route exact path="/" component={() => 
+        <HomePage 
           generalInfo={generalInfo} 
-          educExpeData={educExpeData}
-          skillData={skillData} />
+          isLoaded={isLoaded} />
         }/>
         <IsLoggedRoute exact path="/login" component={Login}/>
         <ProtectedRoute exact path="/admin" component={()=> <Admin generalInfoAdmin={generalInfo} />}/>
