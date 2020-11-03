@@ -3,7 +3,7 @@ import axios from 'axios';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from '../apiConfig/ApiConfig';
 import { useForm } from 'react-hook-form';
-import checkSuccess from './../utils/checkSuccess';
+import { checkSuccess, checkErrors } from './../utils/checkSuccess';
 import ActionButtonSubmit from './ActionButtonSubmit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { closeModal } from './../utils/modalDisplay';
@@ -85,14 +85,19 @@ function FormProject({ value, projectState, setDisplayForm }) {
       Authorization: `Bearer ${localStorage.getItem('access_token')}`
      }
     })
-      .then((response) => {
-        checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
+      .then(() => {
+        checkSuccess(setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess);
         e.target.reset();
         setImgProjectName('Image du projet');
+      })
+      .catch(() => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
   };
 
   const onClickEdit = async (data) => {
+    setLoader(true);
+    setSpanError(false);
     const {arrayProject, setArrayProject} = projectState;
     const formData = new FormData();
     formData.append('projectName', data.projectName);
@@ -110,6 +115,9 @@ function FormProject({ value, projectState, setDisplayForm }) {
         let arrayResponse = [response.data];
         setArrayProject([...arrayProject].map(obj => arrayResponse.find(o => o._id === obj._id) || obj));
         closeModal(setDisplayForm);
+      })      
+      .catch(() => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
   };
 

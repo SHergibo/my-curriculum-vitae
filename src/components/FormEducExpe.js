@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { useForm } from 'react-hook-form';
-import checkSuccess from './../utils/checkSuccess';
+import { checkSuccess, checkErrors } from './../utils/checkSuccess';
 import { CSSTransition } from 'react-transition-group';
 import ActionButtonSubmit from './ActionButtonSubmit';
 import { closeModal } from './../utils/modalDisplay';
@@ -82,15 +82,20 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
     setSpanError(false);
     const addEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe`;
     await axiosInstance.post(addEducExpeEndPoint, data)
-      .then((response) => {
-        checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
+      .then(() => {
+        checkSuccess(setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess);
         e.target.reset();
         setDateStart(null);
         setDateEnd(null);
+      })
+      .catch(() => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
   };
 
   const onClickEdit = async (data) => {
+    setLoader(true);
+    setSpanError(false);
     const {arrayEduc, setArrayEduc} = educState;
     const {arrayExpe, setArrayExpe} = expeState;
     const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/${value._id}`;
@@ -132,6 +137,9 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
         }
       }
       closeModal(setDisplayForm);
+    })
+    .catch(() => {
+      checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
     });
   };
 

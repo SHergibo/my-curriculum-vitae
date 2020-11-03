@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 import Axios from 'axios';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
-import checkSuccess from './../utils/checkSuccess';
+import { checkSuccess, checkErrors } from './../utils/checkSuccess';
 import ActionButtonSubmit from './ActionButtonSubmit';
 import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
@@ -36,12 +36,12 @@ function Contact({ generalInfo }) {
     setSpanError(false);
     const registerEndPoint = `${apiDomain}/api/${apiVersion}/mail`;
     await Axios.post(registerEndPoint, data)
-      .then((response) => {
-        checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
+      .then(() => {
+        checkSuccess(setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess);
         e.target.reset();
       })
-      .catch(err => {
-        console.log("err", err);
+      .catch(() => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
   };
 

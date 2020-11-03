@@ -1,5 +1,4 @@
-const checkSuccess = async (status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError) => {
-  if(status === 200){
+const checkSuccess = async (setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess) => {
     setTimeoutLoader.current = await setTimeout(() => {
       setLoader(false);
       setSpanSuccess(true);
@@ -7,7 +6,10 @@ const checkSuccess = async (status, setTimeoutLoader, setLoader, setTimeoutSucce
     setTimeoutSuccess.current = await setTimeout(() => {
       setSpanSuccess(false);
     }, 4000);
-  }else{
+  return;
+}
+
+const checkErrors = async (setTimeoutLoader, setLoader, setTimeoutError, setSpanError) => {
     setTimeoutLoader.current = await setTimeout(() => {
       setLoader(false);
       setSpanError(true);
@@ -15,8 +17,7 @@ const checkSuccess = async (status, setTimeoutLoader, setLoader, setTimeoutSucce
     setTimeoutError.current = await setTimeout(() => {
       setSpanError(false);
     }, 6000);
-  }
   return;
 }
 
-export default checkSuccess;
+export {checkSuccess, checkErrors};

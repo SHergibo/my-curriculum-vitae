@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
-import checkSuccess from './../utils/checkSuccess';
+import { checkSuccess, checkErrors } from './../utils/checkSuccess';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CSSTransition } from 'react-transition-group';
@@ -89,11 +89,12 @@ function FormGeneralInfo({ generalInfoState }) {
     const addGenerelInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
     await axiosInstance.post(addGenerelInfoEndPoint, workingData(data))
       .then((response) => {
-        if(response.status === 200){
-          checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
-          setGeneralInfo(response.data);
-        }
-      }); 
+        checkSuccess(setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess);
+        setGeneralInfo(response.data);
+      })
+      .catch(() => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
+      });
   };
 
   const onSubmitEdit = async (data, e) => {
@@ -103,10 +104,13 @@ function FormGeneralInfo({ generalInfoState }) {
     const editGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info/${generalInfo._id}`;
     await axiosInstance.patch(editGeneralInfoEndPoint, workingData(data))
     .then((response) => {
-      checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
+      checkSuccess(setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess);
       response.data.isoDate = response.data.birthdate;
       setGeneralInfo(response.data);
-    });
+    })
+    .catch(() => {
+      checkSuccess(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
+    })
   };
 
   const formGeneralInfo = <>

@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState, useEffect, useRef } from "react";
 import { useForm } from 'react-hook-form';
 import axiosInstance from './../utils/axiosInstance';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
-import checkSuccess from './../utils/checkSuccess';
+import { checkSuccess, checkErrors } from './../utils/checkSuccess';
 import { closeModal } from './../utils/modalDisplay';
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -70,14 +70,18 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
     setSpanError(false);
     const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
     await axiosInstance.post(addSkillEndPoint, data)
-      .then(async (response) => {
-        checkSuccess(response.status, setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess, setTimeoutError, setSpanError);
+      .then(() => {
+        checkSuccess(setTimeoutLoader, setLoader, setTimeoutSuccess, setSpanSuccess);
         e.target.reset();
-        
+      })
+      .catch(() => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
   };
 
   const onClickEdit = async (data) => {
+    setLoader(true);
+    setSpanError(false);
     const {arrayCodingSkill, setArrayCodingSkill} = codingSkillState;
     const {arrayGeneralSkill, setArrayGeneralSkill} = generalSkillState;
     const {arrayLanguage, setArrayLanguage} = languageState;
@@ -134,6 +138,9 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
         }
       }
       closeModal(setDisplayForm);
+    })
+    .catch(() => {
+      checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
     });
   };
 
