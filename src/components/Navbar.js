@@ -20,7 +20,7 @@ function Navbar({ headerRef }) {
   const [divMobile, setDivMobile] = useState(
       <ul className="social-svg">
       <li>
-        <a href="#home">
+        <a href="https://www.linkedin.com/in/sachahergibo/">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
             aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
             <path data-name="layer1"
@@ -29,7 +29,7 @@ function Navbar({ headerRef }) {
         </a>
       </li>
       <li>
-        <a href="#home">
+        <a href="https://github.com/SHergibo">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
             aria-describedby="desc" role="img" xmlnsXlink="http://www.w3.org/1999/xlink">
             <path data-name="layer2"
