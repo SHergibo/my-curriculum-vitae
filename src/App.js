@@ -42,7 +42,8 @@ import {
   faGraduationCap, 
   faPercentage,
   faKey,
-  faTimes
+  faTimes,
+  faUndo
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -76,7 +77,8 @@ library.add(
   faGraduationCap, 
   faPercentage,
   faKey,
-  faTimes
+  faTimes,
+  faUndo
 );
 
 function App() {
