@@ -18,7 +18,7 @@ function Portfolio({ isLoaded }) {
       .then((response) => {
         setArrayProject(response.data);
       });
-  }, [input]);
+  }, []);
 
   useEffect(() => {
     if(isLoaded){
