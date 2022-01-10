@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import { apiDomain, apiVersion } from '../apiConfig/ApiConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function InfoProjectModal({ value, setDisplayProject }) {
+function InfoProject({ value, setDisplayProject }) {
   let descriptionArray = value.description.split(/\n/ig);
 
   let displayDesc = descriptionArray.map((item, index) => {
@@ -70,8 +70,8 @@ function InfoProjectModal({ value, setDisplayProject }) {
   );
 }
 
-InfoProjectModal.propTypes = {
+InfoProject.propTypes = {
   value: PropTypes.object.isRequired,
 }
 
-export default InfoProjectModal;
+export default InfoProject;
