@@ -43,7 +43,8 @@ import {
   faPercentage,
   faKey,
   faTimes,
-  faUndo
+  faUndo,
+  faChevronLeft
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -78,7 +79,8 @@ library.add(
   faPercentage,
   faKey,
   faTimes,
-  faUndo
+  faUndo,
+  faChevronLeft
 );
 
 function App() {
