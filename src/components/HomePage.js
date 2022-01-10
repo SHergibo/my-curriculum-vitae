@@ -3,7 +3,7 @@ import Home from './Home';
 import Navbar from './Navbar';
 import About from './About';
 import Resume from './Resume';
-// import Portfolio from './Portfolio';
+import Portfolio from './Portfolio';
 import Contact from './Contact';
 import Footer from './Footer';
 import BackToTop from './BackToTop';
@@ -26,8 +26,8 @@ function HomePage({ generalInfo, isLoaded }) {
       </header>
       <main>
         <About generalInfo={generalInfo} />
+        <Portfolio isLoaded={isLoaded} />
         <Resume isLoaded={isLoaded} />
-        {/* <Portfolio isLoaded={isLoaded} /> */}
         <Contact generalInfo={generalInfo} />
       </main>
       <footer>
