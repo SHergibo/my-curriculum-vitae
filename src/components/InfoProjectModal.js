@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function InfoProjectModal({ value }) {
+function InfoProjectModal({ value, setDisplayProject }) {
   let descriptionArray = value.description.split(/\n/ig);
 
   let displayDesc = descriptionArray.map((item, index) => {
@@ -37,13 +37,21 @@ function InfoProjectModal({ value }) {
   });
 
   return (
-    <div className="info-project-modal">
+    <div className="info-project-container">
       <div className="img-project">
         <img src={`${apiDomain}/api/${apiVersion}/project/image/${value.img.filename}`} alt={value.altImg} />
         <span><a href={value.url}><FontAwesomeIcon icon="link" />Lien vers le projet</a></span>
       </div>
       <div className="info-project">
-        <h2>{value.projectName}</h2>
+        <div className="title-container">
+          <h2>{value.projectName}</h2>
+          <div className="btn-switch-container">
+            <button title="Retourner vers le portfolio" onClick={() => {setDisplayProject(false)}}>
+              <FontAwesomeIcon icon="chevron-left" />
+            </button>
+          </div>
+        </div>
+
         {displayDesc}
         <div className="techno-used">
           {frameWorkUsed.length > 1 && <h4>Technologies Front-End utilisées</h4>}
