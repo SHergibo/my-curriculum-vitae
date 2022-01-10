@@ -45,7 +45,7 @@ function Portfolio({ isLoaded }) {
 
   return (
     <div className="portfolio-container">
-      <div id="portfolio" className="wrapper">
+      <div id="portfolio" className="wrapper portfolio">
         <div className="title-right">
           Portfolio
         </div>
