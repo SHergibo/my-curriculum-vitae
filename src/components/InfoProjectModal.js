@@ -46,13 +46,13 @@ function InfoProjectModal({ value }) {
         <h2>{value.projectName}</h2>
         {displayDesc}
         <div className="techno-used">
-          {frameWorkUsed.length > 1 && <h4>FrameWork utilisés</h4>}
-          {frameWorkUsed.length === 1 && <h4>FrameWork utilisé</h4>}
+          {frameWorkUsed.length > 1 && <h4>Technologies Front-End utilisées</h4>}
+          {frameWorkUsed.length === 1 && <h4>Technologie Front-End utilisée</h4>}
           <ul>
             {displayFrameWorkUsed}
           </ul>
-          {technoUsedBack.length > 1 && <h4>Technologies utilisées pour le back-office</h4>}
-          {technoUsedBack.length === 1 && <h4>Technologie utilisée pour le back-office</h4>}
+          {technoUsedBack.length > 1 && <h4>Technologies Back-End utilisées</h4>}
+          {technoUsedBack.length === 1 && <h4>Technologie Back-End utilisée</h4>}
           <ul>
             {displayTechnoUsedBack}
           </ul>
