@@ -44,7 +44,8 @@ import {
   faKey,
   faTimes,
   faUndo,
-  faChevronLeft
+  faChevronLeft,
+  faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -80,7 +81,8 @@ library.add(
   faKey,
   faTimes,
   faUndo,
-  faChevronLeft
+  faChevronLeft,
+  faChevronRight
 );
 
 function App() {
