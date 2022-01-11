@@ -32,7 +32,7 @@ ul {
   position: relative;
 }
 
-.wrapper {
+.wrapper, .wrapper-project {
   box-sizing: content-box;
   max-width: 960px;
   margin-left: auto;
@@ -69,4 +69,11 @@ main{
   justify-content: flex-end;
   border-right: $border;
   padding-right: 15px;
+}
+
+/*Full-screen*/
+@media screen and (min-width: 1087px){
+  .wrapper-project {
+    max-width: 1072px;
+  }
 }
