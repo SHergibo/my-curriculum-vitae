@@ -145,7 +145,6 @@ function Portfolio({ isLoaded }) {
                   value={paginationInput || ''}
                   min={1}
                   max={pageCount}
-                  pattern="[0-9]{10}"
                   onChange={(e) => {inputPagination(e)}}/>
                   sur {pageCount}
                 </span>
