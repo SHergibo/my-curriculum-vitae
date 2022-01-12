@@ -45,7 +45,11 @@ import {
   faTimes,
   faUndo,
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
+  faAngleRight,
+  faAngleLeft,
+  faAngleDoubleRight,
+  faAngleDoubleLeft
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -82,7 +86,11 @@ library.add(
   faTimes,
   faUndo,
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
+  faAngleRight,
+  faAngleLeft,
+  faAngleDoubleRight,
+  faAngleDoubleLeft
 );
 
 function App() {
