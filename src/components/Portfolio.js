@@ -9,9 +9,19 @@ function Portfolio({ isLoaded }) {
   const [value, setValue] = useState({});
   const [displayProject, setDisplayProject] = useState(false);
   const [arrayProject, setArrayProject] = useState([]);
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+  const [ paginationInput, setPaginationInput ] = useState(null);
   const [indexProject, setIndexProject] = useState(0);
   const [nextIndexProject, setNextIndexProject] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const pageSize = 6;
+
+  useEffect(() => {
+    if(pageIndex) {
+      setPaginationInput(pageIndex);
+    }
+  }, [pageIndex])
 
   const responsiveWidth = useCallback(() =>{
     setWindowWidth(window.innerWidth);
@@ -25,12 +35,13 @@ function Portfolio({ isLoaded }) {
   }, [responsiveWidth]);
 
   const getData = useCallback(async () => {
-    const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/project-list`;
+    const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/pagination?page=${pageIndex - 1}`;
     await axios.get(getListProjectEndPoint)
       .then((response) => {
-        setArrayProject(response.data);
+        setArrayProject(response.data.arrayData);
+        setPageCount(Math.ceil(response.data.totalData / pageSize));
       });
-  }, []);
+  }, [pageIndex]);
 
   useEffect(() => {
     if(isLoaded){
@@ -74,6 +85,39 @@ function Portfolio({ isLoaded }) {
           </div>
   });
 
+  const gotoPage = (page) => {
+    setPageIndex(page);
+  };
+
+  const previousPage = () => {
+    if (pageIndex > 1) {
+      setPageIndex(currPageIndex => currPageIndex - 1);
+    }
+  };
+
+  const nextPage = async () => {
+    if (pageIndex < pageCount) {
+      setPageIndex(currPageIndex => parseInt(currPageIndex) + 1);
+    }
+  };
+
+  const inputPagination = (e) => {
+    if(e.target.value > pageCount){
+      setPageIndex(pageCount);
+      setPaginationInput(pageCount);
+    } else if (e.target.value < 0 || e.target.value === ""){
+      setPaginationInput(null);
+    }else if(e.target.value === "0"){  
+      setPaginationInput(1);
+      setPageIndex(1);
+    }else if(e.target.value === "1"){  
+      setPaginationInput(1);
+      setPageIndex(1);
+    } else {
+      setPageIndex(e.target.value);
+    }
+  }
+
   return (
     <>
     {!displayProject &&
@@ -83,7 +127,37 @@ function Portfolio({ isLoaded }) {
             Portfolio
           </div>
           <div className="projects">
+          <div className="projects-portfolio">
             {projectPortfolio}
+          </div>
+
+          <div className="pagination">
+            <div className="action-pagination">
+              <button onClick={() => gotoPage(1)}>
+                <FontAwesomeIcon icon="angle-double-left" />
+              </button>
+              <button onClick={() => previousPage()}>
+                <FontAwesomeIcon icon="angle-left" />
+              </button>
+                <span>Page
+                  <input 
+                  type="number" 
+                  value={paginationInput || ''}
+                  min={1}
+                  max={pageCount}
+                  pattern="[0-9]{10}"
+                  onChange={(e) => {inputPagination(e)}}/>
+                  sur {pageCount}
+                </span>
+              <button onClick={() => nextPage()}>
+                <FontAwesomeIcon icon="angle-right" />
+              </button>
+              <button onClick={() => gotoPage(pageCount)}>
+                <FontAwesomeIcon icon="angle-double-right" />
+              </button>
+            </div>
+          </div>
+
           </div> 
         </div>
       </div>
