@@ -1,0 +1,45 @@
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.5rem;
+}
+
+.action-pagination{
+  display: flex;
+  button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: $white;
+    border: none;
+    padding: 0 .3rem;
+    font-size: 1.7rem;
+    cursor: pointer;
+  }
+  span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 .3rem;
+    color: $white;
+
+    input{
+      width: 1.8rem;
+      height: 1.9rem;
+      margin: 0 .3rem;
+      border: 1px solid $white;
+      border-radius: .2rem;
+      color: $principal-color;
+      font-size: 1rem;
+      text-align: center;
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+}
