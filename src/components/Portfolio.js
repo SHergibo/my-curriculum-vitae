@@ -110,10 +110,8 @@ function Portfolio({ isLoaded }) {
     }else if(e.target.value === "0"){  
       setPaginationInput(1);
       setPageIndex(1);
-    }else if(e.target.value === "1"){  
-      setPaginationInput(1);
-      setPageIndex(1);
     } else {
+      setPaginationInput(e.target.value);
       setPageIndex(e.target.value);
     }
   }
@@ -131,31 +129,33 @@ function Portfolio({ isLoaded }) {
             {projectPortfolio}
           </div>
 
-          <div className="pagination">
-            <div className="action-pagination">
-              <button onClick={() => gotoPage(1)}>
-                <FontAwesomeIcon icon="angle-double-left" />
-              </button>
-              <button onClick={() => previousPage()}>
-                <FontAwesomeIcon icon="angle-left" />
-              </button>
-                <span>Page
-                  <input 
-                  type="number" 
-                  value={paginationInput || ''}
-                  min={1}
-                  max={pageCount}
-                  onChange={(e) => {inputPagination(e)}}/>
-                  sur {pageCount}
-                </span>
-              <button onClick={() => nextPage()}>
-                <FontAwesomeIcon icon="angle-right" />
-              </button>
-              <button onClick={() => gotoPage(pageCount)}>
-                <FontAwesomeIcon icon="angle-double-right" />
-              </button>
+          {pageCount >= 1 &&
+            <div className="pagination">
+              <div className="action-pagination">
+                <button onClick={() => gotoPage(1)}>
+                  <FontAwesomeIcon icon="angle-double-left" />
+                </button>
+                <button onClick={() => previousPage()}>
+                  <FontAwesomeIcon icon="angle-left" />
+                </button>
+                  <span>Page
+                    <input 
+                    type="number" 
+                    value={paginationInput || ''}
+                    min={1}
+                    max={pageCount}
+                    onChange={(e) => {inputPagination(e)}}/>
+                    sur {pageCount}
+                  </span>
+                <button onClick={() => nextPage()}>
+                  <FontAwesomeIcon icon="angle-right" />
+                </button>
+                <button onClick={() => gotoPage(pageCount)}>
+                  <FontAwesomeIcon icon="angle-double-right" />
+                </button>
+              </div>
             </div>
-          </div>
+          }
 
           </div> 
         </div>
