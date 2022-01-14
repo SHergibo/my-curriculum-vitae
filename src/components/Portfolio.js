@@ -10,7 +10,9 @@ function Portfolio({ isLoaded }) {
   const [displayProject, setDisplayProject] = useState(false);
   const [arrayProject, setArrayProject] = useState([]);
   const [pageIndex, setPageIndex] = useState(1);
+  const [pageIndexCarousel, setPageIndexCarousel] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+  const [totalProject, setTotalProject] = useState(0);
   const [ paginationInput, setPaginationInput ] = useState(null);
   const [indexProject, setIndexProject] = useState(0);
   const [nextIndexProject, setNextIndexProject] = useState(true);
@@ -40,6 +42,7 @@ function Portfolio({ isLoaded }) {
       .then((response) => {
         setArrayProject(response.data.arrayData);
         setPageCount(Math.ceil(response.data.totalData / pageSize));
+        setTotalProject(response.data.totalData);
       });
   }, [pageIndex]);
 
@@ -54,65 +57,84 @@ function Portfolio({ isLoaded }) {
     setValue(item);
     let findIndexProject = arrayProject.findIndex(el => el._id === item._id);
     setIndexProject(findIndexProject);
-  }
+  };
 
-  const switchProjectCarousel = (increment) => {
+  const switchProjectCarousel = async (increment) => {
     if(increment === 1){
       setValue(arrayProject[indexProject + 1]);
       setIndexProject(indexProject => indexProject + 1);
-      arrayProject[indexProject + 2] ? setNextIndexProject(true) : setNextIndexProject(false);
+      if(totalProject > (pageSize * pageIndexCarousel)){    
+        let realPageIndexCarousel = pageIndexCarousel;
+        if((indexProject + 1) % pageSize === 1){
+          setPageIndexCarousel(pageIndexCarousel => pageIndexCarousel + 1);
+          realPageIndexCarousel = pageIndexCarousel + 1;
+        }
+        if(!arrayProject[indexProject + 3] && realPageIndexCarousel < pageCount){
+          const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/pagination?page=${realPageIndexCarousel}`;
+          await axios.get(getListProjectEndPoint)
+            .then((response) => {
+              setArrayProject(arrayProject => [...arrayProject, ...response.data.arrayData]);
+            });
+        }
+      }else{
+        arrayProject[indexProject + 2] ? setNextIndexProject(true) : setNextIndexProject(false);
+      }
     }else{
       setValue(arrayProject[indexProject - 1]);
-      setIndexProject(indexProject => indexProject - 1);
       setNextIndexProject(true);
+      setIndexProject(indexProject => indexProject - 1);
+      let realPageIndexCarousel = pageIndexCarousel;
+      if(indexProject - 1 === pageSize - 1){
+        setPageIndexCarousel(pageIndexCarousel => pageIndexCarousel - 1);
+        realPageIndexCarousel = pageIndexCarousel - 1;
+      }
+      if(realPageIndexCarousel > 1){
+        if(!arrayProject[indexProject - 3]){
+            const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/pagination?page=${pageIndexCarousel - 2}`;
+            await axios.get(getListProjectEndPoint)
+            .then((response) => {
+              setArrayProject(arrayProject => [...response.data.arrayData, ...arrayProject]);
+              setIndexProject(indexProject => (pageSize + (indexProject - 1)));
+            });
+        }
+      }
     }
-  }
-
-  let projectPortfolio = arrayProject.map((item) => {
-    return <div className="project-card" key={item._id}>     
-            <img src={`${apiDomain}/api/${apiVersion}/project/image/${item.img.filename}`} alt={item.altImg} />
-            <div className="project-card-name">
-              {item.projectName}
-            </div>
-            <div className="project-card-more">
-              <div>
-                <span tabIndex={0} onClick={() => displayProjectInfo(item, setDisplayProject, setValue)} onKeyPress={() => displayProjectInfo(item, setDisplayProject, setValue)}><FontAwesomeIcon icon="plus" /></span>
-                <span>
-                  <a tabIndex={0} href={item.url}><FontAwesomeIcon icon="link" /></a>
-                </span>
-              </div>
-            </div>
-          </div>
-  });
+  };
 
   const gotoPage = (page) => {
     setPageIndex(page);
+    setPageIndexCarousel(page);
   };
 
   const previousPage = () => {
     if (pageIndex > 1) {
       setPageIndex(currPageIndex => currPageIndex - 1);
+      setPageIndexCarousel(currPageIndex => currPageIndex - 1);
     }
   };
 
   const nextPage = async () => {
     if (pageIndex < pageCount) {
       setPageIndex(currPageIndex => parseInt(currPageIndex) + 1);
+      setPageIndexCarousel(currPageIndex => parseInt(currPageIndex) + 1);
     }
   };
 
   const inputPagination = (e) => {
     if(e.target.value > pageCount){
       setPageIndex(pageCount);
+      setPageIndexCarousel(pageCount);
       setPaginationInput(pageCount);
     } else if (e.target.value < 0 || e.target.value === ""){
       setPaginationInput(null);
     }else if(e.target.value === "0"){  
       setPaginationInput(1);
       setPageIndex(1);
+      setPageIndexCarousel(1);
     } else {
       setPaginationInput(e.target.value);
       setPageIndex(e.target.value);
+      setPageIndexCarousel(e.target.value);
     }
   }
 
@@ -126,7 +148,22 @@ function Portfolio({ isLoaded }) {
           </div>
           <div className="projects">
           <div className="projects-portfolio">
-            {projectPortfolio}
+            {arrayProject.map((item) => {
+              return <div className="project-card" key={item._id}>     
+                      <img src={`${apiDomain}/api/${apiVersion}/project/image/${item.img.filename}`} alt={item.altImg} />
+                      <div className="project-card-name">
+                        {item.projectName}
+                      </div>
+                      <div className="project-card-more">
+                        <div>
+                          <span tabIndex={0} onClick={() => displayProjectInfo(item, setDisplayProject, setValue)} onKeyPress={() => displayProjectInfo(item, setDisplayProject, setValue)}><FontAwesomeIcon icon="plus" /></span>
+                          <span>
+                            <a tabIndex={0} href={item.url}><FontAwesomeIcon icon="link" /></a>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+            })}
           </div>
 
           {pageCount >= 1 &&
