@@ -63,14 +63,14 @@ function Portfolio({ isLoaded }) {
     if(increment === 1){
       setValue(arrayProject[indexProject + 1]);
       setIndexProject(indexProject => indexProject + 1);
-      if(totalProject > (pageSize * pageIndexCarousel)){    
+      if(pageIndexCarousel + 1 <= pageCount){   
         let realPageIndexCarousel = pageIndexCarousel;
-        if((indexProject + 1) % pageSize === 1){
+        if((indexProject + 1) % pageSize === 0){
           setPageIndexCarousel(pageIndexCarousel => pageIndexCarousel + 1);
           realPageIndexCarousel = pageIndexCarousel + 1;
         }
         if(!arrayProject[indexProject + 3] && realPageIndexCarousel < pageCount){
-          const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/pagination?page=${realPageIndexCarousel}`;
+          const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/pagination?page=${pageIndexCarousel}`;
           await axios.get(getListProjectEndPoint)
             .then((response) => {
               setArrayProject(arrayProject => [...arrayProject, ...response.data.arrayData]);
@@ -84,7 +84,7 @@ function Portfolio({ isLoaded }) {
       setNextIndexProject(true);
       setIndexProject(indexProject => indexProject - 1);
       let realPageIndexCarousel = pageIndexCarousel;
-      if(indexProject - 1 === pageSize - 1){
+      if((indexProject - 1) % 6 === pageSize - 1){
         setPageIndexCarousel(pageIndexCarousel => pageIndexCarousel - 1);
         realPageIndexCarousel = pageIndexCarousel - 1;
       }
@@ -94,7 +94,7 @@ function Portfolio({ isLoaded }) {
             await axios.get(getListProjectEndPoint)
             .then((response) => {
               setArrayProject(arrayProject => [...response.data.arrayData, ...arrayProject]);
-              setIndexProject(indexProject => (pageSize + (indexProject - 1)));
+              setIndexProject(pageSize + (indexProject - 1));
             });
         }
       }
