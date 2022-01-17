@@ -12,7 +12,6 @@ function Portfolio({ isLoaded }) {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageIndexCarousel, setPageIndexCarousel] = useState(1);
   const [pageCount, setPageCount] = useState(0);
-  const [totalProject, setTotalProject] = useState(0);
   const [ paginationInput, setPaginationInput ] = useState(null);
   const [indexProject, setIndexProject] = useState(0);
   const [nextIndexProject, setNextIndexProject] = useState(true);
@@ -42,7 +41,6 @@ function Portfolio({ isLoaded }) {
       .then((response) => {
         setArrayProject(response.data.arrayData);
         setPageCount(Math.ceil(response.data.totalData / pageSize));
-        setTotalProject(response.data.totalData);
       });
   }, [pageIndex]);
 
