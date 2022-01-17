@@ -14,7 +14,7 @@ function Portfolio({ isLoaded }) {
   const [pageCount, setPageCount] = useState(0);
   const [ paginationInput, setPaginationInput ] = useState(null);
   const [indexProject, setIndexProject] = useState(0);
-  const [nextIndexProject, setNextIndexProject] = useState(true);
+  const [nextProject, setNextProject] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const pageSize = 6;
 
@@ -75,11 +75,11 @@ function Portfolio({ isLoaded }) {
             });
         }
       }else{
-        arrayProject[indexProject + 2] ? setNextIndexProject(true) : setNextIndexProject(false);
+        arrayProject[indexProject + 2] ? setNextProject(true) : setNextProject(false);
       }
     }else{
       setValue(arrayProject[indexProject - 1]);
-      setNextIndexProject(true);
+      setNextProject(true);
       setIndexProject(indexProject => indexProject - 1);
       let realPageIndexCarousel = pageIndexCarousel;
       if((indexProject - 1) % 6 === pageSize - 1){
@@ -220,13 +220,13 @@ function Portfolio({ isLoaded }) {
                 windowWidth={windowWidth}
                 switchProjectCarousel={switchProjectCarousel}
                 indexProject={indexProject}
-                nextIndexProject={nextIndexProject}
+                nextProject={nextProject}
               />
           </div>
 
           {windowWidth >= 1087 &&
             <div className="project-carousel-full-screen">
-            {nextIndexProject &&            
+            {nextProject &&            
               <button className="carousel-after" title="Projet suivant" onClick={() => {switchProjectCarousel(1)}}>
                 <FontAwesomeIcon icon="chevron-right" />
               </button>
