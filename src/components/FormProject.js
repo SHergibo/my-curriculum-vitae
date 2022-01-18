@@ -73,7 +73,8 @@ function FormProject({ value, projectState, setDisplayForm }) {
     setSpanError(false);
     const formData = new FormData();
     formData.append('projectName', data.projectName);
-    formData.append('url', data.projectUrl);
+    if(data.projectUrlWeb) formData.append('urlWeb', data.projectUrlWeb);
+    formData.append('urlGithub', data.projectUrlGithub);
     formData.append('img', data.projectImg[0]);
     formData.append('altImg', data.projectAltImg);
     formData.append('description', data.descriptionProject);
@@ -101,10 +102,9 @@ function FormProject({ value, projectState, setDisplayForm }) {
     const {arrayProject, setArrayProject} = projectState;
     const formData = new FormData();
     formData.append('projectName', data.projectName);
-    formData.append('url', data.projectUrl);
-    if(data.projectImg){
-      formData.append('img', data.projectImg[0]);
-    }
+    formData.append('urlWeb', data.projectUrlWeb);
+    formData.append('urlGithub', data.projectUrlGithub);
+    if(data.projectImg) formData.append('img', data.projectImg[0]);
     formData.append('altImg', data.projectAltImg);
     formData.append('description', data.descriptionProject);
     formData.append('technoUsedFront', JSON.stringify({"react" : data.react, "ember" : data.ember, "angular" : data.angular}));
@@ -137,13 +137,24 @@ function FormProject({ value, projectState, setDisplayForm }) {
                     </div>
                     <div className="input-container">
                       <div className="input">
-                        <label htmlFor="projectUrl">Lien du projet *</label>
+                        <label htmlFor="projectUrlWeb">Lien vers le site web</label>
                         <div className="input-block">
                           <span><FontAwesomeIcon icon="link" /></span>
-                          {!value && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" ref={register({ required: true })} />}
-                          {value && <input name="projectUrl" type="text" id="projectUrl" placeholder="Lien du projet" defaultValue={value.url} ref={register({ required: true })} />}
+                          {!value && <input name="projectUrlWeb" type="text" id="projectUrlWeb" placeholder="Lien vers le site web" ref={register()} />}
+                          {value && <input name="projectUrlWeb" type="text" id="projectUrlWeb" placeholder="Lien vers le site web" defaultValue={value.urlWeb} ref={register()} />}
                         </div>
-                        {errors.projectUrl && <span className="error-message-form">Ce champ est requis</span>}
+                        {errors.projectUrlWeb && <span className="error-message-form">Ce champ est requis</span>}
+                      </div>
+                    </div>
+                    <div className="input-container">
+                      <div className="input">
+                        <label htmlFor="projectUrlGithub">Lien vers Github *</label>
+                        <div className="input-block">
+                          <span><FontAwesomeIcon icon={['fab', 'github']} /></span>
+                          {!value && <input name="projectUrlGithub" type="text" id="projectUrlGithub" placeholder="Lien vers Github" ref={register({ required: true })} />}
+                          {value && <input name="projectUrlGithub" type="text" id="projectUrlGithub" placeholder="Lien vers Github" defaultValue={value.urlGithub} ref={register({ required: true })} />}
+                        </div>
+                        {errors.projectUrlGithub && <span className="error-message-form">Ce champ est requis</span>}
                       </div>
                     </div>
                     <div>
