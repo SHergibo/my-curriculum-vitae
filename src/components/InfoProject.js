@@ -1,9 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { apiDomain, apiVersion } from '../apiConfig/ApiConfig';
+import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function InfoProject({ value, setDisplayProject, windowWidth, switchProjectCarousel, indexProject, nextIndexProject }) {
+function InfoProject({ value, setArrayProject, setDisplayProject, pageIndexState, windowWidth, switchProjectCarousel, indexProjectState, pageIndexCarousel, nextProjectState }) {
+  const {pageIndex, setPageIndex} = pageIndexState;
+  const {indexProject, setIndexProject} = indexProjectState;
+  const {nextProject, setNextProject} = nextProjectState;
   let descriptionArray = value.description.split(/\n/ig);
 
   let displayDesc = descriptionArray.map((item, index) => {
@@ -36,6 +40,25 @@ function InfoProject({ value, setDisplayProject, windowWidth, switchProjectCarou
     return  <li key={`technoUsedBack-${index}`}>{item}</li>
   });
 
+  const closeProjectInfo = async () => {
+    setArrayProject(arrayProject => {
+      return arrayProject.filter(el => el.pageIndex === pageIndexCarousel);
+    })
+    if(pageIndex === pageIndexCarousel){
+      const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/pagination?page=${pageIndexCarousel - 1}`;
+      await axios.get(getListProjectEndPoint)
+        .then((response) => {
+          setArrayProject(response.data.arrayData);
+        });
+    }else{
+      setPageIndex(pageIndexCarousel);
+    }
+    
+    if(indexProject !== 0) setIndexProject(0)
+    if(!nextProject) setNextProject(true);
+    setDisplayProject(false);
+  };
+
   return (
     <div className="project-container">
       {windowWidth < 1087 &&      
@@ -45,7 +68,7 @@ function InfoProject({ value, setDisplayProject, windowWidth, switchProjectCarou
               <FontAwesomeIcon id="chevronL" icon="chevron-left" /> Projet précédant
             </button>
           }
-          {nextIndexProject &&        
+          {nextProject &&        
             <button title="Projet suivant" onClick={() => {switchProjectCarousel(1)}}>
               Projet suivant <FontAwesomeIcon id="chevronR" icon="chevron-right" />
             </button>
@@ -62,7 +85,7 @@ function InfoProject({ value, setDisplayProject, windowWidth, switchProjectCarou
           <div className="title-container">
             <h2>{value.projectName}</h2>
             <div className="btn-switch-container">
-              <button title="Retourner vers le portfolio" onClick={() => {setDisplayProject(false)}}>
+              <button title="Retourner vers le portfolio" onClick={closeProjectInfo}>
                 <FontAwesomeIcon icon="chevron-left" />
               </button>
             </div>
@@ -89,11 +112,23 @@ function InfoProject({ value, setDisplayProject, windowWidth, switchProjectCarou
 
 InfoProject.propTypes = {
   value: PropTypes.object.isRequired,
+  setArrayProject: PropTypes.func.isRequired,
   setDisplayProject: PropTypes.func.isRequired,
+  setPageIndex: PropTypes.shape({
+    pageIndex: PropTypes.number.isRequired,
+    setPageIndex: PropTypes.func.isRequired,
+  }),
   windowWidth: PropTypes.number.isRequired,
   switchProjectCarousel: PropTypes.func.isRequired,
-  indexProject: PropTypes.number.isRequired,
-  nextIndexProject: PropTypes.bool.isRequired,
+  indexProjectState: PropTypes.shape({
+    indexProject: PropTypes.number.isRequired,
+    setIndexProject: PropTypes.func.isRequired,
+  }),
+  pageIndexCarousel: PropTypes.number.isRequired,
+  nextProjectState: PropTypes.shape({
+    nextProject: PropTypes.bool.isRequired,
+    setNextProject: PropTypes.func.isRequired,
+  }),
 }
 
 export default InfoProject;
