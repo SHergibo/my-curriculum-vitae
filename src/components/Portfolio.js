@@ -50,11 +50,26 @@ function Portfolio({ isLoaded }) {
     }
   }, [isLoaded, getData]);
 
-  const displayProjectInfo = (item, setDisplayProject, setValue) => {
+  const displayProjectInfo = async (item, setDisplayProject, setValue) => {
     setDisplayProject(true);
     setValue(item);
     let findIndexProject = arrayProject.findIndex(el => el._id === item._id);
     setIndexProject(findIndexProject);
+    if(pageIndex > 1 && (findIndexProject === 0 || findIndexProject === 1)){
+      const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/pagination?page=${pageIndex - 2}`;
+      await axios.get(getListProjectEndPoint)
+      .then((response) => {
+        setArrayProject(arrayProject => [...response.data.arrayData, ...arrayProject]);
+        setIndexProject(pageSize + findIndexProject);
+      });
+    }
+    if((findIndexProject === (pageSize - 2) || findIndexProject === (pageSize - 1)) &&  pageIndex < pageCount){
+      const getListProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/pagination?page=${pageIndex}`;
+      await axios.get(getListProjectEndPoint)
+        .then((response) => {
+          setArrayProject(arrayProject => [...arrayProject, ...response.data.arrayData]);
+        });
+    }
   };
 
   const switchProjectCarousel = async (increment) => {
