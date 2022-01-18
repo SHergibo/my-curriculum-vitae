@@ -79,7 +79,8 @@ function InfoProject({ value, setArrayProject, setDisplayProject, pageIndexState
       <div className="info-project-container">
         <div className="img-project">
           <img src={`${apiDomain}/api/${apiVersion}/project/image/${value.img.filename}`} alt={value.altImg} />
-          <span><a href={value.url}><FontAwesomeIcon icon="link" />Lien vers le projet</a></span>
+          {value.urlWeb && <span><a href={value.urlWeb} title="Lien vers le site web"><FontAwesomeIcon icon="link" />Lien vers le site web</a></span>}
+          <span><a href={value.urlGithub} title="Lien vers le projet GitHub"><FontAwesomeIcon icon={["fab", "github"]} />Lien vers le projet GitHub</a></span>
         </div>
         <div className="info-project">
           <div className="title-container">
@@ -92,18 +93,28 @@ function InfoProject({ value, setArrayProject, setDisplayProject, pageIndexState
           </div>
 
           {displayDesc}
-          <div className="techno-used">
-            {frameWorkUsed.length > 1 && <h4>Technologies Front-End utilisées</h4>}
-            {frameWorkUsed.length === 1 && <h4>Technologie Front-End utilisée</h4>}
-            <ul>
-              {displayFrameWorkUsed}
-            </ul>
-            {technoUsedBack.length > 1 && <h4>Technologies Back-End utilisées</h4>}
-            {technoUsedBack.length === 1 && <h4>Technologie Back-End utilisée</h4>}
-            <ul>
-              {displayTechnoUsedBack}
-            </ul>
-          </div>
+          {(frameWorkUsed.length >= 1 || technoUsedBack.length >= 1) &&
+            <div className="techno-used">
+              {frameWorkUsed.length >= 1 &&
+                <>
+                  {frameWorkUsed.length > 1 && <h4>Technologies Front-End utilisées</h4>}
+                  {frameWorkUsed.length === 1 && <h4>Technologie Front-End utilisée</h4>}
+                  <ul>
+                    {displayFrameWorkUsed}
+                  </ul>
+                </>
+              }
+              {technoUsedBack.length >= 1 &&
+                <>
+                  {technoUsedBack.length > 1 && <h4>Technologies Back-End utilisées</h4>}
+                  {technoUsedBack.length === 1 && <h4>Technologie Back-End utilisée</h4>}
+                  <ul>
+                    {displayTechnoUsedBack}
+                  </ul>
+                </>
+              }
+            </div>
+          }
         </div>
       </div>
     </div>
