@@ -216,11 +216,14 @@ function Portfolio({ isLoaded }) {
             </div>
               <InfoProject 
                 value={value}
+                setArrayProject={setArrayProject}
                 setDisplayProject={setDisplayProject} 
+                pageIndexState={{pageIndex, setPageIndex}} 
                 windowWidth={windowWidth}
                 switchProjectCarousel={switchProjectCarousel}
-                indexProject={indexProject}
-                nextProject={nextProject}
+                indexProjectState={{indexProject, setIndexProject}}
+                pageIndexCarousel={pageIndexCarousel}
+                nextProjectState={{nextProject, setNextProject}}
               />
           </div>
 
