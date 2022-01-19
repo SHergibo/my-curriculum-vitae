@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ActionButtonSubmit from './ActionButtonSubmit';
 import PropTypes from 'prop-types';
 
-function FormEducExpe({ value, codingSkillState, generalSkillState, languageState, setDisplayForm }) {
+function FormSkill({ value, codingSkillState, generalSkillState, languageState, setDisplayForm }) {
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
   const loadingRef = useRef(null);
@@ -156,25 +156,22 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
                       {errors.nameSkill && <span className="error-message-form">Ce champ est requis</span>}
                     </div>
                     <div className="input">
-                      <label htmlFor="percentage">Pourcentage *</label>
+                      <label htmlFor="fontAwesomeIcon">Icône Font Awesome</label>
                       <div className="input-block">
-                        <span><FontAwesomeIcon icon="percentage" /></span>
-                        {!value && <input name="percentage" id="percentage" placeholder="Pourcentage" ref={register({
-                          required: "Ce champ est requis",
-                          pattern: {
-                            value: /^[0-9]+$/,
-                            message: "Entrez un nombre entre 0 et 100"
-                          }
-                        })} />}
-                        {value && <input name="percentage" id="percentage" placeholder="Pourcentage" defaultValue={value.percentage} ref={register({ 
-                          required: "Ce champ est requis",
-                          pattern: {
-                            value: /^[0-9]+$/,
-                            message: "Entrez un nombre"
-                          }
-                        })} />}
+                        <span><FontAwesomeIcon icon={['fab', "font-awesome"]} /></span>
+                        {!value && <input name="fontAwesomeIcon" type="text" id="fontAwesomeIcon" placeholder="Icône Font Awesome" ref={register()} />}
+                        {value && <input name="fontAwesomeIcon" type="text" id="fontAwesomeIcon" placeholder="Icône Font Awesome" defaultValue={value.fontAwesomeIcon} ref={register()} />}
                       </div>
-                      <span className="error-message-form">{errors.percentage && errors.percentage.message}</span>
+                      {errors.fontAwesomeIcon && <span className="error-message-form">Ce champ est requis</span>}
+                    </div>
+                    <div className="input">
+                      <label htmlFor="svgIcon">Icône svg</label>
+                      <div className="input-block">
+                        <span><FontAwesomeIcon icon={['fab', "font-awesome"]} /></span>
+                        {!value && <input name="svgIcon" type="text" id="svgIcon" placeholder="Icône svg" ref={register()} />}
+                        {value && <input name="svgIcon" type="text" id="svgIcon" placeholder="Icône svg" defaultValue={value.svgIcon} ref={register()} />}
+                      </div>
+                      {errors.svgIcon && <span className="error-message-form">Ce champ est requis</span>}
                     </div>
                   </div>
                   <div className="label-checkbox-container skills-checkbox-container">
@@ -232,7 +229,7 @@ function FormEducExpe({ value, codingSkillState, generalSkillState, languageStat
   );
 }
 
-FormEducExpe.propTypes = {
+FormSkill.propTypes = {
   value: PropTypes.object,
   codingSkillState: PropTypes.shape({
     arrayCodingSkill: PropTypes.array,
@@ -249,4 +246,4 @@ FormEducExpe.propTypes = {
   setDisplayForm: PropTypes.func,
 }
 
-export default FormEducExpe;
+export default FormSkill;
