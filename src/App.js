@@ -12,7 +12,7 @@ import ProtectedRoute from './components/Route/Protected.route';
 import Login from './components/Login';
 import Page404 from './components/Page404';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faJs, faHtml5, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import { 
   faChevronUp,
   faEnvelope, 
@@ -53,9 +53,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-  faGithub,
-  faJs,
-  faHtml5,
+  fab,
   faChevronUp,
   faEnvelope, 
   faMobileAlt, 
