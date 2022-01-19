@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import parse from 'html-react-parser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
 function CanvasResume({ data }) {
@@ -39,13 +41,19 @@ function CanvasResume({ data }) {
       return <div className="canvas-container" key={"canvas" + item._id}>
               <div className="canvas">
                 <canvas ref={(el) => (canvasRef.current[item._id] = el)} id={item._id} width="135" height="135"></canvas>
-                <span>{item.percentage}%</span>
+                {item.fontAwesomeIcon &&
+                  <span><FontAwesomeIcon icon={['fab', item.fontAwesomeIcon]} /></span>
+                }
+                {item.svgIcon &&                
+                  <span>{parse(item.svgIcon)}</span>
+                }
               </div>
               <p>{item.nameSkill}</p>
             </div>
     }
     return <div key={"canvas" + item._id}></div>;
   });
+
 
   Promise.all(displayCodingSkill).then( res => {
     data.map((item) => {
