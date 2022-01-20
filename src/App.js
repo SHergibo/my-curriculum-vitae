@@ -49,7 +49,8 @@ import {
   faAngleRight,
   faAngleLeft,
   faAngleDoubleRight,
-  faAngleDoubleLeft
+  faAngleDoubleLeft,
+  faCode
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -89,7 +90,8 @@ library.add(
   faAngleRight,
   faAngleLeft,
   faAngleDoubleRight,
-  faAngleDoubleLeft
+  faAngleDoubleLeft,
+  faCode
 );
 
 function App() {
