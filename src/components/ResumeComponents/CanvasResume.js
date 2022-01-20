@@ -47,6 +47,9 @@ function CanvasResume({ data }) {
                 {item.svgIcon &&                
                   <span>{parse(item.svgIcon)}</span>
                 }
+                {!item.fontAwesomeIcon && !item.svgIcon &&
+                  <span><FontAwesomeIcon icon="code" /></span>
+                }
               </div>
               <p>{item.nameSkill}</p>
             </div>
