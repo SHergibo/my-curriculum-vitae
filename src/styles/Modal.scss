@@ -43,10 +43,15 @@
     -moz-box-shadow: 0px 15px 36px -11px rgba(0,0,0,0.75);
     box-shadow: 0px 15px 36px -11px rgba(0,0,0,0.75);
   }
-  @media screen and (min-width: 640px){
-    .close-modal{
-      top: 10px;
-      right: 10px;
-    }
+  .close-modal{
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/*Full-screen*/
+@media screen and (min-width: 960px){
+  .modal-container{
+    width: 960px;
   }
 }
