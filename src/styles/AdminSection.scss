@@ -275,6 +275,16 @@
     padding: 0;
   }
 
+  .skill-container{
+    .input-container{
+      flex-wrap: wrap;
+      margin-bottom: 0;
+      .input{
+        margin-bottom: 20px;
+      }
+    }
+  }
+
   .list-container{
     .title-list{
       max-width: 650px;
