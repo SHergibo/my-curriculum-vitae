@@ -1,31 +1,33 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import axios from 'axios';
-import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import axios from "axios";
+import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
 import { Link } from "react-scroll";
-import EducationExperience from './ResumeComponents/EducationExperience';
-import CanvasResume from './ResumeComponents/CanvasResume';
-import SkillBarResume from './ResumeComponents/SkillBarResume';
-import workingData from './../utils/workingData';
-import PropTypes from 'prop-types';
+import EducationExperience from "./ResumeComponents/EducationExperience";
+import CanvasResume from "./ResumeComponents/CanvasResume";
+import SkillBarResume from "./ResumeComponents/SkillBarResume";
+import workingData from "./../utils/workingData";
+import PropTypes from "prop-types";
 
 function Resume({ isLoaded }) {
   const objectEducExpe = {
-    "_id": "",
-    "dateStart": "",
-    "dateEnd": "",
-    "titleEducExpe": "",
-    "placeEducExpe": "",
-    "educExpe": ""
+    _id: "",
+    dateStart: "",
+    dateEnd: "",
+    titleEducExpe: "",
+    placeEducExpe: "",
+    educExpe: "",
   };
   const [arrayEduc, setArrayEduc] = useState([objectEducExpe]);
   const [arrayExpe, setArrayExpe] = useState([objectEducExpe]);
 
   const objectSkill = {
-    "_id": "",
-    "nameSkill": "",
-    "percentage": "",
-    "skillCategory": "",
-  }
+    _id: "",
+    nameSkill: "",
+    percentage: "",
+    skillCategory: "",
+    fontAwesomeIcon: "",
+    svgIcon: "",
+  };
 
   const [arrayCodingSkill, setArrayCodingSkill] = useState([objectSkill]);
   const [arrayGeneralSkill, setArrayGeneralSkill] = useState([objectSkill]);
@@ -38,14 +40,17 @@ function Resume({ isLoaded }) {
   const isMounted = useRef(true);
 
   const handleResumeMenuOnScroll = () => {
-    let resumeContainer = resumeContainerRef.current
+    let resumeContainer = resumeContainerRef.current;
     let menuResume = menuResumeRef.current;
     let getBounding = resumeContainer.getBoundingClientRect();
-    let bottomResume = ((getBounding.height + getBounding.top) - 80) - 180;
+    let bottomResume = getBounding.height + getBounding.top - 80 - 180;
     if (bottomResume <= 0) {
-      menuResume.setAttribute('style', 'position: absolute; bottom: 0; top: unset');
+      menuResume.setAttribute(
+        "style",
+        "position: absolute; bottom: 0; top: unset"
+      );
     } else {
-      menuResume.removeAttribute('style');
+      menuResume.removeAttribute("style");
     }
     if (getBounding.top < 30) {
       menuResume.classList.add("menu-resume-fixed");
@@ -56,84 +61,104 @@ function Resume({ isLoaded }) {
 
   const getDataEducExpe = useCallback(async () => {
     const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
-    await axios.get(getListEducExpeEndPoint)
-      .then((response) => {
-        if(response.data && isMounted.current){
-          const educExpeWorkingData = workingData(response.data, "educExpe");
-          setArrayEduc(educExpeWorkingData[0]);
-          setArrayExpe(educExpeWorkingData[1]);
-        }
-      });
+    await axios.get(getListEducExpeEndPoint).then((response) => {
+      if (response.data && isMounted.current) {
+        const educExpeWorkingData = workingData(response.data, "educExpe");
+        setArrayEduc(educExpeWorkingData[0]);
+        setArrayExpe(educExpeWorkingData[1]);
+      }
+    });
 
     const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
-    await axios.get(getListSkillEndPoint)
-      .then((response) => {
-        if(response.data && isMounted.current){
-          const skillWorkingDatas = workingData(response.data, "skill");
-          setArrayCodingSkill(skillWorkingDatas[0]);
-          setArrayGeneralSkill(skillWorkingDatas[1]);
-          setArrayLanguage(skillWorkingDatas[2]);
-        }
-      });
+    await axios.get(getListSkillEndPoint).then((response) => {
+      if (response.data && isMounted.current) {
+        const skillWorkingDatas = workingData(response.data, "skill");
+        setArrayCodingSkill(skillWorkingDatas[0]);
+        setArrayGeneralSkill(skillWorkingDatas[1]);
+        setArrayLanguage(skillWorkingDatas[2]);
+      }
+    });
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleResumeMenuOnScroll);
-    if(isLoaded){
+    window.addEventListener("scroll", handleResumeMenuOnScroll);
+    if (isLoaded) {
       getDataEducExpe();
     }
     return () => {
-      window.removeEventListener('scroll', handleResumeMenuOnScroll);
+      window.removeEventListener("scroll", handleResumeMenuOnScroll);
       isMounted.current = false;
-    }
+    };
   }, [isLoaded, getDataEducExpe]);
 
   const focusOnKeypress = (elem) => {
-    if(elem === "eduction"){
+    if (elem === "eduction") {
       educRef.current.scrollIntoView();
-    }else if (elem === "experience"){
+    } else if (elem === "experience") {
       expRef.current.scrollIntoView();
-    }else if (elem === "skills"){
+    } else if (elem === "skills") {
       skillref.current.scrollIntoView();
     }
-  }
+  };
 
   return (
     <div ref={resumeContainerRef} id="resume" className="wrapper resume">
       <div className="title-left">Résumé</div>
       <div className="menu-resume">
-        <div ref={menuResumeRef} className="list-resume" style={{ top: 30 + 'px' }}>
+        <div
+          ref={menuResumeRef}
+          className="list-resume"
+          style={{ top: 30 + "px" }}
+        >
           <ul>
-            <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("education")}}>
-              <Link 
-              activeClass="active" 
-              to="education" 
-              spy={true} 
-              smooth={true} 
-              offset={-80} 
-              duration={1000}>
+            <li
+              tabIndex={0}
+              onKeyPress={() => {
+                focusOnKeypress("education");
+              }}
+            >
+              <Link
+                activeClass="active"
+                to="education"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={1000}
+              >
                 Éducation
               </Link>
             </li>
-            <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("experience")}}>
-              <Link 
-              activeClass="active" 
-              to="experience" 
-              spy={true} 
-              smooth={true} 
-              offset={-80} 
-              duration={1000}>
+            <li
+              tabIndex={0}
+              onKeyPress={() => {
+                focusOnKeypress("experience");
+              }}
+            >
+              <Link
+                activeClass="active"
+                to="experience"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={1000}
+              >
                 Expérience
               </Link>
             </li>
-            <li tabIndex={0} onKeyPress={()=>{focusOnKeypress("skills")}}>
-              <Link 
-              activeClass="active" 
-              to="skills" 
-              spy={true} 
-              smooth={true} 
-              offset={-80} 
-              duration={1000}>
+            <li
+              tabIndex={0}
+              onKeyPress={() => {
+                focusOnKeypress("skills");
+              }}
+            >
+              <Link
+                activeClass="active"
+                to="skills"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={1000}
+              >
                 Compétences
               </Link>
             </li>
@@ -169,7 +194,7 @@ function Resume({ isLoaded }) {
 }
 
 Resume.propTypes = {
-  isLoaded: PropTypes.bool.isRequired
-}
+  isLoaded: PropTypes.bool.isRequired,
+};
 
 export default Resume;
