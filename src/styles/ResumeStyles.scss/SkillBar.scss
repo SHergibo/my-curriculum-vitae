@@ -4,37 +4,34 @@
   width: 100%;
 }
 
-.skill-bar-container:not(:last-child){
+.skill-bar-container:not(:last-child) {
   border-bottom: $border;
 }
 
-.info-skill{
+.info-skill {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-top: 20px;
-  p, span{
+  p,
+  span {
     color: #ffffff;
   }
-  p{
+  p {
     text-transform: capitalize;
   }
-  span{
+  span {
     font-weight: bolder;
     font-size: 80%;
   }
 }
 
-.skill-bar{
+.skill-bar {
   margin: 20px 0 25px 0;
   width: 100%;
   height: 6px;
-  background-color: #ffffff;
+  background-color: $blue;
   border-radius: 5px;
   overflow: hidden;
-  div{
-    background-color: $blue;
-    height: 6px;
-  }
 }
