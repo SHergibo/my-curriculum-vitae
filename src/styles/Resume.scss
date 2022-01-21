@@ -7,55 +7,56 @@
 .list-resume {
   display: none;
   li {
-    &:focus{
-      outline-style:none;
-      box-shadow:none;
-      border-color:transparent;
+    &:focus {
+      outline-style: none;
+      box-shadow: none;
+      border-color: transparent;
     }
-    &:focus-visible{
-      a{
+    &:focus-visible {
+      a {
         color: #ffffff;
       }
     }
-  } 
+  }
 }
 .edu-expe {
   width: 100%;
 }
 
-.edu-container{
+.edu-container {
   margin-top: 70px;
   @include title();
 }
 
-.exp-container{
+.exp-container {
   margin-top: 70px;
   @include title();
 }
 
-.skill-container{
+.skill-container {
   margin-top: 70px;
   @include title();
 }
 
-.skill-canvas{
+.skill-canvas {
   width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin: 30px 0;
-  .canvas-container:nth-child(2n+1){
+  .canvas-container:nth-child(2n + 1) {
     background-color: $grey-five;
   }
 }
 
-.skill-bars{
+.skill-bars {
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
-  .soft-skills, .language-skills{
+  .soft-skills,
+  .language-skills {
     width: 100%;
-    h4{
+    h4 {
       color: #ffffff;
       font-size: 20px;
     }
@@ -65,8 +66,7 @@
 /*Media queries*/
 
 /*Tablet*/
-@media screen and (min-width: 640px){
-
+@media screen and (min-width: 640px) {
   .list-resume {
     display: block;
     margin-top: 80px;
@@ -77,26 +77,26 @@
       font-size: 15px;
       li {
         padding: 7px 0;
-        a{
+        a {
           display: flex;
           align-items: center;
           color: $grey-two;
-          transition: .5s ease-in-out;
+          transition: 0.5s ease-in-out;
           cursor: pointer;
-          &:hover{
+          &:hover {
             color: $grey-one;
           }
-          &:before{
+          &:before {
             content: "";
             width: 0px;
             height: 1px;
             background-color: #ffffff;
-            transition: .5s ease-in-out;
+            transition: 0.5s ease-in-out;
           }
         }
-        .active{
+        .active {
           color: #ffffff;
-          &:before{
+          &:before {
             content: "";
             display: inline-block;
             width: 15px;
@@ -107,7 +107,7 @@
     }
   }
 
-  .menu-resume-fixed{
+  .menu-resume-fixed {
     position: fixed;
     bottom: unset;
   }
@@ -115,16 +115,16 @@
   .menu-resume {
     width: 25%;
   }
-  
+
   .edu-expe {
     width: 75%;
     border-left: $border;
     padding-left: 20px;
   }
 
-  .skill-canvas{
+  .skill-canvas {
     justify-content: flex-start;
-    .canvas-container{
+    .canvas-container {
       width: 33%;
     }
   }
@@ -132,8 +132,7 @@
 
 /*Full-screen*/
 @media screen and (min-width: 960px) {
-
-  .resume{
+  .resume {
     padding: 0;
   }
 
@@ -142,21 +141,22 @@
     margin-left: -1px;
   }
 
-  .skill-canvas{
-    .canvas-container{
+  .skill-canvas {
+    .canvas-container {
       width: 25%;
     }
   }
 
-  .skill-bars{
+  .skill-bars {
     flex-direction: row;
-    .soft-skills, .language-skills{
+    .soft-skills,
+    .language-skills {
       width: 50%;
     }
-    .soft-skills{
+    .soft-skills {
       margin-right: 25px;
     }
-    .language-skills{
+    .language-skills {
       margin-left: 15px;
     }
   }
