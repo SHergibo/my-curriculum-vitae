@@ -15,7 +15,7 @@ function DisplayListSkill() {
   const [displayForm, setDisplayForm] = useState(false);
 
   const getData = useCallback(async () => {
-    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
+    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills/skills-list`;
     await axiosInstance.get(getListSkillEndPoint).then((response) => {
       const workingDatas = workingData(response.data, "skill");
       setArrayCodingSkill(workingDatas[0]);
@@ -29,7 +29,7 @@ function DisplayListSkill() {
   }, [getData]);
 
   const onClickDelete = async (data) => {
-    const deleteSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/${data._id}`;
+    const deleteSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills/${data._id}`;
     await axiosInstance.delete(deleteSkillEndPoint, data).then(() => {
       if (data.skillCategory === "codingSkill") {
         setArrayCodingSkill(

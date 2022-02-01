@@ -60,7 +60,7 @@ function Resume({ isLoaded }) {
   };
 
   const getDataEducExpe = useCallback(async () => {
-    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
+    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educs-exps/educs-exps-list`;
     await axios.get(getListEducExpeEndPoint).then((response) => {
       if (response.data && isMounted.current) {
         const educExpeWorkingData = workingData(response.data, "educExpe");
@@ -69,7 +69,7 @@ function Resume({ isLoaded }) {
       }
     });
 
-    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/skill-list`;
+    const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills/skills-list`;
     await axios.get(getListSkillEndPoint).then((response) => {
       if (response.data && isMounted.current) {
         const skillWorkingDatas = workingData(response.data, "skill");

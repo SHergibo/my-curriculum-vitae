@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
-import axiosInstance from './../utils/axiosInstance';
-import { apiDomain, apiVersion } from './../apiConfig/ApiConfig';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import workingData from './../utils/workingData';
+import axiosInstance from "./../utils/axiosInstance";
+import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import workingData from "./../utils/workingData";
 import Modal from "./Modal";
 import { displayModal } from "./../utils/modalDisplay";
 import FormEducExpe from "./FormEducExpe";
@@ -14,13 +14,12 @@ function DisplayListEducExpe() {
   const [displayForm, setDisplayForm] = useState(false);
 
   const getData = useCallback(async () => {
-    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/educExpe-list`;
-    await axiosInstance.get(getListEducExpeEndPoint)
-      .then((response) => {
-        const workingDatas = workingData(response.data, "educExpe");
-        setArrayEduc(workingDatas[0]);
-        setArrayExpe(workingDatas[1]);
-      });
+    const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educs-exps/educs-exps-list`;
+    await axiosInstance.get(getListEducExpeEndPoint).then((response) => {
+      const workingDatas = workingData(response.data, "educExpe");
+      setArrayEduc(workingDatas[0]);
+      setArrayExpe(workingDatas[1]);
+    });
   }, []);
 
   useEffect(() => {
@@ -31,18 +30,17 @@ function DisplayListEducExpe() {
   let liListExpe;
 
   const formatDate = (date) => {
-    let year = date.split('-')[0];
+    let year = date.split("-")[0];
     return year;
   };
 
   const onClickDelete = async (data) => {
-    const deleteEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educExpe/${data._id}`;
-    await axiosInstance.delete(deleteEducExpeEndPoint, data)
-    .then(() => {
-      if(data.educExpe === "experience"){
-        setArrayExpe([...arrayExpe].filter(item => item._id !== data._id));
-      }else if(data.educExpe === "education"){
-        setArrayEduc([...arrayEduc].filter(item => item._id !== data._id));
+    const deleteEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educs-exps/${data._id}`;
+    await axiosInstance.delete(deleteEducExpeEndPoint, data).then(() => {
+      if (data.educExpe === "experience") {
+        setArrayExpe([...arrayExpe].filter((item) => item._id !== data._id));
+      } else if (data.educExpe === "education") {
+        setArrayEduc([...arrayEduc].filter((item) => item._id !== data._id));
       }
     });
   };
@@ -50,25 +48,41 @@ function DisplayListEducExpe() {
   const liListRender = (item) => {
     let formatDateStart = formatDate(item.dateStart);
     let formatDateEnd = formatDate(item.dateEnd);
-    return <li key={item._id}>
-              <div className="div-list-container">
-                <div className="date-list">{formatDateStart} - {formatDateEnd}</div> 
-                <div className="title-list">{item.titleEducExpe}</div> 
-              </div>
-              <div className="div-list-btn-container">
-                <button className="btn-list-edit" title="Éditer" onClick={() => displayModal(item, setDisplayForm, setValue)}><FontAwesomeIcon icon="edit" /></button>
-                <button className="btn-list-delete" title="Supprimer" onClick={() => onClickDelete(item)}><FontAwesomeIcon icon="trash-alt" /></button>
-              </div>
-            </li>
-  }
-  
-  if(arrayEduc){
+    return (
+      <li key={item._id}>
+        <div className="div-list-container">
+          <div className="date-list">
+            {formatDateStart} - {formatDateEnd}
+          </div>
+          <div className="title-list">{item.titleEducExpe}</div>
+        </div>
+        <div className="div-list-btn-container">
+          <button
+            className="btn-list-edit"
+            title="Éditer"
+            onClick={() => displayModal(item, setDisplayForm, setValue)}
+          >
+            <FontAwesomeIcon icon="edit" />
+          </button>
+          <button
+            className="btn-list-delete"
+            title="Supprimer"
+            onClick={() => onClickDelete(item)}
+          >
+            <FontAwesomeIcon icon="trash-alt" />
+          </button>
+        </div>
+      </li>
+    );
+  };
+
+  if (arrayEduc) {
     liListEduc = arrayEduc.map((item) => {
       return liListRender(item);
     });
   }
 
-  if(arrayExpe){
+  if (arrayExpe) {
     liListExpe = arrayExpe.map((item) => {
       return liListRender(item);
     });
@@ -78,26 +92,25 @@ function DisplayListEducExpe() {
     <>
       <div>
         <h4>Éducation</h4>
-        <ul >
-          {liListEduc}
-        </ul>
+        <ul>{liListEduc}</ul>
       </div>
       <div>
         <h4>Expérience</h4>
-        <ul >
-          {liListExpe}
-        </ul>
+        <ul>{liListExpe}</ul>
       </div>
-      {displayForm  && 
-        <Modal div={
-          <FormEducExpe 
-          value={value} 
-          setDisplayForm={setDisplayForm} 
-          educState={{arrayEduc, setArrayEduc}}
-          expeState={{arrayExpe, setArrayExpe}}/>
-        }
-        setDisplayForm={setDisplayForm} />
-      }
+      {displayForm && (
+        <Modal
+          div={
+            <FormEducExpe
+              value={value}
+              setDisplayForm={setDisplayForm}
+              educState={{ arrayEduc, setArrayEduc }}
+              expeState={{ arrayExpe, setArrayExpe }}
+            />
+          }
+          setDisplayForm={setDisplayForm}
+        />
+      )}
     </>
   );
 }

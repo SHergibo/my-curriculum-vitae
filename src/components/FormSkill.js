@@ -100,7 +100,7 @@ function FormSkill({
   const onSubmitAdd = async (data, e) => {
     setLoader(true);
     setSpanError(false);
-    const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill`;
+    const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills`;
     await axiosInstance
       .post(addSkillEndPoint, data)
       .then(() => {
@@ -134,7 +134,7 @@ function FormSkill({
     const { arrayCodingSkill, setArrayCodingSkill } = codingSkillState;
     const { arrayGeneralSkill, setArrayGeneralSkill } = generalSkillState;
     const { arrayLanguage, setArrayLanguage } = languageState;
-    const editSkillEndPoint = `${apiDomain}/api/${apiVersion}/skill/${value._id}`;
+    const editSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills/${value._id}`;
     await axiosInstance
       .patch(editSkillEndPoint, data)
       .then((response) => {

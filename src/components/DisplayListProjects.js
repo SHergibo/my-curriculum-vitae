@@ -12,7 +12,7 @@ function DisplayListProjects() {
   const [displayForm, setDisplayForm] = useState(false);
 
   const getData = useCallback(async () => {
-    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/project/project-list`;
+    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/projects/projects-list`;
     await axiosInstance.get(getListProjectPoint).then((response) => {
       setArrayProject(response.data);
     });
@@ -23,7 +23,7 @@ function DisplayListProjects() {
   }, [getData]);
 
   const onClickDelete = async (data) => {
-    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/project/${data._id}`;
+    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/projects/${data._id}`;
     await axiosInstance.delete(deleteProjectEndPoint, data).then(() => {
       setArrayProject(
         [...arrayProject].filter((item) => item._id !== data._id)

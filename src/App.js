@@ -40,7 +40,7 @@ function App() {
   const getData = useCallback(async () => {
     setErrorFetch(false);
     setLoading(true);
-    const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/info`;
+    const getGeneralInfoEndPoint = `${apiDomain}/api/${apiVersion}/infos`;
     await axios
       .get(getGeneralInfoEndPoint)
       .then((response) => {
