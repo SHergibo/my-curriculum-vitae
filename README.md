@@ -4,7 +4,7 @@ Cv-2020 is an application that helps you show your resume information online. Wi
 
 An administration area located in the url `/login` is where you should go to add all your informations that will be displayed on your resume.
 
-To use this app, you need to use [cv-2020-back](https://github.com/SHergibo/cv-2020-back) REST api at the same time. Without it you will not be able to add, update or view your resume informations.
+To use this app, you need to use [cv-2020-back](https://github.com/SHergibo/cv-2020-back) REST api at the same time. Without it you will not be able to add, update, delete or view your resume informations.
 
 Cv-2020 is a project bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
