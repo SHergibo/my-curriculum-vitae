@@ -8,21 +8,40 @@
   flex-direction: column;
   position: relative;
   margin: 0 15px;
+  .title-right {
+    border-top: $border;
+    &:after,
+    &:before {
+      content: "";
+      position: absolute;
+      background: $grey-three;
+      width: 15px;
+      height: 0.5px;
+      top: 0;
+    }
+    &:after {
+      right: -15px;
+    }
+    &:before {
+      left: -15px;
+    }
+  }
 }
 
-.img-about{
+.img-about {
   display: flex;
   justify-content: center;
-  img{
+  img {
     width: 80%;
   }
 }
 
 .text-about {
+  position: relative;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  .about-me{
+  .about-me {
     padding: 50px 20px;
   }
   h2 {
@@ -45,7 +64,7 @@
       margin: 10px 0;
       color: $grey-two;
       font-size: 13px;
-      div{
+      div {
         width: 70%;
       }
     }
@@ -123,9 +142,9 @@
 /*Media queries*/
 
 /*Tablet*/
-@media screen and (min-width: 640px){
-  .img-about{
-    img{
+@media screen and (min-width: 640px) {
+  .img-about {
+    img {
       width: 50%;
     }
   }
@@ -138,22 +157,28 @@
 
 /*Full-screen*/
 @media screen and (min-width: 960px) {
-
   .about-container {
     flex-direction: row;
     margin: 0 auto;
+    .title-right {
+      border-top: none;
+      &:after,
+      &:before {
+        content: unset;
+      }
+    }
   }
 
-  .img-about{
+  .img-about {
     width: 25%;
-    img{
+    img {
       width: 100%;
     }
   }
 
-  .text-about{
+  .text-about {
     width: 75%;
-    .about-me{
+    .about-me {
       padding: 0 20px;
     }
   }
