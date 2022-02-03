@@ -107,14 +107,24 @@ function InfoProject({
           />
           {value.urlWeb && (
             <span>
-              <a href={value.urlWeb} title="Lien vers le site web">
+              <a
+                href={value.urlWeb}
+                target="_blank"
+                rel="noreferrer"
+                title="Lien vers le site web"
+              >
                 <FontAwesomeIcon icon="link" />
                 Lien vers le site web
               </a>
             </span>
           )}
           <span>
-            <a href={value.urlGithub} title="Lien vers le projet GitHub">
+            <a
+              href={value.urlGithub}
+              target="_blank"
+              rel="noreferrer"
+              title="Lien vers le projet GitHub"
+            >
               <FontAwesomeIcon icon={["fab", "github"]} />
               Lien vers le projet GitHub
             </a>
@@ -132,17 +142,16 @@ function InfoProject({
               </button>
             </div>
           </div>
-
-          {displayDesc}
+          <div>{displayDesc}</div>
           {(frameWorkUsed.length >= 1 || technoUsedBack.length >= 1) && (
             <div className="techno-used">
               {frameWorkUsed.length >= 1 && (
                 <>
                   {frameWorkUsed.length > 1 && (
-                    <h4>Technologies Front-End utilisées</h4>
+                    <h4>Technologies Front-End utilisées :</h4>
                   )}
                   {frameWorkUsed.length === 1 && (
-                    <h4>Technologie Front-End utilisée</h4>
+                    <h4>Technologie Front-End utilisée :</h4>
                   )}
                   <ul>{displayFrameWorkUsed}</ul>
                 </>
@@ -150,10 +159,10 @@ function InfoProject({
               {technoUsedBack.length >= 1 && (
                 <>
                   {technoUsedBack.length > 1 && (
-                    <h4>Technologies Back-End utilisées</h4>
+                    <h4>Technologies Back-End utilisées :</h4>
                   )}
                   {technoUsedBack.length === 1 && (
-                    <h4>Technologie Back-End utilisée</h4>
+                    <h4>Technologie Back-End utilisée :</h4>
                   )}
                   <ul>{displayTechnoUsedBack}</ul>
                 </>
