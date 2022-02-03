@@ -193,7 +193,8 @@ function Portfolio({ isLoaded }) {
                       </div>
                       <div className="project-card-more">
                         <div>
-                          <span
+                          <button
+                            title="Voir le informations du projet"
                             tabIndex={0}
                             onClick={() =>
                               displayProjectInfo(
@@ -211,11 +212,30 @@ function Portfolio({ isLoaded }) {
                             }
                           >
                             <FontAwesomeIcon icon="plus" />
-                          </span>
+                          </button>
                           <span>
-                            <a tabIndex={0} href={item.url}>
-                              <FontAwesomeIcon icon="link" />
-                            </a>
+                            {item.url && (
+                              <a
+                                tabIndex={0}
+                                target="_blank"
+                                rel="noreferrer"
+                                title="Voir le site web du projet"
+                                href={item.url}
+                              >
+                                <FontAwesomeIcon icon="link" />
+                              </a>
+                            )}
+                            {!item.url && (
+                              <a
+                                tabIndex={0}
+                                target="_blank"
+                                rel="noreferrer"
+                                title="Voir le projet sur GitHub"
+                                href={item.urlGithub}
+                              >
+                                <FontAwesomeIcon icon={["fab", "github"]} />
+                              </a>
+                            )}
                           </span>
                         </div>
                       </div>
