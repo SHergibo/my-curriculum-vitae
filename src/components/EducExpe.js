@@ -1,28 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CSSTransition } from 'react-transition-group';
-import DisplayListEducExpe from './DisplayListEducExpe';
-import FormEducExpe from './FormEducExpe';
+import React, { useState, useRef } from "react";
+import { CSSTransition } from "react-transition-group";
+import DisplayListEducExpe from "./DisplayListEducExpe";
+import FormEducExpe from "./FormEducExpe";
+import TitleAction from "./TitleAction";
 
 function EducExpe() {
-  const [titleEducExpe, setTitleEducEpxe] = useState("Éducation / Expérience");
-  const titleRef = useRef(null);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
   const nodeRef = useRef(null);
   const nodeRefTwo = useRef(null);
-
-  useEffect(() => {
-    let windowWidth = window.innerWidth;
-    let titleContainer = titleRef.current;
-    if(windowWidth < 560){
-      setTitleEducEpxe("Éduc / Expé");
-      titleContainer.classList.add("title-mobile-educ-expe");
-    } else if(windowWidth >= 560){
-      setTitleEducEpxe("Éducation / Expérience");
-      titleContainer.classList.remove("title-mobile-educ-expe");
-    }
-  }, []);
 
   let switchForm = () => {
     if (addBtn) {
@@ -32,28 +18,23 @@ function EducExpe() {
       setEditBtn(false);
       setAddBtn(true);
     }
-  }
+  };
 
   return (
     <div className="educExpe-section">
       <div id="educexpe" className="wrapper">
-        <div className="title-left-admin">
-          Éducation / Expérience
-        </div>
+        <div className="title-left-admin">Éducation / Expérience</div>
         <div className="educExpe-container">
-          <div className="title-container">
-            <h2 ref={titleRef} className="title-mobile-educ-expe">{titleEducExpe}</h2>
-            <div className="btn-switch-container">
-              <button onClick={() => switchForm()}>
-                {addBtn && (
-                  <FontAwesomeIcon icon="edit" />
-                )}
-                {editbtn && (
-                  <FontAwesomeIcon icon="plus" />
-                )}
-              </button>
-            </div>
-          </div>
+          <TitleAction
+            title="Éducation / Expérience"
+            btnTitle={
+              addBtn
+                ? "Éditer une éducation / expérience"
+                : "Ajouter une éducation / expérience"
+            }
+            action={switchForm}
+            btnState={{ addBtn, editbtn }}
+          />
 
           <div className="forms-block">
             <CSSTransition
@@ -83,7 +64,7 @@ function EducExpe() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default EducExpe;

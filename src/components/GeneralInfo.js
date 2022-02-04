@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import FormGeneralInfo from "./FormGeneralInfo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "./Modal";
+import TitleAction from "./TitleAction";
 import { displayModalNoValue, closeModal } from "./../utils/modalDisplay";
 import axiosInstance from "./../utils/axiosInstance";
 import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
@@ -58,19 +58,13 @@ function GeneralInfo({ generalInfoState }) {
       <div id="infos" className="wrapper">
         <div className="title-right">Infos générales</div>
         <div ref={divTitleRef} className="info-container">
-          <div className="title-container">
-            <h2>Infos générales</h2>
-            {generalInfo && (
-              <div className="btn-delete-info">
-                <button
-                  title="Supprimer"
-                  onClick={() => displayModalNoValue(setDisplayForm)}
-                >
-                  <FontAwesomeIcon icon="trash-alt" />
-                </button>
-              </div>
-            )}
-          </div>
+          <TitleAction
+            format="delete"
+            title="Infos générales"
+            btnTitle="Supprimer vos informations générales"
+            action={() => displayModalNoValue(setDisplayForm)}
+            btnState={{ generalInfo }}
+          />
 
           <div className="forms-block">
             <FormGeneralInfo generalInfoState={generalInfoState} />

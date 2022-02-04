@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CSSTransition } from 'react-transition-group';
-import DisplayListProjects from './DisplayListProjects';
-import FormProject from './FormProject';
+import React, { useState, useRef } from "react";
+import { CSSTransition } from "react-transition-group";
+import DisplayListProjects from "./DisplayListProjects";
+import FormProject from "./FormProject";
+import TitleAction from "./TitleAction";
 
 function Projects() {
   const [addBtn, setAddBtn] = useState(true);
@@ -18,28 +18,19 @@ function Projects() {
       setEditBtn(false);
       setAddBtn(true);
     }
-  }
+  };
 
   return (
-    <div className="project-section"> 
+    <div className="project-section">
       <div id="projects" className="wrapper">
-        <div className="title-left-admin">
-          Projets
-        </div>
+        <div className="title-left-admin">Projets</div>
         <div className="project-container">
-          <div className="title-container">
-            <h2>Projets</h2>
-            <div className="btn-switch-container">
-              <button onClick={() => switchForm()}>
-                {addBtn && (
-                  <FontAwesomeIcon icon="edit" />
-                )}
-                {editbtn && (
-                  <FontAwesomeIcon icon="plus" />
-                )}
-              </button>
-            </div>
-          </div>
+          <TitleAction
+            title="Projets"
+            btnTitle={addBtn ? "Éditer un projet" : "Ajouter un projet"}
+            action={switchForm}
+            btnState={{ addBtn, editbtn }}
+          />
 
           <div className="forms-block">
             <CSSTransition
@@ -69,7 +60,7 @@ function Projects() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Projects;

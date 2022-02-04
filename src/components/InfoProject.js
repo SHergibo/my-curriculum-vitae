@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { apiDomain, apiVersion } from "../apiConfig/ApiConfig";
 import axios from "axios";
+import TitleAction from "./TitleAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function InfoProject({
@@ -131,17 +132,12 @@ function InfoProject({
           </span>
         </div>
         <div className="info-project">
-          <div className="title-container">
-            <h2>{value.projectName}</h2>
-            <div className="btn-switch-container">
-              <button
-                title="Retourner vers le portfolio"
-                onClick={closeProjectInfo}
-              >
-                <FontAwesomeIcon icon="chevron-left" />
-              </button>
-            </div>
-          </div>
+          <TitleAction
+            format="return"
+            title={value.projectName}
+            btnTitle="Retourner vers le portfolio"
+            action={closeProjectInfo}
+          />
           <div>{displayDesc}</div>
           {(frameWorkUsed.length >= 1 || technoUsedBack.length >= 1) && (
             <div className="techno-used">

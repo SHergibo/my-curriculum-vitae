@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import FormSkill from "./FormSkill";
 import DisplayListSkill from "./DisplayListSkill";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSTransition } from "react-transition-group";
+import TitleAction from "./TitleAction";
 
 function Skills() {
   const [value, setValue] = useState({
@@ -33,15 +33,14 @@ function Skills() {
       <div id="skills" className="wrapper">
         <div className="title-right">Compétences</div>
         <div className="skill-container skill-container-admin">
-          <div className="title-container">
-            <h2>Compétences</h2>
-            <div className="btn-switch-container">
-              <button onClick={() => switchForm()}>
-                {addBtn && <FontAwesomeIcon icon="edit" />}
-                {editbtn && <FontAwesomeIcon icon="plus" />}
-              </button>
-            </div>
-          </div>
+          <TitleAction
+            title="Compétences"
+            btnTitle={
+              addBtn ? "Éditer une compétence" : "Ajouter une compétence"
+            }
+            action={switchForm}
+            btnState={{ addBtn, editbtn }}
+          />
 
           <div className="forms-block">
             <CSSTransition
