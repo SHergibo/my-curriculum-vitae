@@ -34,7 +34,7 @@ function FormGeneralInfo({ generalInfoState }) {
   });
 
   useEffect(() => {
-    if (value) {
+    if (value?.firstname) {
       setTitleForm("Édition");
       setButton("Éditer");
     }
@@ -487,9 +487,9 @@ function FormGeneralInfo({ generalInfoState }) {
       <h3>{titleForm}</h3>
       <form
         onSubmit={(e) => {
-          if (value) {
+          if (value?.firstname) {
             handleSubmit(onSubmitEdit)(e);
-          } else if (!value) {
+          } else if (!value?.firstname) {
             handleSubmit(onSubmitAdd)(e);
           }
         }}
