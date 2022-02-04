@@ -52,9 +52,9 @@ function App() {
           response.data.isoDate = response.data.birthdate;
           response.data.birthdate = formatDate;
           setGeneralInfo(response.data);
-          setLoading(false);
-          setIsLoaded(true);
         }
+        setLoading(false);
+        setIsLoaded(true);
       })
       .catch((error) => {
         let jsonError = JSON.parse(JSON.stringify(error));
