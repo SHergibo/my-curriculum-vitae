@@ -57,6 +57,18 @@
       margin-left: 15px;
     }
   }
+
+  .h2after50 {
+    &:after {
+      bottom: 50px;
+    }
+  }
+
+  .h2after75 {
+    &:after {
+      bottom: 75px;
+    }
+  }
 }
 
 @mixin form-input() {
