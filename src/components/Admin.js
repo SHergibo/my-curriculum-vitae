@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Home from './Home';
-import Navbar from './Navbar';
-import GeneralInfo from './GeneralInfo';
-import Footer from './Footer';
-import BackToTop from './BackToTop';
-import { refreshToken } from './../utils/Auth';
-import EducExpe from './EducExpe';
-import Skills from './Skills';
-import Projects from './Projects';
-import PropTypes from 'prop-types';
-
+import React, { useEffect, useState, useRef } from "react";
+import Home from "./Home";
+import Navbar from "./Navbar";
+import GeneralInfo from "./GeneralInfo";
+import Footer from "./Footer";
+import BackToTop from "./BackToTop";
+import { refreshToken } from "./../utils/Auth";
+import EducExpe from "./EducExpe";
+import Skills from "./Skills";
+import Projects from "./Projects";
+import PropTypes from "prop-types";
 
 function Admin({ generalInfoAdmin }) {
   const headerRef = useRef(null);
@@ -17,22 +16,22 @@ function Admin({ generalInfoAdmin }) {
   const [generalInfo, setGeneralInfo] = useState({
     firstname: "",
     lastname: "",
-    "address":{
-      "street":"",
-      "number":"",
-      "zip":"",
-      "city":""
+    address: {
+      street: "",
+      number: "",
+      zip: "",
+      city: "",
     },
-    "phone":"",
-    "email":"",
-    "birthdate":"",
-    "isoDate":"",
-    "licence":""
+    phone: "",
+    email: "",
+    birthdate: "",
+    isoDate: "",
+    licence: "",
   });
 
   useEffect(() => {
-    if(generalInfoAdmin){
-      setGeneralInfo(generalInfoAdmin)
+    if (generalInfoAdmin) {
+      setGeneralInfo(generalInfoAdmin);
     }
   }, [generalInfoAdmin]);
 
@@ -44,7 +43,7 @@ function Admin({ generalInfoAdmin }) {
 
     return () => {
       clearInterval(refreshTokenInterval);
-    }
+    };
   }, []);
 
   return (
@@ -54,7 +53,7 @@ function Admin({ generalInfoAdmin }) {
         <Navbar headerRef={headerRef} />
       </header>
       <main>
-        <GeneralInfo generalInfoState={{generalInfo, setGeneralInfo}} />
+        <GeneralInfo generalInfoState={{ generalInfo, setGeneralInfo }} />
         <EducExpe />
         <Skills />
         <Projects />
@@ -64,12 +63,11 @@ function Admin({ generalInfoAdmin }) {
       </footer>
       <BackToTop />
     </>
-  )
+  );
 }
 
 Admin.propTypes = {
-  generalInfoAdmin: PropTypes.object.isRequired
-}
+  generalInfoAdmin: PropTypes.object.isRequired,
+};
 
 export default Admin;
-
