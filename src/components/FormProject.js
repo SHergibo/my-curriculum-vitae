@@ -81,17 +81,17 @@ function FormProject({ value, projectState, setDisplayForm }) {
     formData.append(
       "technoUsedFront",
       JSON.stringify({
-        react: data.react,
-        ember: data.ember,
-        angular: data.angular,
+        React: data.react,
+        Ember: data.ember,
+        Angular: data.angular,
       })
     );
     formData.append(
       "technoUsedBack",
       JSON.stringify({
-        express: data.express,
-        nodejs: data.nodejs,
-        mongodb: data.mongodb,
+        Express: data.express,
+        NodeJs: data.nodejs,
+        MongoDB: data.mongodb,
       })
     );
     const getListProjectPoint = `${apiDomain}/api/${apiVersion}/projects`;
@@ -131,17 +131,17 @@ function FormProject({ value, projectState, setDisplayForm }) {
     formData.append(
       "technoUsedFront",
       JSON.stringify({
-        react: data.react,
-        ember: data.ember,
-        angular: data.angular,
+        React: data.react,
+        Ember: data.ember,
+        Angular: data.angular,
       })
     );
     formData.append(
       "technoUsedBack",
       JSON.stringify({
-        express: data.express,
-        nodejs: data.nodejs,
-        mongodb: data.mongodb,
+        Express: data.express,
+        NodeJs: data.nodejs,
+        MongoDB: data.mongodb,
       })
     );
     const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/projects/${value._id}`;
@@ -278,7 +278,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
                     <input
                       type="checkbox"
                       name="react"
-                      defaultChecked={value.technoUsedFront.react}
+                      defaultChecked={value.technoUsedFront.React}
                       ref={register({ required: false })}
                     />
                   )}
@@ -297,7 +297,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
                     <input
                       type="checkbox"
                       name="ember"
-                      defaultChecked={value.technoUsedFront.ember}
+                      defaultChecked={value.technoUsedFront.Ember}
                       ref={register({ required: false })}
                     />
                   )}
@@ -316,7 +316,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
                     <input
                       type="checkbox"
                       name="angular"
-                      defaultChecked={value.technoUsedFront.angular}
+                      defaultChecked={value.technoUsedFront.Angular}
                       ref={register({ required: false })}
                     />
                   )}
@@ -340,7 +340,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
                     <input
                       type="checkbox"
                       name="express"
-                      defaultChecked={value.technoUsedBack.express}
+                      defaultChecked={value.technoUsedBack.Express}
                       ref={register({ required: false })}
                     />
                   )}
@@ -359,7 +359,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
                     <input
                       type="checkbox"
                       name="nodejs"
-                      defaultChecked={value.technoUsedBack.nodejs}
+                      defaultChecked={value.technoUsedBack.NodeJs}
                       ref={register({ required: false })}
                     />
                   )}
@@ -378,7 +378,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
                     <input
                       type="checkbox"
                       name="mongodb"
-                      defaultChecked={value.technoUsedBack.mongodb}
+                      defaultChecked={value.technoUsedBack.MongoDB}
                       ref={register({ required: false })}
                     />
                   )}
