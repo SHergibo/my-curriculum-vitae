@@ -42,14 +42,14 @@ function FormGeneralInfo({ generalInfoState }) {
 
   useEffect(() => {
     register({ name: "dateBirthday" }, { required: true });
-    if (value && value.isoDate) {
-      setDateBirthday(parseISO(value.isoDate));
-      setValue("dateBirthday", parseISO(value.isoDate));
+    if (generalInfo && generalInfo.isoDate) {
+      setDateBirthday(parseISO(generalInfo.isoDate));
+      setValue("dateBirthday", parseISO(generalInfo.isoDate));
     } else {
       setDateBirthday(null);
       setValue("dateBirthday", null);
     }
-  }, [register, setValue, value]);
+  }, [register, setValue, generalInfo]);
 
   const workingData = (data) => {
     return {
@@ -94,6 +94,7 @@ function FormGeneralInfo({ generalInfoState }) {
           setTimeoutSuccess,
           setSpanSuccess
         );
+        response.data.isoDate = response.data.birthdate;
         setGeneralInfo(response.data);
       })
       .catch(() => {
@@ -408,7 +409,7 @@ function FormGeneralInfo({ generalInfoState }) {
               }}
             />
           </div>
-          {errors.birthDate && (
+          {errors.dateBirthday && (
             <span className="error-message-form">Ce champ est requis</span>
           )}
         </div>
