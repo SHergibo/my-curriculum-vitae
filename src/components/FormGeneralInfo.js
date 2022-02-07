@@ -29,6 +29,7 @@ function FormGeneralInfo({ generalInfoState }) {
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
+  const datePickerRef = useRef();
   const { register, handleSubmit, errors, setValue } = useForm({
     mode: "onChange",
   });
@@ -370,6 +371,9 @@ function FormGeneralInfo({ generalInfoState }) {
                 type="text"
                 id="city"
                 placeholder="Ville"
+                onKeyUp={(e) => {
+                  if (e.key === "Tab") datePickerRef.current.setOpen(false);
+                }}
                 ref={register({ required: true })}
               />
             )}
@@ -379,6 +383,9 @@ function FormGeneralInfo({ generalInfoState }) {
                 type="text"
                 id="city"
                 placeholder="Ville"
+                onKeyUp={(e) => {
+                  if (e.key === "Tab") datePickerRef.current.setOpen(false);
+                }}
                 defaultValue={value.address.city}
                 ref={register({ required: true })}
               />
@@ -397,12 +404,14 @@ function FormGeneralInfo({ generalInfoState }) {
               <FontAwesomeIcon icon="birthday-cake" />
             </span>
             <DatePicker
+              ref={datePickerRef}
               id="birthDate"
               isClearable
               placeholderText="Date de naissance"
               dateFormat="dd/MM/yyyy"
               locale="fr"
               selected={dateBirthday}
+              enableTabLoop={false}
               onChange={(val) => {
                 setDateBirthday(val);
                 setValue("dateBirthday", val);
@@ -425,6 +434,9 @@ function FormGeneralInfo({ generalInfoState }) {
                 type="text"
                 id="driverLicence"
                 placeholder="Permis de conduire"
+                onKeyUp={(e) => {
+                  if (e.key === "Tab") datePickerRef.current.setOpen(false);
+                }}
                 ref={register({ required: true })}
               />
             )}
@@ -434,6 +446,9 @@ function FormGeneralInfo({ generalInfoState }) {
                 type="text"
                 id="driverLicence"
                 placeholder="Permis de conduire"
+                onKeyUp={(e) => {
+                  if (e.key === "Tab") datePickerRef.current.setOpen(false);
+                }}
                 defaultValue={value.licence}
                 ref={register({ required: true })}
               />
