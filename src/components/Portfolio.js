@@ -81,6 +81,9 @@ function Portfolio({ isLoaded }) {
         ]);
       });
     }
+    arrayProject[findIndexProject + 1]
+      ? setNextProject(true)
+      : setNextProject(false);
   };
 
   const switchProjectCarousel = async (increment) => {
