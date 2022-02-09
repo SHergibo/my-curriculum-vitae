@@ -1,52 +1,9 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: var(--font-poppins);
-  line-height: 1.4;
-  background-color: var(--principal-color);
-}
-
-input,
-textarea {
-  font-family: var(--font-poppins);
-}
-
-a {
-  color: #333;
-  text-decoration: none;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.App {
-  overflow: hidden;
-  position: relative;
-}
-
 .wrapper,
 .wrapper-project {
   box-sizing: content-box;
   max-width: 960px;
   margin-left: auto;
   margin-right: auto;
-}
-
-header {
-  position: relative;
-  height: 100vh;
-}
-
-main {
-  background-color: var(--principal-color);
-  position: relative;
 }
 
 .title-left {
