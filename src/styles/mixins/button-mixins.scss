@@ -1,0 +1,65 @@
+@mixin btn($height, $margin, $width) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+  height: $height;
+  margin: $margin;
+  width: $width;
+  background-color: var(--blue);
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  font-family: var(--font-poppins);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: var(--blue-hover);
+  }
+  &:focus {
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
+    background-color: var(--blue-hover);
+  }
+}
+
+@mixin btn-admin($color, $color-hover) {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color;
+  color: var(--principal-color);
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: $color-hover;
+    color: var(--grey-one);
+  }
+}
+
+@mixin btn-close($top, $right, $size, $fSize) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  width: $size;
+  height: $size;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--blue);
+  font-size: $fSize;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    color: var(--principal-color);
+    transform: scale(1.1);
+  }
+}
