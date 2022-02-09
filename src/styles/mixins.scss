@@ -88,16 +88,16 @@
   }
   ::placeholder {
     color: var(--grey-two);
-    font-family: "Poppins", sans-serif;
+    font-family: var(--font-poppins);
     opacity: 1;
   }
   :-ms-input-placeholder {
     color: var(--grey-two);
-    font-family: "Poppins", sans-serif;
+    font-family: var(--font-poppins);
   }
   ::-ms-input-placeholder {
     color: var(--grey-two);
-    font-family: "Poppins", sans-serif;
+    font-family: var(--font-poppins);
   }
   &:focus-within .input-block {
     border: var(--border);
@@ -118,7 +118,7 @@
   color: #ffffff;
   font-size: 15px;
   font-weight: 900;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-poppins);
   cursor: pointer;
   transition: 0.2s ease-in-out;
   &:hover {
