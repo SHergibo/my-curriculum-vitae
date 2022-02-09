@@ -2,7 +2,7 @@
 .educExpe-section,
 .skill-section,
 .project-section {
-  border-bottom: $border;
+  border-bottom: var(--border);
 }
 
 .info-container,
@@ -78,7 +78,7 @@
   li {
     display: flex;
     flex-direction: column;
-    color: $grey-two;
+    color: var(--grey-two);
     margin: 15px 0;
     .div-list-container,
     .div-list-btn-container {

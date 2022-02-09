@@ -35,7 +35,7 @@
       align-items: center;
       width: 40px;
       height: 40px;
-      color: $grey-two;
+      color: var(--grey-two);
       margin: 0 5px;
       svg {
         width: 25px !important;
@@ -49,66 +49,70 @@
       width: 100%;
       padding-right: 10px;
       font-size: 16px;
-      color: $grey-two;
+      color: var(--grey-two);
     }
-    input[type=file]{
+    input[type="file"] {
       opacity: 0;
       z-index: 10;
       position: absolute;
       top: 0;
       height: 100%;
     }
-    .container-input-file{
+    .container-input-file {
       width: 100%;
       position: relative;
-      span{
+      span {
         justify-content: flex-start;
         width: 100%;
         z-index: 9;
       }
     }
-    .react-datepicker-wrapper{
+    .react-datepicker-wrapper {
       width: 90%;
     }
-    .react-datepicker-wrapper, .react-datepicker__input-container{
+    .react-datepicker-wrapper,
+    .react-datepicker__input-container {
       background-color: transparent;
       border: none;
     }
-    .react-datepicker, .react-datepicker__header  {
+    .react-datepicker,
+    .react-datepicker__header {
       flex-direction: column;
-      background-color: $principal-color;
+      background-color: var(--principal-color);
       border-radius: 0;
     }
-    .react-datepicker__month-container{
+    .react-datepicker__month-container {
       flex-direction: column;
       width: 250px;
     }
-    .react-datepicker__month{
+    .react-datepicker__month {
       flex-wrap: wrap;
     }
-    .react-datepicker__current-month, .react-datepicker__day-name, .react-datepicker__day{
+    .react-datepicker__current-month,
+    .react-datepicker__day-name,
+    .react-datepicker__day {
       color: #ffffff;
     }
-    .react-datepicker__day{
-      transition: .2s ease-in-out;
-      &:hover{
-        color: $blue;
+    .react-datepicker__day {
+      transition: 0.2s ease-in-out;
+      &:hover {
+        color: var(--blue);
       }
     }
-    .react-datepicker__close-icon{
-      &:after{
-        background-color: $blue;
+    .react-datepicker__close-icon {
+      &:after {
+        background-color: var(--blue);
       }
     }
   }
 }
 
-.input-file{
+.input-file {
   overflow: hidden;
-  label{
+  label {
     display: flex;
     align-items: center;
-    background-color: $blue;
+    background-color: var(--blue);
     height: 40px;
     padding: 0 20px;
     margin: 0;
@@ -126,7 +130,7 @@
       width: 100%;
       height: 200px;
       font-size: 16px;
-      color: $grey-two;
+      color: var(--grey-two);
     }
   }
 }
@@ -136,7 +140,8 @@
   align-items: center;
 }
 
-.container-radio, .container-checkbox {
+.container-radio,
+.container-checkbox {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -150,7 +155,8 @@
   user-select: none;
 }
 
-.container-radio input, .container-checkbox input {
+.container-radio input,
+.container-checkbox input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -169,7 +175,7 @@
   width: 25px;
   background-color: #eee;
   border-radius: 50%;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .checkmark-checkbox {
@@ -178,39 +184,42 @@
   left: 0;
   height: 25px;
   width: 25px;
-  border: 1px solid $grey-one;
+  border: 1px solid var(--grey-one);
   border-radius: 5px;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .container-radio:hover input ~ .checkmark-radio {
   background-color: #ccc;
 }
-.container-checkbox:hover input ~ .checkmark-checkbox{
-  border-color: $blue;
+.container-checkbox:hover input ~ .checkmark-checkbox {
+  border-color: var(--blue);
 }
 
-.container-radio input:checked ~ .checkmark-radio, .container-checkbox input:checked ~ .checkmark-checkbox {
-  background-color: #2196F3;
+.container-radio input:checked ~ .checkmark-radio,
+.container-checkbox input:checked ~ .checkmark-checkbox {
+  background-color: #2196f3;
 }
 
-.checkmark-radio:after, .checkmark-checkbox:after{
+.checkmark-radio:after,
+.checkmark-checkbox:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-.container-radio input:checked ~ .checkmark-radio:after, .container-checkbox input:checked ~ .checkmark-checkbox:after {
+.container-radio input:checked ~ .checkmark-radio:after,
+.container-checkbox input:checked ~ .checkmark-checkbox:after {
   display: block;
 }
 
 .container-radio .checkmark-radio:after {
- 	top: 9px;
-	left: 9px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
 }
 
 .container-checkbox .checkmark-checkbox:after {

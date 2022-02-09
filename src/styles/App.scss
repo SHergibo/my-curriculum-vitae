@@ -9,10 +9,11 @@
 body {
   font-family: "Poppins", sans-serif;
   line-height: 1.4;
-  background-color: $principal-color;
+  background-color: var(--principal-color);
 }
 
-input, textarea{
+input,
+textarea {
   font-family: "Poppins", sans-serif;
 }
 
@@ -27,12 +28,13 @@ ul {
   list-style: none;
 }
 
-.App{
+.App {
   overflow: hidden;
   position: relative;
 }
 
-.wrapper, .wrapper-project {
+.wrapper,
+.wrapper-project {
   box-sizing: content-box;
   max-width: 960px;
   margin-left: auto;
@@ -44,35 +46,35 @@ header {
   height: 100vh;
 }
 
-main{
-  background-color: $principal-color;
+main {
+  background-color: var(--principal-color);
   position: relative;
 }
 
-.title-left{
+.title-left {
   @include sub-title;
   justify-content: flex-start;
-  border-left: $border;
+  border-left: var(--border);
   padding-left: 15px;
   position: absolute;
 }
 
-.title-left-admin{
+.title-left-admin {
   @include sub-title;
   justify-content: flex-start;
-  border-left: $border;
+  border-left: var(--border);
   padding-left: 15px;
 }
 
-.title-right{
+.title-right {
   @include sub-title;
   justify-content: flex-end;
-  border-right: $border;
+  border-right: var(--border);
   padding-right: 15px;
 }
 
 /*Full-screen*/
-@media screen and (min-width: 1087px){
+@media screen and (min-width: 1087px) {
   .wrapper-project {
     max-width: 1072px;
   }

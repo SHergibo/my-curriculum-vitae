@@ -16,42 +16,40 @@
   flex-direction: column;
   height: 100%;
   position: relative;
-  background-color: $principal-color;
+  background-color: var(--principal-color);
   padding: 20px 15px;
   overflow-y: auto;
-
 }
 
 .close-modal {
   @include btn-close(15px, 5px, 35px, 20px);
-  &:focus{
-    outline-style:none;
-    box-shadow:none;
-    border-color:transparent;
+  &:focus {
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
   }
 }
-
 
 /*Media queries*/
 
 /*Tablet*/
-@media screen and (min-width: 640px){
-  .modal-container{
+@media screen and (min-width: 640px) {
+  .modal-container {
     height: auto;
     padding: 50px;
-    -webkit-box-shadow: 0px 15px 36px -11px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 15px 36px -11px rgba(0,0,0,0.75);
-    box-shadow: 0px 15px 36px -11px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 15px 36px -11px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 15px 36px -11px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 15px 36px -11px rgba(0, 0, 0, 0.75);
   }
-  .close-modal{
+  .close-modal {
     top: 10px;
     right: 10px;
   }
 }
 
 /*Full-screen*/
-@media screen and (min-width: 960px){
-  .modal-container{
+@media screen and (min-width: 960px) {
+  .modal-container {
     width: 960px;
   }
 }

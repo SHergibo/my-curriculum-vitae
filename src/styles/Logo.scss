@@ -10,25 +10,25 @@
       height: 30px;
       top: 50%;
       margin-top: -15px;
-      background: $blue;
+      background: var(--blue);
       left: 3px;
       border-radius: 50%;
       z-index: 0;
     }
     span {
       position: relative;
-      color: $grey-one;
+      color: var(--grey-one);
       font-weight: 700;
       font-size: 1.3rem;
-      transition: color .2s ease-in-out;
+      transition: color 0.2s ease-in-out;
     }
-    &:focus{
-      outline-style:none;
-      box-shadow:none;
-      border-color:transparent;
+    &:focus {
+      outline-style: none;
+      box-shadow: none;
+      border-color: transparent;
     }
-    &:focus-visible{
-      span{
+    &:focus-visible {
+      span {
         color: #ffffff;
       }
     }

@@ -1,6 +1,6 @@
 .footer {
-  background-color: $principal-color;
-  border-top: $border;
+  background-color: var(--principal-color);
+  border-top: var(--border);
 }
 
 .footer-container {
@@ -17,13 +17,13 @@
     text-decoration: none;
     font-weight: 700;
     height: 80px;
-    &:focus{
-      outline-style:none;
-      box-shadow:none;
-      border-color:transparent;
-      svg{
-        path{
-          fill:#ffffff
+    &:focus {
+      outline-style: none;
+      box-shadow: none;
+      border-color: transparent;
+      svg {
+        path {
+          fill: #ffffff;
         }
       }
     }
@@ -31,7 +31,7 @@
 }
 
 .social-footer {
-  ul{ 
+  ul {
     display: flex;
   }
   @include svgFill(20px);
@@ -39,7 +39,7 @@
 
 /*Media queries*/
 
-@media screen and (min-width: 960px){
+@media screen and (min-width: 960px) {
   .footer-container {
     padding: 0;
   }

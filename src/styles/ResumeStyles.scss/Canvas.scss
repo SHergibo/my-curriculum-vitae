@@ -11,34 +11,34 @@
   }
 }
 
-.canvas{
+.canvas {
   position: relative;
-  span{
+  span {
     width: 100%;
     position: absolute;
     top: calc(50% - 20px);
     left: 0;
-    color: $grey-three;
+    color: var(--grey-three);
     font-size: 35px;
     font-weight: 900;
     line-height: 19px;
     transition: 0.2s ease-in-out;
-    svg{
-     height: 35px;
-     path{
-       fill: $grey-three;
-       transition: 0.2s ease-in-out;
-     }
-     &:hover{
-       path{
-         fill: $blue;
-       }
-     }
+    svg {
+      height: 35px;
+      path {
+        fill: var(--grey-three);
+        transition: 0.2s ease-in-out;
+      }
+      &:hover {
+        path {
+          fill: var(--blue);
+        }
+      }
     }
   }
-  &:hover{
-    span{
-      color: $blue;
+  &:hover {
+    span {
+      color: var(--blue);
     }
   }
 }

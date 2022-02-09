@@ -1,6 +1,6 @@
 .main-menu {
   background-color: #05182c;
-  border-bottom: $border;
+  border-bottom: var(--border);
   position: absolute;
   left: 0;
   right: 0;
@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    a{
+    a {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,7 +26,7 @@
   }
 }
 
-.menu-fixed{
+.menu-fixed {
   position: fixed;
   top: 0;
   bottom: unset;
@@ -36,9 +36,9 @@
   position: absolute;
   top: 80px;
   left: 0;
-  background-color: $principal-color;
+  background-color: var(--principal-color);
   width: 100%;
-  border-bottom: $border;
+  border-bottom: var(--border);
   display: none;
   .list-menu {
     display: flex;
@@ -46,40 +46,40 @@
     align-items: center;
     li {
       width: 100%;
-      .active{
+      .active {
         color: #ffffff;
       }
-      &:focus{
-        outline-style:none;
-        box-shadow:none;
-        border-color:transparent;
+      &:focus {
+        outline-style: none;
+        box-shadow: none;
+        border-color: transparent;
       }
-      &:focus-visible{
-        a{
+      &:focus-visible {
+        a {
           color: #ffffff;
         }
       }
-    } 
+    }
   }
   a {
-    color: $grey-one;
+    color: var(--grey-one);
     transition: 0.2s ease-in-out;
     cursor: pointer;
     &:hover {
-      color: $grey-two;
+      color: var(--grey-two);
     }
   }
 }
 
-.social{
-  ul{
+.social {
+  ul {
     display: none;
   }
 }
 
-.social-mobile{
+.social-mobile {
   padding-bottom: 20px;
-  ul{
+  ul {
     display: flex;
     justify-content: center;
   }
@@ -87,14 +87,14 @@
 
 .social-svg {
   @include svgFill(20px);
-  a{
-    &:focus{
-      outline-style:none;
-      box-shadow:none;
-      border-color:transparent;
-      svg{
-        path{
-          fill:#ffffff
+  a {
+    &:focus {
+      outline-style: none;
+      box-shadow: none;
+      border-color: transparent;
+      svg {
+        path {
+          fill: #ffffff;
         }
       }
     }
@@ -102,20 +102,20 @@
 }
 
 .burger-menu-svg {
-  @include svgFill(30px)
+  @include svgFill(30px);
 }
 
-.logoutSvg{
+.logoutSvg {
   display: flex;
   align-items: center;
   height: 65px;
   padding: 0 15px;
   cursor: pointer;
   @include svgStroke(30px);
-  &:focus{
-    outline-style:none;
-    box-shadow:none;
-    border-color:transparent;
+  &:focus {
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
     svg {
       path {
         stroke: #ffffff;
@@ -125,43 +125,41 @@
   }
 }
 
-.display-block{
+.display-block {
   display: block;
 }
 
-.display-svg-menu{
+.display-svg-menu {
   display: none;
 }
-
 
 /*Media queries*/
 
 /*Tablet*/
-@media screen and (min-width: 640px){
-  .menu{
-    .list-menu{
+@media screen and (min-width: 640px) {
+  .menu {
+    .list-menu {
       flex-direction: row;
       justify-content: center;
-      li{
+      li {
         width: auto;
       }
     }
   }
-  .social-mobile{
+  .social-mobile {
     padding: 0;
   }
 }
 
 /*Full-screen*/
-@media screen and (min-width: 960px){
-
-  .maine-menu{
-    .container-nav{
+@media screen and (min-width: 960px) {
+  .maine-menu {
+    .container-nav {
       padding: 0;
     }
   }
 
-  .menu{
+  .menu {
     display: flex;
     justify-content: center;
     border: none;
@@ -169,19 +167,19 @@
     top: unset;
   }
 
-  .social{
-    ul{
+  .social {
+    ul {
       display: flex;
     }
   }
-  
-  .social-mobile{
-    ul{
+
+  .social-mobile {
+    ul {
       display: none;
     }
   }
 
-  .burger-menu-svg{
+  .burger-menu-svg {
     display: none;
   }
 }

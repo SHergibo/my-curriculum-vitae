@@ -16,7 +16,7 @@
     &:after {
       content: "";
       position: absolute;
-      background: $grey-four;
+      background: var(--grey-four);
       width: 100%;
       height: 1px;
       bottom: 22px;

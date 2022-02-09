@@ -1,6 +1,6 @@
 .portfolio-container,
 .project-section {
-  border-bottom: $border;
+  border-bottom: var(--border);
 }
 
 .portfolio,
@@ -52,7 +52,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    background-color: $principal-color;
+    background-color: var(--principal-color);
     padding: 3px 9px;
     border-top-right-radius: 7px;
     color: #ffffff;
@@ -73,7 +73,7 @@
     align-items: center;
     margin: 10px;
     border-radius: 7px;
-    background-color: $principal-hover;
+    background-color: var(--principal-hover);
     transition: opacity ease-in-out 0.5s;
     div {
       width: 100px;
@@ -86,7 +86,7 @@
         align-items: center;
         width: 45px;
         height: 45px;
-        background-color: $blue;
+        background-color: var(--blue);
         border: none;
         border-radius: 5px;
         color: #ffffff;
@@ -101,14 +101,14 @@
           color: #ffffff;
         }
         &:hover {
-          background-color: $blue-hover;
+          background-color: var(--blue-hover);
         }
       }
     }
   }
   &:hover {
     .project-card-name {
-      color: $blue;
+      color: var(--blue);
     }
     .project-card-more {
       opacity: 1;
@@ -141,13 +141,13 @@
       justify-content: center;
       align-items: center;
       background-color: #50e3c2;
-      color: $principal-color;
+      color: var(--principal-color);
       outline: none;
       cursor: pointer;
       transition: 0.3s ease-in-out;
       &:hover {
         background-color: #2336b6;
-        color: $grey-one;
+        color: var(--grey-one);
       }
     }
     #chevronR {
@@ -201,7 +201,7 @@
     .techno-used {
       margin-top: 20px;
       h4 {
-        color: $grey-one;
+        color: var(--grey-one);
       }
       ul {
         display: flex;
@@ -211,12 +211,12 @@
           margin-right: 10px;
           padding: 5px 8px 5px 8px;
           border-radius: 3px;
-          background-color: $blue;
+          background-color: var(--blue);
           color: #ffffff;
           text-transform: capitalize;
           transition: background-color 0.2s ease-in-out;
           &:hover {
-            background-color: $blue-hover;
+            background-color: var(--blue-hover);
           }
         }
       }

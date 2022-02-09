@@ -1,31 +1,31 @@
-.loading-container{
+.loading-container {
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  background-color: $principal-color;
+  background-color: var(--principal-color);
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   opacity: 1;
-  transition: .5s ease-in-out;
-  .loader{
+  transition: 0.5s ease-in-out;
+  .loader {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    p{
+    p {
       font-size: 1.5rem;
-      color: $blue;
+      color: var(--blue);
       margin-bottom: 1rem;
       text-align: center;
     }
   }
 }
 
-.btn-action{
+.btn-action {
   @include btn(60px, 30px 0, auto);
   svg {
     margin-left: 6px;

@@ -1,37 +1,37 @@
-.pagination{
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 3.5rem;
 }
 
-.action-pagination{
+.action-pagination {
   display: flex;
-  button{
+  button {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    color: $white;
+    color: var(--white);
     border: none;
-    padding: 0 .3rem;
+    padding: 0 0.3rem;
     font-size: 1.7rem;
     cursor: pointer;
   }
-  span{
+  span {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 .3rem;
-    color: $white;
+    margin: 0 0.3rem;
+    color: var(--white);
 
-    input{
+    input {
       width: 1.8rem;
       height: 1.9rem;
-      margin: 0 .3rem;
-      border: 1px solid $white;
-      border-radius: .2rem;
-      color: $principal-color;
+      margin: 0 0.3rem;
+      border: 1px solid var(--white);
+      border-radius: 0.2rem;
+      color: var(--principal-color);
       font-size: 1rem;
       text-align: center;
       -moz-appearance: textfield;

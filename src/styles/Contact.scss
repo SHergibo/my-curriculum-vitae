@@ -1,5 +1,5 @@
 .contact-container {
-  border-top: $border;
+  border-top: var(--border);
 }
 
 .contact {
@@ -10,14 +10,14 @@
 }
 
 .contact-form {
-  border-bottom: $border;
+  border-bottom: var(--border);
   padding-top: 80px;
   @include title();
   p {
     margin: 20px 0;
     font-size: 16px;
     font-weight: 900;
-    color: $grey-two;
+    color: var(--grey-two);
   }
 }
 
@@ -29,18 +29,18 @@
     li {
       display: flex;
       align-items: center;
-      color: $grey-two;
+      color: var(--grey-two);
       font-size: 15px;
       padding: 10px 0;
       span {
         width: 40px;
         text-align: center;
         svg {
-          color: $blue;
+          color: var(--blue);
         }
       }
       &:not(:last-child) {
-        border-bottom: $border;
+        border-bottom: var(--border);
       }
       div {
         display: inline-block;
@@ -68,7 +68,7 @@
   .contact-form {
     width: 70%;
     padding-right: 35px;
-    border-right: $border;
+    border-right: var(--border);
     border-bottom: none;
     padding-bottom: 30px;
   }

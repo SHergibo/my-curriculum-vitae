@@ -9,12 +9,12 @@
   position: relative;
   margin: 0 15px;
   .title-right {
-    border-top: $border;
+    border-top: var(--border);
     &:after,
     &:before {
       content: "";
       position: absolute;
-      background: $grey-three;
+      background: var(--grey-three);
       width: 15px;
       height: 0.5px;
       top: 0;
@@ -49,7 +49,7 @@
     font-size: 30px;
   }
   p {
-    color: $grey-one;
+    color: var(--grey-one);
   }
 }
 
@@ -62,7 +62,7 @@
       display: flex;
       align-items: center;
       margin: 10px 0;
-      color: $grey-two;
+      color: var(--grey-two);
       font-size: 13px;
       div {
         width: 70%;
@@ -71,7 +71,7 @@
   }
   span {
     display: inline-block;
-    color: $grey-one;
+    color: var(--grey-one);
     width: 30%;
   }
   &:before {
@@ -97,15 +97,15 @@
 
 .about-job-container {
   width: 100%;
-  border-bottom: $border;
-  border-top: $border;
+  border-bottom: var(--border);
+  border-top: var(--border);
 }
 
 .about-job {
   display: flex;
   justify-content: space-between;
   div:first-child {
-    border-left: $border;
+    border-left: var(--border);
     display: none;
   }
   div:last-child {
@@ -118,10 +118,10 @@
     align-items: center;
     width: 50%;
     height: 150px;
-    border-right: $border;
+    border-right: var(--border);
     svg {
       path {
-        fill: $grey-two;
+        fill: var(--grey-two);
       }
     }
     .svg-inline--fa {
