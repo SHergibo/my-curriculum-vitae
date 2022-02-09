@@ -1,0 +1,32 @@
+@mixin svgFill($height) {
+  svg {
+    height: $height;
+    path {
+      fill: var(--grey-one);
+      transition: 0.2s ease-in-out;
+    }
+    &:hover {
+      path {
+        fill: var(--grey-two);
+      }
+    }
+  }
+}
+
+@mixin svgStroke($height) {
+  svg {
+    height: $height;
+    path {
+      stroke: var(--grey-one);
+      fill: none;
+      transition: 0.2s ease-in-out;
+    }
+    &:hover,
+    &:focus {
+      path {
+        stroke: var(--grey-two);
+        fill: none;
+      }
+    }
+  }
+}
