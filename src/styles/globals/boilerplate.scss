@@ -1,0 +1,45 @@
+html {
+  font-size: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-poppins);
+  line-height: 1.4;
+  background-color: var(--principal-color);
+}
+
+input,
+textarea {
+  font-family: var(--font-poppins);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header {
+  position: relative;
+  height: 100vh;
+}
+
+main {
+  background-color: var(--principal-color);
+  position: relative;
+}
