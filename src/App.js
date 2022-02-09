@@ -69,7 +69,7 @@ function App() {
   }, [getData]);
 
   return (
-    <div className="App">
+    <div>
       {location.pathname !== "/login" && (
         <Loading
           loading={loading}
