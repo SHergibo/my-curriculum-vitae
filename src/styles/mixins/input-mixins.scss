@@ -1,0 +1,32 @@
+@mixin form-input() {
+  label {
+    display: block;
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .input-block {
+    display: flex;
+    align-items: center;
+    background-color: var(--grey-four);
+    border-radius: 5px;
+    border: 0.5px solid transparent;
+    transition: 0.2s ease-in border;
+  }
+  ::placeholder {
+    color: var(--grey-two);
+    font-family: var(--font-poppins);
+    opacity: 1;
+  }
+  :-ms-input-placeholder {
+    color: var(--grey-two);
+    font-family: var(--font-poppins);
+  }
+  ::-ms-input-placeholder {
+    color: var(--grey-two);
+    font-family: var(--font-poppins);
+  }
+  &:focus-within .input-block {
+    border: var(--border);
+  }
+}
