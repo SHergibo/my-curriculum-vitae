@@ -1,11 +1,3 @@
-.wrapper,
-.wrapper-project {
-  box-sizing: content-box;
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .title-left {
   @include sub-title;
   justify-content: flex-start;
@@ -26,11 +18,4 @@
   justify-content: flex-end;
   border-right: var(--border);
   padding-right: 15px;
-}
-
-/*Full-screen*/
-@media screen and (min-width: 1087px) {
-  .wrapper-project {
-    max-width: 1072px;
-  }
 }
