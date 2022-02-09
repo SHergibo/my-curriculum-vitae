@@ -1,24 +1,3 @@
-@import "./globals/index";
-
 @import "mixins";
-@import "App.scss";
-@import "HomeSection.scss";
-@import "Nav.scss";
-@import "Logo.scss";
-@import "About.scss";
-@import "Resume.scss";
-@import "./ResumeStyles.scss/EducationExperience.scss";
-@import "./ResumeStyles.scss/Canvas.scss";
-@import "./ResumeStyles.scss/SkillBar.scss";
-@import "Portfolio.scss";
-@import "Contact.scss";
-@import "Form.scss";
-@import "Footer.scss";
-@import "BackToTop.scss";
-@import "Login.scss";
-@import "AdminSection.scss";
-@import "Modal.scss";
-@import "Loading.scss";
-@import "SuccessError.scss";
-@import "Pagination.scss";
-@import "TitleAction.scss";
+@import "./components/index";
+@import "./globals/index";
