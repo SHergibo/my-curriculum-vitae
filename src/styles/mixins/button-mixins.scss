@@ -2,15 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 25px;
+  padding: 0 rem(25px);
   height: $height;
   margin: $margin;
   width: $width;
   background-color: var(--blue);
-  border-radius: 5px;
+  border-radius: rem(5px);
   border: none;
   color: #ffffff;
-  font-size: 15px;
+  font-size: rem(15px);
   font-weight: 900;
   font-family: var(--font-poppins);
   cursor: pointer;
@@ -27,8 +27,8 @@
 }
 
 @mixin btn-admin($color, $color-hover) {
-  width: 40px;
-  height: 40px;
+  width: rem(40px);
+  height: rem(40px);
   border-radius: 50%;
   border: none;
   display: flex;
