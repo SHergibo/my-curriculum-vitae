@@ -2,7 +2,7 @@
   @include sub-title;
   justify-content: flex-start;
   border-left: var(--border);
-  padding-left: 15px;
+  padding-left: rem(15px);
   position: absolute;
 }
 
@@ -10,12 +10,12 @@
   @include sub-title;
   justify-content: flex-start;
   border-left: var(--border);
-  padding-left: 15px;
+  padding-left: rem(15px);
 }
 
 .title-right {
   @include sub-title;
   justify-content: flex-end;
   border-right: var(--border);
-  padding-right: 15px;
+  padding-right: rem(15px);
 }
