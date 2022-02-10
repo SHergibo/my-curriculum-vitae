@@ -6,16 +6,15 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 0 15px;
+  padding: 0 rem(15px);
 }
 
 .contact-form {
   border-bottom: var(--border);
-  padding-top: 80px;
+  padding-top: rem(80px);
   @include title();
   p {
-    margin: 20px 0;
-    font-size: 16px;
+    margin: rem(20px) 0;
     font-weight: 900;
     color: var(--grey-two);
   }
@@ -25,15 +24,15 @@
   display: flex;
   flex-direction: column;
   ul {
-    margin: 20px 0 50px 0;
+    margin: rem(20px) 0 rem(50px) 0;
     li {
       display: flex;
       align-items: center;
       color: var(--grey-two);
-      font-size: 15px;
-      padding: 10px 0;
+      font-size: rem(15px);
+      padding: rem(10px) 0;
       span {
-        width: 40px;
+        width: rem(40px);
         text-align: center;
         svg {
           color: var(--blue);
@@ -45,7 +44,7 @@
       div {
         display: inline-block;
         &:first-child {
-          margin-right: 5px;
+          margin-right: rem(5px);
         }
       }
     }
@@ -67,23 +66,23 @@
 
   .contact-form {
     width: 70%;
-    padding-right: 35px;
+    padding-right: rem(35px);
     border-right: var(--border);
     border-bottom: none;
-    padding-bottom: 30px;
+    padding-bottom: rem(30px);
   }
 
   .contact-info {
     width: 30%;
-    padding-top: 80px;
-    padding-left: 35px;
+    padding-top: rem(80px);
+    padding-left: rem(35px);
     ul {
-      margin: 30px 0 0;
+      margin: rem(30px) 0 0;
       li {
         div {
           display: block;
           &:first-child {
-            margin-right: 5px;
+            margin-right: rem(5px);
           }
         }
       }
@@ -93,14 +92,14 @@
   .container-img-contact {
     display: block;
     text-align: center;
-    width: 240px;
-    height: 240px;
-    background-color: #ffffff;
+    width: rem(240px);
+    height: rem(240px);
+    background-color: var(--white);
     overflow: hidden;
     border-radius: 50%;
-    border: 1px solid #ffffff;
+    border: rem(1px) solid var(--white);
     img {
-      width: 170px;
+      width: rem(170px);
     }
   }
 }
