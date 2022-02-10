@@ -14,9 +14,9 @@
 .date-resume {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: rem(20px);
   p {
-    margin-left: 10px;
+    margin-left: rem(10px);
     color: var(--grey-one);
   }
 }
@@ -25,14 +25,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 33px;
-  height: 33px;
+  width: rem(33px);
+  height: rem(33px);
   background-color: var(--blue);
   border-radius: 50%;
   svg {
-    margin-top: -2px;
-    width: 18px;
-    height: 18px;
+    margin-top: rem(-2px);
+    width: rem(18px);
+    height: rem(18px);
     path {
       stroke: #ffffff;
     }
@@ -40,14 +40,14 @@
 }
 
 .text-resume {
-  margin: 15px 0 35px 43px;
+  margin: rem(15px) 0 rem(35px) rem(43px);
   h3 {
     color: #ffffff;
-    margin-bottom: 10px;
+    margin-bottom: rem(10px);
     font-size: 1.25rem;
     line-height: 1.4;
     font-weight: 700;
-    letter-spacing: -1px;
+    letter-spacing: rem(-1px);
     transition: 0.2s ease-in-out;
   }
   p {
