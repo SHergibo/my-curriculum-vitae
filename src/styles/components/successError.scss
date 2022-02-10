@@ -1,25 +1,25 @@
 .success-svg {
   opacity: 0;
-  font-size: 20px;
-  padding-left: 10px;
-  color: #008000;
+  font-size: rem(20px);
+  padding-left: rem(10px);
+  color: var(--green);
   transition: opacity 1s ease-in-out;
 }
 
 .error-svg {
   opacity: 1;
-  font-size: 25px;
-  color: red;
+  font-size: rem(25px);
+  color: var(--red);
   transition: opacity 0.5s ease-in-out;
 }
 
-.error-message{
+.error-message {
   opacity: 1;
-  color: red;
+  color: var(--red);
   transition: opacity 0.5s ease-in-out;
 }
 
-.loading-action{
+.loading-action {
   transition: opacity 0.5s ease-in-out;
 }
 
