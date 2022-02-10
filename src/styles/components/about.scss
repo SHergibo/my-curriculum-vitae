@@ -46,7 +46,7 @@
   }
   h2 {
     color: #ffffff;
-    font-size: 30px;
+    font-size: rem(30px);
   }
   p {
     color: var(--grey-one);
@@ -63,7 +63,7 @@
       align-items: center;
       margin: rem(10px) 0;
       color: var(--grey-two);
-      font-size: 13px;
+      font-size: rem(13px);
       div {
         width: 70%;
       }
@@ -135,7 +135,7 @@
     margin-bottom: 0;
     font-weight: 700;
     letter-spacing: rem(-1px);
-    font-size: 17px;
+    font-size: rem(17px);
   }
 }
 
