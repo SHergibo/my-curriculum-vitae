@@ -9,32 +9,26 @@
 .educExpe-container,
 .skill-container,
 .project-container {
-  margin-top: 70px;
+  margin-top: rem(70px);
   overflow: hidden;
-  padding: 0 15px;
+  padding: 0 rem(15px);
   form {
-    margin-top: 30px;
+    margin-top: rem(30px);
     h4 {
       margin: 0;
     }
   }
 }
 
-.info-container {
-  @include title();
-}
-
-.educExpe-container {
-  @include title();
-}
-
+.info-container,
+.educExpe-container,
 .skill-container {
   @include title();
 }
 
 .skill-container-admin {
   .skill-canvas {
-    margin: 10px 0 0 0;
+    margin: rem(10px) 0 0 0;
   }
 }
 
@@ -48,11 +42,11 @@
     justify-content: center;
   }
   h2 {
-    color: #ffffff;
+    color: var(--white);
     text-align: center;
   }
   button {
-    @include btn(60px, 30px 10px, 100px);
+    @include btn(rem(60px), rem(30px) rem(10px), rem(100px));
   }
 }
 
@@ -64,52 +58,52 @@
 .form-container,
 .list-container {
   width: 50%;
-  margin-bottom: 30px;
+  margin-bottom: rem(30px);
   h3,
   h4 {
-    color: #ffffff;
+    color: var(--white);
   }
 }
 
 .list-container {
   h4 {
-    margin: 30px 0;
+    margin: rem(30px) 0;
   }
   li {
     display: flex;
     flex-direction: column;
     color: var(--grey-two);
-    margin: 15px 0;
+    margin: rem(15px) 0;
     .div-list-container,
     .div-list-btn-container {
       div {
-        margin: 5px 0;
+        margin: rem(5px) 0;
       }
     }
     .div-list-btn-container {
       display: flex;
       button {
         &:first-child {
-          margin-right: 10px;
+          margin-right: rem(10px);
         }
       }
     }
   }
   .date-list,
   .skill-list {
-    min-width: 110px;
+    min-width: rem(110px);
   }
   .title-list {
-    max-width: 650px;
+    max-width: rem(650px);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
   .btn-list-edit {
-    @include btn-admin(#50e3c2, #2336b6);
+    @include btn-admin(var(--btn-blue), var(--blue-hover));
   }
   .btn-list-delete {
-    @include btn-admin(#ee5253, #e92424);
+    @include btn-admin(var(--btn-red), var(--btn-red-hover));
   }
 }
 
@@ -150,18 +144,18 @@
 .skills-checkbox-container {
   flex-direction: column;
   label {
-    margin-top: 20px;
+    margin-top: rem(20px);
   }
 }
 .code-used-checkbox-container {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: rem(20px);
   flex-direction: column;
   p {
     display: block;
-    color: #ffffff;
-    font-size: 14px;
-    margin-bottom: 10px;
+    color: var(--white);
+    font-size: rem(14px);
+    margin-bottom: rem(10px);
   }
   div {
     display: flex;
@@ -170,8 +164,8 @@
   label {
     display: flex;
     align-items: center;
-    height: 25px;
-    margin-top: 20px;
+    height: rem(25px);
+    margin-top: rem(20px);
   }
 }
 
@@ -192,16 +186,16 @@
       }
     }
     .title-list {
-      max-width: 350px;
+      max-width: rem(350px);
     }
   }
 
   .skill-container-admin {
     .skill-canvas {
-      margin: 20px 0 30px 0;
+      margin: rem(20px) 0 rem(30px) 0;
     }
     .skill-bar-container {
-      width: 315px;
+      width: rem(315px);
     }
   }
 
@@ -218,7 +212,7 @@
       flex-wrap: wrap;
     }
     label {
-      margin: 10px 0;
+      margin: rem(10px) 0;
     }
   }
 }
@@ -237,14 +231,14 @@
       flex-wrap: wrap;
       margin-bottom: 0;
       .input {
-        margin-bottom: 20px;
+        margin-bottom: rem(20px);
       }
     }
   }
 
   .list-container {
     .title-list {
-      max-width: 650px;
+      max-width: rem(650px);
     }
   }
 
