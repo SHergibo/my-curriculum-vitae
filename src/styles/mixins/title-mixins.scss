@@ -10,21 +10,21 @@
       position: absolute;
       background: var(--grey-four);
       width: 100%;
-      height: 1px;
-      bottom: 25px;
-      margin-left: 15px;
+      height: rem(1px);
+      bottom: rem(25px);
+      margin-left: rem(15px);
     }
   }
 
   .h2after50 {
     &:after {
-      bottom: 50px;
+      bottom: rem(50px);
     }
   }
 
   .h2after75 {
     &:after {
-      bottom: 75px;
+      bottom: rem(75px);
     }
   }
 }
@@ -32,8 +32,8 @@
 @mixin sub-title {
   display: flex;
   font-weight: bolder;
-  letter-spacing: -1px;
-  height: 40px;
+  letter-spacing: rem(-1px);
+  height: rem(40px);
   align-items: flex-end;
   color: var(--grey-three);
 }
