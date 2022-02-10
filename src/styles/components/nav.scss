@@ -7,20 +7,20 @@
   bottom: 0;
   z-index: 100;
   .container-nav {
-    padding: 0 40px;
+    padding: 0 rem(40px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: rem(80px);
     a {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 0 15px;
+      padding: 0 rem(15px);
       text-transform: none;
       text-decoration: none;
       font-weight: 700;
-      height: 65px;
+      height: rem(65px);
       width: 100%;
     }
   }
@@ -34,7 +34,7 @@
 
 .menu {
   position: absolute;
-  top: 80px;
+  top: rem(80px);
   left: 0;
   background-color: var(--principal-color);
   width: 100%;
@@ -47,7 +47,7 @@
     li {
       width: 100%;
       .active {
-        color: #ffffff;
+        color: var(--white);
       }
       &:focus {
         outline-style: none;
@@ -56,7 +56,7 @@
       }
       &:focus-visible {
         a {
-          color: #ffffff;
+          color: var(--white);
         }
       }
     }
@@ -78,7 +78,7 @@
 }
 
 .social-mobile {
-  padding-bottom: 20px;
+  padding-bottom: rem(20px);
   ul {
     display: flex;
     justify-content: center;
@@ -86,7 +86,7 @@
 }
 
 .social-svg {
-  @include svgFill(20px);
+  @include svgFill(rem(20px));
   a {
     &:focus {
       outline-style: none;
@@ -94,7 +94,7 @@
       border-color: transparent;
       svg {
         path {
-          fill: #ffffff;
+          fill: var(--white);
         }
       }
     }
@@ -102,23 +102,23 @@
 }
 
 .burger-menu-svg {
-  @include svgFill(30px);
+  @include svgFill(rem(30px));
 }
 
 .logoutSvg {
   display: flex;
   align-items: center;
-  height: 65px;
-  padding: 0 15px;
+  height: rem(65px);
+  padding: 0 rem(15px);
   cursor: pointer;
-  @include svgStroke(30px);
+  @include svgStroke(rem(30px));
   &:focus {
     outline-style: none;
     box-shadow: none;
     border-color: transparent;
     svg {
       path {
-        stroke: #ffffff;
+        stroke: var(--white);
         fill: none;
       }
     }
