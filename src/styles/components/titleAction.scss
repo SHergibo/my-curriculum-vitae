@@ -10,7 +10,7 @@
   }
   .btn-title-action,
   .btn-title-action-delete {
-    margin-left: 15px;
+    margin-left: rem(15px);
     position: relative;
     overflow: hidden;
     &:after {
@@ -18,18 +18,18 @@
       position: absolute;
       background: var(--grey-four);
       width: 100%;
-      height: 1px;
-      bottom: 22px;
-      left: 54px;
+      height: rem(1px);
+      bottom: rem(22px);
+      left: rem(54px);
     }
     button {
-      @include btn-admin(#50e3c2, #2336b6);
+      @include btn-admin(var(--btn-blue), var(--btn-blue-hover));
     }
   }
 
   .btn-title-action-delete {
     button {
-      @include btn-admin(#ee5253, #e92424);
+      @include btn-admin(var(--btn-red), var(--btn-red-hover));
     }
   }
 }
