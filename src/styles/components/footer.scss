@@ -4,26 +4,26 @@
 }
 
 .footer-container {
-  height: 80px;
+  height: rem(80px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding: 0 rem(15px);
   a {
     display: flex;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 rem(15px);
     text-transform: none;
     text-decoration: none;
     font-weight: 700;
-    height: 80px;
+    height: rem(80px);
     &:focus {
       outline-style: none;
       box-shadow: none;
       border-color: transparent;
       svg {
         path {
-          fill: #ffffff;
+          fill: var(--white);
         }
       }
     }
@@ -34,7 +34,7 @@
   ul {
     display: flex;
   }
-  @include svgFill(20px);
+  @include svgFill(rem(20px));
 }
 
 /*Media queries*/
