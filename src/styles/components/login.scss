@@ -1,8 +1,8 @@
 .input-login {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: rem(20px);
 }
 
 .submit-login {
-  @include btn(40px, 15px 0, 100%);
+  @include btn(rem(40px), rem(15px) 0, 100%);
 }
