@@ -8,18 +8,18 @@
 @media screen and (min-width: 1130px) {
   .back-to-top {
     position: fixed;
-    bottom: 20px;
-    right: 40px;
+    bottom: rem(20px);
+    right: rem(40px);
     z-index: 100;
     display: flex;
     opacity: 1;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: rem(40px);
+    height: rem(40px);
     border-radius: 50%;
     background-color: var(--blue);
-    color: #ffffff;
+    color: var(--white);
     transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out,
       transform 0.2s ease-in-out;
     cursor: pointer;
