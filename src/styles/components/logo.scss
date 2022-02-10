@@ -6,12 +6,12 @@
     &:before {
       content: "";
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: rem(30px);
+      height: rem(30px);
       top: 50%;
-      margin-top: -15px;
+      margin-top: rem(-15px);
       background: var(--blue);
-      left: 3px;
+      left: rem(3px);
       border-radius: 50%;
       z-index: 0;
     }
@@ -29,7 +29,7 @@
     }
     &:focus-visible {
       span {
-        color: #ffffff;
+        color: var(--white);
       }
     }
   }
