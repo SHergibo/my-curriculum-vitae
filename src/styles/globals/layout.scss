@@ -1,7 +1,7 @@
 .wrapper,
 .wrapper-project {
   box-sizing: content-box;
-  max-width: 960px;
+  max-width: rem(960px);
   margin-left: auto;
   margin-right: auto;
 }
@@ -9,6 +9,6 @@
 /*Full-screen*/
 @media screen and (min-width: 1087px) {
   .wrapper-project {
-    max-width: 1072px;
+    max-width: rem(1072px);
   }
 }
