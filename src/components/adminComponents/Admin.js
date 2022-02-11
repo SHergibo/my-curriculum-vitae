@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import Home from "../Home";
+import Home from "../frontComponents/Home";
 import Navbar from "../Navbar";
 import GeneralInfo from "./GeneralInfo";
 import Footer from "../Footer";
