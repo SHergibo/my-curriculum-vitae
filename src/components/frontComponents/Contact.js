@@ -2,9 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import Axios from "axios";
-import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
-import { checkSuccess, checkErrors } from "./../utils/checkSuccess";
-import ActionButtonSubmit from "./ActionButtonSubmit";
+import { apiDomain, apiVersion } from "../../apiConfig/ApiConfig";
+import { checkSuccess, checkErrors } from "../../utils/checkSuccess";
+import ActionButtonSubmit from "../ActionButtonSubmit";
 import { CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 

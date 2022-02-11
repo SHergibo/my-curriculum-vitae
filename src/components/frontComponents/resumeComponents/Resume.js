@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
-import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { Link } from "react-scroll";
-import EducationExperience from "./ResumeComponents/EducationExperience";
-import CanvasResume from "./ResumeComponents/CanvasResume";
-import SkillBarResume from "./ResumeComponents/SkillBarResume";
-import workingData from "./../utils/workingData";
+import EducationExperience from "./EducationExperience";
+import CanvasResume from "./CanvasResume";
+import SkillBarResume from "./SkillBarResume";
+import workingData from "../../../utils/workingData";
 import PropTypes from "prop-types";
 
 function Resume({ isLoaded }) {

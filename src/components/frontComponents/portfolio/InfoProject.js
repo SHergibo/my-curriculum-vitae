@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { apiDomain, apiVersion } from "../apiConfig/ApiConfig";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import axios from "axios";
-import TitleAction from "./TitleAction";
+import TitleAction from "../../TitleAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function InfoProject({

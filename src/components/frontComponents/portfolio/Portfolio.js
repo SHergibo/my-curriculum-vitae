@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import InfoProject from "./InfoProject";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import axios from "axios";
 import PropTypes from "prop-types";
 

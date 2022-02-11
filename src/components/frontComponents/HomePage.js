@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import Home from './Home';
-import Navbar from './Navbar';
-import About from './About';
-import Resume from './Resume';
-import Portfolio from './Portfolio';
-import Contact from './Contact';
-import Footer from './Footer';
-import BackToTop from './BackToTop';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from "react";
+import Home from "../Home";
+import Navbar from "../Navbar";
+import About from "./About";
+import Resume from "./resumeComponents/Resume";
+import Portfolio from "./portfolio/Portfolio";
+import Contact from "./Contact";
+import Footer from "../Footer";
+import BackToTop from "../BackToTop";
+import PropTypes from "prop-types";
 
 function HomePage({ generalInfo, isLoaded }) {
   const headerRef = useRef(null);
@@ -20,9 +20,7 @@ function HomePage({ generalInfo, isLoaded }) {
     <>
       <header ref={headerRef} id="header">
         <Home generalInfo={generalInfo} />
-        <Navbar
-          headerRef={headerRef}
-        />
+        <Navbar headerRef={headerRef} />
       </header>
       <main>
         <About generalInfo={generalInfo} />
@@ -40,7 +38,7 @@ function HomePage({ generalInfo, isLoaded }) {
 
 HomePage.propTypes = {
   generalInfo: PropTypes.object.isRequired,
-  isLoaded: PropTypes.bool.isRequired
-}
+  isLoaded: PropTypes.bool.isRequired,
+};
 
 export default HomePage;

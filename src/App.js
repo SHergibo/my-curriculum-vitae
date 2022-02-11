@@ -4,7 +4,7 @@ import axios from "axios";
 import { apiDomain, apiVersion } from "./apiConfig/ApiConfig";
 import { format } from "date-fns";
 import Loading from "./components/Loading";
-import HomePage from "./components/HomePage";
+import HomePage from "./components/frontComponents/HomePage";
 import Admin from "./components/adminComponents/Admin";
 import { Route, Switch, useLocation } from "react-router-dom";
 import IsLoggedRoute from "./components/Route/IsLogged.route";
