@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import axiosInstance from "./../utils/axiosInstance";
-import { apiDomain, apiVersion } from "../apiConfig/ApiConfig";
+import axiosInstance from "../../../utils/axiosInstance";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { useForm } from "react-hook-form";
-import { checkSuccess, checkErrors } from "./../utils/checkSuccess";
-import ActionButtonSubmit from "./ActionButtonSubmit";
+import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
+import ActionButtonSubmit from "../../ActionButtonSubmit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { closeModal } from "./../utils/modalDisplay";
+import { closeModal } from "../../../utils/modalDisplay";
 import { CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 

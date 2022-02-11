@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import axiosInstance from "./../utils/axiosInstance";
-import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
+import axiosInstance from "../../../utils/axiosInstance";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { useForm } from "react-hook-form";
-import { checkSuccess, checkErrors } from "./../utils/checkSuccess";
+import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import { CSSTransition } from "react-transition-group";
-import ActionButtonSubmit from "./ActionButtonSubmit";
-import { closeModal } from "./../utils/modalDisplay";
+import ActionButtonSubmit from "../../ActionButtonSubmit";
+import { closeModal } from "../../../utils/modalDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import DatePicker, { registerLocale } from "react-datepicker";

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import axiosInstance from "./../utils/axiosInstance";
-import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
+import axiosInstance from "../../../utils/axiosInstance";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from "./Modal";
-import workingData from "./../utils/workingData";
-import { displayModal } from "./../utils/modalDisplay";
-import FormSkill from "./FormSkill";
+import Modal from "../../Modal";
+import workingData from "../../../utils/workingData";
+import { displayModal } from "../../../utils/modalDisplay";
+import FormSkill from "../adminForms/FormSkill";
 
 function DisplayListSkill() {
   const [value, setValue] = useState({});

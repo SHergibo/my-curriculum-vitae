@@ -1,14 +1,14 @@
 import React, { useLayoutEffect, useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import axiosInstance from "./../utils/axiosInstance";
-import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
-import { checkSuccess, checkErrors } from "./../utils/checkSuccess";
-import { closeModal } from "./../utils/modalDisplay";
-import CanvasResume from "./ResumeComponents/CanvasResume";
-import SkillBarResume from "./ResumeComponents/SkillBarResume";
+import axiosInstance from "../../../utils/axiosInstance";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
+import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
+import { closeModal } from "../../../utils/modalDisplay";
+import CanvasResume from "../../ResumeComponents/CanvasResume";
+import SkillBarResume from "../../ResumeComponents/SkillBarResume";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ActionButtonSubmit from "./ActionButtonSubmit";
+import ActionButtonSubmit from "../../ActionButtonSubmit";
 import PropTypes from "prop-types";
 
 function FormSkill({

@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
-import DisplayListProjects from "./DisplayListProjects";
-import FormProject from "./FormProject";
-import TitleAction from "./TitleAction";
+import DisplayListEducExpe from "./adminDisplayLists/DisplayListEducExpe";
+import FormEducExpe from "./adminForms/FormEducExpe";
+import TitleAction from "../TitleAction";
 
-function Projects() {
+function EducExpe() {
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
   const nodeRef = useRef(null);
@@ -21,13 +21,17 @@ function Projects() {
   };
 
   return (
-    <div className="project-section">
-      <div id="projects" className="wrapper">
-        <div className="title-left-admin">Projets</div>
-        <div className="project-container">
+    <div className="educExpe-section">
+      <div id="educexpe" className="wrapper">
+        <div className="title-left-admin">Éducation / Expérience</div>
+        <div className="educExpe-container">
           <TitleAction
-            title="Projets"
-            btnTitle={addBtn ? "Éditer un projet" : "Ajouter un projet"}
+            title="Éducation / Expérience"
+            btnTitle={
+              addBtn
+                ? "Éditer une éducation / expérience"
+                : "Ajouter une éducation / expérience"
+            }
             action={switchForm}
             btnState={{ addBtn, editbtn }}
           />
@@ -41,7 +45,7 @@ function Projects() {
               unmountOnExit
             >
               <div ref={nodeRef} className="form-container">
-                <FormProject />
+                <FormEducExpe />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -53,7 +57,7 @@ function Projects() {
             >
               <div ref={nodeRefTwo} className="list-container">
                 <h3>Édition</h3>
-                <DisplayListProjects />
+                <DisplayListEducExpe />
               </div>
             </CSSTransition>
           </div>
@@ -63,4 +67,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default EducExpe;

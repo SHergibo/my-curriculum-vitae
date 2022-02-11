@@ -5,7 +5,7 @@ import { apiDomain, apiVersion } from "./apiConfig/ApiConfig";
 import { format } from "date-fns";
 import Loading from "./components/Loading";
 import HomePage from "./components/HomePage";
-import Admin from "./components/Admin";
+import Admin from "./components/adminComponents/Admin";
 import { Route, Switch, useLocation } from "react-router-dom";
 import IsLoggedRoute from "./components/Route/IsLogged.route";
 import ProtectedRoute from "./components/Route/Protected.route";

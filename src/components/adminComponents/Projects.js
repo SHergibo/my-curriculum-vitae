@@ -1,18 +1,10 @@
 import React, { useState, useRef } from "react";
-import FormSkill from "./FormSkill";
-import DisplayListSkill from "./DisplayListSkill";
 import { CSSTransition } from "react-transition-group";
-import TitleAction from "./TitleAction";
+import DisplayListProjects from "./adminDisplayLists/DisplayListProjects";
+import FormProject from "./adminForms/FormProject";
+import TitleAction from "../TitleAction";
 
-function Skills() {
-  const [value, setValue] = useState({
-    _id: "0",
-    nameSkill: "",
-    percentage: 100,
-    skillCategory: "codingSkill",
-    fontAwesomeIcon: "",
-    svgIcon: "",
-  });
+function Projects() {
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
   const nodeRef = useRef(null);
@@ -29,15 +21,13 @@ function Skills() {
   };
 
   return (
-    <div className="skill-section">
-      <div id="skills" className="wrapper">
-        <div className="title-right">Compétences</div>
-        <div className="skill-container skill-container-admin">
+    <div className="project-section">
+      <div id="projects" className="wrapper">
+        <div className="title-left-admin">Projets</div>
+        <div className="project-container">
           <TitleAction
-            title="Compétences"
-            btnTitle={
-              addBtn ? "Éditer une compétence" : "Ajouter une compétence"
-            }
+            title="Projets"
+            btnTitle={addBtn ? "Éditer un projet" : "Ajouter un projet"}
             action={switchForm}
             btnState={{ addBtn, editbtn }}
           />
@@ -51,7 +41,7 @@ function Skills() {
               unmountOnExit
             >
               <div ref={nodeRef} className="form-container">
-                <FormSkill add={true} value={value} setValue={setValue} />
+                <FormProject />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -63,7 +53,7 @@ function Skills() {
             >
               <div ref={nodeRefTwo} className="list-container">
                 <h3>Édition</h3>
-                <DisplayListSkill />
+                <DisplayListProjects />
               </div>
             </CSSTransition>
           </div>
@@ -73,4 +63,4 @@ function Skills() {
   );
 }
 
-export default Skills;
+export default Projects;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
-import axiosInstance from "./../utils/axiosInstance";
-import { apiDomain, apiVersion } from "../apiConfig/ApiConfig";
+import axiosInstance from "../../../utils/axiosInstance";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from "./Modal";
-import { displayModal } from "./../utils/modalDisplay";
-import FormProject from "./FormProject";
+import Modal from "../../Modal";
+import { displayModal } from "../../../utils/modalDisplay";
+import FormProject from "../adminForms/FormProject";
 
 function DisplayListProjects() {
   const [value, setValue] = useState({});

@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import axiosInstance from "./../utils/axiosInstance";
-import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
-import { checkSuccess, checkErrors } from "./../utils/checkSuccess";
+import axiosInstance from "../../../utils/axiosInstance";
+import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
+import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSTransition } from "react-transition-group";
-import ActionButtonSubmit from "./ActionButtonSubmit";
+import ActionButtonSubmit from "../../ActionButtonSubmit";
 import PropTypes from "prop-types";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { parseISO } from "date-fns";

@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import Home from "./Home";
-import Navbar from "./Navbar";
+import Home from "../Home";
+import Navbar from "../Navbar";
 import GeneralInfo from "./GeneralInfo";
-import Footer from "./Footer";
-import BackToTop from "./BackToTop";
-import { refreshToken } from "./../utils/Auth";
+import Footer from "../Footer";
+import BackToTop from "../BackToTop";
+import { refreshToken } from "../../utils/Auth";
 import EducExpe from "./EducExpe";
 import Skills from "./Skills";
 import Projects from "./Projects";

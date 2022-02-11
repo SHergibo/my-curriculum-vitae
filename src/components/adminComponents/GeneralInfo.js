@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import FormGeneralInfo from "./FormGeneralInfo";
-import Modal from "./Modal";
-import TitleAction from "./TitleAction";
-import { displayModalNoValue, closeModal } from "./../utils/modalDisplay";
-import axiosInstance from "./../utils/axiosInstance";
-import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
+import FormGeneralInfo from "./adminForms/FormGeneralInfo";
+import Modal from "../Modal";
+import TitleAction from "../TitleAction";
+import { displayModalNoValue, closeModal } from "../../utils/modalDisplay";
+import axiosInstance from "../../utils/axiosInstance";
+import { apiDomain, apiVersion } from "../../apiConfig/ApiConfig";
 import PropTypes from "prop-types";
 
 function GeneralInfo({ generalInfoState }) {

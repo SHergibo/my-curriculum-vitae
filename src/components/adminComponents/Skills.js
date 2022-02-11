@@ -1,10 +1,18 @@
 import React, { useState, useRef } from "react";
+import FormSkill from "./adminForms/FormSkill";
+import DisplayListSkill from "./adminDisplayLists/DisplayListSkill";
 import { CSSTransition } from "react-transition-group";
-import DisplayListEducExpe from "./DisplayListEducExpe";
-import FormEducExpe from "./FormEducExpe";
-import TitleAction from "./TitleAction";
+import TitleAction from "../TitleAction";
 
-function EducExpe() {
+function Skills() {
+  const [value, setValue] = useState({
+    _id: "0",
+    nameSkill: "",
+    percentage: 100,
+    skillCategory: "codingSkill",
+    fontAwesomeIcon: "",
+    svgIcon: "",
+  });
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
   const nodeRef = useRef(null);
@@ -21,16 +29,14 @@ function EducExpe() {
   };
 
   return (
-    <div className="educExpe-section">
-      <div id="educexpe" className="wrapper">
-        <div className="title-left-admin">Éducation / Expérience</div>
-        <div className="educExpe-container">
+    <div className="skill-section">
+      <div id="skills" className="wrapper">
+        <div className="title-right">Compétences</div>
+        <div className="skill-container skill-container-admin">
           <TitleAction
-            title="Éducation / Expérience"
+            title="Compétences"
             btnTitle={
-              addBtn
-                ? "Éditer une éducation / expérience"
-                : "Ajouter une éducation / expérience"
+              addBtn ? "Éditer une compétence" : "Ajouter une compétence"
             }
             action={switchForm}
             btnState={{ addBtn, editbtn }}
@@ -45,7 +51,7 @@ function EducExpe() {
               unmountOnExit
             >
               <div ref={nodeRef} className="form-container">
-                <FormEducExpe />
+                <FormSkill add={true} value={value} setValue={setValue} />
               </div>
             </CSSTransition>
             <CSSTransition
@@ -57,7 +63,7 @@ function EducExpe() {
             >
               <div ref={nodeRefTwo} className="list-container">
                 <h3>Édition</h3>
-                <DisplayListEducExpe />
+                <DisplayListSkill />
               </div>
             </CSSTransition>
           </div>
@@ -67,4 +73,4 @@ function EducExpe() {
   );
 }
 
-export default EducExpe;
+export default Skills;
