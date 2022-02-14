@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { loginIn } from "../../utils/Auth";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HomeSection from "../frontComponents/HomeSection";
-import PropTypes from "prop-types";
 
-function Login({ history }) {
+function Login() {
   const [errorMessage, setErrorMessage] = useState(false);
+  let navigate = useNavigate();
 
   const onSubmit = async (data) => {
     let responseLogin = await loginIn(data);
     if (responseLogin !== 401) {
-      history.push("/admin");
+      navigate("/admin");
     } else {
       setErrorMessage(true);
     }
@@ -77,8 +77,4 @@ function Login({ history }) {
   return <HomeSection welcome="Connection" name="Bienvenue" div={div} />;
 }
 
-Login.propTypes = {
-  history: PropTypes.object,
-};
-
-export default withRouter(Login);
+export default Login;

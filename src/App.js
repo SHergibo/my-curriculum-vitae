@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import Loading from "./components/Loading";
 import HomePage from "./components/frontComponents/HomePage";
 import Admin from "./components/adminComponents/Admin";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import IsLoggedRoute from "./components/routeComponents/IsLogged.route";
 import ProtectedRoute from "./components/routeComponents/Protected.route";
 import Login from "./components/adminComponents/Login";
@@ -77,22 +77,22 @@ function App() {
           retryFetch={getData}
         />
       )}
-      <Switch>
+      <Routes>
         <Route
-          exact
           path="/"
-          component={() => (
-            <HomePage generalInfo={generalInfo} isLoaded={isLoaded} />
-          )}
+          element={<HomePage generalInfo={generalInfo} isLoaded={isLoaded} />}
         />
-        <IsLoggedRoute exact path="/login" component={Login} />
-        <ProtectedRoute
-          exact
-          path="/admin"
-          component={() => <Admin generalInfoAdmin={generalInfo} />}
-        />
-        <Route path="*" component={Page404} />
-      </Switch>
+        <Route element={<IsLoggedRoute />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route
+            path="/admin"
+            element={<Admin generalInfoAdmin={generalInfo} />}
+          />
+        </Route>
+        <Route path="*" element={<Page404 />} />
+      </Routes>
     </div>
   );
 }
