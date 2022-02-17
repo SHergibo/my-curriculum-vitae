@@ -37,7 +37,6 @@ function Resume({ isLoaded }) {
   const educRef = useRef(null);
   const expRef = useRef(null);
   const skillref = useRef(null);
-  const isMounted = useRef(true);
 
   const handleResumeMenuOnScroll = () => {
     let resumeContainer = resumeContainerRef.current;
@@ -62,7 +61,7 @@ function Resume({ isLoaded }) {
   const getDataEducExpe = useCallback(async () => {
     const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educs-exps/educs-exps-list`;
     await axios.get(getListEducExpeEndPoint).then((response) => {
-      if (response.data && isMounted.current) {
+      if (response.data) {
         const educExpeWorkingData = workingData(response.data, "educExpe");
         setArrayEduc(educExpeWorkingData[0]);
         setArrayExpe(educExpeWorkingData[1]);
@@ -71,7 +70,7 @@ function Resume({ isLoaded }) {
 
     const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills/skills-list`;
     await axios.get(getListSkillEndPoint).then((response) => {
-      if (response.data && isMounted.current) {
+      if (response.data) {
         const skillWorkingDatas = workingData(response.data, "skill");
         setArrayCodingSkill(skillWorkingDatas[0]);
         setArrayGeneralSkill(skillWorkingDatas[1]);
@@ -87,7 +86,6 @@ function Resume({ isLoaded }) {
     }
     return () => {
       window.removeEventListener("scroll", handleResumeMenuOnScroll);
-      isMounted.current = false;
     };
   }, [isLoaded, getDataEducExpe]);
 
@@ -114,23 +112,6 @@ function Resume({ isLoaded }) {
             <li
               tabIndex={0}
               onKeyPress={() => {
-                focusOnKeypress("education");
-              }}
-            >
-              <Link
-                activeClass="active"
-                to="education"
-                spy={true}
-                smooth={true}
-                offset={-80}
-                duration={1000}
-              >
-                Éducation
-              </Link>
-            </li>
-            <li
-              tabIndex={0}
-              onKeyPress={() => {
                 focusOnKeypress("experience");
               }}
             >
@@ -143,6 +124,23 @@ function Resume({ isLoaded }) {
                 duration={1000}
               >
                 Expérience
+              </Link>
+            </li>
+            <li
+              tabIndex={0}
+              onKeyPress={() => {
+                focusOnKeypress("education");
+              }}
+            >
+              <Link
+                activeClass="active"
+                to="education"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={1000}
+              >
+                Éducation
               </Link>
             </li>
             <li
@@ -166,13 +164,13 @@ function Resume({ isLoaded }) {
         </div>
       </div>
       <div className="edu-expe">
-        <div ref={educRef} id="education" className="edu-container">
-          <h2>Éducation</h2>
-          <EducationExperience data={arrayEduc} />
-        </div>
         <div ref={expRef} id="experience" className="exp-container">
           <h2>Expérience</h2>
-          <EducationExperience data={arrayExpe} />
+          <EducationExperience data={arrayExpe} type="exp" />
+        </div>
+        <div ref={educRef} id="education" className="edu-container">
+          <h2>Éducation</h2>
+          <EducationExperience data={arrayEduc} type="educ" />
         </div>
         <div ref={skillref} id="skills" className="skill-container">
           <h2>Compétences</h2>
