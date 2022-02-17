@@ -38,6 +38,7 @@ function EducationExperience({ data, type }) {
 
 EducationExperience.propTypes = {
   data: PropTypes.array.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default EducationExperience;
