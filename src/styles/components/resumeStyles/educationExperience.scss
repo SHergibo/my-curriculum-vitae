@@ -28,21 +28,14 @@
   width: rem(33px);
   height: rem(33px);
   background-color: var(--blue);
+  color: var(--white);
   border-radius: 50%;
-  svg {
-    margin-top: rem(-2px);
-    width: rem(18px);
-    height: rem(18px);
-    path {
-      stroke: #ffffff;
-    }
-  }
 }
 
 .text-resume {
   margin: rem(15px) 0 rem(35px) rem(43px);
   h3 {
-    color: #ffffff;
+    color: var(--white);
     margin-bottom: rem(10px);
     font-size: 1.25rem;
     line-height: 1.4;
