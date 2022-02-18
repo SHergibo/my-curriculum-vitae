@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
@@ -30,9 +30,36 @@ function FormGeneralInfo({ generalInfoState }) {
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
   const datePickerRef = useRef();
-  const { register, handleSubmit, errors, setValue } = useForm({
-    mode: "onChange",
+  const formDefaultValueRef = useRef({});
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: useMemo(() => {
+      return generalInfo;
+    }, [generalInfo]),
   });
+
+  useEffect(() => {
+    formDefaultValueRef.current = {
+      firstname: generalInfo?.firstname,
+      lastname: generalInfo?.lastname,
+      email: generalInfo?.email,
+      description: generalInfo?.description,
+      email: generalInfo?.email,
+      licence: generalInfo?.licence,
+      phone: generalInfo?.phone,
+      city: generalInfo?.address?.city,
+      number: generalInfo?.address?.number,
+      street: generalInfo?.address?.street,
+      zip: generalInfo?.address?.zip,
+    };
+    reset(formDefaultValueRef.current);
+  }, [reset, generalInfo]);
 
   useEffect(() => {
     if (value?.firstname) {
@@ -42,7 +69,6 @@ function FormGeneralInfo({ generalInfoState }) {
   }, [value]);
 
   useEffect(() => {
-    register({ name: "dateBirthday" }, { required: true });
     if (generalInfo && generalInfo.isoDate) {
       setDateBirthday(parseISO(generalInfo.isoDate));
       setValue("dateBirthday", parseISO(generalInfo.isoDate));
@@ -50,7 +76,7 @@ function FormGeneralInfo({ generalInfoState }) {
       setDateBirthday(null);
       setValue("dateBirthday", null);
     }
-  }, [register, setValue, generalInfo]);
+  }, [setValue, generalInfo]);
 
   const workingData = (data) => {
     return {
@@ -65,7 +91,7 @@ function FormGeneralInfo({ generalInfoState }) {
         city: data.city,
       },
       birthdate: data.dateBirthday,
-      licence: data.driverLicence,
+      licence: data.licence,
       description: data.description,
     };
   };
@@ -139,25 +165,13 @@ function FormGeneralInfo({ generalInfoState }) {
             <span>
               <FontAwesomeIcon icon="user" />
             </span>
-            {!value && (
-              <input
-                name="firstname"
-                type="text"
-                id="firstname"
-                placeholder="Prénom"
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="firstname"
-                type="text"
-                id="firstname"
-                placeholder="Prénom"
-                defaultValue={value.firstname}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="firstname"
+              type="text"
+              id="firstname"
+              placeholder="Prénom"
+              {...register("firstname", { required: true })}
+            />
           </div>
           {errors.firstname && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -169,25 +183,13 @@ function FormGeneralInfo({ generalInfoState }) {
             <span>
               <FontAwesomeIcon icon="user" />
             </span>
-            {!value && (
-              <input
-                name="lastname"
-                type="text"
-                id="lastname"
-                placeholder="Nom de famille"
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="lastname"
-                type="text"
-                id="lastname"
-                placeholder="Nom de famille"
-                defaultValue={value.lastname}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="lastname"
+              type="text"
+              id="lastname"
+              placeholder="Nom de famille"
+              {...register("lastname", { required: true })}
+            />
           </div>
           {errors.lastname && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -201,35 +203,18 @@ function FormGeneralInfo({ generalInfoState }) {
             <span>
               <FontAwesomeIcon icon="at" />
             </span>
-            {!value && (
-              <input
-                name="email"
-                id="email"
-                placeholder="Adresse mail"
-                ref={register({
-                  required: "Ce champ est requis",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: "Adresse mail invalide",
-                  },
-                })}
-              />
-            )}
-            {value && (
-              <input
-                name="email"
-                id="email"
-                placeholder="Adresse mail"
-                defaultValue={value.email}
-                ref={register({
-                  required: "Ce champ est requis",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: "Adresse mail invalide",
-                  },
-                })}
-              />
-            )}
+            <input
+              name="email"
+              id="email"
+              placeholder="Adresse mail"
+              {...register("email", {
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "Adresse mail invalide",
+                },
+              })}
+            />
           </div>
           <span className="error-message-form">
             {errors.email && errors.email.message}
@@ -241,25 +226,13 @@ function FormGeneralInfo({ generalInfoState }) {
             <span>
               <FontAwesomeIcon icon="mobile-alt" />
             </span>
-            {!value && (
-              <input
-                name="phone"
-                type="text"
-                id="phone"
-                placeholder="N° de téléphone"
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="phone"
-                type="text"
-                id="phone"
-                placeholder="N° de téléphone"
-                defaultValue={value.phone}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="phone"
+              type="text"
+              id="phone"
+              placeholder="N° de téléphone"
+              {...register("phone", { required: true })}
+            />
           </div>
           {errors.phone && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -273,25 +246,13 @@ function FormGeneralInfo({ generalInfoState }) {
             <span>
               <FontAwesomeIcon icon="road" />
             </span>
-            {!value && (
-              <input
-                name="street"
-                type="text"
-                id="street"
-                placeholder="Rue"
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="street"
-                type="text"
-                id="street"
-                placeholder="Rue"
-                defaultValue={value.address.street}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="street"
+              type="text"
+              id="street"
+              placeholder="Rue"
+              {...register("street", { required: true })}
+            />
           </div>
           {errors.street && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -303,25 +264,13 @@ function FormGeneralInfo({ generalInfoState }) {
             <span>
               <FontAwesomeIcon icon="home" />
             </span>
-            {!value && (
-              <input
-                name="number"
-                type="text"
-                id="number"
-                placeholder="Numéro"
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="number"
-                type="text"
-                id="number"
-                placeholder="Numéro"
-                defaultValue={value.address.number}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="number"
+              type="text"
+              id="number"
+              placeholder="Numéro"
+              {...register("number", { required: true })}
+            />
           </div>
           {errors.number && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -335,25 +284,13 @@ function FormGeneralInfo({ generalInfoState }) {
             <span>
               <FontAwesomeIcon icon="envelope-open-text" />
             </span>
-            {!value && (
-              <input
-                name="zip"
-                type="text"
-                id="zip"
-                placeholder="Code postal"
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="zip"
-                type="text"
-                id="zip"
-                placeholder="Code postal"
-                defaultValue={value.address.zip}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="zip"
+              type="text"
+              id="zip"
+              placeholder="Code postal"
+              {...register("zip", { required: true })}
+            />
           </div>
           {errors.zip && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -365,31 +302,16 @@ function FormGeneralInfo({ generalInfoState }) {
             <span>
               <FontAwesomeIcon icon="city" />
             </span>
-            {!value && (
-              <input
-                name="city"
-                type="text"
-                id="city"
-                placeholder="Ville"
-                onKeyUp={(e) => {
-                  if (e.key === "Tab") datePickerRef.current.setOpen(false);
-                }}
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="city"
-                type="text"
-                id="city"
-                placeholder="Ville"
-                onKeyUp={(e) => {
-                  if (e.key === "Tab") datePickerRef.current.setOpen(false);
-                }}
-                defaultValue={value.address.city}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="city"
+              type="text"
+              id="city"
+              placeholder="Ville"
+              onKeyUp={(e) => {
+                if (e.key === "Tab") datePickerRef.current.setOpen(false);
+              }}
+              {...register("city", { required: true })}
+            />
           </div>
           {errors.city && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -423,38 +345,23 @@ function FormGeneralInfo({ generalInfoState }) {
           )}
         </div>
         <div className="input">
-          <label htmlFor="driverLicence">Permis de conduire *</label>
+          <label htmlFor="licence">Permis de conduire *</label>
           <div className="input-block">
             <span>
               <FontAwesomeIcon icon="car" />
             </span>
-            {!value && (
-              <input
-                name="driverLicence"
-                type="text"
-                id="driverLicence"
-                placeholder="Permis de conduire"
-                onKeyUp={(e) => {
-                  if (e.key === "Tab") datePickerRef.current.setOpen(false);
-                }}
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="driverLicence"
-                type="text"
-                id="driverLicence"
-                placeholder="Permis de conduire"
-                onKeyUp={(e) => {
-                  if (e.key === "Tab") datePickerRef.current.setOpen(false);
-                }}
-                defaultValue={value.licence}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="licence"
+              type="text"
+              id="licence"
+              placeholder="Permis de conduire"
+              onKeyUp={(e) => {
+                if (e.key === "Tab") datePickerRef.current.setOpen(false);
+              }}
+              {...register("licence", { required: true })}
+            />
           </div>
-          {errors.driverLicence && (
+          {errors.licence && (
             <span className="error-message-form">Ce champ est requis</span>
           )}
         </div>
@@ -462,23 +369,12 @@ function FormGeneralInfo({ generalInfoState }) {
       <div className="text-area">
         <label htmlFor="description">Description*</label>
         <div className="input-block">
-          {!value && (
-            <textarea
-              name="description"
-              id="description"
-              placeholder="Votre description ici..."
-              ref={register({ required: true })}
-            />
-          )}
-          {value && (
-            <textarea
-              name="description"
-              id="description"
-              placeholder="Votre description ici..."
-              defaultValue={value.description}
-              ref={register({ required: true })}
-            />
-          )}
+          <textarea
+            name="description"
+            id="description"
+            placeholder="Votre description ici..."
+            {...register("description", { required: true })}
+          />
         </div>
         {errors.description && (
           <span className="error-message-form">Ce champ est requis</span>
