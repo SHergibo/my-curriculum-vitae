@@ -17,7 +17,11 @@ function Login() {
       setErrorMessage(true);
     }
   };
-  const { register, handleSubmit, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     mode: "onChange",
   });
 
@@ -35,7 +39,13 @@ function Login() {
               type="text"
               id="email"
               placeholder="Email"
-              ref={register({ required: true })}
+              {...register("email", {
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "Adresse mail invalide",
+                },
+              })}
             />
           </div>
           {errors.email && (
@@ -53,7 +63,7 @@ function Login() {
               type="password"
               id="password"
               placeholder="Mot de passe"
-              ref={register({ required: true })}
+              {...register("password", { required: true })}
             />
           </div>
           {errors.password && (
