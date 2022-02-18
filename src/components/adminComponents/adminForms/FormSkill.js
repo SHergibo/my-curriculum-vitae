@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
 function FormSkill({
   add,
   value,
-  setValue,
   codingSkillState,
   generalSkillState,
   languageState,
@@ -29,16 +28,11 @@ function FormSkill({
   const [spanError, setSpanError] = useState(false);
   const [titleForm, setTitleForm] = useState("Ajout");
   const [button, setButton] = useState("Ajouter");
-  const [checkboxCodingSkill, setCheckboxCodingSkill] = useState();
-  const [checkboxGeneralSkill, setCheckboxGeneralSkill] = useState();
-  const [checkboxLanguage, setCheckboxLanguage] = useState();
   const [switchPrevisualisation, setSwitchPrevisualisation] = useState(false);
   const [previsualisationValue, setPrevisualisationValue] = useState([
     {
       _id: "0",
       nameSkill: "default",
-      percentage: 100,
-      skillCategory: "codingSkill",
       fontAwesomeIcon: "",
       svgIcon: "",
     },
@@ -46,8 +40,28 @@ function FormSkill({
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
+  const formDefaultValueRef = useRef({});
 
-  const { register, handleSubmit, errors } = useForm({});
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: useMemo(() => {
+      return value;
+    }, [value]),
+  });
+
+  useEffect(() => {
+    formDefaultValueRef.current = {
+      fontAwesomeIcon: value?.fontAwesomeIcon,
+      nameSkill: value?.nameSkill,
+      skillCategory: value?.skillCategory,
+      svgIcon: value?.svgIcon,
+    };
+    reset(formDefaultValueRef.current);
+  }, [reset, value]);
 
   useEffect(() => {
     if (!add && value) {
@@ -55,10 +69,7 @@ function FormSkill({
       setButton("Éditer");
       setPrevisualisationValue([
         {
-          _id: value._id,
           nameSkill: value.nameSkill,
-          percentage: value.percentage,
-          skillCategory: value.skillCategory,
           fontAwesomeIcon: value.fontAwesomeIcon,
           svgIcon: value.svgIcon,
         },
@@ -69,22 +80,19 @@ function FormSkill({
     }
   }, [add, value]);
 
-  useLayoutEffect(() => {
-    setCheckboxCodingSkill("checked");
-    setCheckboxGeneralSkill("");
-    setCheckboxLanguage("");
-    if (value) {
-      if (value.skillCategory === "generalSkill") {
-        setCheckboxCodingSkill("");
-        setCheckboxGeneralSkill("checked");
-        setCheckboxLanguage("");
-      } else if (value.skillCategory === "language") {
-        setCheckboxCodingSkill("");
-        setCheckboxGeneralSkill("");
-        setCheckboxLanguage("checked");
-      }
+  useEffect(() => {
+    if (add) {
+      formDefaultValueRef.current = {
+        fontAwesomeIcon: null,
+        nameSkill: null,
+        skillCategory: value?.skillCategory
+          ? value.skillCategory
+          : "codingSkill",
+        svgIcon: null,
+      };
+      reset(formDefaultValueRef.current);
     }
-  }, [value]);
+  }, [add]);
 
   let timeoutLoader = setTimeoutLoader.current;
   let timeoutSuccess = setTimeoutSuccess.current;
@@ -111,17 +119,16 @@ function FormSkill({
           setSpanSuccess
         );
         e.target.reset();
-        let dataValue = {
-          _id: "0",
-          nameSkill: "",
-          percentage: 100,
-          skillCategory: "codingSkill",
-          fontAwesomeIcon: "",
-          svgIcon: "",
-        };
-        setValue(dataValue);
-        setPrevisualisationValue([dataValue]);
+        setPrevisualisationValue([
+          {
+            _id: "0",
+            nameSkill: "default",
+            fontAwesomeIcon: "",
+            svgIcon: "",
+          },
+        ]);
         setSwitchPrevisualisation(false);
+        reset({ skillCategory: "codingSkill" });
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -239,10 +246,6 @@ function FormSkill({
   };
 
   const onChangeValue = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
     setPrevisualisationValue([
       {
         ...value,
@@ -271,9 +274,12 @@ function FormSkill({
               type="text"
               id="nameSkill"
               placeholder="Nom de la compétences"
-              value={value.nameSkill}
-              onChange={onChangeValue}
-              ref={register({ required: true })}
+              {...register("nameSkill", {
+                required: true,
+                onChange: (e) => {
+                  onChangeValue(e);
+                },
+              })}
             />
           </div>
           {errors.nameSkill && (
@@ -291,9 +297,11 @@ function FormSkill({
               type="text"
               id="fontAwesomeIcon"
               placeholder="Icône Font Awesome"
-              value={value.fontAwesomeIcon}
-              onChange={onChangeValue}
-              ref={register()}
+              {...register("fontAwesomeIcon", {
+                onChange: (e) => {
+                  onChangeValue(e);
+                },
+              })}
             />
           </div>
           {errors.fontAwesomeIcon && (
@@ -311,9 +319,11 @@ function FormSkill({
               type="text"
               id="svgIcon"
               placeholder="Icône svg"
-              value={value.svgIcon}
-              onChange={onChangeValue}
-              ref={register()}
+              {...register("svgIcon", {
+                onChange: (e) => {
+                  onChangeValue(e);
+                },
+              })}
             />
           </div>
           {errors.svgIcon && (
@@ -334,11 +344,15 @@ function FormSkill({
           Compétences code
           <input
             type="radio"
-            defaultChecked={checkboxCodingSkill}
             name="skillCategory"
             value="codingSkill"
             onChange={onChangePrevisualisation}
-            ref={register({ required: true })}
+            {...register("skillCategory", {
+              required: true,
+              onChange: (e) => {
+                onChangePrevisualisation(e);
+              },
+            })}
           />
           <span className="checkmark-radio"></span>
         </label>
@@ -346,11 +360,15 @@ function FormSkill({
           Compétences générales
           <input
             type="radio"
-            defaultChecked={checkboxGeneralSkill}
             name="skillCategory"
             value="generalSkill"
             onChange={onChangePrevisualisation}
-            ref={register({ required: true })}
+            {...register("skillCategory", {
+              required: true,
+              onChange: (e) => {
+                onChangePrevisualisation(e);
+              },
+            })}
           />
           <span className="checkmark-radio"></span>
         </label>
@@ -358,11 +376,15 @@ function FormSkill({
           Langues
           <input
             type="radio"
-            defaultChecked={checkboxLanguage}
             name="skillCategory"
             value="language"
             onChange={onChangePrevisualisation}
-            ref={register({ required: true })}
+            {...register("skillCategory", {
+              required: true,
+              onChange: (e) => {
+                onChangePrevisualisation(e);
+              },
+            })}
           />
           <span className="checkmark-radio"></span>
         </label>
@@ -403,8 +425,7 @@ function FormSkill({
 
 FormSkill.propTypes = {
   add: PropTypes.bool,
-  value: PropTypes.object.isRequired,
-  setValue: PropTypes.func.isRequired,
+  value: PropTypes.object,
   codingSkillState: PropTypes.shape({
     arrayCodingSkill: PropTypes.array,
     setArrayCodingSkill: PropTypes.func,
