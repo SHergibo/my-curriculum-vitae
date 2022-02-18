@@ -27,6 +27,7 @@ function Admin({ generalInfoAdmin }) {
     birthdate: "",
     isoDate: "",
     licence: "",
+    description: "",
   });
 
   useEffect(() => {
