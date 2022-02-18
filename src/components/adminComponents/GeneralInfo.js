@@ -24,7 +24,22 @@ function GeneralInfo({ generalInfoState }) {
     const deleteInfoEndPoint = `${apiDomain}/api/${apiVersion}/infos/${generalInfo._id}`;
     await axiosInstance.delete(deleteInfoEndPoint, generalInfo).then(() => {
       divTitleRef.current.classList.add("title-container-info-gen");
-      setGeneralInfo();
+      setGeneralInfo({
+        firstname: "",
+        lastname: "",
+        address: {
+          street: "",
+          number: "",
+          zip: "",
+          city: "",
+        },
+        phone: "",
+        email: "",
+        birthdate: "",
+        isoDate: "",
+        licence: "",
+        description: "",
+      });
       closeModal(setDisplayForm);
     });
   };
