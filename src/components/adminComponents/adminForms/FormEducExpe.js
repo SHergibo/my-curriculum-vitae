@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import { CSSTransition } from "react-transition-group";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
@@ -26,16 +26,32 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
   const [dateEnd, setDateEnd] = useState(null);
   const [titleForm, setTitleForm] = useState("Ajout");
   const [button, setButton] = useState("Ajouter");
-  const [checkboxExpe, setCheckboxExpe] = useState();
-  const [checkboxEduc, setCheckboxEduc] = useState();
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
+  const formDefaultValueRef = useRef({});
 
-  const { register, handleSubmit, errors, setValue, setError, clearError } =
-    useForm({
-      mode: "onChange",
-    });
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+    control,
+    setValue,
+    setError,
+    clearErrors,
+  } = useForm({});
+
+  useEffect(() => {
+    formDefaultValueRef.current = {
+      dateEnd: value?.dateEnd ? parseISO(value.dateEnd) : null,
+      dateStart: value?.dateStart ? parseISO(value.dateStart) : null,
+      educExpe: value?.educExpe ? value?.educExpe : "experience",
+      placeEducExpe: value?.placeEducExpe,
+      titleEducExpe: value?.titleEducExpe,
+    };
+    reset(formDefaultValueRef.current);
+  }, [reset, value]);
 
   useEffect(() => {
     if (value) {
@@ -45,35 +61,14 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
   }, [value]);
 
   useEffect(() => {
-    register({ name: "dateStart" }, { required: true });
-    register({ name: "dateEnd" }, { required: true });
-  }, [register]);
-
-  useEffect(() => {
-    setCheckboxExpe("checked");
-    setCheckboxEduc("");
     if (value) {
       setDateStart(parseISO(value.dateStart));
-      setValue("dateStart", parseISO(value.dateStart));
       setDateEnd(parseISO(value.dateEnd));
-      setValue("dateEnd", parseISO(value.dateEnd));
-      if (value.educExpe === "education") {
-        setCheckboxExpe("");
-        setCheckboxEduc("checked");
-      }
     } else if (!value) {
       setDateStart(null);
       setDateEnd(null);
     }
-  }, [
-    register,
-    setValue,
-    value,
-    setCheckboxExpe,
-    checkboxEduc,
-    setDateStart,
-    setDateEnd,
-  ]);
+  }, [value, setDateStart, setDateEnd]);
 
   let timeoutLoader = setTimeoutLoader.current;
   let timeoutSuccess = setTimeoutSuccess.current;
@@ -102,6 +97,9 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
         e.target.reset();
         setDateStart(null);
         setDateEnd(null);
+        reset({ dateStart: null });
+        reset({ dateEnd: null });
+        reset({ educExpe: "experience" });
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -197,17 +195,25 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
             <span>
               <FontAwesomeIcon icon="hourglass-start" />
             </span>
-            <DatePicker
-              id="dateStart"
-              isClearable
-              placeholderText="Date de début"
-              dateFormat="MM/yyyy"
-              locale="fr"
-              selected={dateStart}
-              onChange={(val) => {
-                setDateStart(val);
-                setValue("dateStart", val);
-              }}
+            <Controller
+              control={control}
+              name="dateStart"
+              render={({ field }) => (
+                <DatePicker
+                  id="dateStart"
+                  isClearable
+                  placeholderText="Date de début"
+                  dateFormat="MM/yyyy"
+                  locale="fr"
+                  selected={field.value}
+                  {...register("dateStart", { required: true })}
+                  onChange={(val) => {
+                    setDateStart(val);
+                    setValue("dateStart", val);
+                    clearErrors("dateStart");
+                  }}
+                />
+              )}
             />
           </div>
           {errors.dateStart && (
@@ -220,39 +226,50 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
             <span>
               <FontAwesomeIcon icon="hourglass-end" />
             </span>
-            <DatePicker
-              id="dateEnd"
-              isClearable
-              placeholderText="Date de fin"
-              dateFormat="MM/yyyy"
-              locale="fr"
-              selected={dateEnd}
-              onChange={(val) => {
-                if (val && dateStart) {
-                  if (
-                    dateStart.getYear() + (dateStart.getMonth() + 1) <=
-                    val.getYear() + (val.getMonth() + 1)
-                  ) {
-                    clearError("lowerDateEnd");
-                    setDateEnd(val);
-                    setValue("dateEnd", val);
-                  } else {
-                    setError("lowerDateEnd");
-                  }
-                } else {
-                  setDateEnd(val);
-                  setValue("dateEnd", val);
-                }
-              }}
+            <Controller
+              control={control}
+              name="dateEnd"
+              render={({ field }) => (
+                <DatePicker
+                  id="dateEnd"
+                  isClearable
+                  placeholderText="Date de fin"
+                  dateFormat="MM/yyyy"
+                  locale="fr"
+                  selected={field.value}
+                  {...register("dateEnd", { required: "Ce champ est requis" })}
+                  onChange={(val) => {
+                    if (val && dateStart) {
+                      if (dateStart.getTime() <= val.getTime()) {
+                        setDateEnd(val);
+                        setValue("dateEnd", val);
+                        clearErrors("dateEnd");
+                      } else {
+                        setError("dateEnd", {
+                          type: "manual",
+                          message:
+                            "La date de fin ne peut pas être antérieur à la date de début",
+                        });
+                      }
+                    } else if (!dateStart) {
+                      setDateEnd(null);
+                      setValue("dateEnd", null);
+                      setError("dateEnd", {
+                        type: "manual",
+                        message:
+                          "Veuillez ajouter une date de début avant une date de fin",
+                      });
+                    } else if (!val && dateStart) {
+                      setDateEnd(null);
+                      setValue("dateEnd", null);
+                    }
+                  }}
+                />
+              )}
             />
           </div>
           {errors.dateEnd && (
-            <span className="error-message-form">Ce champ est requis</span>
-          )}
-          {errors.lowerDateEnd && (
-            <span className="error-message-form">
-              La date de fin ne peut pas être antérieur à la date de début
-            </span>
+            <span className="error-message-form">{errors.dateEnd.message}</span>
           )}
         </div>
       </div>
@@ -263,25 +280,13 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
             <span>
               <FontAwesomeIcon icon="user-graduate" />
             </span>
-            {!value && (
-              <input
-                name="titleEducExpe"
-                type="text"
-                id="titleEducExpe"
-                placeholder="Titre du diplôme / formation"
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="titleEducExpe"
-                type="text"
-                id="titleEducExpe"
-                placeholder="Titre du diplôme / formation"
-                defaultValue={value.titleEducExpe}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="titleEducExpe"
+              type="text"
+              id="titleEducExpe"
+              placeholder="Titre du diplôme / formation"
+              {...register("titleEducExpe", { required: true })}
+            />
           </div>
           {errors.titleEducExpe && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -295,25 +300,13 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
             <span>
               <FontAwesomeIcon icon="school" />
             </span>
-            {!value && (
-              <input
-                name="placeEducExpe"
-                type="text"
-                id="placeEducExpe"
-                placeholder="Nom du centre de formation / école"
-                ref={register({ required: true })}
-              />
-            )}
-            {value && (
-              <input
-                name="placeEducExpe"
-                type="text"
-                id="placeEducExpe"
-                placeholder="Nom du centre de formation / école"
-                defaultValue={value.placeEducExpe}
-                ref={register({ required: true })}
-              />
-            )}
+            <input
+              name="placeEducExpe"
+              type="text"
+              id="placeEducExpe"
+              placeholder="Nom du centre de formation / école"
+              {...register("placeEducExpe", { required: true })}
+            />
           </div>
           {errors.placeEducExpe && (
             <span className="error-message-form">Ce champ est requis</span>
@@ -325,10 +318,9 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
           Expérience
           <input
             type="radio"
-            defaultChecked={checkboxExpe}
             name="educExpe"
             value="experience"
-            ref={register({ required: true })}
+            {...register("educExpe", { required: true })}
           />
           <span className="checkmark-radio"></span>
         </label>
@@ -336,10 +328,9 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
           Éducation
           <input
             type="radio"
-            defaultChecked={checkboxEduc}
             name="educExpe"
             value="education"
-            ref={register({ required: true })}
+            {...register("educExpe", { required: true })}
           />
           <span className="checkmark-radio"></span>
         </label>
