@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import axios from "axios";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
@@ -26,6 +26,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
+  const formDefaultValueRef = useRef({});
 
   useEffect(() => {
     setImgProjectName("Image du projet");
@@ -36,7 +37,33 @@ function FormProject({ value, projectState, setDisplayForm }) {
     }
   }, [value]);
 
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: useMemo(() => {
+      return value;
+    }, [value]),
+  });
+
+  useEffect(() => {
+    formDefaultValueRef.current = {
+      projectName: value?.projectName,
+      projectUrlGithub: value?.urlGithub,
+      projectUrlWeb: value?.urlWeb,
+      projectAltImg: value?.altImg,
+      express: value?.technoUsedBack.Express,
+      nodejs: value?.technoUsedBack.NodeJs,
+      mongodb: value?.technoUsedBack.MongoDB,
+      react: value?.technoUsedFront.React,
+      ember: value?.technoUsedFront.Ember,
+      angular: value?.technoUsedFront.Angular,
+      projectDescription: value?.description,
+    };
+    reset(formDefaultValueRef.current);
+  }, [reset, value]);
 
   const switchToInput = () => {
     setImgEdit(false);
@@ -77,7 +104,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
     formData.append("urlGithub", data.projectUrlGithub);
     formData.append("img", data.projectImg[0]);
     formData.append("altImg", data.projectAltImg);
-    formData.append("description", data.descriptionProject);
+    formData.append("description", data.projectDescription);
     formData.append(
       "technoUsedFront",
       JSON.stringify({
@@ -127,7 +154,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
     formData.append("urlGithub", data.projectUrlGithub);
     if (data.projectImg) formData.append("img", data.projectImg[0]);
     formData.append("altImg", data.projectAltImg);
-    formData.append("description", data.descriptionProject);
+    formData.append("description", data.projectDescription);
     formData.append(
       "technoUsedFront",
       JSON.stringify({
@@ -172,25 +199,13 @@ function FormProject({ value, projectState, setDisplayForm }) {
                 <span>
                   <FontAwesomeIcon icon="file-signature" />
                 </span>
-                {!value && (
-                  <input
-                    name="projectName"
-                    type="text"
-                    id="projectName"
-                    placeholder="Nom du projet"
-                    ref={register({ required: true })}
-                  />
-                )}
-                {value && (
-                  <input
-                    name="projectName"
-                    type="text"
-                    id="projectName"
-                    placeholder="Nom du projet"
-                    defaultValue={value.projectName}
-                    ref={register({ required: true })}
-                  />
-                )}
+                <input
+                  name="projectName"
+                  type="text"
+                  id="projectName"
+                  placeholder="Nom du projet"
+                  {...register("projectName", { required: true })}
+                />
               </div>
               {errors.projectName && (
                 <span className="error-message-form">Ce champ est requis</span>
@@ -204,25 +219,13 @@ function FormProject({ value, projectState, setDisplayForm }) {
                 <span>
                   <FontAwesomeIcon icon="link" />
                 </span>
-                {!value && (
-                  <input
-                    name="projectUrlWeb"
-                    type="text"
-                    id="projectUrlWeb"
-                    placeholder="Lien vers le site web"
-                    ref={register()}
-                  />
-                )}
-                {value && (
-                  <input
-                    name="projectUrlWeb"
-                    type="text"
-                    id="projectUrlWeb"
-                    placeholder="Lien vers le site web"
-                    defaultValue={value.urlWeb}
-                    ref={register()}
-                  />
-                )}
+                <input
+                  name="projectUrlWeb"
+                  type="text"
+                  id="projectUrlWeb"
+                  placeholder="Lien vers le site web"
+                  {...register("projectUrlWeb")}
+                />
               </div>
               {errors.projectUrlWeb && (
                 <span className="error-message-form">Ce champ est requis</span>
@@ -236,25 +239,13 @@ function FormProject({ value, projectState, setDisplayForm }) {
                 <span>
                   <FontAwesomeIcon icon={["fab", "github"]} />
                 </span>
-                {!value && (
-                  <input
-                    name="projectUrlGithub"
-                    type="text"
-                    id="projectUrlGithub"
-                    placeholder="Lien vers Github"
-                    ref={register({ required: true })}
-                  />
-                )}
-                {value && (
-                  <input
-                    name="projectUrlGithub"
-                    type="text"
-                    id="projectUrlGithub"
-                    placeholder="Lien vers Github"
-                    defaultValue={value.urlGithub}
-                    ref={register({ required: true })}
-                  />
-                )}
+                <input
+                  name="projectUrlGithub"
+                  type="text"
+                  id="projectUrlGithub"
+                  placeholder="Lien vers Github"
+                  {...register("projectUrlGithub", { required: true })}
+                />
               </div>
               {errors.projectUrlGithub && (
                 <span className="error-message-form">Ce champ est requis</span>
@@ -267,59 +258,21 @@ function FormProject({ value, projectState, setDisplayForm }) {
               <div>
                 <label className="container-checkbox">
                   React
-                  {!value && (
-                    <input
-                      type="checkbox"
-                      name="react"
-                      ref={register({ required: false })}
-                    />
-                  )}
-                  {value && (
-                    <input
-                      type="checkbox"
-                      name="react"
-                      defaultChecked={value.technoUsedFront.React}
-                      ref={register({ required: false })}
-                    />
-                  )}
+                  <input type="checkbox" name="react" {...register("react")} />
                   <span className="checkmark-checkbox"></span>
                 </label>
                 <label className="container-checkbox">
                   Ember
-                  {!value && (
-                    <input
-                      type="checkbox"
-                      name="ember"
-                      ref={register({ required: false })}
-                    />
-                  )}
-                  {value && (
-                    <input
-                      type="checkbox"
-                      name="ember"
-                      defaultChecked={value.technoUsedFront.Ember}
-                      ref={register({ required: false })}
-                    />
-                  )}
+                  <input type="checkbox" name="ember" {...register("ember")} />
                   <span className="checkmark-checkbox"></span>
                 </label>
                 <label className="container-checkbox">
                   Angular
-                  {!value && (
-                    <input
-                      type="checkbox"
-                      name="angular"
-                      ref={register({ required: false })}
-                    />
-                  )}
-                  {value && (
-                    <input
-                      type="checkbox"
-                      name="angular"
-                      defaultChecked={value.technoUsedFront.Angular}
-                      ref={register({ required: false })}
-                    />
-                  )}
+                  <input
+                    type="checkbox"
+                    name="angular"
+                    {...register("angular")}
+                  />
                   <span className="checkmark-checkbox"></span>
                 </label>
               </div>
@@ -329,59 +282,29 @@ function FormProject({ value, projectState, setDisplayForm }) {
               <div>
                 <label className="container-checkbox">
                   Express
-                  {!value && (
-                    <input
-                      type="checkbox"
-                      name="express"
-                      ref={register({ required: false })}
-                    />
-                  )}
-                  {value && (
-                    <input
-                      type="checkbox"
-                      name="express"
-                      defaultChecked={value.technoUsedBack.Express}
-                      ref={register({ required: false })}
-                    />
-                  )}
+                  <input
+                    type="checkbox"
+                    name="express"
+                    {...register("express")}
+                  />
                   <span className="checkmark-checkbox"></span>
                 </label>
                 <label className="container-checkbox">
                   NodeJS
-                  {!value && (
-                    <input
-                      type="checkbox"
-                      name="nodejs"
-                      ref={register({ required: false })}
-                    />
-                  )}
-                  {value && (
-                    <input
-                      type="checkbox"
-                      name="nodejs"
-                      defaultChecked={value.technoUsedBack.NodeJs}
-                      ref={register({ required: false })}
-                    />
-                  )}
+                  <input
+                    type="checkbox"
+                    name="nodejs"
+                    {...register("nodejs")}
+                  />
                   <span className="checkmark-checkbox"></span>
                 </label>
                 <label className="container-checkbox">
                   MongoDB
-                  {!value && (
-                    <input
-                      type="checkbox"
-                      name="mongodb"
-                      ref={register({ required: false })}
-                    />
-                  )}
-                  {value && (
-                    <input
-                      type="checkbox"
-                      name="mongodb"
-                      defaultChecked={value.technoUsedBack.MongoDB}
-                      ref={register({ required: false })}
-                    />
-                  )}
+                  <input
+                    type="checkbox"
+                    name="mongodb"
+                    {...register("mongodb")}
+                  />
                   <span className="checkmark-checkbox"></span>
                 </label>
               </div>
@@ -416,28 +339,19 @@ function FormProject({ value, projectState, setDisplayForm }) {
                   </span>
                   <div className="container-input-file">
                     <span>{imgProjectName}</span>
-                    {!value && (
-                      <input
-                        name="projectImg"
-                        type="file"
-                        accept=".jpg,.jpeg,.png"
-                        id="projectImg"
-                        placeholder="Image du projet"
-                        ref={register({ required: true })}
-                        onChange={(e) => onAddFile(e)}
-                      />
-                    )}
-                    {value && (
-                      <input
-                        name="projectImg"
-                        type="file"
-                        accept=".jpg,.jpeg,.png"
-                        id="projectImg"
-                        placeholder="Image du projet"
-                        ref={register({ required: false })}
-                        onChange={(e) => onAddFile(e)}
-                      />
-                    )}
+                    <input
+                      name="projectImg"
+                      type="file"
+                      accept=".jpg,.jpeg,.png"
+                      id="projectImg"
+                      placeholder="Image du projet"
+                      {...register("projectImg", {
+                        required: true,
+                        onChange: (e) => {
+                          onAddFile(e);
+                        },
+                      })}
+                    />
                   </div>
                   <label htmlFor="projectImg">Ajout</label>
                 </div>
@@ -463,25 +377,13 @@ function FormProject({ value, projectState, setDisplayForm }) {
                 <span>
                   <FontAwesomeIcon icon="info-circle" />
                 </span>
-                {!value && (
-                  <input
-                    name="projectAltImg"
-                    type="text"
-                    id="projectAltImg"
-                    placeholder="Description de l'image du projet"
-                    ref={register({ required: true })}
-                  />
-                )}
-                {value && (
-                  <input
-                    name="projectAltImg"
-                    type="text"
-                    id="projectAltImg"
-                    placeholder="Description de l'image du projet"
-                    defaultValue={value.altImg}
-                    ref={register({ required: true })}
-                  />
-                )}
+                <input
+                  name="projectAltImg"
+                  type="text"
+                  id="projectAltImg"
+                  placeholder="Description de l'image du projet"
+                  {...register("projectAltImg", { required: true })}
+                />
               </div>
               {errors.projectAltImg && (
                 <span className="error-message-form">
@@ -494,27 +396,16 @@ function FormProject({ value, projectState, setDisplayForm }) {
       </div>
 
       <div className="text-area">
-        <label htmlFor="descriptionProject">Description du projet*</label>
+        <label htmlFor="projectDescription">Description du projet*</label>
         <div className="input-block">
-          {!value && (
-            <textarea
-              name="descriptionProject"
-              id="descriptionProject"
-              placeholder="Votre description ici..."
-              ref={register({ required: true })}
-            />
-          )}
-          {value && (
-            <textarea
-              name="descriptionProject"
-              id="descriptionProject"
-              placeholder="Votre description ici..."
-              defaultValue={value.description}
-              ref={register({ required: true })}
-            />
-          )}
+          <textarea
+            name="projectDescription"
+            id="projectDescription"
+            placeholder="Votre description ici..."
+            {...register("projectDescription", { required: true })}
+          />
         </div>
-        {errors.descriptionProject && (
+        {errors.projectDescription && (
           <span className="error-message-form">Ce champ est requis</span>
         )}
       </div>
