@@ -29,6 +29,13 @@
   margin-bottom: rem(20px);
   @include form-input();
   div {
+    .react-datepicker-popper[data-placement^="bottom"] {
+      padding-top: rem(17px);
+    }
+    .react-datepicker__navigation-icon {
+      width: 0;
+      height: rem(23px);
+    }
     span {
       display: flex;
       justify-content: center;
