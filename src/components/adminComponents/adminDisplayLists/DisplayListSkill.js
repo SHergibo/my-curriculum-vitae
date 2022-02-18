@@ -114,7 +114,6 @@ function DisplayListSkill() {
           div={
             <FormSkill
               value={value}
-              setValue={setValue}
               codingSkillState={{ arrayCodingSkill, setArrayCodingSkill }}
               generalSkillState={{ arrayGeneralSkill, setArrayGeneralSkill }}
               languageState={{ arrayLanguage, setArrayLanguage }}
