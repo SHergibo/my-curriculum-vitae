@@ -5,14 +5,6 @@ import { CSSTransition } from "react-transition-group";
 import TitleAction from "../TitleAction";
 
 function Skills() {
-  const [value, setValue] = useState({
-    _id: "0",
-    nameSkill: "",
-    percentage: 100,
-    skillCategory: "codingSkill",
-    fontAwesomeIcon: "",
-    svgIcon: "",
-  });
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
   const nodeRef = useRef(null);
@@ -51,7 +43,7 @@ function Skills() {
               unmountOnExit
             >
               <div ref={nodeRef} className="form-container">
-                <FormSkill add={true} value={value} setValue={setValue} />
+                <FormSkill add={true} />
               </div>
             </CSSTransition>
             <CSSTransition
