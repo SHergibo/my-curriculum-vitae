@@ -50,7 +50,11 @@ function Contact({ generalInfo }) {
       });
   };
 
-  const { register, handleSubmit, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     mode: "onChange",
   });
 
@@ -74,7 +78,7 @@ function Contact({ generalInfo }) {
                     type="text"
                     id="firstname"
                     placeholder="Votre prénom ici..."
-                    ref={register({ required: true })}
+                    {...register("firstname", { required: true })}
                   />
                 </div>
                 {errors.firstname && (
@@ -94,7 +98,7 @@ function Contact({ generalInfo }) {
                     type="text"
                     id="lastname"
                     placeholder="Votre nom ici..."
-                    ref={register({ required: true })}
+                    {...register("lastname", { required: true })}
                   />
                 </div>
                 {errors.lastname && (
@@ -115,8 +119,8 @@ function Contact({ generalInfo }) {
                     name="email"
                     id="email"
                     placeholder="Votre adresse mail ici..."
-                    ref={register({
-                      required: "Ce champ est requis",
+                    {...register("email", {
+                      required: true,
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                         message: "Adresse mail invalide",
@@ -139,7 +143,7 @@ function Contact({ generalInfo }) {
                     type="text"
                     id="phone"
                     placeholder="Votre n° de téléphone ici..."
-                    ref={register({ required: true })}
+                    {...register("phone", { required: true })}
                   />
                 </div>
                 {errors.phone && (
@@ -161,7 +165,7 @@ function Contact({ generalInfo }) {
                     type="text"
                     id="subject"
                     placeholder="Le sujet du message ici..."
-                    ref={register({ required: true })}
+                    {...register("subject", { required: true })}
                   />
                 </div>
                 {errors.subject && (
@@ -178,7 +182,7 @@ function Contact({ generalInfo }) {
                   name="message"
                   id="message"
                   placeholder="Votre message ici..."
-                  ref={register({ required: true })}
+                  {...register("message", { required: true })}
                 />
               </div>
               {errors.message && (
