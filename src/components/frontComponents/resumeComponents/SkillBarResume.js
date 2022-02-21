@@ -12,6 +12,7 @@ function SkillBarResume({ data }) {
           {item.fontAwesomeIcon && (
             <span>
               <FontAwesomeIcon icon={item.fontAwesomeIcon} />
+              <FontAwesomeIcon icon={["fab", item.fontAwesomeIcon]} />
             </span>
           )}
           {item.svgIcon && <span>{parse(item.svgIcon)}</span>}
