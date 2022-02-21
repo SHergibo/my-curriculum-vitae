@@ -28,6 +28,9 @@
 .input {
   margin-bottom: rem(20px);
   @include form-input();
+  .disabled-datePicker {
+    cursor: not-allowed;
+  }
   div {
     .react-datepicker-popper[data-placement^="bottom"] {
       padding-top: rem(17px);
@@ -104,6 +107,13 @@
       transition: 0.2s ease-in-out;
       &:hover {
         color: var(--blue);
+      }
+    }
+    .react-datepicker__day--disabled {
+      color: var(--grey-three);
+      cursor: not-allowed;
+      &:hover {
+        color: var(--grey-three);
       }
     }
     .react-datepicker__close-icon {
