@@ -262,6 +262,27 @@
     }
   }
 }
+
+.fade-enter .info-project-container {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.fade-enter-active .info-project-container {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.fade-exit .info-project-container {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.fade-exit-active .info-project-container {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.fade-enter-active .info-project-container,
+.fade-exit-active .info-project-container {
+  transition: opacity 500ms, transform 500ms;
+}
 /*Media queries*/
 
 /*Tablet*/
