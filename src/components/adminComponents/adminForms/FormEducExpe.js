@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { useForm, Controller } from "react-hook-form";
@@ -38,7 +38,6 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
     formState: { errors },
     control,
     setValue,
-    setError,
     clearErrors,
   } = useForm({});
 
