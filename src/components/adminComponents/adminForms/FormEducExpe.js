@@ -46,7 +46,7 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
     formDefaultValueRef.current = {
       dateEnd: value?.dateEnd ? parseISO(value.dateEnd) : null,
       dateStart: value?.dateStart ? parseISO(value.dateStart) : null,
-      educExpe: value?.educExpe ? value?.educExpe : "experience",
+      educExpe: value?.educExpe ? value?.educExpe : "education",
       placeEducExpe: value?.placeEducExpe,
       titleEducExpe: value?.titleEducExpe,
     };
@@ -211,6 +211,13 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
                     setDateStart(val);
                     setValue("dateStart", val);
                     clearErrors("dateStart");
+                    if (
+                      (!val && setDateEnd) ||
+                      (val && dateEnd && val.getTime() > dateEnd.getTime())
+                    ) {
+                      setDateEnd(null);
+                      setValue("dateEnd", null);
+                    }
                   }}
                 />
               )}
@@ -232,44 +239,27 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
               render={({ field }) => (
                 <DatePicker
                   id="dateEnd"
+                  title={dateStart ? "" : "Veuillez ajouter une date de début"}
+                  className={dateStart ? "" : "disabled-datePicker"}
                   isClearable
                   placeholderText="Date de fin"
                   dateFormat="MM/yyyy"
                   locale="fr"
+                  minDate={dateStart}
+                  disabled={dateStart ? false : true}
                   selected={field.value}
-                  {...register("dateEnd", { required: "Ce champ est requis" })}
+                  {...register("dateEnd", { required: true })}
                   onChange={(val) => {
-                    if (val && dateStart) {
-                      if (dateStart.getTime() <= val.getTime()) {
-                        setDateEnd(val);
-                        setValue("dateEnd", val);
-                        clearErrors("dateEnd");
-                      } else {
-                        setError("dateEnd", {
-                          type: "manual",
-                          message:
-                            "La date de fin ne peut pas être antérieur à la date de début",
-                        });
-                      }
-                    } else if (!dateStart) {
-                      setDateEnd(null);
-                      setValue("dateEnd", null);
-                      setError("dateEnd", {
-                        type: "manual",
-                        message:
-                          "Veuillez ajouter une date de début avant une date de fin",
-                      });
-                    } else if (!val && dateStart) {
-                      setDateEnd(null);
-                      setValue("dateEnd", null);
-                    }
+                    setDateEnd(val);
+                    setValue("dateEnd", val);
+                    clearErrors("dateEnd");
                   }}
                 />
               )}
             />
           </div>
           {errors.dateEnd && (
-            <span className="error-message-form">{errors.dateEnd.message}</span>
+            <span className="error-message-form">Ce champ est requis</span>
           )}
         </div>
       </div>
@@ -315,21 +305,21 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
       </div>
       <div className="label-checkbox-container">
         <label className="container-radio">
-          Expérience
-          <input
-            type="radio"
-            name="educExpe"
-            value="experience"
-            {...register("educExpe", { required: true })}
-          />
-          <span className="checkmark-radio"></span>
-        </label>
-        <label className="container-radio">
           Éducation
           <input
             type="radio"
             name="educExpe"
             value="education"
+            {...register("educExpe", { required: true })}
+          />
+          <span className="checkmark-radio"></span>
+        </label>
+        <label className="container-radio">
+          Expérience
+          <input
+            type="radio"
+            name="educExpe"
+            value="experience"
             {...register("educExpe", { required: true })}
           />
           <span className="checkmark-radio"></span>
