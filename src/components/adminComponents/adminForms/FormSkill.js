@@ -31,7 +31,7 @@ function FormSkill({
   const [switchPrevisualisation, setSwitchPrevisualisation] = useState(false);
   const [previsualisationValue, setPrevisualisationValue] = useState([
     {
-      _id: "0",
+      _id: 0,
       nameSkill: "default",
       fontAwesomeIcon: "",
       svgIcon: "",
@@ -69,6 +69,7 @@ function FormSkill({
       setButton("Éditer");
       setPrevisualisationValue([
         {
+          _id: 0,
           nameSkill: value.nameSkill,
           fontAwesomeIcon: value.fontAwesomeIcon,
           svgIcon: value.svgIcon,
@@ -121,7 +122,7 @@ function FormSkill({
         e.target.reset();
         setPrevisualisationValue([
           {
-            _id: "0",
+            _id: 0,
             nameSkill: "default",
             fontAwesomeIcon: "",
             svgIcon: "",
@@ -246,12 +247,8 @@ function FormSkill({
   };
 
   const onChangeValue = (e) => {
-    setPrevisualisationValue([
-      {
-        ...value,
-        [e.target.name]: e.target.value,
-      },
-    ]);
+    previsualisationValue[0][e.target.name] = e.target.value;
+    setPrevisualisationValue([...previsualisationValue]);
   };
 
   const onChangePrevisualisation = (e) => {
