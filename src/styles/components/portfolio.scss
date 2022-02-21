@@ -124,7 +124,7 @@
   flex-direction: column;
   justify-content: center;
   margin: rem(60px) 0;
-  .project-carousel-container {
+  .navigation-small-device-carousel {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
@@ -141,7 +141,7 @@
       justify-content: center;
       align-items: center;
       background-color: var(--blue);
-      color: var(--principal-color);
+      color: var(--white);
       outline: none;
       cursor: pointer;
       transition: 0.3s ease-in-out;
@@ -156,6 +156,9 @@
     #chevronL {
       margin-right: 0.5rem;
     }
+  }
+  .navigation-small-device-carousel-first {
+    justify-content: flex-end;
   }
   .img-project {
     display: flex;
