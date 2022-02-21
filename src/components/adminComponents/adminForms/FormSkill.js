@@ -86,14 +86,12 @@ function FormSkill({
       formDefaultValueRef.current = {
         fontAwesomeIcon: null,
         nameSkill: null,
-        skillCategory: value?.skillCategory
-          ? value.skillCategory
-          : "codingSkill",
+        skillCategory: "codingSkill",
         svgIcon: null,
       };
       reset(formDefaultValueRef.current);
     }
-  }, [add]);
+  }, [add, reset]);
 
   let timeoutLoader = setTimeoutLoader.current;
   let timeoutSuccess = setTimeoutSuccess.current;
