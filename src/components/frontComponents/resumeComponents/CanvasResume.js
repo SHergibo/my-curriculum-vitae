@@ -49,6 +49,7 @@ function CanvasResume({ data }) {
             {item.fontAwesomeIcon && (
               <span>
                 <FontAwesomeIcon icon={["fab", item.fontAwesomeIcon]} />
+                <FontAwesomeIcon icon={item.fontAwesomeIcon} />
               </span>
             )}
             {item.svgIcon && <span>{parse(item.svgIcon)}</span>}
