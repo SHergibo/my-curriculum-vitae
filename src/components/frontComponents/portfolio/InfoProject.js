@@ -74,7 +74,13 @@ function InfoProject({
   return (
     <div className="project-container">
       {windowWidth < 1087 && (
-        <div className="project-carousel-container">
+        <div
+          className={
+            indexProject > 0
+              ? "navigation-small-device-carousel"
+              : "navigation-small-device-carousel navigation-small-device-carousel-first"
+          }
+        >
           {indexProject > 0 && (
             <button
               title="Projet précédant"
