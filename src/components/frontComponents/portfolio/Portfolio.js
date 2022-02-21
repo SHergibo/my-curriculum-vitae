@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import InfoProject from "./InfoProject";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import axios from "axios";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 
 function Portfolio({ isLoaded }) {
@@ -16,6 +17,7 @@ function Portfolio({ isLoaded }) {
   const [indexProject, setIndexProject] = useState(0);
   const [nextProject, setNextProject] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const nodeRef = useRef(null);
   const pageSize = 6;
 
   useEffect(() => {
@@ -304,17 +306,34 @@ function Portfolio({ isLoaded }) {
 
             <div>
               <div className="title-right">Projet - {value.projectName}</div>
-              <InfoProject
-                value={value}
-                setArrayProject={setArrayProject}
-                setDisplayProject={setDisplayProject}
-                pageIndexState={{ pageIndex, setPageIndex }}
-                windowWidth={windowWidth}
-                switchProjectCarousel={switchProjectCarousel}
-                indexProjectState={{ indexProject, setIndexProject }}
-                pageIndexCarousel={pageIndexCarousel}
-                nextProjectState={{ nextProject, setNextProject }}
-              />
+              <SwitchTransition mode={"out-in"}>
+                <CSSTransition
+                  key={value._id}
+                  nodeRef={nodeRef}
+                  addEndListener={(done) => {
+                    nodeRef.current.addEventListener(
+                      "transitionend",
+                      done,
+                      false
+                    );
+                  }}
+                  classNames="fade"
+                >
+                  <div ref={nodeRef}>
+                    <InfoProject
+                      value={value}
+                      setArrayProject={setArrayProject}
+                      setDisplayProject={setDisplayProject}
+                      pageIndexState={{ pageIndex, setPageIndex }}
+                      windowWidth={windowWidth}
+                      switchProjectCarousel={switchProjectCarousel}
+                      indexProjectState={{ indexProject, setIndexProject }}
+                      pageIndexCarousel={pageIndexCarousel}
+                      nextProjectState={{ nextProject, setNextProject }}
+                    />
+                  </div>
+                </CSSTransition>
+              </SwitchTransition>
             </div>
 
             {windowWidth >= 1087 && (
