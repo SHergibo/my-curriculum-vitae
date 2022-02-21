@@ -1,7 +1,7 @@
 @mixin form-input() {
   label {
     display: block;
-    color: #ffffff;
+    color: var(--white);
     font-size: rem(14px);
     margin-bottom: rem(10px);
   }
