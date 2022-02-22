@@ -50,7 +50,6 @@ function FormGeneralInfo({ generalInfoState }) {
       lastname: generalInfo?.lastname,
       email: generalInfo?.email,
       description: generalInfo?.description,
-      email: generalInfo?.email,
       licence: generalInfo?.licence,
       phone: generalInfo?.phone,
       city: generalInfo?.address?.city,
