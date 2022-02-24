@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import parse from "html-react-parser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fab } from "@fortawesome/free-brands-svg-icons";
 import PropTypes from "prop-types";
 
 function CanvasResume({ data }) {
@@ -37,13 +36,6 @@ function CanvasResume({ data }) {
   };
 
   const displayCodingSkill = data.map((item) => {
-    let fabIcon = false;
-    for (const key in fab) {
-      if (fab[key].iconName === item.fontAwesomeIcon) {
-        fabIcon = true;
-        break;
-      }
-    }
     if (item._id !== "") {
       return (
         <div className="canvas-container" key={"canvas" + item._id}>
@@ -54,17 +46,18 @@ function CanvasResume({ data }) {
               width="135"
               height="135"
             ></canvas>
-            {item.fontAwesomeIcon && (
+            {item.fontAwesomeIcon?.value && (
               <span>
-                {fabIcon ? (
-                  <FontAwesomeIcon icon={["fab", item.fontAwesomeIcon]} />
-                ) : (
-                  <FontAwesomeIcon icon={item.fontAwesomeIcon} />
-                )}
+                <FontAwesomeIcon
+                  icon={[
+                    item.fontAwesomeIcon.prefix,
+                    item.fontAwesomeIcon.value,
+                  ]}
+                />
               </span>
             )}
             {item.svgIcon && <span>{parse(item.svgIcon)}</span>}
-            {!item.fontAwesomeIcon && !item.svgIcon && (
+            {!item.fontAwesomeIcon?.value && !item.svgIcon && (
               <span>
                 <FontAwesomeIcon icon="code" />
               </span>
