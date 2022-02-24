@@ -98,7 +98,7 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
         setDateEnd(null);
         reset({ dateStart: null });
         reset({ dateEnd: null });
-        reset({ educExpe: "experience" });
+        reset({ educExpe: "education" });
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -196,6 +196,7 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
             </span>
             <Controller
               control={control}
+              rules={{ required: true }}
               name="dateStart"
               render={({ field }) => (
                 <DatePicker
@@ -205,7 +206,6 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
                   dateFormat="MM/yyyy"
                   locale="fr"
                   selected={field.value}
-                  {...register("dateStart", { required: true })}
                   onChange={(val) => {
                     setDateStart(val);
                     setValue("dateStart", val);
@@ -234,6 +234,7 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
             </span>
             <Controller
               control={control}
+              rules={{ required: true }}
               name="dateEnd"
               render={({ field }) => (
                 <DatePicker
@@ -247,7 +248,6 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
                   minDate={dateStart}
                   disabled={dateStart ? false : true}
                   selected={field.value}
-                  {...register("dateEnd", { required: true })}
                   onChange={(val) => {
                     setDateEnd(val);
                     setValue("dateEnd", val);
