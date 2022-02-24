@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import { Virtuoso } from "react-virtuoso";
 
-const InnerItem = React.memo(({ children }) => {
+const InnerItem = memo(({ children }) => {
   return <>{children}</>;
 });
 
