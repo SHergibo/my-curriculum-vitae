@@ -9,6 +9,9 @@ import SkillBarResume from "../../frontComponents/resumeComponents/SkillBarResum
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
+import SelectFontAwesome from "../../ReactSelectComponents/SelectFontAwesome";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 function FormSkill({
@@ -37,6 +40,7 @@ function FormSkill({
       svgIcon: "",
     },
   ]);
+  const [fontAwesomeIconsSelect, setFontAwesomeIconsSelect] = useState([]);
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
@@ -46,6 +50,7 @@ function FormSkill({
     register,
     reset,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: useMemo(() => {
@@ -128,6 +133,7 @@ function FormSkill({
         ]);
         setSwitchPrevisualisation(false);
         reset({ skillCategory: "codingSkill" });
+        reset({ fontAwesomeIcon: null });
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -249,11 +255,49 @@ function FormSkill({
     setPrevisualisationValue([...previsualisationValue]);
   };
 
+  const onChangeFontAwesomeIcon = (e) => {
+    if (e?.value) {
+      previsualisationValue[0]["fontAwesomeIcon"] = e;
+    }
+    if (e === null) {
+      previsualisationValue[0]["fontAwesomeIcon"] = null;
+    }
+    setPrevisualisationValue([...previsualisationValue]);
+  };
+
   const onChangePrevisualisation = (e) => {
     e.target.value === "codingSkill"
       ? setSwitchPrevisualisation(false)
       : setSwitchPrevisualisation(true);
   };
+
+  useEffect(() => {
+    console.log("ici");
+    let arraySelect = [];
+    for (const key in fas) {
+      if (arraySelect.find((el) => el.value === fas[key].iconName)) continue;
+      arraySelect = [
+        ...arraySelect,
+        {
+          value: fas[key].iconName,
+          label: fas[key].iconName,
+          prefix: fas[key].prefix,
+        },
+      ];
+    }
+    for (const key in fab) {
+      if (arraySelect.find((el) => el.value === fab[key].iconName)) continue;
+      arraySelect = [
+        ...arraySelect,
+        {
+          value: fab[key].iconName,
+          label: fab[key].iconName,
+          prefix: fab[key].prefix,
+        },
+      ];
+    }
+    setFontAwesomeIconsSelect(arraySelect);
+  }, []);
 
   const form = (
     <>
@@ -281,28 +325,16 @@ function FormSkill({
             <span className="error-message-form">Ce champ est requis</span>
           )}
         </div>
-        <div className="input">
-          <label htmlFor="fontAwesomeIcon">Icône Font Awesome</label>
-          <div className="input-block">
-            <span>
-              <FontAwesomeIcon icon={["fab", "font-awesome"]} />
-            </span>
-            <input
-              name="fontAwesomeIcon"
-              type="text"
-              id="fontAwesomeIcon"
-              placeholder="Icône Font Awesome"
-              {...register("fontAwesomeIcon", {
-                onChange: (e) => {
-                  onChangeValue(e);
-                },
-              })}
-            />
-          </div>
-          {errors.fontAwesomeIcon && (
-            <span className="error-message-form">Ce champ est requis</span>
-          )}
-        </div>
+
+        <SelectFontAwesome
+          control={control}
+          name="fontAwesomeIcon"
+          required={false}
+          funcOnChange={onChangeFontAwesomeIcon}
+          options={fontAwesomeIconsSelect}
+          errors={errors}
+        />
+
         <div className="input">
           <label htmlFor="svgIcon">Icône svg</label>
           <div className="input-block">
