@@ -61,6 +61,12 @@
       padding-right: rem(10px);
       color: var(--grey-two);
     }
+    .input-select-option {
+      &:hover {
+        color: var(--white);
+        background-color: var(--principal-color);
+      }
+    }
     input[type="file"] {
       opacity: 0;
       z-index: 10;
