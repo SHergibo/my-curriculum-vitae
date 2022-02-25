@@ -4,10 +4,92 @@ import Select, { createFilter } from "react-select";
 import MenuLargeList from "./MenuLargeList";
 import OptionFontAwesome from "./OptionFontAwesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
+
+const customStyles = {
+  container: (styles) => ({
+    ...styles,
+    width: "100%",
+  }),
+  placeholder: (styles) => ({
+    ...styles,
+    color: "hsla(0, 0%, 100%, 0.5);",
+  }),
+  singleValue: (styles) => ({
+    ...styles,
+    color: "hsla(0, 0%, 100%, 0.5);",
+  }),
+  input: (styles) => ({
+    ...styles,
+    color: "hsla(0, 0%, 100%, 0.5);",
+  }),
+  control: (styles) => ({
+    ...styles,
+    width: "100%",
+    outline: "none",
+    boxShadow: "none",
+    backgroundColor: "transparent",
+    border: "none",
+  }),
+  option: (styles, { isFocused, isSelected }) => ({
+    ...styles,
+    color: isSelected || isFocused ? "#ffffff" : "hsl(0, 0%, 35%)",
+    backgroundColor:
+      isSelected || isFocused ? "hsla(211, 80%, 10%, 0.849)" : "#fff",
+    "&:hover": {
+      color: "#ffffff",
+      backgroundColor: "hsl(211, 80%, 10%)",
+      svg: {
+        color: "#ffffff",
+      },
+    },
+    svg: {
+      width: "20px",
+      marginRight: "10px",
+      color: isSelected || isFocused ? "#ffffff" : "hsl(211, 80%, 10%)",
+    },
+  }),
+  menu: (styles) => ({
+    ...styles,
+    left: "-46px",
+    width: "calc(100% - -47px)",
+    marginTop: "3px",
+    borderRadius: "0.625rem",
+    overflow: "hidden",
+    zIndex: "11",
+  }),
+  indicatorSeparator: (styles) => ({
+    ...styles,
+    width: "1px !important",
+    height: "38px !important",
+    backgroundColor: "hsla(0, 0%, 100%, 0.5);",
+  }),
+  dropdownIndicator: (styles, { isFocused, isSelected }) => ({
+    ...styles,
+    color:
+      isSelected || isFocused
+        ? "hsla(0, 0%, 100%, 0.5);"
+        : "hsla(0, 0%, 100%, 0.5);",
+    "&:hover": {
+      color: "hsla(0, 0%, 100%, 0.2)",
+    },
+  }),
+  clearIndicator: (styles, { isFocused, isSelected }) => ({
+    ...styles,
+    color:
+      isSelected || isFocused
+        ? "hsla(0, 0%, 100%, 0.5);"
+        : "hsla(0, 0%, 100%, 0.5);",
+    "&:hover": {
+      color: "hsla(0, 0%, 100%, 0.2)",
+    },
+  }),
+};
 
 function SelectFontAwesome({
   control,
   name,
+  label,
   required = true,
   isClearable = true,
   isSearchable = true,
@@ -17,7 +99,7 @@ function SelectFontAwesome({
 }) {
   return (
     <div className="input">
-      <label htmlFor={name}>Icône Font Awesome</label>
+      <label htmlFor={name}>{label}</label>
       <div className="input-block">
         <span>
           <FontAwesomeIcon icon={["fab", "font-awesome"]} />
@@ -28,9 +110,10 @@ function SelectFontAwesome({
           rules={{ required }}
           render={({ field }) => (
             <Select
+              styles={customStyles}
+              placeholder={label}
               isClearable={isClearable}
               isSearchable={isSearchable}
-              // menuIsOpen={true}
               filterOption={createFilter({ ignoreAccents: false })}
               {...field}
               onChange={(e) => {
@@ -52,5 +135,17 @@ function SelectFontAwesome({
     </div>
   );
 }
+
+SelectFontAwesome.propTypes = {
+  control: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  required: PropTypes.bool,
+  isClearable: PropTypes.bool,
+  isSearchable: PropTypes.bool,
+  funcOnChange: PropTypes.func,
+  options: PropTypes.array.isRequired,
+  errors: PropTypes.object,
+};
 
 export default SelectFontAwesome;
