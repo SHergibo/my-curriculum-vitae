@@ -304,6 +304,7 @@ function FormSkill({
         <SelectFontAwesome
           control={control}
           name="fontAwesomeIcon"
+          label="Icône Font Awesome"
           required={false}
           funcOnChange={onChangeFontAwesomeIcon}
           options={fontAwesomeIconsSelect}
