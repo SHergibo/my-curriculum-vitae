@@ -8,7 +8,7 @@ function OptionFontAwesome(props) {
   const { onMouseMove, onMouseOver, ...otherInnerProps } = innerProps;
   const newProps = { innerProps: { ...otherInnerProps }, ...otherProps };
   return (
-    <Option {...newProps} className="input-select-option">
+    <Option {...newProps}>
       <FontAwesomeIcon icon={[props.data.prefix, props.data.value]} />
       {props.data.label}
     </Option>
