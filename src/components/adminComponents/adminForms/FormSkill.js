@@ -10,9 +10,8 @@ import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
 import SelectFontAwesome from "../../ReactSelectComponents/SelectFontAwesome";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { fas } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import fontAwesomeData from "../../../utils/fontAwesomeData";
 
 function FormSkill({
   add,
@@ -272,31 +271,7 @@ function FormSkill({
   };
 
   useEffect(() => {
-    console.log("ici");
-    let arraySelect = [];
-    for (const key in fas) {
-      if (arraySelect.find((el) => el.value === fas[key].iconName)) continue;
-      arraySelect = [
-        ...arraySelect,
-        {
-          value: fas[key].iconName,
-          label: fas[key].iconName,
-          prefix: fas[key].prefix,
-        },
-      ];
-    }
-    for (const key in fab) {
-      if (arraySelect.find((el) => el.value === fab[key].iconName)) continue;
-      arraySelect = [
-        ...arraySelect,
-        {
-          value: fab[key].iconName,
-          label: fab[key].iconName,
-          prefix: fab[key].prefix,
-        },
-      ];
-    }
-    setFontAwesomeIconsSelect(arraySelect);
+    setFontAwesomeIconsSelect(fontAwesomeData);
   }, []);
 
   const form = (
