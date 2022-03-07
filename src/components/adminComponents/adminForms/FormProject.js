@@ -220,6 +220,9 @@ function FormProject({ value, projectState, setDisplayForm }) {
         ]);
         setInputFrameworkValue("");
         event.preventDefault();
+        break;
+      default:
+        break;
     }
   };
 
@@ -241,6 +244,9 @@ function FormProject({ value, projectState, setDisplayForm }) {
         ]);
         setInputBackEndValue("");
         event.preventDefault();
+        break;
+      default:
+        break;
     }
   };
 
