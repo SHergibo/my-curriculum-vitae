@@ -8,7 +8,47 @@ import ActionButtonSubmit from "../../ActionButtonSubmit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { closeModal } from "../../../utils/modalDisplay";
 import { CSSTransition } from "react-transition-group";
+import CreatableSelect from "react-select/creatable";
 import PropTypes from "prop-types";
+
+const customStyles = {
+  container: (styles) => ({
+    ...styles,
+    width: "100%",
+  }),
+  placeholder: (styles) => ({
+    ...styles,
+    color: "hsla(0, 0%, 100%, 0.5);",
+    marginLeft: "0px",
+  }),
+  input: (styles) => ({
+    ...styles,
+    color: "hsla(0, 0%, 100%, 0.5);",
+    marginLeft: "0px",
+  }),
+  control: (styles) => ({
+    ...styles,
+    width: "100%",
+    outline: "none",
+    boxShadow: "none",
+    backgroundColor: "transparent",
+    border: "none",
+  }),
+  clearIndicator: (styles, { isFocused, isSelected }) => ({
+    ...styles,
+    color:
+      isSelected || isFocused
+        ? "hsla(0, 0%, 100%, 0.5);"
+        : "hsla(0, 0%, 100%, 0.5);",
+    "&:hover": {
+      color: "hsla(0, 0%, 100%, 0.2)",
+    },
+  }),
+  valueContainer: (styles) => ({
+    ...styles,
+    paddingLeft: "0px",
+  }),
+};
 
 function FormProject({ value, projectState, setDisplayForm }) {
   const successSpanRef = useRef(null);
@@ -23,6 +63,10 @@ function FormProject({ value, projectState, setDisplayForm }) {
   const [button, setButton] = useState("Ajouter");
   const [imgEdit, setImgEdit] = useState(false);
   const [errorMessageImg, setErrorMessageImg] = useState(false);
+  const [inputFrameworkValue, setInputFrameworkValue] = useState("");
+  const [frameworkValueSelect, setFrameworkValueSelect] = useState([]);
+  const [inputBackEndValue, setInputBackEndValue] = useState("");
+  const [backEndValueSelect, setBackEndValueSelect] = useState([]);
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
@@ -34,6 +78,8 @@ function FormProject({ value, projectState, setDisplayForm }) {
       setImgEdit(true);
       setTitleForm("Édition");
       setButton("Éditer");
+      setFrameworkValueSelect(value.technoUsedFront);
+      setBackEndValueSelect(value.technoUsedBack);
     }
   }, [value]);
 
@@ -54,12 +100,6 @@ function FormProject({ value, projectState, setDisplayForm }) {
       projectUrlGithub: value?.urlGithub,
       projectUrlWeb: value?.urlWeb,
       projectAltImg: value?.altImg,
-      express: value?.technoUsedBack.Express,
-      nodejs: value?.technoUsedBack.NodeJs,
-      mongodb: value?.technoUsedBack.MongoDB,
-      react: value?.technoUsedFront.React,
-      ember: value?.technoUsedFront.Ember,
-      angular: value?.technoUsedFront.Angular,
       projectDescription: value?.description,
     };
     reset(formDefaultValueRef.current);
@@ -105,22 +145,8 @@ function FormProject({ value, projectState, setDisplayForm }) {
     formData.append("img", data.projectImg[0]);
     formData.append("altImg", data.projectAltImg);
     formData.append("description", data.projectDescription);
-    formData.append(
-      "technoUsedFront",
-      JSON.stringify({
-        React: data.react,
-        Ember: data.ember,
-        Angular: data.angular,
-      })
-    );
-    formData.append(
-      "technoUsedBack",
-      JSON.stringify({
-        Express: data.express,
-        NodeJs: data.nodejs,
-        MongoDB: data.mongodb,
-      })
-    );
+    formData.append("technoUsedFront", JSON.stringify(frameworkValueSelect));
+    formData.append("technoUsedBack", JSON.stringify(backEndValueSelect));
     const getListProjectPoint = `${apiDomain}/api/${apiVersion}/projects`;
     await axios
       .post(getListProjectPoint, formData, {
@@ -138,6 +164,8 @@ function FormProject({ value, projectState, setDisplayForm }) {
         );
         e.target.reset();
         setImgProjectName("Image du projet");
+        if (frameworkValueSelect.length > 0) setFrameworkValueSelect([]);
+        if (backEndValueSelect.length > 0) setBackEndValueSelect([]);
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -155,22 +183,8 @@ function FormProject({ value, projectState, setDisplayForm }) {
     if (data.projectImg) formData.append("img", data.projectImg[0]);
     formData.append("altImg", data.projectAltImg);
     formData.append("description", data.projectDescription);
-    formData.append(
-      "technoUsedFront",
-      JSON.stringify({
-        React: data.react,
-        Ember: data.ember,
-        Angular: data.angular,
-      })
-    );
-    formData.append(
-      "technoUsedBack",
-      JSON.stringify({
-        Express: data.express,
-        NodeJs: data.nodejs,
-        MongoDB: data.mongodb,
-      })
-    );
+    formData.append("technoUsedFront", JSON.stringify(frameworkValueSelect));
+    formData.append("technoUsedBack", JSON.stringify(backEndValueSelect));
     const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/projects/${value._id}`;
     await axiosInstance
       .patch(editEducExpeEndPoint, formData)
@@ -186,6 +200,48 @@ function FormProject({ value, projectState, setDisplayForm }) {
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
+  };
+
+  const handleChangeFramework = (data) => {
+    setFrameworkValueSelect(data);
+  };
+  const handleInputChangeFramework = (inputFrameworkValue) => {
+    setInputFrameworkValue(inputFrameworkValue);
+  };
+
+  const handleKeyDownFramework = (event) => {
+    if (!inputFrameworkValue) return;
+    switch (event.key) {
+      case "Enter":
+      case "Tab":
+        setFrameworkValueSelect([
+          ...frameworkValueSelect,
+          { value: inputFrameworkValue, label: inputFrameworkValue },
+        ]);
+        setInputFrameworkValue("");
+        event.preventDefault();
+    }
+  };
+
+  const handleChangeBackEnd = (data) => {
+    setBackEndValueSelect(data);
+  };
+  const handleInputChangeBackEnd = (inputBackEndValue) => {
+    setInputBackEndValue(inputBackEndValue);
+  };
+
+  const handleKeyDownBackEnd = (event) => {
+    if (!inputBackEndValue) return;
+    switch (event.key) {
+      case "Enter":
+      case "Tab":
+        setBackEndValueSelect([
+          ...backEndValueSelect,
+          { value: inputBackEndValue, label: inputBackEndValue },
+        ]);
+        setInputBackEndValue("");
+        event.preventDefault();
+    }
   };
 
   const form = (
@@ -252,62 +308,54 @@ function FormProject({ value, projectState, setDisplayForm }) {
               )}
             </div>
           </div>
-          <div>
-            <div className="label-checkbox-container code-used-checkbox-container">
-              <p>Framework utilisé(s)</p>
-              <div>
-                <label className="container-checkbox">
-                  React
-                  <input type="checkbox" name="react" {...register("react")} />
-                  <span className="checkmark-checkbox"></span>
-                </label>
-                <label className="container-checkbox">
-                  Ember
-                  <input type="checkbox" name="ember" {...register("ember")} />
-                  <span className="checkmark-checkbox"></span>
-                </label>
-                <label className="container-checkbox">
-                  Angular
-                  <input
-                    type="checkbox"
-                    name="angular"
-                    {...register("angular")}
-                  />
-                  <span className="checkmark-checkbox"></span>
-                </label>
-              </div>
+          <div className="input input-no-error">
+            <label htmlFor="framework">Framework utilisé(s)</label>
+            <div className="input-block">
+              <span>
+                <FontAwesomeIcon icon={["fas", "laptop-code"]} />
+              </span>
+              <CreatableSelect
+                name={"framework"}
+                styles={customStyles}
+                components={{
+                  DropdownIndicator: null,
+                }}
+                inputValue={inputFrameworkValue}
+                isClearable
+                isMulti
+                menuIsOpen={false}
+                onChange={handleChangeFramework}
+                onInputChange={handleInputChangeFramework}
+                onKeyDown={handleKeyDownFramework}
+                placeholder="Entrez quelque chose et appuyez sur entrée..."
+                value={frameworkValueSelect}
+              />
             </div>
-            <div className="label-checkbox-container code-used-checkbox-container">
-              <p>Technologie(s) utilisée(s) pour le back-office</p>
-              <div>
-                <label className="container-checkbox">
-                  Express
-                  <input
-                    type="checkbox"
-                    name="express"
-                    {...register("express")}
-                  />
-                  <span className="checkmark-checkbox"></span>
-                </label>
-                <label className="container-checkbox">
-                  NodeJS
-                  <input
-                    type="checkbox"
-                    name="nodejs"
-                    {...register("nodejs")}
-                  />
-                  <span className="checkmark-checkbox"></span>
-                </label>
-                <label className="container-checkbox">
-                  MongoDB
-                  <input
-                    type="checkbox"
-                    name="mongodb"
-                    {...register("mongodb")}
-                  />
-                  <span className="checkmark-checkbox"></span>
-                </label>
-              </div>
+          </div>
+          <div className="input input-no-error">
+            <label htmlFor="back-end">
+              Technologie(s) utilisée(s) pour le back-office
+            </label>
+            <div className="input-block">
+              <span>
+                <FontAwesomeIcon icon={["fas", "code"]} />
+              </span>
+              <CreatableSelect
+                name={"back-end"}
+                styles={customStyles}
+                components={{
+                  DropdownIndicator: null,
+                }}
+                inputValue={inputBackEndValue}
+                isClearable
+                isMulti
+                menuIsOpen={false}
+                onChange={handleChangeBackEnd}
+                onInputChange={handleInputChangeBackEnd}
+                onKeyDown={handleKeyDownBackEnd}
+                placeholder="Entrez quelque chose et appuyez sur entrée..."
+                value={backEndValueSelect}
+              />
             </div>
           </div>
         </div>
