@@ -84,6 +84,10 @@ const customStyles = {
       color: "hsla(0, 0%, 100%, 0.2)",
     },
   }),
+  valueContainer: (styles) => ({
+    ...styles,
+    paddingLeft: "0px",
+  }),
 };
 
 function SelectFontAwesome({
