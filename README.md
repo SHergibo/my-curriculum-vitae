@@ -1,10 +1,10 @@
 # My-curriculum-vitae app
 
-My-curriculum-vitae is an application that helps you show your resume information online. With this application, you can display your contact information, work experience, education, skills and portfolio. A contact form is also provided which can help any recruiter to contact you easily.
+My-curriculum-vitae is an application that helps you display your resume information online. With this application, you can post your contact information, work experience, education, skills and portfolio. A contact form is also provided, which allows any recruiter to contact you easily.
 
-An administration area located in the url `/login` is where you should go to add all your informations that will be displayed on your resume.
+An administration area located in the url `/login` is where you need to go to add all your information that will be displayed on your resume.
 
-To use this app, you need to use [my-curriculum-vitae](https://github.com/SHergibo/my-curriculum-vitae-api.git) REST api at the same time. Without it you will not be able to add, update, delete or view your resume informations.
+To use this app, you must use [my-curriculum-vitae](https://github.com/SHergibo/my-curriculum-vitae-api.git) REST api at the same time. Without it you will not be able to add, update, delete or view your resume information.
 
 My-curriculum-vitae is a project bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
