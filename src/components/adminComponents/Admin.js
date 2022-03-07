@@ -38,8 +38,8 @@ function Admin({ generalInfoAdmin }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const refreshTokenInterval = setInterval(() => {
-      refreshToken();
+    const refreshTokenInterval = setInterval(async () => {
+      await refreshToken();
     }, 870000);
 
     return () => {
