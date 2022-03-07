@@ -29,26 +29,12 @@ function InfoProject({
     }
   });
 
-  let frameWorkUsed = [];
-  for (let framework in value.technoUsedFront) {
-    if (value.technoUsedFront[framework]) {
-      frameWorkUsed.push(framework);
-    }
-  }
-
-  let displayFrameWorkUsed = frameWorkUsed.map((item, index) => {
-    return <li key={`frameworkUsed-${index}`}>{item}</li>;
+  let displayFrameWorkUsed = value.technoUsedFront.map((item, index) => {
+    return <li key={`frameworkUsed-${index}`}>{item.label}</li>;
   });
 
-  let technoUsedBack = [];
-  for (let back in value.technoUsedBack) {
-    if (value.technoUsedBack[back]) {
-      technoUsedBack.push(back);
-    }
-  }
-
-  let displayTechnoUsedBack = technoUsedBack.map((item, index) => {
-    return <li key={`technoUsedBack-${index}`}>{item}</li>;
+  let displayTechnoUsedBack = value.technoUsedBack.map((item, index) => {
+    return <li key={`technoUsedBack-${index}`}>{item.label}</li>;
   });
 
   const closeProjectInfo = async () => {
@@ -145,25 +131,26 @@ function InfoProject({
             action={closeProjectInfo}
           />
           <div>{displayDesc}</div>
-          {(frameWorkUsed.length >= 1 || technoUsedBack.length >= 1) && (
+          {(value.technoUsedFront.length >= 1 ||
+            value.technoUsedBack.length >= 1) && (
             <div className="techno-used">
-              {frameWorkUsed.length >= 1 && (
+              {value.technoUsedFront.length >= 1 && (
                 <>
-                  {frameWorkUsed.length > 1 && (
+                  {value.technoUsedFront.length > 1 && (
                     <h4>Technologies Front-End utilisées :</h4>
                   )}
-                  {frameWorkUsed.length === 1 && (
+                  {value.technoUsedFront.length === 1 && (
                     <h4>Technologie Front-End utilisée :</h4>
                   )}
                   <ul>{displayFrameWorkUsed}</ul>
                 </>
               )}
-              {technoUsedBack.length >= 1 && (
+              {value.technoUsedBack.length >= 1 && (
                 <>
-                  {technoUsedBack.length > 1 && (
+                  {value.technoUsedBack.length > 1 && (
                     <h4>Technologies Back-End utilisées :</h4>
                   )}
-                  {technoUsedBack.length === 1 && (
+                  {value.technoUsedBack.length === 1 && (
                     <h4>Technologie Back-End utilisée :</h4>
                   )}
                   <ul>{displayTechnoUsedBack}</ul>
