@@ -44,7 +44,7 @@ function Admin({ generalInfoAdmin }) {
   const logOut = useCallback(async () => {
     await logout();
     navigate("/");
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -71,14 +71,17 @@ function Admin({ generalInfoAdmin }) {
     }
 
     const refreshTokenInterval = setInterval(async () => {
-      await refreshToken();
+      const responseRefreshToken = await refreshToken();
+      if (!responseRefreshToken) {
+        logOut();
+      }
       setExpiresIn(new Date(localStorage.getItem("expiresIn")));
     }, timeInterval);
 
     return () => {
       clearInterval(refreshTokenInterval);
     };
-  }, [expiresIn]);
+  }, [expiresIn, logOut]);
 
   return (
     <>
