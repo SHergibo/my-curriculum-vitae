@@ -25,7 +25,7 @@ const loginIn = async (data) => {
         localStorage.setItem("expiresIn", res.data.token.expiresIn);
       }
     })
-    .catch((error) => {
+    .catch(() => {
       response = 401;
     });
   return response;
@@ -38,10 +38,7 @@ const logout = async () => {
       token: localStorage.getItem("refresh_token"),
       email: localStorage.getItem("user_email"),
     });
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("user_email");
-    localStorage.removeItem("expiresIn");
+    localStorage.clear();
   } catch (error) {
     console.log(error);
   }
