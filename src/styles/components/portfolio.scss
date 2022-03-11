@@ -3,6 +3,29 @@
   border-bottom: var(--border);
 }
 
+.swiper-slide {
+  width: 100% !important;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  opacity: 0;
+  transition: opacity ease-in-out 0.25s;
+}
+
+.swiper {
+  cursor: pointer;
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      opacity: 1;
+    }
+  }
+  .swiper-pagination {
+    bottom: rem(17px) !important;
+  }
+}
+
 .portfolio,
 .project {
   display: flex;
