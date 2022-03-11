@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import axios from "axios";
 import TitleAction from "../../TitleAction";
+import Modal from "../../Modal";
+import { Navigation, Pagination, Keyboard, Mousewheel, Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import "swiper/scss";
+import "swiper/scss/navigation";
+import "swiper/scss/pagination";
 
 function InfoProject({
   value,
@@ -19,6 +26,8 @@ function InfoProject({
   const { pageIndex, setPageIndex } = pageIndexState;
   const { indexProject, setIndexProject } = indexProjectState;
   const { nextProject, setNextProject } = nextProjectState;
+  const [displayForm, setDisplayForm] = useState(false);
+  const [imageModalName, setImageModalName] = useState("");
   let descriptionArray = value.description.split(/\n/gi);
 
   let displayDesc = descriptionArray.map((item, index) => {
@@ -57,6 +66,25 @@ function InfoProject({
     setDisplayProject(false);
   };
 
+  const arrayImgTest = [
+    {
+      filename: "1645537244610-food-ledger.png",
+      id: "6214e7dcb546c958f0877122",
+    },
+    {
+      filename: "1645540373918-my-curriculum-vitae.png",
+      id: "6214f415a7627d656eb25e5a",
+    },
+    {
+      filename: "1645537244610-food-ledger.png",
+      id: "6214e7dcb546c958f0877122",
+    },
+    {
+      filename: "1645540373918-my-curriculum-vitae.png",
+      id: "6214f415a7627d656eb25e5a",
+    },
+  ];
+
   return (
     <div className="project-container">
       {windowWidth < 1087 && (
@@ -94,10 +122,57 @@ function InfoProject({
 
       <div className="info-project-container">
         <div className="img-project">
-          <img
+          <Swiper
+            modules={[Navigation, Pagination, Keyboard, Mousewheel, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1}
+            loop={false}
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: true,
+            }}
+            navigation
+            keyboard={{
+              enabled: true,
+            }}
+            mousewheel={true}
+            pagination={{ clickable: true }}
+            onClick={(e) => {
+              console.log(e);
+              console.log(e.slides[e.realIndex].firstChild.dataset.name);
+              setDisplayForm(true);
+              setImageModalName(e.slides[e.realIndex].firstChild.dataset.name);
+            }}
+          >
+            {arrayImgTest.map((item, index) => {
+              return (
+                <SwiperSlide key={item.id + index}>
+                  <img
+                    data-name={item.filename}
+                    src={`${apiDomain}/api/${apiVersion}/projects/image/${item.filename}`}
+                    alt=""
+                  />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+
+          {displayForm && (
+            <Modal
+              setDisplayForm={setDisplayForm}
+              div={
+                <img
+                  src={`${apiDomain}/api/${apiVersion}/projects/image/${imageModalName}`}
+                  alt=""
+                />
+              }
+            />
+          )}
+
+          {/* <img
             src={`${apiDomain}/api/${apiVersion}/projects/image/${value.img.filename}`}
             alt={value.altImg}
-          />
+          /> */}
           {value.urlWeb && (
             <span>
               <a
