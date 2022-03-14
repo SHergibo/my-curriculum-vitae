@@ -1,4 +1,5 @@
-.modal {
+.modal,
+.modalDisplay {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -9,6 +10,16 @@
   align-items: center;
   background-color: hsla(211, 80%, 10%, 0.984);
   z-index: 999999;
+}
+
+.modalDisplay {
+  opacity: 0;
+  z-index: -10;
+}
+
+.showModalDisplay {
+  opacity: 1;
+  z-index: 100;
 }
 
 .modal-container {
