@@ -26,6 +26,10 @@
   }
 }
 
+.swiper-modal {
+  margin-top: 2rem;
+}
+
 .portfolio,
 .project {
   display: flex;
@@ -385,6 +389,10 @@
     .carousel-after {
       margin-left: 1rem;
     }
+  }
+
+  .swiper-modal {
+    margin: 0;
   }
 
   .form-project-admin {
