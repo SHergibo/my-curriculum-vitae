@@ -3,8 +3,15 @@ import PropTypes from "prop-types";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import axios from "axios";
 import TitleAction from "../../TitleAction";
-import Modal from "../../Modal";
-import { Navigation, Pagination, Keyboard, Mousewheel, Autoplay } from "swiper";
+import { displayModalNoValue } from "../../../utils/modalDisplay";
+import ModalDisplay from "../../ModalDisplay";
+import {
+  Navigation,
+  Pagination,
+  Keyboard,
+  Mousewheel,
+  Controller,
+} from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -27,7 +34,8 @@ function InfoProject({
   const { indexProject, setIndexProject } = indexProjectState;
   const { nextProject, setNextProject } = nextProjectState;
   const [displayForm, setDisplayForm] = useState(false);
-  const [imageModalName, setImageModalName] = useState("");
+  const [firstSwiper, setFirstSwiper] = useState(null);
+  const [secondSwiper, setSecondSwiper] = useState(null);
   let descriptionArray = value.description.split(/\n/gi);
 
   let displayDesc = descriptionArray.map((item, index) => {
@@ -85,6 +93,36 @@ function InfoProject({
     },
   ];
 
+  const swiperModal = (
+    <Swiper
+      className={"swiper-modal"}
+      modules={[Navigation, Pagination, Keyboard, Mousewheel, Controller]}
+      spaceBetween={20}
+      slidesPerView={1}
+      loop={true}
+      navigation
+      keyboard={{
+        enabled: true,
+      }}
+      mousewheel={true}
+      pagination={{ clickable: true }}
+      onSwiper={setFirstSwiper}
+      controller={{ control: secondSwiper }}
+    >
+      {arrayImgTest.map((item, index) => {
+        return (
+          <SwiperSlide key={item.id + index}>
+            <img
+              data-name={item.filename}
+              src={`${apiDomain}/api/${apiVersion}/projects/image/${item.filename}`}
+              alt=""
+            />
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
+  );
+
   return (
     <div className="project-container">
       {windowWidth < 1087 && (
@@ -123,25 +161,20 @@ function InfoProject({
       <div className="info-project-container">
         <div className="img-project">
           <Swiper
-            modules={[Navigation, Pagination, Keyboard, Mousewheel, Autoplay]}
+            modules={[Navigation, Pagination, Keyboard, Mousewheel, Controller]}
             spaceBetween={20}
             slidesPerView={1}
-            loop={false}
-            autoplay={{
-              delay: 3500,
-              disableOnInteraction: true,
-            }}
+            loop={true}
             navigation
             keyboard={{
               enabled: true,
             }}
             mousewheel={true}
             pagination={{ clickable: true }}
-            onClick={(e) => {
-              console.log(e);
-              console.log(e.slides[e.realIndex].firstChild.dataset.name);
-              setDisplayForm(true);
-              setImageModalName(e.slides[e.realIndex].firstChild.dataset.name);
+            onSwiper={setSecondSwiper}
+            controller={{ control: firstSwiper }}
+            onClick={() => {
+              displayModalNoValue(setDisplayForm);
             }}
           >
             {arrayImgTest.map((item, index) => {
@@ -157,22 +190,11 @@ function InfoProject({
             })}
           </Swiper>
 
-          {displayForm && (
-            <Modal
-              setDisplayForm={setDisplayForm}
-              div={
-                <img
-                  src={`${apiDomain}/api/${apiVersion}/projects/image/${imageModalName}`}
-                  alt=""
-                />
-              }
-            />
-          )}
+          <ModalDisplay
+            displayFormState={{ displayForm, setDisplayForm }}
+            div={swiperModal}
+          />
 
-          {/* <img
-            src={`${apiDomain}/api/${apiVersion}/projects/image/${value.img.filename}`}
-            alt={value.altImg}
-          /> */}
           {value.urlWeb && (
             <span>
               <a
