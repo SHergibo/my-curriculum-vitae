@@ -30,7 +30,7 @@ function ModalDisplay({ div, displayFormState }) {
 
 ModalDisplay.propTypes = {
   div: PropTypes.object.isRequired,
-  setDisplayForm: PropTypes.shape({
+  displayFormState: PropTypes.shape({
     displayForm: PropTypes.bool.isRequired,
     setDisplayForm: PropTypes.func.isRequired,
   }),
