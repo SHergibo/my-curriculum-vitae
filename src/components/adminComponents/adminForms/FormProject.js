@@ -58,7 +58,10 @@ function FormProject({ value, projectState, setDisplayForm }) {
   const errorSpanRef = useRef(null);
   const errorMessageRef = useRef(null);
   const [spanError, setSpanError] = useState(false);
+  const [imgProject, setImgProject] = useState(null);
   const [imgProjectName, setImgProjectName] = useState("Image du projet");
+  const [imagesArray, setImagesArray] = useState([]);
+  const [altDescImagesArray, setAltDescImagesArray] = useState([]);
   const [titleForm, setTitleForm] = useState("Ajout");
   const [button, setButton] = useState("Ajouter");
   const [imgEdit, setImgEdit] = useState(false);
@@ -71,6 +74,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
   const formDefaultValueRef = useRef({});
+  const altImgInputRef = useRef(null);
 
   useEffect(() => {
     setImgProjectName("Image du projet");
@@ -99,7 +103,6 @@ function FormProject({ value, projectState, setDisplayForm }) {
       projectName: value?.projectName,
       projectUrlGithub: value?.urlGithub,
       projectUrlWeb: value?.urlWeb,
-      projectAltImg: value?.altImg,
       projectDescription: value?.description,
     };
     reset(formDefaultValueRef.current);
@@ -113,14 +116,28 @@ function FormProject({ value, projectState, setDisplayForm }) {
     const file = e.target.files[0];
     if (e.target.files.length === 1) {
       if (file.type === "image/png" || file.type === "image/jpeg") {
+        setImgProject(e.target.files[0]);
         setImgProjectName(e.target.files[0].name);
         setErrorMessageImg(false);
       } else {
+        setImgProject(null);
         setImgProjectName("Image du projet");
         setErrorMessageImg(true);
       }
     } else {
+      setImgProject(null);
       setImgProjectName("Image du projet");
+    }
+  };
+
+  const addImage = () => {
+    if (imgProject && altImgInputRef.current.value) {
+      let altImgValue = altImgInputRef.current.value;
+      setImagesArray((array) => [...array, imgProject]);
+      setAltDescImagesArray((array) => [...array, altImgValue]);
+      setImgProject();
+      setImgProjectName("Image du projet");
+      altImgInputRef.current.value = null;
     }
   };
 
@@ -142,11 +159,16 @@ function FormProject({ value, projectState, setDisplayForm }) {
     formData.append("projectName", data.projectName);
     if (data.projectUrlWeb) formData.append("urlWeb", data.projectUrlWeb);
     formData.append("urlGithub", data.projectUrlGithub);
-    formData.append("img", data.projectImg[0]);
-    formData.append("altImg", data.projectAltImg);
     formData.append("description", data.projectDescription);
     formData.append("technoUsedFront", JSON.stringify(frameworkValueSelect));
     formData.append("technoUsedBack", JSON.stringify(backEndValueSelect));
+
+    for (let i = 0; i < imagesArray.length; i++) {
+      formData.append("images", imagesArray[i]);
+    }
+
+    formData.append("altDescImages", JSON.stringify(altDescImagesArray));
+
     const getListProjectPoint = `${apiDomain}/api/${apiVersion}/projects`;
     await axios
       .post(getListProjectPoint, formData, {
@@ -164,6 +186,9 @@ function FormProject({ value, projectState, setDisplayForm }) {
         );
         e.target.reset();
         setImgProjectName("Image du projet");
+        setImagesArray([]);
+        setImgProject();
+        altImgInputRef.current.value = null;
         if (frameworkValueSelect.length > 0) setFrameworkValueSelect([]);
         if (backEndValueSelect.length > 0) setBackEndValueSelect([]);
       })
@@ -387,11 +412,11 @@ function FormProject({ value, projectState, setDisplayForm }) {
             <div className="input-container">
               <div className="input">
                 <label htmlFor="projectImg">Image du projet *</label>
-                <div className="input-block input-file">
+                <div className="input-block input-interaction">
                   <span>
                     <FontAwesomeIcon icon="images" />
                   </span>
-                  <div className="container-input-file">
+                  <div className="container-input-interaction">
                     <span>{imgProjectName}</span>
                     <input
                       name="projectImg"
@@ -399,15 +424,12 @@ function FormProject({ value, projectState, setDisplayForm }) {
                       accept=".jpg,.jpeg,.png"
                       id="projectImg"
                       placeholder="Image du projet"
-                      {...register("projectImg", {
-                        required: true,
-                        onChange: (e) => {
-                          onAddFile(e);
-                        },
-                      })}
+                      onChange={(e) => {
+                        onAddFile(e);
+                      }}
                     />
                   </div>
-                  <label htmlFor="projectImg">Ajout</label>
+                  <label htmlFor="projectImg">Chercher</label>
                 </div>
                 {errors.projectImg && (
                   <span className="error-message-form">
@@ -427,17 +449,22 @@ function FormProject({ value, projectState, setDisplayForm }) {
               <label htmlFor="projectAltImg">
                 Description de la l'image du projet *
               </label>
-              <div className="input-block">
+              <div className="input-block input-interaction">
                 <span>
                   <FontAwesomeIcon icon="info-circle" />
                 </span>
-                <input
-                  name="projectAltImg"
-                  type="text"
-                  id="projectAltImg"
-                  placeholder="Description de l'image du projet"
-                  {...register("projectAltImg", { required: true })}
-                />
+                <div className="container-input-interaction">
+                  <input
+                    name="projectAltImg"
+                    type="text"
+                    id="projectAltImg"
+                    placeholder="Description de l'image du projet"
+                    ref={altImgInputRef}
+                  />
+                </div>
+                <label htmlFor="projectAltImg" onClick={addImage}>
+                  Ajouter
+                </label>
               </div>
               {errors.projectAltImg && (
                 <span className="error-message-form">
