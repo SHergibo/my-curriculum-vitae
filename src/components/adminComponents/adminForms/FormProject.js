@@ -64,8 +64,8 @@ function FormProject({ value, projectState, setDisplayForm }) {
   const [altDescImagesArray, setAltDescImagesArray] = useState([]);
   const [titleForm, setTitleForm] = useState("Ajout");
   const [button, setButton] = useState("Ajouter");
-  const [imgEdit, setImgEdit] = useState(false);
-  const [errorMessageImg, setErrorMessageImg] = useState(false);
+  const [errorMessageImg, setErrorMessageImg] = useState("");
+  const [errorAltImg, setErrorAltImg] = useState("");
   const [inputFrameworkValue, setInputFrameworkValue] = useState("");
   const [frameworkValueSelect, setFrameworkValueSelect] = useState([]);
   const [inputBackEndValue, setInputBackEndValue] = useState("");
@@ -79,11 +79,14 @@ function FormProject({ value, projectState, setDisplayForm }) {
   useEffect(() => {
     setImgProjectName("Image du projet");
     if (value) {
-      setImgEdit(true);
       setTitleForm("Édition");
       setButton("Éditer");
       setFrameworkValueSelect(value.technoUsedFront);
       setBackEndValueSelect(value.technoUsedBack);
+      value.images.forEach((images) => {
+        setImagesArray((array) => [...array, images.fileName]);
+        setAltDescImagesArray((array) => [...array, images.alt]);
+      });
     }
   }, [value]);
 
@@ -108,21 +111,19 @@ function FormProject({ value, projectState, setDisplayForm }) {
     reset(formDefaultValueRef.current);
   }, [reset, value]);
 
-  const switchToInput = () => {
-    setImgEdit(false);
-  };
-
   const onAddFile = (e) => {
     const file = e.target.files[0];
     if (e.target.files.length === 1) {
       if (file.type === "image/png" || file.type === "image/jpeg") {
         setImgProject(e.target.files[0]);
         setImgProjectName(e.target.files[0].name);
-        setErrorMessageImg(false);
+        setErrorMessageImg("");
       } else {
         setImgProject(null);
         setImgProjectName("Image du projet");
-        setErrorMessageImg(true);
+        setErrorMessageImg(
+          "Seulement une image de type .jpg/.jpeg/.png est autorisée"
+        );
       }
     } else {
       setImgProject(null);
@@ -131,14 +132,55 @@ function FormProject({ value, projectState, setDisplayForm }) {
   };
 
   const addImage = () => {
+    if (imagesArray.length === 4) {
+      setImgProject(null);
+      setImgProjectName("Image du projet");
+      altImgInputRef.current.value = null;
+      setErrorAltImg("4 images maximum par projet!");
+      return;
+    }
+    if (!altImgInputRef.current.value && !imgProject) {
+      setErrorAltImg("Une description pour votre image est requise");
+      setErrorMessageImg("Une image est requise");
+      return;
+    }
+    if (!imgProject) {
+      setErrorMessageImg("Une image est requise");
+      return;
+    }
+    if (!altImgInputRef.current.value) {
+      setErrorAltImg("Une description pour votre image est requise");
+      return;
+    }
     if (imgProject && altImgInputRef.current.value) {
       let altImgValue = altImgInputRef.current.value;
       setImagesArray((array) => [...array, imgProject]);
       setAltDescImagesArray((array) => [...array, altImgValue]);
       setImgProject();
       setImgProjectName("Image du projet");
+      setErrorAltImg("");
       altImgInputRef.current.value = null;
     }
+  };
+
+  const deleteImageProject = (index) => {
+    setImagesArray([
+      ...imagesArray.slice(0, index),
+      ...imagesArray.slice(index + 1),
+    ]);
+    setAltDescImagesArray([
+      ...altDescImagesArray.slice(0, index),
+      ...altDescImagesArray.slice(index + 1),
+    ]);
+  };
+
+  const validateSubmit = (e) => {
+    e.preventDefault();
+    if (imagesArray.length < 1) {
+      setErrorMessageImg("Au minimum une image est requise par projet");
+    }
+    if (!value) handleSubmit(onSubmitAdd)(e);
+    if (value) handleSubmit(onSubmitEdit)(e);
   };
 
   let timeoutLoader = setTimeoutLoader.current;
@@ -153,6 +195,9 @@ function FormProject({ value, projectState, setDisplayForm }) {
   }, [timeoutLoader, timeoutSuccess, timeoutError]);
 
   const onSubmitAdd = async (data, e) => {
+    if (imagesArray.length < 1) {
+      return;
+    }
     setLoader(true);
     setSpanError(false);
     const formData = new FormData();
@@ -187,6 +232,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
         e.target.reset();
         setImgProjectName("Image du projet");
         setImagesArray([]);
+        setAltDescImagesArray([]);
         setImgProject();
         altImgInputRef.current.value = null;
         if (frameworkValueSelect.length > 0) setFrameworkValueSelect([]);
@@ -197,7 +243,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
       });
   };
 
-  const onClickEdit = async (data) => {
+  const onSubmitEdit = async (data) => {
     setLoader(true);
     setSpanError(false);
     const { arrayProject, setArrayProject } = projectState;
@@ -205,11 +251,16 @@ function FormProject({ value, projectState, setDisplayForm }) {
     formData.append("projectName", data.projectName);
     formData.append("urlWeb", data.projectUrlWeb);
     formData.append("urlGithub", data.projectUrlGithub);
-    if (data.projectImg) formData.append("img", data.projectImg[0]);
-    formData.append("altImg", data.projectAltImg);
     formData.append("description", data.projectDescription);
     formData.append("technoUsedFront", JSON.stringify(frameworkValueSelect));
     formData.append("technoUsedBack", JSON.stringify(backEndValueSelect));
+
+    for (let i = 0; i < imagesArray.length; i++) {
+      formData.append("images", imagesArray[i]);
+    }
+
+    formData.append("altDescImages", JSON.stringify(altDescImagesArray));
+
     const editEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/projects/${value._id}`;
     await axiosInstance
       .patch(editEducExpeEndPoint, formData)
@@ -391,59 +442,33 @@ function FormProject({ value, projectState, setDisplayForm }) {
           </div>
         </div>
         <div className="project-form-container-last">
-          {imgEdit && (
-            <div className="container-img-project-edit">
-              <p>Image du projet</p>
-              <div>
-                <button
-                  className="switch-to-input-project-img"
-                  onClick={switchToInput}
-                >
-                  X
-                </button>
-                <img
-                  src={`${apiDomain}/api/${apiVersion}/projects/image/${value.img.filename}`}
-                  alt={value.altImg}
-                />
-              </div>
-            </div>
-          )}
-          {!imgEdit && (
-            <div className="input-container">
-              <div className="input">
-                <label htmlFor="projectImg">Image du projet *</label>
-                <div className="input-block input-interaction">
-                  <span>
-                    <FontAwesomeIcon icon="images" />
-                  </span>
-                  <div className="container-input-interaction">
-                    <span>{imgProjectName}</span>
-                    <input
-                      name="projectImg"
-                      type="file"
-                      accept=".jpg,.jpeg,.png"
-                      id="projectImg"
-                      placeholder="Image du projet"
-                      onChange={(e) => {
-                        onAddFile(e);
-                      }}
-                    />
-                  </div>
-                  <label htmlFor="projectImg">Chercher</label>
+          <div className="input-container">
+            <div className="input">
+              <label htmlFor="projectImg">Image du projet *</label>
+              <div className="input-block input-interaction">
+                <span>
+                  <FontAwesomeIcon icon="images" />
+                </span>
+                <div className="container-input-interaction">
+                  <span>{imgProjectName}</span>
+                  <input
+                    name="projectImg"
+                    type="file"
+                    accept=".jpg,.jpeg,.png"
+                    id="projectImg"
+                    placeholder="Image du projet"
+                    onChange={(e) => {
+                      onAddFile(e);
+                    }}
+                  />
                 </div>
-                {errors.projectImg && (
-                  <span className="error-message-form">
-                    Une image est requise
-                  </span>
-                )}
-                {errorMessageImg && (
-                  <span className="error-message-form">
-                    Seulement une image de type .jpg/.jpeg/.png est autorisée
-                  </span>
-                )}
+                <label htmlFor="projectImg">Chercher</label>
               </div>
+              {errorMessageImg && (
+                <span className="error-message-form">{errorMessageImg}</span>
+              )}
             </div>
-          )}
+          </div>
           <div className="input-container">
             <div className="input">
               <label htmlFor="projectAltImg">
@@ -459,6 +484,11 @@ function FormProject({ value, projectState, setDisplayForm }) {
                     type="text"
                     id="projectAltImg"
                     placeholder="Description de l'image du projet"
+                    onChange={(e) => {
+                      if (errorAltImg && e.target.value) {
+                        setErrorAltImg("");
+                      }
+                    }}
                     ref={altImgInputRef}
                   />
                 </div>
@@ -466,13 +496,33 @@ function FormProject({ value, projectState, setDisplayForm }) {
                   Ajouter
                 </label>
               </div>
-              {errors.projectAltImg && (
-                <span className="error-message-form">
-                  Une description pour votre image est requise
-                </span>
+              {errorAltImg && (
+                <span className="error-message-form">{errorAltImg}</span>
               )}
             </div>
           </div>
+          {altDescImagesArray.length >= 1 && (
+            <ul className="image-project-list">
+              <h5>{`Image${
+                altDescImagesArray.length > 1 ? "s" : ""
+              } du projet :`}</h5>
+              {altDescImagesArray.map((descImage, index) => {
+                return (
+                  <li key={descImage + index}>
+                    {descImage}
+                    <button
+                      className="little-btn-action"
+                      onClick={() => {
+                        deleteImageProject(index);
+                      }}
+                    >
+                      <FontAwesomeIcon icon="times" />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </div>
 
@@ -507,8 +557,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
   return (
     <>
       <h3>{titleForm}</h3>
-      {!value && <form onSubmit={handleSubmit(onSubmitAdd)}>{form}</form>}
-      {value && <form onSubmit={handleSubmit(onClickEdit)}>{form}</form>}
+      <form onSubmit={validateSubmit}>{form}</form>
 
       <CSSTransition
         nodeRef={errorMessageRef}
