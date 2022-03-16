@@ -294,6 +294,22 @@
       }
     }
   }
+  .image-project-list {
+    h5 {
+      color: var(--white);
+    }
+    li {
+      color: var(--grey-two);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.5rem 0;
+      cursor: pointer;
+    }
+    .little-btn-action {
+      @include btn-admin(var(--blue), var(--red), 30px, 30px);
+    }
+  }
 }
 
 .fade-enter .info-project-container {
