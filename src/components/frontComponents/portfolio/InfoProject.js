@@ -74,32 +74,13 @@ function InfoProject({
     setDisplayProject(false);
   };
 
-  const arrayImgTest = [
-    {
-      filename: "1645537244610-food-ledger.png",
-      id: "6214e7dcb546c958f0877122",
-    },
-    {
-      filename: "1645540373918-my-curriculum-vitae.png",
-      id: "6214f415a7627d656eb25e5a",
-    },
-    {
-      filename: "1645537244610-food-ledger.png",
-      id: "6214e7dcb546c958f0877122",
-    },
-    {
-      filename: "1645540373918-my-curriculum-vitae.png",
-      id: "6214f415a7627d656eb25e5a",
-    },
-  ];
-
   const swiperModal = (
     <Swiper
       className={"swiper-modal"}
       modules={[Navigation, Pagination, Keyboard, Mousewheel, Controller]}
       spaceBetween={20}
       slidesPerView={1}
-      loop={true}
+      loop={value.images.length > 1 ? true : false}
       navigation
       keyboard={{
         enabled: true,
@@ -109,13 +90,12 @@ function InfoProject({
       onSwiper={setFirstSwiper}
       controller={{ control: secondSwiper }}
     >
-      {arrayImgTest.map((item, index) => {
+      {value.images.map((item, index) => {
         return (
           <SwiperSlide key={item.id + index}>
             <img
-              data-name={item.filename}
-              src={`${apiDomain}/api/${apiVersion}/projects/image/${item.filename}`}
-              alt=""
+              src={`${apiDomain}/api/${apiVersion}/projects/image/${item.fileName}`}
+              alt={item.alt}
             />
           </SwiperSlide>
         );
@@ -164,7 +144,7 @@ function InfoProject({
             modules={[Navigation, Pagination, Keyboard, Mousewheel, Controller]}
             spaceBetween={20}
             slidesPerView={1}
-            loop={true}
+            loop={value.images.length > 1 ? true : false}
             navigation
             keyboard={{
               enabled: true,
@@ -177,13 +157,12 @@ function InfoProject({
               displayModalNoValue(setDisplayForm);
             }}
           >
-            {arrayImgTest.map((item, index) => {
+            {value.images.map((item, index) => {
               return (
                 <SwiperSlide key={item.id + index}>
                   <img
-                    data-name={item.filename}
-                    src={`${apiDomain}/api/${apiVersion}/projects/image/${item.filename}`}
-                    alt=""
+                    src={`${apiDomain}/api/${apiVersion}/projects/image/${item.fileName}`}
+                    alt={item.alt}
                   />
                 </SwiperSlide>
               );
