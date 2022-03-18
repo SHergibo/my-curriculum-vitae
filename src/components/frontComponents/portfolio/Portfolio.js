@@ -190,8 +190,8 @@ function Portfolio({ isLoaded }) {
                   return (
                     <div className="project-card" key={item._id}>
                       <img
-                        src={`${apiDomain}/api/${apiVersion}/projects/image/${item.img.filename}`}
-                        alt={item.altImg}
+                        src={`${apiDomain}/api/${apiVersion}/projects/image/${item.images[0].fileName}`}
+                        alt={item.images[0].alt}
                       />
                       <div className="project-card-name">
                         {item.projectName}
