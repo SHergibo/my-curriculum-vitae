@@ -74,7 +74,12 @@
     flex-direction: column;
     color: var(--grey-two);
     margin: rem(15px) 0;
-    .div-list-container,
+    .div-list-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .div-list-info-container,
     .div-list-btn-container {
       div {
         margin: rem(5px) 0;
@@ -175,10 +180,14 @@
 @media screen and (min-width: 640px) {
   .list-container {
     li {
-      flex-direction: row;
       justify-content: space-between;
       align-items: center;
       .div-list-container {
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+      }
+      .div-list-info-container {
         display: flex;
         div {
           margin: 0;
