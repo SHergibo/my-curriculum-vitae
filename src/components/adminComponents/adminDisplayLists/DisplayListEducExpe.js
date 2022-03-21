@@ -1,17 +1,16 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, createRef } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import workingData from "../../../utils/workingData";
-import Modal from "../../Modal";
-import { displayModal } from "../../../utils/modalDisplay";
 import FormEducExpe from "../adminForms/FormEducExpe";
+import { CSSTransition } from "react-transition-group";
 
 function DisplayListEducExpe() {
-  const [value, setValue] = useState({});
   const [arrayEduc, setArrayEduc] = useState([]);
   const [arrayExpe, setArrayExpe] = useState([]);
-  const [displayForm, setDisplayForm] = useState(false);
+  const [formListState, setFormListState] = useState({});
+  const [lastFormListOpen, setLastFormListOpen] = useState();
 
   const getData = useCallback(async () => {
     const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educs-exps/educs-exps-list`;
@@ -19,15 +18,18 @@ function DisplayListEducExpe() {
       const workingDatas = workingData(response.data, "educExpe");
       setArrayEduc(workingDatas[0]);
       setArrayExpe(workingDatas[1]);
+      response.data.forEach((data) => {
+        setFormListState((prevObject) => ({
+          ...prevObject,
+          [data._id]: false,
+        }));
+      });
     });
   }, []);
 
   useEffect(() => {
     getData();
   }, [getData]);
-
-  let liListEduc;
-  let liListExpe;
 
   const formatDate = (date) => {
     let year = date.split("-")[0];
@@ -45,72 +47,92 @@ function DisplayListEducExpe() {
     });
   };
 
-  const liListRender = (item) => {
+  const displayForm = (id) => {
+    if (lastFormListOpen && lastFormListOpen !== id) {
+      setFormListState((prevObject) => ({
+        ...prevObject,
+        [lastFormListOpen]: false,
+      }));
+    }
+    setFormListState((prevObject) => ({
+      ...prevObject,
+      [id]: !formListState[id],
+    }));
+    setLastFormListOpen(id);
+  };
+
+  const liListRender = (item, itemRef) => {
     let formatDateStart = formatDate(item.dateStart);
     let formatDateEnd = formatDate(item.dateEnd);
     return (
       <li key={item._id}>
         <div className="div-list-container">
-          <div className="date-list">
-            {formatDateStart} - {formatDateEnd}
+          <div className="div-list-info-container">
+            <div className="date-list">
+              {formatDateStart} - {formatDateEnd}
+            </div>
+            <div className="title-list">{item.titleEducExpe}</div>
           </div>
-          <div className="title-list">{item.titleEducExpe}</div>
+          <div className="div-list-btn-container">
+            <button
+              className="btn-list-edit"
+              title="Éditer"
+              onClick={() => displayForm(item._id)}
+            >
+              <FontAwesomeIcon icon="edit" />
+            </button>
+            <button
+              className="btn-list-delete"
+              title="Supprimer"
+              onClick={() => onClickDelete(item)}
+            >
+              <FontAwesomeIcon icon="trash-alt" />
+            </button>
+          </div>
         </div>
-        <div className="div-list-btn-container">
-          <button
-            className="btn-list-edit"
-            title="Éditer"
-            onClick={() => displayModal(item, setDisplayForm, setValue)}
-          >
-            <FontAwesomeIcon icon="edit" />
-          </button>
-          <button
-            className="btn-list-delete"
-            title="Supprimer"
-            onClick={() => onClickDelete(item)}
-          >
-            <FontAwesomeIcon icon="trash-alt" />
-          </button>
-        </div>
+        <CSSTransition
+          nodeRef={itemRef}
+          in={formListState[item._id]}
+          classNames="form-list"
+          unmountOnExit
+          timeout={500}
+        >
+          <div ref={itemRef}>
+            <FormEducExpe
+              value={item}
+              educState={{ arrayEduc, setArrayEduc }}
+              expeState={{ arrayExpe, setArrayExpe }}
+            />
+          </div>
+        </CSSTransition>
       </li>
     );
   };
-
-  if (arrayEduc) {
-    liListEduc = arrayEduc.map((item) => {
-      return liListRender(item);
-    });
-  }
-
-  if (arrayExpe) {
-    liListExpe = arrayExpe.map((item) => {
-      return liListRender(item);
-    });
-  }
 
   return (
     <>
       <div>
         <h4>Éducation</h4>
-        <ul>{liListEduc}</ul>
+        {arrayEduc.length >= 1 && (
+          <ul>
+            {arrayEduc.map((item) => {
+              const itemRef = createRef(null);
+              return liListRender(item, itemRef);
+            })}
+          </ul>
+        )}
       </div>
       <div>
         <h4>Expérience</h4>
-        <ul>{liListExpe}</ul>
+        {arrayExpe.length >= 1 && (
+          <ul>
+            {arrayExpe.map((item) => {
+              const itemRef = createRef(null);
+              return liListRender(item, itemRef);
+            })}
+          </ul>
+        )}
       </div>
-      {displayForm && (
-        <Modal
-          div={
-            <FormEducExpe
-              value={value}
-              setDisplayForm={setDisplayForm}
-              educState={{ arrayEduc, setArrayEduc }}
-              expeState={{ arrayExpe, setArrayExpe }}
-            />
-          }
-          setDisplayForm={setDisplayForm}
-        />
-      )}
     </>
   );
 }
