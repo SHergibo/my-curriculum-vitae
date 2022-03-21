@@ -48,6 +48,9 @@ function Admin({ generalInfoAdmin }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     let nowDate = new Date();
     let timeInterval = 0;
 
