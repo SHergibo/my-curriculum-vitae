@@ -54,7 +54,7 @@ function DisplayListSkill() {
   const liListRender = (item) => {
     return (
       <li key={item._id}>
-        <div className="div-list-container">
+        <div className="div-list-info-container">
           <div className="skill-list">{item.nameSkill}</div>
         </div>
         <div className="div-list-btn-container">

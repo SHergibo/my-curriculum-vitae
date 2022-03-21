@@ -34,7 +34,7 @@ function DisplayListProjects() {
   let liListProjects = arrayProject.map((item) => {
     return (
       <li key={item._id}>
-        <div className="div-list-container">
+        <div className="div-list-info-container">
           <div className="title-list">{item.projectName}</div>
         </div>
         <div className="div-list-btn-container">
