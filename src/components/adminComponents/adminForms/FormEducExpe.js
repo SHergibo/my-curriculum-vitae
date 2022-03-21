@@ -5,7 +5,6 @@ import { useForm, Controller } from "react-hook-form";
 import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import { CSSTransition } from "react-transition-group";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
-import { closeModal } from "../../../utils/modalDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import DatePicker, { registerLocale } from "react-datepicker";
@@ -14,7 +13,7 @@ import { fr } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
-function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
+function FormEducExpe({ value, educState, expeState }) {
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
   const loadingRef = useRef(null);
@@ -114,6 +113,12 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
     await axiosInstance
       .patch(editEducExpeEndPoint, data)
       .then((response) => {
+        checkSuccess(
+          setTimeoutLoader,
+          setLoader,
+          setTimeoutSuccess,
+          setSpanSuccess
+        );
         let arrayResponse = [response.data];
         if (data.educExpe === "experience") {
           let dataInArrayEduc = arrayEduc.find(
@@ -178,7 +183,7 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
             setArrayEduc((arrayEduc) => [...arrayEduc, response.data]);
           }
         }
-        closeModal(setDisplayForm);
+        // closeModal(setDisplayForm);
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -360,7 +365,6 @@ function FormEducExpe({ value, setDisplayForm, educState, expeState }) {
 
 FormEducExpe.propTypes = {
   value: PropTypes.object,
-  setDisplayForm: PropTypes.func,
   educState: PropTypes.shape({
     arrayEduc: PropTypes.array,
     setArrayEduc: PropTypes.func,
