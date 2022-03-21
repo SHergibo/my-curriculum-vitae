@@ -1,0 +1,20 @@
+.form-list-enter {
+  max-height: 0px;
+  transition: max-height 1s ease;
+  overflow: hidden;
+}
+
+.form-list-enter-active {
+  height: auto;
+  max-height: 1000px;
+}
+
+.form-list-exit {
+  max-height: 1000px;
+  transition: max-height 0.5s ease;
+}
+
+.form-list-exit-active {
+  overflow: hidden;
+  max-height: 0px;
+}
