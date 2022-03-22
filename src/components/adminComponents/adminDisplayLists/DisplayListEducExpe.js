@@ -58,7 +58,8 @@ function DisplayListEducExpe() {
       ...prevObject,
       [id]: !formListState[id],
     }));
-    setLastFormListOpen(id);
+    if (lastFormListOpen === id) setLastFormListOpen();
+    if (lastFormListOpen !== id) setLastFormListOpen(id);
   };
 
   const liListRender = (item, itemRef) => {
@@ -79,7 +80,11 @@ function DisplayListEducExpe() {
               title="Éditer"
               onClick={() => displayForm(item._id)}
             >
-              <FontAwesomeIcon icon="edit" />
+              {lastFormListOpen === item._id ? (
+                <FontAwesomeIcon icon="times" />
+              ) : (
+                <FontAwesomeIcon icon="edit" />
+              )}
             </button>
             <button
               className="btn-list-delete"
