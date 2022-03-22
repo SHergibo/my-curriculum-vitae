@@ -23,8 +23,6 @@ function FormEducExpe({ value, educState, expeState }) {
   const [spanError, setSpanError] = useState(false);
   const [dateStart, setDateStart] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
-  const [titleForm, setTitleForm] = useState("Ajout");
-  const [button, setButton] = useState("Ajouter");
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
@@ -50,13 +48,6 @@ function FormEducExpe({ value, educState, expeState }) {
     };
     reset(formDefaultValueRef.current);
   }, [reset, value]);
-
-  useEffect(() => {
-    if (value) {
-      setTitleForm("Édition");
-      setButton("Éditer");
-    }
-  }, [value]);
 
   useEffect(() => {
     if (value) {
@@ -330,7 +321,7 @@ function FormEducExpe({ value, educState, expeState }) {
         </label>
       </div>
       <ActionButtonSubmit
-        button={button}
+        button={value ? "Éditer" : "Ajouter"}
         value={value}
         loadingRef={loadingRef}
         loader={loader}
@@ -344,8 +335,12 @@ function FormEducExpe({ value, educState, expeState }) {
 
   return (
     <>
-      <h3>{titleForm}</h3>
-      {!value && <form onSubmit={handleSubmit(onSubmitAdd)}>{form}</form>}
+      {!value && (
+        <>
+          <h3>Ajout</h3>
+          <form onSubmit={handleSubmit(onSubmitAdd)}>{form}</form>
+        </>
+      )}
       {value && <form onSubmit={handleSubmit(onClickEdit)}>{form}</form>}
 
       <CSSTransition
