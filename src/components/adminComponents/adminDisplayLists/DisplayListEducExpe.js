@@ -113,24 +113,28 @@ function DisplayListEducExpe() {
     <>
       <div>
         <h4>Éducation</h4>
-        {arrayEduc.length >= 1 && (
+        {arrayEduc.length >= 1 ? (
           <ul>
             {arrayEduc.map((item) => {
               const itemRef = createRef(null);
               return liListRender(item, itemRef);
             })}
           </ul>
+        ) : (
+          <p>Pas de données à afficher !</p>
         )}
       </div>
       <div>
         <h4>Expérience</h4>
-        {arrayExpe.length >= 1 && (
+        {arrayExpe.length >= 1 ? (
           <ul>
             {arrayExpe.map((item) => {
               const itemRef = createRef(null);
               return liListRender(item, itemRef);
             })}
           </ul>
+        ) : (
+          <p>Pas de données à afficher !</p>
         )}
       </div>
     </>
