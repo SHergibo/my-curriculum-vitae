@@ -102,7 +102,7 @@ function DisplayListEducExpe() {
           unmountOnExit
           timeout={500}
         >
-          <div ref={itemRef}>
+          <div ref={itemRef} className="form-in-list">
             <FormEducExpe
               value={item}
               educState={{ arrayEduc, setArrayEduc }}
