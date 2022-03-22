@@ -1,6 +1,15 @@
+.form-in-list {
+  width: 100%;
+  form {
+    padding-top: 1.875rem;
+    margin-top: 0.9375rem;
+    border-top: 1px solid var(--grey-two);
+    border-bottom: 1px solid var(--grey-two);
+  }
+}
+
 .btn-submit-action {
   @include btn(rem(60px), rem(30px) 0, auto);
-  margin: rem(30px) rem(30px) rem(30px) 0;
   svg {
     margin-left: rem(6px);
   }
