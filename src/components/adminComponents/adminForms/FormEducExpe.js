@@ -174,7 +174,6 @@ function FormEducExpe({ value, educState, expeState }) {
             setArrayEduc((arrayEduc) => [...arrayEduc, response.data]);
           }
         }
-        // closeModal(setDisplayForm);
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
