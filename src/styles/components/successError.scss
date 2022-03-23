@@ -14,6 +14,9 @@
 }
 
 .error-message {
+  display: block;
+  margin-top: -1.875rem;
+  line-height: 1.875rem;
   opacity: 1;
   color: var(--red);
   transition: opacity 0.5s ease-in-out;
