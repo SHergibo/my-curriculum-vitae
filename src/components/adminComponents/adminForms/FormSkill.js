@@ -401,18 +401,6 @@ function FormSkill({
         errorSpanRef={errorSpanRef}
         spanError={spanError}
       />
-    </>
-  );
-
-  return (
-    <>
-      {!value && (
-        <>
-          <h3>Ajout</h3>
-          <form onSubmit={handleSubmit(onSubmitAdd)}>{form}</form>
-        </>
-      )}
-      {value && <form onSubmit={handleSubmit(onClickEdit)}>{form}</form>}
 
       <CSSTransition
         nodeRef={errorMessageRef}
@@ -425,6 +413,18 @@ function FormSkill({
           Une erreur est survenue, veuillez réessayer plus tard !
         </span>
       </CSSTransition>
+    </>
+  );
+
+  return (
+    <>
+      {!value && (
+        <>
+          <h3>Ajout</h3>
+          <form onSubmit={handleSubmit(onSubmitAdd)}>{form}</form>
+        </>
+      )}
+      {value && <form onSubmit={handleSubmit(onClickEdit)}>{form}</form>}
     </>
   );
 }
