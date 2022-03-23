@@ -390,6 +390,18 @@ function FormGeneralInfo({ generalInfoState }) {
         errorSpanRef={errorSpanRef}
         spanError={spanError}
       />
+
+      <CSSTransition
+        nodeRef={errorMessageRef}
+        in={spanError}
+        timeout={1000}
+        classNames="btnAnimation"
+        unmountOnExit
+      >
+        <span ref={errorMessageRef} className="error-message">
+          Une erreur est survenue, veuillez réessayer plus tard !
+        </span>
+      </CSSTransition>
     </>
   );
 
@@ -407,17 +419,6 @@ function FormGeneralInfo({ generalInfoState }) {
       >
         {formGeneralInfo}
       </form>
-      <CSSTransition
-        nodeRef={errorMessageRef}
-        in={spanError}
-        timeout={1000}
-        classNames="btnAnimation"
-        unmountOnExit
-      >
-        <span ref={errorMessageRef} className="error-message">
-          Une erreur est survenue, veuillez réessayer plus tard !
-        </span>
-      </CSSTransition>
     </div>
   );
 }
