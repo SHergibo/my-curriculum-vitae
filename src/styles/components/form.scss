@@ -9,7 +9,7 @@
 }
 
 .btn-submit-action {
-  @include btn(rem(60px), rem(30px) 0, auto);
+  @include btn(rem(60px), rem(30px) rem(15px) rem(30px) 0, auto);
   svg {
     margin-left: rem(6px);
   }
