@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, createRef } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from "../../Modal";
 import workingData from "../../../utils/workingData";
-import { displayModal } from "../../../utils/modalDisplay";
 import FormSkill from "../adminForms/FormSkill";
+import { CSSTransition } from "react-transition-group";
 
 function DisplayListSkill() {
-  const [value, setValue] = useState({});
   const [arrayCodingSkill, setArrayCodingSkill] = useState([]);
   const [arrayGeneralSkill, setArrayGeneralSkill] = useState([]);
   const [arrayLanguage, setArrayLanguage] = useState([]);
-  const [displayForm, setDisplayForm] = useState(false);
+  const [formListState, setFormListState] = useState({});
+  const [lastFormListOpen, setLastFormListOpen] = useState();
 
   const getData = useCallback(async () => {
     const getListSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills/skills-list`;
@@ -21,6 +20,12 @@ function DisplayListSkill() {
       setArrayCodingSkill(workingDatas[0]);
       setArrayGeneralSkill(workingDatas[1]);
       setArrayLanguage(workingDatas[2]);
+      response.data.forEach((data) => {
+        setFormListState((prevObject) => ({
+          ...prevObject,
+          [data._id]: false,
+        }));
+      });
     });
   }, []);
 
@@ -47,82 +52,110 @@ function DisplayListSkill() {
     });
   };
 
-  let liListCodingSkill;
-  let liListGeneralSkill;
-  let liListLanguage;
+  const displayForm = (id) => {
+    if (lastFormListOpen && lastFormListOpen !== id) {
+      setFormListState((prevObject) => ({
+        ...prevObject,
+        [lastFormListOpen]: false,
+      }));
+    }
+    setFormListState((prevObject) => ({
+      ...prevObject,
+      [id]: !formListState[id],
+    }));
+    if (lastFormListOpen === id) setLastFormListOpen();
+    if (lastFormListOpen !== id) setLastFormListOpen(id);
+  };
 
-  const liListRender = (item) => {
+  const liListRender = (item, itemRef) => {
     return (
       <li key={item._id}>
-        <div className="div-list-info-container">
-          <div className="skill-list">{item.nameSkill}</div>
+        <div className="div-list-container">
+          <div className="div-list-info-container">
+            <div className="skill-list">{item.nameSkill}</div>
+          </div>
+          <div className="div-list-btn-container">
+            <button
+              className="btn-list-edit"
+              title="Éditer"
+              onClick={() => displayForm(item._id)}
+            >
+              {lastFormListOpen === item._id ? (
+                <FontAwesomeIcon icon="times" />
+              ) : (
+                <FontAwesomeIcon icon="edit" />
+              )}
+            </button>
+            <button
+              className="btn-list-delete"
+              title="Supprimer"
+              onClick={() => onClickDelete(item)}
+            >
+              <FontAwesomeIcon icon="trash-alt" />
+            </button>
+          </div>
         </div>
-        <div className="div-list-btn-container">
-          <button
-            className="btn-list-edit"
-            title="Éditer"
-            onClick={() => displayModal(item, setDisplayForm, setValue)}
-          >
-            <FontAwesomeIcon icon="edit" />
-          </button>
-          <button
-            className="btn-list-delete"
-            title="Supprimer"
-            onClick={() => onClickDelete(item)}
-          >
-            <FontAwesomeIcon icon="trash-alt" />
-          </button>
-        </div>
+        <CSSTransition
+          nodeRef={itemRef}
+          in={formListState[item._id]}
+          classNames="form-list"
+          unmountOnExit
+          timeout={500}
+        >
+          <div ref={itemRef} className="form-in-list">
+            <FormSkill
+              value={item}
+              codingSkillState={{ arrayCodingSkill, setArrayCodingSkill }}
+              generalSkillState={{ arrayGeneralSkill, setArrayGeneralSkill }}
+              languageState={{ arrayLanguage, setArrayLanguage }}
+            />
+          </div>
+        </CSSTransition>
       </li>
     );
   };
-
-  if (arrayCodingSkill) {
-    liListCodingSkill = arrayCodingSkill.map((item) => {
-      return liListRender(item);
-    });
-  }
-
-  if (arrayGeneralSkill) {
-    liListGeneralSkill = arrayGeneralSkill.map((item) => {
-      return liListRender(item);
-    });
-  }
-
-  if (arrayLanguage) {
-    liListLanguage = arrayLanguage.map((item) => {
-      return liListRender(item);
-    });
-  }
 
   return (
     <>
       <div>
         <h4>Compétences</h4>
-        <ul>{liListCodingSkill}</ul>
+        {arrayCodingSkill.length >= 1 ? (
+          <ul>
+            {arrayCodingSkill.map((item) => {
+              const itemRef = createRef(null);
+              return liListRender(item, itemRef);
+            })}
+          </ul>
+        ) : (
+          <p>Pas de données à afficher !</p>
+        )}
       </div>
       <div>
         <h4>Compétences générales</h4>
-        <ul>{liListGeneralSkill}</ul>
+        {arrayGeneralSkill.length >= 1 ? (
+          <ul>
+            {arrayGeneralSkill.map((item) => {
+              const itemRef = createRef(null);
+              return liListRender(item, itemRef);
+            })}
+          </ul>
+        ) : (
+          <p>Pas de données à afficher !</p>
+        )}
       </div>
       <div>
         <h4>Langues</h4>
-        <ul>{liListLanguage}</ul>
+        {arrayLanguage.length >= 1 ? (
+          <ul>
+            {arrayLanguage.map((item) => {
+              const itemRef = createRef(null);
+              return liListRender(item, itemRef);
+            })}
+          </ul>
+        ) : (
+          <p>Pas de données à afficher !</p>
+        )}
       </div>
-      {displayForm && (
-        <Modal
-          div={
-            <FormSkill
-              value={value}
-              codingSkillState={{ arrayCodingSkill, setArrayCodingSkill }}
-              generalSkillState={{ arrayGeneralSkill, setArrayGeneralSkill }}
-              languageState={{ arrayLanguage, setArrayLanguage }}
-              setDisplayForm={setDisplayForm}
-            />
-          }
-          setDisplayForm={setDisplayForm}
-        />
-      )}
     </>
   );
 }
