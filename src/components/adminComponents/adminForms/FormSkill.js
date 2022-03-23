@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
-import { closeModal } from "../../../utils/modalDisplay";
 import CanvasResume from "../../frontComponents/resumeComponents/CanvasResume";
 import SkillBarResume from "../../frontComponents/resumeComponents/SkillBarResume";
 import { CSSTransition } from "react-transition-group";
@@ -19,7 +18,6 @@ function FormSkill({
   codingSkillState,
   generalSkillState,
   languageState,
-  setDisplayForm,
 }) {
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
@@ -28,8 +26,6 @@ function FormSkill({
   const errorSpanRef = useRef(null);
   const errorMessageRef = useRef(null);
   const [spanError, setSpanError] = useState(false);
-  const [titleForm, setTitleForm] = useState("Ajout");
-  const [button, setButton] = useState("Ajouter");
   const [switchPrevisualisation, setSwitchPrevisualisation] = useState(false);
   const [previsualisationValue, setPrevisualisationValue] = useState([
     {
@@ -69,8 +65,6 @@ function FormSkill({
 
   useEffect(() => {
     if (!add && value) {
-      setTitleForm("Édition");
-      setButton("Éditer");
       setPrevisualisationValue([
         {
           _id: 0,
@@ -149,6 +143,12 @@ function FormSkill({
     await axiosInstance
       .patch(editSkillEndPoint, data)
       .then((response) => {
+        checkSuccess(
+          setTimeoutLoader,
+          setLoader,
+          setTimeoutSuccess,
+          setSpanSuccess
+        );
         let arrayResponse = [response.data];
         if (data.skillCategory === "codingSkill") {
           let dataInArrayGeneralSkill = arrayGeneralSkill.find(
@@ -242,7 +242,6 @@ function FormSkill({
             ]);
           }
         }
-        closeModal(setDisplayForm);
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -393,7 +392,7 @@ function FormSkill({
         </label>
       </div>
       <ActionButtonSubmit
-        button={button}
+        button={value ? "Éditer" : "Ajouter"}
         value={value}
         loadingRef={loadingRef}
         loader={loader}
@@ -407,9 +406,13 @@ function FormSkill({
 
   return (
     <>
-      <h3>{titleForm}</h3>
-      {add && <form onSubmit={handleSubmit(onSubmitAdd)}>{form}</form>}
-      {!add && <form onSubmit={handleSubmit(onClickEdit)}>{form}</form>}
+      {!value && (
+        <>
+          <h3>Ajout</h3>
+          <form onSubmit={handleSubmit(onSubmitAdd)}>{form}</form>
+        </>
+      )}
+      {value && <form onSubmit={handleSubmit(onClickEdit)}>{form}</form>}
 
       <CSSTransition
         nodeRef={errorMessageRef}
@@ -441,7 +444,6 @@ FormSkill.propTypes = {
     arrayLanguage: PropTypes.array,
     setArrayLanguage: PropTypes.func,
   }),
-  setDisplayForm: PropTypes.func,
 };
 
 export default FormSkill;
