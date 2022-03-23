@@ -200,18 +200,18 @@ function Contact({ generalInfo }) {
               spanError={spanError}
               formContact={true}
             />
+            <CSSTransition
+              nodeRef={errorMessageRef}
+              in={spanError}
+              timeout={1000}
+              classNames="btnAnimation"
+              unmountOnExit
+            >
+              <span ref={errorMessageRef} className="error-message">
+                Une erreur est survenue, veuillez réessayer plus tard !
+              </span>
+            </CSSTransition>
           </form>
-          <CSSTransition
-            nodeRef={errorMessageRef}
-            in={spanError}
-            timeout={1000}
-            classNames="btnAnimation"
-            unmountOnExit
-          >
-            <span ref={errorMessageRef} className="error-message">
-              Une erreur est survenue, veuillez réessayer plus tard !
-            </span>
-          </CSSTransition>
         </div>
         <div className="contact-info">
           <div className="container-img-contact">
