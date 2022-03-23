@@ -78,8 +78,8 @@ function FormProject({ value, projectState }) {
     if (value) {
       setFrameworkValueSelect(value.technoUsedFront);
       setBackEndValueSelect(value.technoUsedBack);
-      if (imagesArray.length >= 1) setImagesArray([]);
-      if (altDescImagesArray.length >= 1) setAltDescImagesArray([]);
+      setImagesArray([]);
+      setAltDescImagesArray([]);
       setAltDescImagesArray([]);
       value.images.forEach((images) => {
         setImagesArray((array) => [...array, images.fileName]);
