@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { closeModal } from "../../../utils/modalDisplay";
 import { CSSTransition } from "react-transition-group";
 import CreatableSelect from "react-select/creatable";
 import PropTypes from "prop-types";
@@ -50,7 +49,7 @@ const customStyles = {
   }),
 };
 
-function FormProject({ value, projectState, setDisplayForm }) {
+function FormProject({ value, projectState }) {
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
   const loadingRef = useRef(null);
@@ -62,8 +61,6 @@ function FormProject({ value, projectState, setDisplayForm }) {
   const [imgProjectName, setImgProjectName] = useState("Image du projet");
   const [imagesArray, setImagesArray] = useState([]);
   const [altDescImagesArray, setAltDescImagesArray] = useState([]);
-  const [titleForm, setTitleForm] = useState("Ajout");
-  const [button, setButton] = useState("Ajouter");
   const [errorMessageImg, setErrorMessageImg] = useState("");
   const [errorAltImg, setErrorAltImg] = useState("");
   const [inputFrameworkValue, setInputFrameworkValue] = useState("");
@@ -79,10 +76,11 @@ function FormProject({ value, projectState, setDisplayForm }) {
   useEffect(() => {
     setImgProjectName("Image du projet");
     if (value) {
-      setTitleForm("Édition");
-      setButton("Éditer");
       setFrameworkValueSelect(value.technoUsedFront);
       setBackEndValueSelect(value.technoUsedBack);
+      if (imagesArray.length >= 1) setImagesArray([]);
+      if (altDescImagesArray.length >= 1) setAltDescImagesArray([]);
+      setAltDescImagesArray([]);
       value.images.forEach((images) => {
         setImagesArray((array) => [...array, images.fileName]);
         setAltDescImagesArray((array) => [...array, images.alt]);
@@ -265,13 +263,18 @@ function FormProject({ value, projectState, setDisplayForm }) {
     await axiosInstance
       .patch(editEducExpeEndPoint, formData)
       .then((response) => {
+        checkSuccess(
+          setTimeoutLoader,
+          setLoader,
+          setTimeoutSuccess,
+          setSpanSuccess
+        );
         let arrayResponse = [response.data];
         setArrayProject(
           [...arrayProject].map(
             (obj) => arrayResponse.find((o) => o._id === obj._id) || obj
           )
         );
-        closeModal(setDisplayForm);
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -542,7 +545,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
       </div>
 
       <ActionButtonSubmit
-        button={button}
+        button={value ? "Éditer" : "Ajouter"}
         value={value}
         loadingRef={loadingRef}
         loader={loader}
@@ -556,7 +559,7 @@ function FormProject({ value, projectState, setDisplayForm }) {
 
   return (
     <>
-      <h3>{titleForm}</h3>
+      {!value && <h3>Ajout</h3>}
       <form onSubmit={validateSubmit}>{form}</form>
 
       <CSSTransition
