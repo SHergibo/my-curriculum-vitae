@@ -554,13 +554,6 @@ function FormProject({ value, projectState }) {
         errorSpanRef={errorSpanRef}
         spanError={spanError}
       />
-    </>
-  );
-
-  return (
-    <>
-      {!value && <h3>Ajout</h3>}
-      <form onSubmit={validateSubmit}>{form}</form>
 
       <CSSTransition
         nodeRef={errorMessageRef}
@@ -573,6 +566,13 @@ function FormProject({ value, projectState }) {
           Une erreur est survenue, veuillez réessayer plus tard !
         </span>
       </CSSTransition>
+    </>
+  );
+
+  return (
+    <>
+      {!value && <h3>Ajout</h3>}
+      <form onSubmit={validateSubmit}>{form}</form>
     </>
   );
 }
