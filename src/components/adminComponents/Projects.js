@@ -23,7 +23,7 @@ function Projects() {
   return (
     <div className="project-section">
       <div id="projects" className="wrapper">
-        <div className="title-left-admin">Projets</div>
+        <div className="title-right">Projets</div>
         <div className="project-container">
           <TitleAction
             title="Projets"

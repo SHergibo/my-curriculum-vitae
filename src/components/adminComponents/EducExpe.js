@@ -23,7 +23,7 @@ function EducExpe() {
   return (
     <div className="educExpe-section">
       <div id="educexpe" className="wrapper">
-        <div className="title-left-admin">Éducation / Expérience</div>
+        <div className="title-right">Éducation / Expérience</div>
         <div className="educExpe-container">
           <TitleAction
             title="Éducation / Expérience"

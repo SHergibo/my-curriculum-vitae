@@ -23,7 +23,7 @@ function Skills() {
   return (
     <div className="skill-section">
       <div id="skills" className="wrapper">
-        <div className="title-right">Compétences</div>
+        <div className="title-left-admin">Compétences</div>
         <div className="skill-container skill-container-admin">
           <TitleAction
             title="Compétences"
