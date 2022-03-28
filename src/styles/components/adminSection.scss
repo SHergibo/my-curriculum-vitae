@@ -8,8 +8,9 @@
 .info-container,
 .educExpe-container,
 .skill-container,
+.profession-title-container,
+.change-password-container,
 .project-container {
-  margin-top: rem(70px);
   overflow: hidden;
   padding: 0 rem(15px);
   form {
@@ -22,7 +23,16 @@
 
 .info-container,
 .educExpe-container,
-.skill-container {
+.skill-container,
+.project-container {
+  margin-top: rem(70px);
+}
+
+.info-container,
+.educExpe-container,
+.skill-container,
+.profession-title-container,
+.change-password-container {
   @include title();
 }
 
@@ -48,6 +58,16 @@
   button {
     @include btn(rem(60px), rem(30px) rem(10px), rem(100px));
   }
+}
+
+.general-info {
+  display: flex;
+  position: relative;
+  padding: 0 rem(15px);
+}
+
+.info-general-container {
+  width: 100%;
 }
 
 .forms-block {
@@ -181,6 +201,12 @@
 
 /*Tablet*/
 @media screen and (min-width: 640px) {
+  .info-general-container {
+    width: 75%;
+    border-left: var(--border);
+    padding-left: rem(20px);
+  }
+
   .list-container {
     li {
       justify-content: space-between;
@@ -234,11 +260,24 @@
   .info-container,
   .educExpe-container,
   .skill-container,
+  .profession-title-container,
+  .change-password-container,
   .project-container {
     padding: 0;
   }
 
-  .skill-container {
+  .general-info {
+    padding: 0;
+  }
+
+  .info-general-container {
+    padding-left: rem(50px);
+    margin-left: rem(-1px);
+  }
+
+  .skill-container,
+  .profession-title-container,
+  .change-password-container {
     .input-container {
       flex-wrap: wrap;
       margin-bottom: 0;
