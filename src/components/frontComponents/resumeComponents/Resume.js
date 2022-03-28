@@ -52,9 +52,9 @@ function Resume({ isLoaded }) {
       menuResume.removeAttribute("style");
     }
     if (getBounding.top < 30) {
-      menuResume.classList.add("menu-resume-fixed");
+      menuResume.classList.add("menu-left-fixed");
     } else {
-      menuResume.classList.remove("menu-resume-fixed");
+      menuResume.classList.remove("menu-left-fixed");
     }
   };
 
@@ -102,10 +102,10 @@ function Resume({ isLoaded }) {
   return (
     <div ref={resumeContainerRef} id="resume" className="wrapper resume">
       <div className="title-left">Résumé</div>
-      <div className="menu-resume">
+      <div className="menu-left">
         <div
           ref={menuResumeRef}
-          className="list-resume"
+          className="list-menu-left"
           style={{ top: 30 + "px" }}
         >
           <ul>
