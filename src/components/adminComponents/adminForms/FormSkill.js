@@ -286,7 +286,7 @@ function FormSkill({
               name="nameSkill"
               type="text"
               id="nameSkill"
-              placeholder="Nom de la compétences"
+              placeholder="Nom de la compétence"
               {...register("nameSkill", {
                 required: true,
                 onChange: (e) => {
