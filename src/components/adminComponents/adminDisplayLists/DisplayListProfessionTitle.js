@@ -1,38 +1,35 @@
-import React, { useState, useEffect, useCallback, createRef } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FormProject from "../adminForms/FormProject";
+import FormProfessionTitle from "../adminForms/FormProfessionTitle";
 import { CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
 
-function DisplayListProfessionTitle() {
+function DisplayListProfessionTitle({ generalInfoState }) {
+  const { generalInfo, setGeneralInfo } = generalInfoState;
   const [arrayProfessionTitle, setArrayProfessionTitle] = useState([]);
   const [formListState, setFormListState] = useState({});
   const [lastFormListOpen, setLastFormListOpen] = useState();
 
-  const getData = useCallback(async () => {
-    const getListProjectPoint = `${apiDomain}/api/${apiVersion}/projects/projects-list`;
-    await axiosInstance.get(getListProjectPoint).then((response) => {
-      setArrayProfessionTitle(response.data);
-      response.data.forEach((data) => {
-        setFormListState((prevObject) => ({
-          ...prevObject,
-          [data._id]: false,
-        }));
-      });
-    });
-  }, []);
-
   useEffect(() => {
-    getData();
-  }, [getData]);
+    setArrayProfessionTitle(generalInfo.professionTitles);
+    generalInfo.professionTitles.forEach((professionTitle) => {
+      setFormListState((prevObject) => ({
+        ...prevObject,
+        [professionTitle._id]: false,
+      }));
+    });
+  }, [generalInfo]);
 
   const onClickDelete = async (data) => {
-    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/projects/${data._id}`;
-    await axiosInstance.delete(deleteProjectEndPoint, data).then(() => {
-      setArrayProfessionTitle(
-        [...arrayProfessionTitle].filter((item) => item._id !== data._id)
-      );
+    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title-delete/${generalInfo._id}/${data._id}`;
+    await axiosInstance.delete(deleteProjectEndPoint, data).then((response) => {
+      setGeneralInfo({
+        ...generalInfo,
+        professionTitles: response.data,
+      });
+      setArrayProfessionTitle(response.data);
     });
   };
 
@@ -51,13 +48,13 @@ function DisplayListProfessionTitle() {
     if (lastFormListOpen !== id) setLastFormListOpen(id);
   };
 
-  let liListProjects = arrayProfessionTitle.map((item) => {
+  let liListProfessionTitle = arrayProfessionTitle.map((item) => {
     const itemRef = createRef(null);
     return (
       <li key={item._id}>
         <div className="div-list-container">
           <div className="div-list-info-container">
-            <div className="title-list">{item.projectName}</div>
+            <div className="title-list">{item.nameProfessionTitle}</div>
           </div>
           <div className="div-list-btn-container">
             <button
@@ -88,9 +85,10 @@ function DisplayListProfessionTitle() {
           timeout={500}
         >
           <div ref={itemRef} className="form-in-list">
-            <FormProject
+            <FormProfessionTitle
               value={item}
               projectState={{ arrayProfessionTitle, setArrayProfessionTitle }}
+              generalInfoState={generalInfoState}
             />
           </div>
         </CSSTransition>
@@ -101,9 +99,9 @@ function DisplayListProfessionTitle() {
   return (
     <>
       <div>
-        <h4>Projets</h4>
+        <h4>Titres de profession</h4>
         {arrayProfessionTitle.length >= 1 ? (
-          <ul>{liListProjects}</ul>
+          <ul>{liListProfessionTitle}</ul>
         ) : (
           <p>Pas de données à afficher !</p>
         )}
@@ -111,5 +109,12 @@ function DisplayListProfessionTitle() {
     </>
   );
 }
+
+DisplayListProfessionTitle.propTypes = {
+  generalInfoState: PropTypes.shape({
+    generalInfo: PropTypes.object.isRequired,
+    setGeneralInfo: PropTypes.func.isRequired,
+  }),
+};
 
 export default DisplayListProfessionTitle;
