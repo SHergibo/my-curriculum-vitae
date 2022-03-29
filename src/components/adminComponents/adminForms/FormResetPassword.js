@@ -52,43 +52,43 @@ function FormResetPassword({ userId }) {
     reset();
     setLoader(true);
     setSpanError(false);
-    // const editPasswordUser = `${apiDomain}/api/${apiVersion}/users/${userId}`;
-    // await axiosInstance
-    //   .patch(editPasswordUser, data)
-    //   .then(() => {
-    //     checkSuccess(
-    //       setTimeoutLoader,
-    //       setLoader,
-    //       setTimeoutSuccess,
-    //       setSpanSuccess
-    //     );
-    //     reset();
-    //   })
-    //   .catch(() => {
-    //     checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
-    //   });
+    const editPasswordUser = `${apiDomain}/api/${apiVersion}/users/${userId}`;
+    await axiosInstance
+      .patch(editPasswordUser, data)
+      .then(() => {
+        checkSuccess(
+          setTimeoutLoader,
+          setLoader,
+          setTimeoutSuccess,
+          setSpanSuccess
+        );
+        reset();
+      })
+      .catch(() => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
+      });
   };
 
   const form = (
     <>
       <div className="input-container">
         <div className="input">
-          <label htmlFor="oldPassword">Ancien mot de passe *</label>
+          <label htmlFor="actualPassword">Ancien mot de passe *</label>
           <div className="input-block">
             <span>
               <FontAwesomeIcon icon="lock-open" />
             </span>
             <input
-              name="oldPassword"
+              name="actualPassword"
               type="password"
-              id="oldPassword"
+              id="actualPassword"
               placeholder="Ancien mot de passe *"
-              {...register("oldPassword", {
+              {...register("actualPassword", {
                 required: true,
               })}
             />
           </div>
-          {errors.oldPassword && (
+          {errors.actualPassword && (
             <span className="error-message-form">Ce champ est requis</span>
           )}
         </div>
