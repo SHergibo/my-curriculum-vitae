@@ -236,7 +236,11 @@ function GeneralInfo({ generalInfoState }) {
                 unmountOnExit
               >
                 <div ref={nodeRef} className="form-container">
-                  <FormProfessionTitle add={true} />
+                  <FormProfessionTitle
+                    add={true}
+                    infoId={generalInfo._id}
+                    generalInfoState={generalInfoState}
+                  />
                 </div>
               </CSSTransition>
               <CSSTransition
@@ -248,7 +252,9 @@ function GeneralInfo({ generalInfoState }) {
               >
                 <div ref={nodeRefTwo} className="list-container">
                   <h3>Édition</h3>
-                  <DisplayListProfessionTitle />
+                  <DisplayListProfessionTitle
+                    generalInfoState={generalInfoState}
+                  />
                 </div>
               </CSSTransition>
             </div>
