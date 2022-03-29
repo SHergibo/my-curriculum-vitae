@@ -122,7 +122,7 @@ function SelectFontAwesome({
               {...field}
               onChange={(e) => {
                 field.onChange(e);
-                funcOnChange(e);
+                if (funcOnChange) funcOnChange(e);
               }}
               options={options}
               components={{
