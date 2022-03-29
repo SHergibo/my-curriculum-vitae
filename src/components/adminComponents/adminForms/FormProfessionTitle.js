@@ -10,7 +10,14 @@ import SelectFontAwesome from "../../ReactSelectComponents/SelectFontAwesome";
 import PropTypes from "prop-types";
 import fontAwesomeData from "../../../utils/fontAwesomeData";
 
-function FormProfessionTitle({ add, value, professionTitleState }) {
+function FormProfessionTitle({
+  add,
+  value,
+  professionTitleState,
+  infoId,
+  generalInfoState,
+}) {
+  const { generalInfo, setGeneralInfo } = generalInfoState;
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
   const loadingRef = useRef(null);
@@ -39,8 +46,8 @@ function FormProfessionTitle({ add, value, professionTitleState }) {
   useEffect(() => {
     formDefaultValueRef.current = {
       fontAwesomeIcon: value?.fontAwesomeIcon,
-      nameSkill: value?.nameSkill,
-      svgIcon: value?.svgIcon,
+      nameProfessionTitle: value?.nameProfessionTitle,
+      svgIconProfTitle: value?.svgIconProfTitle,
     };
     reset(formDefaultValueRef.current);
   }, [reset, value]);
@@ -49,8 +56,8 @@ function FormProfessionTitle({ add, value, professionTitleState }) {
     if (add) {
       formDefaultValueRef.current = {
         fontAwesomeIcon: null,
-        nameSkill: null,
-        svgIcon: null,
+        nameProfessionTitle: null,
+        svgIconProfTitle: null,
       };
       reset(formDefaultValueRef.current);
     }
@@ -74,16 +81,20 @@ function FormProfessionTitle({ add, value, professionTitleState }) {
   const onSubmitAdd = async (data, e) => {
     setLoader(true);
     setSpanError(false);
-    const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills`;
+    const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title/${infoId}`;
     await axiosInstance
-      .post(addSkillEndPoint, data)
-      .then(() => {
+      .patch(addSkillEndPoint, data)
+      .then((response) => {
         checkSuccess(
           setTimeoutLoader,
           setLoader,
           setTimeoutSuccess,
           setSpanSuccess
         );
+        setGeneralInfo({
+          ...generalInfo,
+          professionTitles: response.data,
+        });
         e.target.reset();
         reset({ fontAwesomeIcon: null });
       })
@@ -97,7 +108,7 @@ function FormProfessionTitle({ add, value, professionTitleState }) {
     setSpanError(false);
     const { arrayProfessionTitle, setArrayProfessionTitle } =
       professionTitleState;
-    const editSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills/${value._id}`;
+    const editSkillEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title-edit/${value._id}`;
     await axiosInstance
       .patch(editSkillEndPoint, data)
       .then((response) => {
@@ -107,6 +118,10 @@ function FormProfessionTitle({ add, value, professionTitleState }) {
           setTimeoutSuccess,
           setSpanSuccess
         );
+        setGeneralInfo({
+          ...generalInfo,
+          professionTitles: response.data,
+        });
         let arrayResponse = [response.data];
         setArrayProfessionTitle(
           [...arrayProfessionTitle].map(
@@ -123,22 +138,22 @@ function FormProfessionTitle({ add, value, professionTitleState }) {
     <>
       <div className="input-container">
         <div className="input">
-          <label htmlFor="nameProfesionTitle">Titre de la profession *</label>
+          <label htmlFor="nameProfessionTitle">Titre de la profession *</label>
           <div className="input-block">
             <span>
               <FontAwesomeIcon icon="briefcase" />
             </span>
             <input
-              name="nameProfesionTitle"
+              name="nameProfessionTitle"
               type="text"
-              id="nameProfesionTitle"
+              id="nameProfessionTitle"
               placeholder="Titre de la profession"
-              {...register("nameProfesionTitle", {
+              {...register("nameProfessionTitle", {
                 required: true,
               })}
             />
           </div>
-          {errors.nameProfesionTitle && (
+          {errors.nameProfessionTitle && (
             <span className="error-message-form">Ce champ est requis</span>
           )}
         </div>
@@ -215,6 +230,11 @@ FormProfessionTitle.propTypes = {
   professionTitleState: PropTypes.shape({
     arrayProfessionTitle: PropTypes.array,
     setArrayProfessionTitle: PropTypes.func,
+  }),
+  infoId: PropTypes.string,
+  generalInfoState: PropTypes.shape({
+    generalInfo: PropTypes.object.isRequired,
+    setGeneralInfo: PropTypes.func.isRequired,
   }),
 };
 
