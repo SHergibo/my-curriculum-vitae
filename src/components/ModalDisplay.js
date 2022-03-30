@@ -1,5 +1,6 @@
 import React from "react";
 import { closeModal } from "./../utils/modalDisplay";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 function ModalDisplay({ div, displayFormState }) {
@@ -20,7 +21,7 @@ function ModalDisplay({ div, displayFormState }) {
           className="close-modal"
           onClick={() => closeModal(setDisplayForm)}
         >
-          X
+          <FontAwesomeIcon icon="times" />
         </button>
         {div}
       </div>
