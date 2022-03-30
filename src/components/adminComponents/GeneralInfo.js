@@ -212,54 +212,56 @@ function GeneralInfo({ generalInfoState }) {
               <FormGeneralInfo generalInfoState={generalInfoState} />
             </div>
           </div>
-          <div
-            ref={profTitleRef}
-            id="prof-title"
-            className="profession-title-container"
-          >
-            <TitleAction
-              title="Profession"
-              btnTitle={
-                addBtn
-                  ? "Éditer un titre de profession"
-                  : "Ajouter un titre de profession"
-              }
-              action={switchForm}
-              btnState={{ addBtn, editbtn }}
-            />
+          {generalInfo.firstname !== "" && (
+            <div
+              ref={profTitleRef}
+              id="prof-title"
+              className="profession-title-container"
+            >
+              <TitleAction
+                title="Profession"
+                btnTitle={
+                  addBtn
+                    ? "Éditer un titre de profession"
+                    : "Ajouter un titre de profession"
+                }
+                action={switchForm}
+                btnState={{ addBtn, editbtn }}
+              />
 
-            <div className="forms-block">
-              <CSSTransition
-                nodeRef={nodeRef}
-                in={addBtn}
-                timeout={500}
-                classNames="add"
-                unmountOnExit
-              >
-                <div ref={nodeRef} className="form-container">
-                  <FormProfessionTitle
-                    add={true}
-                    infoId={generalInfo._id}
-                    generalInfoState={generalInfoState}
-                  />
-                </div>
-              </CSSTransition>
-              <CSSTransition
-                nodeRef={nodeRefTwo}
-                in={editbtn}
-                timeout={500}
-                classNames="edit"
-                unmountOnExit
-              >
-                <div ref={nodeRefTwo} className="list-container">
-                  <h3>Édition</h3>
-                  <DisplayListProfessionTitle
-                    generalInfoState={generalInfoState}
-                  />
-                </div>
-              </CSSTransition>
+              <div className="forms-block">
+                <CSSTransition
+                  nodeRef={nodeRef}
+                  in={addBtn}
+                  timeout={500}
+                  classNames="add"
+                  unmountOnExit
+                >
+                  <div ref={nodeRef} className="form-container">
+                    <FormProfessionTitle
+                      add={true}
+                      infoId={generalInfo._id}
+                      generalInfoState={generalInfoState}
+                    />
+                  </div>
+                </CSSTransition>
+                <CSSTransition
+                  nodeRef={nodeRefTwo}
+                  in={editbtn}
+                  timeout={500}
+                  classNames="edit"
+                  unmountOnExit
+                >
+                  <div ref={nodeRefTwo} className="list-container">
+                    <h3>Édition</h3>
+                    <DisplayListProfessionTitle
+                      generalInfoState={generalInfoState}
+                    />
+                  </div>
+                </CSSTransition>
+              </div>
             </div>
-          </div>
+          )}
           {generalInfo.userId && (
             <div
               ref={passwordRef}
