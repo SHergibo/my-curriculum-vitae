@@ -13,7 +13,7 @@ import fontAwesomeData from "../../../utils/fontAwesomeData";
 function FormProfessionTitle({
   add,
   value,
-  professionTitleState,
+  setArrayProfessionTitle,
   infoId,
   generalInfoState,
 }) {
@@ -81,9 +81,9 @@ function FormProfessionTitle({
   const onSubmitAdd = async (data, e) => {
     setLoader(true);
     setSpanError(false);
-    const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title/${infoId}`;
+    const addProfTitleEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title/${infoId}`;
     await axiosInstance
-      .patch(addSkillEndPoint, data)
+      .patch(addProfTitleEndPoint, data)
       .then((response) => {
         checkSuccess(
           setTimeoutLoader,
@@ -106,11 +106,9 @@ function FormProfessionTitle({
   const onClickEdit = async (data) => {
     setLoader(true);
     setSpanError(false);
-    const { arrayProfessionTitle, setArrayProfessionTitle } =
-      professionTitleState;
-    const editSkillEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title-edit/${value._id}`;
+    const editProfTitleEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title-edit/${generalInfo._id}/${value.id}`;
     await axiosInstance
-      .patch(editSkillEndPoint, data)
+      .patch(editProfTitleEndPoint, data)
       .then((response) => {
         checkSuccess(
           setTimeoutLoader,
@@ -118,16 +116,11 @@ function FormProfessionTitle({
           setTimeoutSuccess,
           setSpanSuccess
         );
+        setArrayProfessionTitle(response.data);
         setGeneralInfo({
           ...generalInfo,
           professionTitles: response.data,
         });
-        let arrayResponse = [response.data];
-        setArrayProfessionTitle(
-          [...arrayProfessionTitle].map(
-            (obj) => arrayResponse.find((o) => o._id === obj._id) || obj
-          )
-        );
       })
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
@@ -227,10 +220,7 @@ function FormProfessionTitle({
 FormProfessionTitle.propTypes = {
   add: PropTypes.bool,
   value: PropTypes.object,
-  professionTitleState: PropTypes.shape({
-    arrayProfessionTitle: PropTypes.array,
-    setArrayProfessionTitle: PropTypes.func,
-  }),
+  setArrayProfessionTitle: PropTypes.func,
   infoId: PropTypes.string,
   generalInfoState: PropTypes.shape({
     generalInfo: PropTypes.object.isRequired,
