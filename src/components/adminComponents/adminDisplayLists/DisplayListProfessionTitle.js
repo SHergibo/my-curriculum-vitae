@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef, useRef } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,19 +11,24 @@ function DisplayListProfessionTitle({ generalInfoState }) {
   const [arrayProfessionTitle, setArrayProfessionTitle] = useState([]);
   const [formListState, setFormListState] = useState({});
   const [lastFormListOpen, setLastFormListOpen] = useState();
+  const profTitleArrayRef = useRef([]);
 
   useEffect(() => {
-    setArrayProfessionTitle(generalInfo.professionTitles);
-    generalInfo.professionTitles.forEach((professionTitle) => {
-      setFormListState((prevObject) => ({
-        ...prevObject,
-        [professionTitle._id]: false,
-      }));
-    });
+    profTitleArrayRef.current = generalInfo.professionTitles;
   }, [generalInfo]);
 
+  useEffect(() => {
+    setArrayProfessionTitle(profTitleArrayRef.current);
+    profTitleArrayRef.current.forEach((professionTitle) => {
+      setFormListState((prevObject) => ({
+        ...prevObject,
+        [professionTitle.id]: false,
+      }));
+    });
+  }, []);
+
   const onClickDelete = async (data) => {
-    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title-delete/${generalInfo._id}/${data._id}`;
+    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title-delete/${generalInfo._id}/${data.id}`;
     await axiosInstance.delete(deleteProjectEndPoint, data).then((response) => {
       setGeneralInfo({
         ...generalInfo,
@@ -51,7 +56,7 @@ function DisplayListProfessionTitle({ generalInfoState }) {
   let liListProfessionTitle = arrayProfessionTitle.map((item) => {
     const itemRef = createRef(null);
     return (
-      <li key={item._id}>
+      <li key={item.id}>
         <div className="div-list-container">
           <div className="div-list-info-container">
             <div className="title-list">{item.nameProfessionTitle}</div>
@@ -60,10 +65,10 @@ function DisplayListProfessionTitle({ generalInfoState }) {
             <button
               className="btn-list-edit"
               title="Éditer"
-              onClick={() => displayForm(item._id)}
+              onClick={() => displayForm(item.id)}
             >
-              {lastFormListOpen === item._id ? (
-                <FontAwesomeIcon icon="times" />
+              {lastFormListOpen === item.id ? (
+                <FontAwesomeIcon icon="chevron-up" />
               ) : (
                 <FontAwesomeIcon icon="edit" />
               )}
@@ -79,7 +84,7 @@ function DisplayListProfessionTitle({ generalInfoState }) {
         </div>
         <CSSTransition
           nodeRef={itemRef}
-          in={formListState[item._id]}
+          in={formListState[item.id]}
           classNames="form-list"
           unmountOnExit
           timeout={500}
@@ -87,7 +92,7 @@ function DisplayListProfessionTitle({ generalInfoState }) {
           <div ref={itemRef} className="form-in-list">
             <FormProfessionTitle
               value={item}
-              projectState={{ arrayProfessionTitle, setArrayProfessionTitle }}
+              setArrayProfessionTitle={setArrayProfessionTitle}
               generalInfoState={generalInfoState}
             />
           </div>
