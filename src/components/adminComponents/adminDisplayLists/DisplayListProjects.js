@@ -66,7 +66,7 @@ function DisplayListProjects() {
               onClick={() => displayForm(item._id)}
             >
               {lastFormListOpen === item._id ? (
-                <FontAwesomeIcon icon="times" />
+                <FontAwesomeIcon icon="chevron-up" />
               ) : (
                 <FontAwesomeIcon icon="edit" />
               )}
