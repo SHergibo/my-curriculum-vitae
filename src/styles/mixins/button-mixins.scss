@@ -58,7 +58,7 @@
   border-radius: 50%;
   background-color: var(--blue);
   font-size: $fSize;
-  color: #ffffff;
+  color: var(--white);
   cursor: pointer;
   transition: 0.2s ease-in-out;
   &:hover {
