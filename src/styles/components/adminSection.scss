@@ -51,7 +51,8 @@
     display: flex;
     justify-content: center;
   }
-  h2 {
+  p {
+    font-size: 1.5rem;
     color: var(--white);
     text-align: center;
   }
@@ -63,7 +64,6 @@
 .general-info {
   display: flex;
   position: relative;
-  padding: 0 rem(15px);
 }
 
 .info-general-container {
