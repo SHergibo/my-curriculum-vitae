@@ -106,9 +106,10 @@ function GeneralInfo({ generalInfoState }) {
 
   const doubleCheckDelete = (
     <div className="delete-info-div">
-      <h2>
+      <p>
         Êtes-vous sur de vouloir supprimer toutes vos informations générales ?
-      </h2>
+      </p>
+      <p>Vos titres de profession seront aussi supprimés !</p>
       <div>
         <button
           onClick={() => {
