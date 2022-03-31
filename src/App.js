@@ -34,6 +34,7 @@ function App() {
     email: "",
     birthdate: "",
     licence: "",
+    professionTitles: [],
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
