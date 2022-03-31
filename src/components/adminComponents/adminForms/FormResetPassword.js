@@ -6,9 +6,8 @@ import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
-import PropTypes from "prop-types";
 
-function FormResetPassword({ userId }) {
+function FormResetPassword() {
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
   const loadingRef = useRef(null);
@@ -52,7 +51,9 @@ function FormResetPassword({ userId }) {
     reset();
     setLoader(true);
     setSpanError(false);
-    const editPasswordUser = `${apiDomain}/api/${apiVersion}/users/${userId}`;
+    const editPasswordUser = `${apiDomain}/api/${apiVersion}/users/${localStorage.getItem(
+      "userId"
+    )}`;
     await axiosInstance
       .patch(editPasswordUser, data)
       .then(() => {
@@ -181,9 +182,5 @@ function FormResetPassword({ userId }) {
     </>
   );
 }
-
-FormResetPassword.propTypes = {
-  userId: PropTypes.string.isRequired,
-};
 
 export default FormResetPassword;
