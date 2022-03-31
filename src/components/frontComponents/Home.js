@@ -6,18 +6,21 @@ import PropTypes from "prop-types";
 
 function Home({ generalInfo }) {
   const [fullName, setFullName] = useState("");
+  const [div, setDiv] = useState();
   const [welcome, setWelcome] = useState("Bienvenue");
-  const [div, setDiv] = useState(
-    <div className="job-name">
-      Je suis un{" "}
-      <Typed
-        strings={["développeur web", "intégrateur web"]}
-        typeSpeed={80}
-        loop
-        smartBackspace={false}
-      />
-    </div>
-  );
+  const [profTitleArray, setProfTitleArray] = useState([]);
+
+  useEffect(() => {
+    if (generalInfo) {
+      generalInfo.professionTitles.forEach((profTitle) => {
+        setProfTitleArray((prevArray) => [
+          ...prevArray,
+          profTitle.nameProfessionTitle,
+        ]);
+      });
+    }
+  }, [generalInfo]);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -29,11 +32,24 @@ function Home({ generalInfo }) {
   }, [generalInfo]);
 
   useEffect(() => {
+    if (profTitleArray.length >= 1 && location.pathname !== "/admin") {
+      setDiv(
+        <div className="job-name">
+          Je suis un{" "}
+          <Typed
+            strings={profTitleArray}
+            typeSpeed={80}
+            loop
+            smartBackspace={false}
+          />
+        </div>
+      );
+    }
     if (location.pathname === "/admin") {
       setDiv(<div className="sub-name">Partie administration</div>);
       setWelcome("Administration");
     }
-  }, [location]);
+  }, [profTitleArray, location]);
 
   return <HomeSection welcome={welcome} name={fullName} div={div} />;
 }
