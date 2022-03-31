@@ -161,23 +161,25 @@ function GeneralInfo({ generalInfoState }) {
                   Infos générales
                 </Link>
               </li>
-              <li
-                tabIndex={0}
-                onKeyPress={() => {
-                  focusOnKeypress("prof-title");
-                }}
-              >
-                <Link
-                  activeClass="active"
-                  to="prof-title"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={1000}
+              {generalInfo.firstname !== "" && (
+                <li
+                  tabIndex={0}
+                  onKeyPress={() => {
+                    focusOnKeypress("prof-title");
+                  }}
                 >
-                  Profession
-                </Link>
-              </li>
+                  <Link
+                    activeClass="active"
+                    to="prof-title"
+                    spy={true}
+                    smooth={true}
+                    offset={-80}
+                    duration={1000}
+                  >
+                    Profession
+                  </Link>
+                </li>
+              )}
               <li
                 tabIndex={0}
                 onKeyPress={() => {
@@ -262,13 +264,13 @@ function GeneralInfo({ generalInfoState }) {
               </div>
             </div>
           )}
-          {generalInfo.userId && (
+          {localStorage.getItem("userId") && (
             <div
               ref={passwordRef}
               id="password"
               className="change-password-container"
             >
-              <FormResetPassword userId={generalInfo.userId} />
+              <FormResetPassword />
             </div>
           )}
         </div>
