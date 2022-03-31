@@ -46,6 +46,7 @@ const customStyles = {
   valueContainer: (styles) => ({
     ...styles,
     paddingLeft: "0px",
+    color: "black",
   }),
 };
 
