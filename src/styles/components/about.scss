@@ -1,5 +1,6 @@
 .about {
   overflow: hidden;
+  border-bottom: var(--border);
 }
 
 .about-container {
@@ -97,20 +98,15 @@
 
 .about-job-container {
   width: 100%;
-  border-bottom: var(--border);
   border-top: var(--border);
 }
 
-.about-job {
+.about-job-one,
+.about-job-two,
+.about-job-three,
+.about-job-four {
   display: flex;
   justify-content: space-between;
-  div:first-child {
-    border-left: var(--border);
-    display: none;
-  }
-  div:last-child {
-    display: none;
-  }
   div {
     display: flex;
     justify-content: center;
@@ -118,7 +114,6 @@
     align-items: center;
     width: 50%;
     height: rem(150px);
-    border-right: var(--border);
     svg {
       path {
         fill: var(--grey-two);
@@ -129,13 +124,63 @@
       height: 2.5rem;
     }
   }
-  h5 {
-    color: #ffffff;
+  p {
+    color: var(--white);
     margin-top: rem(20px);
     margin-bottom: 0;
     font-weight: 700;
     letter-spacing: rem(-1px);
     font-size: rem(17px);
+  }
+}
+
+.about-job-one {
+  div:first-child {
+    display: none;
+  }
+  div:last-child {
+    display: none;
+  }
+  div:nth-child(even) {
+    width: 100%;
+  }
+}
+
+.about-job-two {
+  div:first-child {
+    display: none;
+  }
+  div:last-child {
+    display: none;
+  }
+  div:nth-child(even) {
+    border-right: var(--border);
+  }
+}
+
+.about-job-three {
+  flex-wrap: wrap;
+  div:first-child {
+    border-right: var(--border);
+  }
+  div:last-child {
+    width: 100%;
+  }
+  div:nth-child(even) {
+    border-right: var(--border);
+  }
+  div:nth-child(-n + 2) {
+    border-bottom: var(--border);
+  }
+}
+
+.about-job-four {
+  flex-wrap: wrap;
+  div:nth-child(-n + 2) {
+    border-bottom: var(--border);
+  }
+  div:nth-child(odd) {
+    border-right: var(--border);
   }
 }
 
@@ -151,6 +196,33 @@
   .info {
     span {
       width: rem(140px);
+    }
+  }
+  .about-job-one {
+    div:first-child {
+      display: flex;
+      width: 25%;
+      border-left: var(--border);
+    }
+    div:last-child {
+      display: flex;
+      width: 25%;
+      border-right: var(--border);
+    }
+    div:nth-child(even) {
+      width: 50%;
+      border-left: var(--border);
+      border-right: var(--border);
+    }
+  }
+  .about-job-three {
+    flex-wrap: nowrap;
+    div:last-child {
+      width: 50%;
+    }
+    div:nth-child(-n + 2) {
+      border-bottom: unset;
+      border-right: var(--border);
     }
   }
 }
@@ -189,15 +261,39 @@
     }
   }
 
-  .about-job {
-    div {
-      width: 25%;
-    }
-    div:first-child {
-      display: block;
-    }
+  .about-job-two {
+    div:first-child,
     div:last-child {
       display: block;
+    }
+    div:first-child {
+      border-left: var(--border);
+    }
+    div {
+      border-right: var(--border);
+    }
+  }
+
+  .about-job-three {
+    div:first-child {
+      border-left: var(--border);
+    }
+    div:last-child {
+      border-right: var(--border);
+    }
+  }
+
+  .about-job-four {
+    flex-wrap: nowrap;
+    div {
+      width: 25%;
+      border-right: var(--border);
+    }
+    div:nth-child(-n + 2) {
+      border-bottom: unset;
+    }
+    div:first-child {
+      border-left: var(--border);
     }
   }
 }
