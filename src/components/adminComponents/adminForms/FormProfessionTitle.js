@@ -26,6 +26,7 @@ function FormProfessionTitle({
   const errorMessageRef = useRef(null);
   const [spanError, setSpanError] = useState(false);
   const [fontAwesomeIconsSelect, setFontAwesomeIconsSelect] = useState([]);
+  const [errorMessageProfTitle, setErrorMessageProfTitle] = useState();
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
@@ -79,6 +80,12 @@ function FormProfessionTitle({
   }, [timeoutLoader, timeoutSuccess, timeoutError]);
 
   const onSubmitAdd = async (data, e) => {
+    if (generalInfo.professionTitles.length >= 4) {
+      setErrorMessageProfTitle(
+        "Vous ne pouvez pas avoir plus de 4 titres de profession !"
+      );
+      return;
+    }
     setLoader(true);
     setSpanError(false);
     const addProfTitleEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title/${infoId}`;
@@ -201,6 +208,10 @@ function FormProfessionTitle({
           Une erreur est survenue, veuillez réessayer plus tard !
         </span>
       </CSSTransition>
+
+      {errorMessageProfTitle && (
+        <span className="error-message">{errorMessageProfTitle}</span>
+      )}
     </>
   );
 
