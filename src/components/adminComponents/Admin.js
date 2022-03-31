@@ -33,7 +33,7 @@ function Admin({ generalInfoAdmin }) {
     isoDate: "",
     licence: "",
     description: "",
-    professionTitles: "",
+    professionTitles: [],
   });
 
   useEffect(() => {
