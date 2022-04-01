@@ -100,6 +100,7 @@ function SelectFontAwesome({
   funcOnChange,
   options,
   errors,
+  errorsMessage,
 }) {
   return (
     <div className="input">
@@ -136,6 +137,9 @@ function SelectFontAwesome({
       {errors.fontAwesomeIcon && (
         <span className="error-message-form">Ce champ est requis</span>
       )}
+      {errorsMessage && (
+        <span className="error-message-form">{errorsMessage}</span>
+      )}
     </div>
   );
 }
@@ -150,6 +154,7 @@ SelectFontAwesome.propTypes = {
   funcOnChange: PropTypes.func,
   options: PropTypes.array.isRequired,
   errors: PropTypes.object,
+  errorsMessage: PropTypes.string,
 };
 
 export default SelectFontAwesome;
