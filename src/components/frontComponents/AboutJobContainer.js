@@ -1,4 +1,5 @@
 import React from "react";
+import parse from "html-react-parser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
@@ -9,12 +10,19 @@ function AboutJobContainer({ generalInfo }) {
         <div className="wrapper about-job-one">
           <div></div>
           <div>
-            <FontAwesomeIcon
-              icon={[
-                generalInfo.professionTitles[0].fontAwesomeIcon.prefix,
-                generalInfo.professionTitles[0].fontAwesomeIcon.value,
-              ]}
-            />
+            {generalInfo.professionTitles[0].fontAwesomeIcon?.value && (
+              <FontAwesomeIcon
+                icon={[
+                  generalInfo.professionTitles[0].fontAwesomeIcon.prefix,
+                  generalInfo.professionTitles[0].fontAwesomeIcon.value,
+                ]}
+              />
+            )}
+            {generalInfo.professionTitles[0].svgIconProfTitle && (
+              <span>
+                {parse(generalInfo.professionTitles[0].svgIconProfTitle)}
+              </span>
+            )}
             <p>{generalInfo.professionTitles[0].nameProfessionTitle}</p>
           </div>
           <div></div>
@@ -24,21 +32,35 @@ function AboutJobContainer({ generalInfo }) {
         <div className="wrapper about-job-two">
           <div></div>
           <div>
-            <FontAwesomeIcon
-              icon={[
-                generalInfo.professionTitles[0].fontAwesomeIcon.prefix,
-                generalInfo.professionTitles[0].fontAwesomeIcon.value,
-              ]}
-            />
+            {generalInfo.professionTitles[0].fontAwesomeIcon?.value && (
+              <FontAwesomeIcon
+                icon={[
+                  generalInfo.professionTitles[0].fontAwesomeIcon.prefix,
+                  generalInfo.professionTitles[0].fontAwesomeIcon.value,
+                ]}
+              />
+            )}
+            {generalInfo.professionTitles[0].svgIconProfTitle && (
+              <span>
+                {parse(generalInfo.professionTitles[0].svgIconProfTitle)}
+              </span>
+            )}
             <p>{generalInfo.professionTitles[0].nameProfessionTitle}</p>
           </div>
           <div>
-            <FontAwesomeIcon
-              icon={[
-                generalInfo.professionTitles[1].fontAwesomeIcon.prefix,
-                generalInfo.professionTitles[1].fontAwesomeIcon.value,
-              ]}
-            />
+            {generalInfo.professionTitles[1].fontAwesomeIcon?.value && (
+              <FontAwesomeIcon
+                icon={[
+                  generalInfo.professionTitles[1].fontAwesomeIcon.prefix,
+                  generalInfo.professionTitles[1].fontAwesomeIcon.value,
+                ]}
+              />
+            )}
+            {generalInfo.professionTitles[1].svgIconProfTitle && (
+              <span>
+                {parse(generalInfo.professionTitles[1].svgIconProfTitle)}
+              </span>
+            )}
             <p>{generalInfo.professionTitles[1].nameProfessionTitle}</p>
           </div>
           <div></div>
@@ -47,30 +69,51 @@ function AboutJobContainer({ generalInfo }) {
       {generalInfo.professionTitles.length === 3 && (
         <div className="wrapper about-job-three">
           <div>
-            <FontAwesomeIcon
-              icon={[
-                generalInfo.professionTitles[0].fontAwesomeIcon.prefix,
-                generalInfo.professionTitles[0].fontAwesomeIcon.value,
-              ]}
-            />
+            {generalInfo.professionTitles[0].fontAwesomeIcon?.value && (
+              <FontAwesomeIcon
+                icon={[
+                  generalInfo.professionTitles[0].fontAwesomeIcon.prefix,
+                  generalInfo.professionTitles[0].fontAwesomeIcon.value,
+                ]}
+              />
+            )}
+            {generalInfo.professionTitles[0].svgIconProfTitle && (
+              <span>
+                {parse(generalInfo.professionTitles[0].svgIconProfTitle)}
+              </span>
+            )}
             <p>{generalInfo.professionTitles[0].nameProfessionTitle}</p>
           </div>
           <div>
-            <FontAwesomeIcon
-              icon={[
-                generalInfo.professionTitles[1].fontAwesomeIcon.prefix,
-                generalInfo.professionTitles[1].fontAwesomeIcon.value,
-              ]}
-            />
+            {generalInfo.professionTitles[1].fontAwesomeIcon?.value && (
+              <FontAwesomeIcon
+                icon={[
+                  generalInfo.professionTitles[1].fontAwesomeIcon.prefix,
+                  generalInfo.professionTitles[1].fontAwesomeIcon.value,
+                ]}
+              />
+            )}
+            {generalInfo.professionTitles[1].svgIconProfTitle && (
+              <span>
+                {parse(generalInfo.professionTitles[1].svgIconProfTitle)}
+              </span>
+            )}
             <p>{generalInfo.professionTitles[1].nameProfessionTitle}</p>
           </div>
           <div>
-            <FontAwesomeIcon
-              icon={[
-                generalInfo.professionTitles[2].fontAwesomeIcon.prefix,
-                generalInfo.professionTitles[2].fontAwesomeIcon.value,
-              ]}
-            />
+            {generalInfo.professionTitles[2].fontAwesomeIcon?.value && (
+              <FontAwesomeIcon
+                icon={[
+                  generalInfo.professionTitles[2].fontAwesomeIcon.prefix,
+                  generalInfo.professionTitles[2].fontAwesomeIcon.value,
+                ]}
+              />
+            )}
+            {generalInfo.professionTitles[2].svgIconProfTitle && (
+              <span>
+                {parse(generalInfo.professionTitles[2].svgIconProfTitle)}
+              </span>
+            )}
             <p>{generalInfo.professionTitles[2].nameProfessionTitle}</p>
           </div>
         </div>
@@ -80,12 +123,17 @@ function AboutJobContainer({ generalInfo }) {
           {generalInfo.professionTitles.map((profTitle) => {
             return (
               <div key={profTitle.id}>
-                <FontAwesomeIcon
-                  icon={[
-                    profTitle.fontAwesomeIcon.prefix,
-                    profTitle.fontAwesomeIcon.value,
-                  ]}
-                />
+                {profTitle.fontAwesomeIcon?.value && (
+                  <FontAwesomeIcon
+                    icon={[
+                      profTitle.fontAwesomeIcon.prefix,
+                      profTitle.fontAwesomeIcon.value,
+                    ]}
+                  />
+                )}
+                {profTitle.svgIconProfTitle && (
+                  <span>{parse(profTitle.svgIconProfTitle)}</span>
+                )}
                 <p>{profTitle.nameProfessionTitle}</p>
               </div>
             );
