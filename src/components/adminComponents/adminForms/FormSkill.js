@@ -36,6 +36,7 @@ function FormSkill({
     },
   ]);
   const [fontAwesomeIconsSelect, setFontAwesomeIconsSelect] = useState([]);
+  const [errorTwoIcons, setErrorTwoIcons] = useState("");
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
@@ -103,6 +104,9 @@ function FormSkill({
   }, [timeoutLoader, timeoutSuccess, timeoutError]);
 
   const onSubmitAdd = async (data, e) => {
+    if (data.fontAwesomeIcon?.value && data.svgIcon) {
+      return;
+    }
     setLoader(true);
     setSpanError(false);
     const addSkillEndPoint = `${apiDomain}/api/${apiVersion}/skills`;
@@ -134,6 +138,9 @@ function FormSkill({
   };
 
   const onClickEdit = async (data) => {
+    if (data.fontAwesomeIcon?.value && data.svgIcon) {
+      return;
+    }
     setLoader(true);
     setSpanError(false);
     const { arrayCodingSkill, setArrayCodingSkill } = codingSkillState;
@@ -249,11 +256,21 @@ function FormSkill({
   };
 
   const onChangeValue = (e) => {
+    if (previsualisationValue[0].fontAwesomeIcon && e.target.value) {
+      setErrorTwoIcons("Vous ne pouvez pas avoir deux icônes à la fois !");
+    } else {
+      if (errorTwoIcons) setErrorTwoIcons("");
+    }
     previsualisationValue[0][e.target.name] = e.target.value;
     setPrevisualisationValue([...previsualisationValue]);
   };
 
   const onChangeFontAwesomeIcon = (e) => {
+    if (previsualisationValue[0].svgIcon && e) {
+      setErrorTwoIcons("Vous ne pouvez pas avoir deux icônes à la fois !");
+    } else {
+      if (errorTwoIcons) setErrorTwoIcons("");
+    }
     if (e?.value) {
       previsualisationValue[0]["fontAwesomeIcon"] = e;
     }
@@ -308,6 +325,7 @@ function FormSkill({
           funcOnChange={onChangeFontAwesomeIcon}
           options={fontAwesomeIconsSelect}
           errors={errors}
+          errorsMessage={errorTwoIcons}
         />
 
         <div className="input">
@@ -328,8 +346,8 @@ function FormSkill({
               })}
             />
           </div>
-          {errors.svgIcon && (
-            <span className="error-message-form">Ce champ est requis</span>
+          {errorTwoIcons && (
+            <span className="error-message-form">{errorTwoIcons}</span>
           )}
         </div>
       </div>

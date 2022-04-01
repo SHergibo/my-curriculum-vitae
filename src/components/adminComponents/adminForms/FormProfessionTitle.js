@@ -27,6 +27,13 @@ function FormProfessionTitle({
   const [spanError, setSpanError] = useState(false);
   const [fontAwesomeIconsSelect, setFontAwesomeIconsSelect] = useState([]);
   const [errorMessageProfTitle, setErrorMessageProfTitle] = useState();
+  const [errorTwoIcons, setErrorTwoIcons] = useState("");
+  const [checkMultipleIcons, setCheckMultipleIcons] = useState([
+    {
+      fontAwesomeIcon: "",
+      svgIconProfTitle: "",
+    },
+  ]);
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
@@ -43,6 +50,17 @@ function FormProfessionTitle({
       return value;
     }, [value]),
   });
+
+  useEffect(() => {
+    if (value) {
+      setCheckMultipleIcons([
+        {
+          fontAwesomeIcon: value.fontAwesomeIcon,
+          svgIconProfTitle: value.svgIconProfTitle,
+        },
+      ]);
+    }
+  }, [value]);
 
   useEffect(() => {
     formDefaultValueRef.current = {
@@ -80,6 +98,9 @@ function FormProfessionTitle({
   }, [timeoutLoader, timeoutSuccess, timeoutError]);
 
   const onSubmitAdd = async (data, e) => {
+    if (data.fontAwesomeIcon?.value && data.svgIconProfTitle) {
+      return;
+    }
     if (generalInfo.professionTitles.length >= 4) {
       setErrorMessageProfTitle(
         "Vous ne pouvez pas avoir plus de 4 titres de profession !"
@@ -111,6 +132,9 @@ function FormProfessionTitle({
   };
 
   const onClickEdit = async (data) => {
+    if (data.fontAwesomeIcon?.value && data.svgIconProfTitle) {
+      return;
+    }
     setLoader(true);
     setSpanError(false);
     const editProfTitleEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title-edit/${generalInfo._id}/${value.id}`;
@@ -132,6 +156,31 @@ function FormProfessionTitle({
       .catch(() => {
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
+  };
+
+  const onChangeValue = (e) => {
+    if (checkMultipleIcons[0].fontAwesomeIcon && e.target.value) {
+      setErrorTwoIcons("Vous ne pouvez pas avoir deux icônes à la fois !");
+    } else {
+      if (errorTwoIcons) setErrorTwoIcons("");
+    }
+    checkMultipleIcons[0][e.target.name] = e.target.value;
+    setCheckMultipleIcons([...checkMultipleIcons]);
+  };
+
+  const onChangeFontAwesomeIcon = (e) => {
+    if (checkMultipleIcons[0].svgIconProfTitle && e) {
+      setErrorTwoIcons("Vous ne pouvez pas avoir deux icônes à la fois !");
+    } else {
+      if (errorTwoIcons) setErrorTwoIcons("");
+    }
+    if (e?.value) {
+      checkMultipleIcons[0]["fontAwesomeIcon"] = e;
+    }
+    if (e === null) {
+      checkMultipleIcons[0]["fontAwesomeIcon"] = null;
+    }
+    setCheckMultipleIcons([...checkMultipleIcons]);
   };
 
   const form = (
@@ -165,6 +214,8 @@ function FormProfessionTitle({
           required={false}
           options={fontAwesomeIconsSelect}
           errors={errors}
+          funcOnChange={onChangeFontAwesomeIcon}
+          errorsMessage={errorTwoIcons}
         />
 
         <div className="input">
@@ -178,11 +229,15 @@ function FormProfessionTitle({
               type="text"
               id="svgIconProfTitle"
               placeholder="Icône svg"
-              {...register("svgIconProfTitle")}
+              {...register("svgIconProfTitle", {
+                onChange: (e) => {
+                  onChangeValue(e);
+                },
+              })}
             />
           </div>
-          {errors.svgIconProfTitle && (
-            <span className="error-message-form">Ce champ est requis</span>
+          {errorTwoIcons && (
+            <span className="error-message-form">{errorTwoIcons}</span>
           )}
         </div>
       </div>
