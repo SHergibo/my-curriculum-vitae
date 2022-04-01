@@ -46,7 +46,7 @@ function CanvasResume({ data }) {
               width="135"
               height="135"
             ></canvas>
-            {item.fontAwesomeIcon?.value && (
+            {item.fontAwesomeIcon?.value && !item.svgIcon && (
               <span>
                 <FontAwesomeIcon
                   icon={[
@@ -56,10 +56,17 @@ function CanvasResume({ data }) {
                 />
               </span>
             )}
-            {item.svgIcon && <span>{parse(item.svgIcon)}</span>}
+            {item.svgIcon && !item.fontAwesomeIcon && (
+              <span>{parse(item.svgIcon)}</span>
+            )}
             {!item.fontAwesomeIcon?.value && !item.svgIcon && (
               <span>
                 <FontAwesomeIcon icon="code" />
+              </span>
+            )}
+            {item.fontAwesomeIcon?.value && item.svgIcon && (
+              <span>
+                <FontAwesomeIcon icon="exclamation" />
               </span>
             )}
           </div>
