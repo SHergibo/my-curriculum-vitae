@@ -115,8 +115,15 @@
     width: 50%;
     height: rem(150px);
     svg {
+      margin-bottom: rem(20px);
       path {
         fill: var(--grey-two);
+      }
+    }
+    span {
+      svg {
+        height: 3rem;
+        width: 3rem;
       }
     }
     .svg-inline--fa {
@@ -126,7 +133,6 @@
   }
   p {
     color: var(--white);
-    margin-top: rem(20px);
     margin-bottom: 0;
     font-weight: 700;
     letter-spacing: rem(-1px);
