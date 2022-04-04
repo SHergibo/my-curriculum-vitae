@@ -6,6 +6,14 @@ import PropTypes from "prop-types";
 function AboutJobContainer({ generalInfo }) {
   return (
     <div className="about-job-container">
+      {generalInfo.professionTitles.length === 0 && (
+        <div className="wrapper about-job-four">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
       {generalInfo.professionTitles.length === 1 && (
         <div className="wrapper about-job-one">
           <div></div>
