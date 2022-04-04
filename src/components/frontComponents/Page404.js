@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import HomeSection from "./HomeSection";
-import PropTypes from "prop-types";
 
-function Page404({ history }) {
+function Page404() {
+  let navigate = useNavigate();
+
   const returnHome = () => {
-    history.push("/");
+    navigate("/");
   };
 
   const div = (
@@ -18,9 +20,5 @@ function Page404({ history }) {
 
   return <HomeSection welcome="404 page non trouvée !" name="404" div={div} />;
 }
-
-Page404.propTypes = {
-  history: PropTypes.object,
-};
 
 export default Page404;
