@@ -66,12 +66,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    if (location.pathname === "/" || location.pathname === "/admin") getData();
+  }, [getData, location.pathname]);
 
   return (
     <div>
-      {location.pathname !== "/login" && (
+      {(location.pathname === "/" || location.pathname === "/admin") && (
         <Loading
           loading={loading}
           errorFetch={errorFetch}
