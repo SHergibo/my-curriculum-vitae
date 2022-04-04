@@ -5,13 +5,15 @@ import Typed from "react-typed";
 import PropTypes from "prop-types";
 
 function Home({ generalInfo }) {
+  const location = useLocation();
   const [fullName, setFullName] = useState("");
   const [div, setDiv] = useState();
   const [welcome, setWelcome] = useState("Bienvenue");
   const [profTitleArray, setProfTitleArray] = useState([]);
 
   useEffect(() => {
-    if (generalInfo) {
+    if (generalInfo && location.pathname === "/") {
+      setProfTitleArray([]);
       generalInfo.professionTitles.forEach((profTitle) => {
         setProfTitleArray((prevArray) => [
           ...prevArray,
@@ -19,9 +21,7 @@ function Home({ generalInfo }) {
         ]);
       });
     }
-  }, [generalInfo]);
-
-  const location = useLocation();
+  }, [generalInfo, location.pathname]);
 
   useEffect(() => {
     if (generalInfo?.firstname) {
