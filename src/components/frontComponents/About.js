@@ -1,13 +1,45 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import AboutJobContainer from "./AboutJobContainer";
 
-function About({ generalInfo }) {
+function About({ generalInfo, isLoaded }) {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const imgAboutRef = useRef(null);
+  const profilePictureRef = useRef(null);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (windowWidth >= 960 && isLoaded) {
+      if (
+        imgAboutRef.current.offsetHeight - profilePictureRef.current.height >=
+        20
+      ) {
+        imgAboutRef.current.classList.remove("img-about");
+        imgAboutRef.current.classList.add("img-about-height");
+        profilePictureRef.current.classList.add("profile-pic");
+      }
+    }
+  }, [windowWidth, isLoaded]);
+
   return (
     <div id="about" className="about">
       <div className="wrapper about-container">
-        <div className="img-about">
-          <img src="./Hergibo_Sacha.jpg" alt="Hergibo Sacha" />
+        <div ref={imgAboutRef} className="img-about">
+          <img
+            ref={profilePictureRef}
+            src="./Hergibo_Sacha.jpg"
+            alt="Hergibo Sacha"
+          />
         </div>
         <div className="text-about">
           <div className="title-right">À propos</div>
@@ -51,6 +83,7 @@ function About({ generalInfo }) {
 
 About.propTypes = {
   generalInfo: PropTypes.object.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
 };
 
 export default About;
