@@ -51,6 +51,7 @@
   }
   p {
     color: var(--grey-one);
+    margin: rem(10px) 0;
   }
 }
 
@@ -74,16 +75,6 @@
     display: inline-block;
     color: var(--grey-one);
     width: 30%;
-  }
-  &:before {
-    content: "";
-    position: absolute;
-    background: hsl(232, 68%, 43%);
-    bottom: 0;
-    top: 0;
-    width: rem(20px);
-    left: rem(-20px);
-    z-index: 10;
   }
   &:after {
     content: "";
@@ -247,17 +238,37 @@
     }
   }
 
-  .img-about {
+  .img-about,
+  .img-about-height {
+    position: relative;
     width: 25%;
+    &:after {
+      content: "";
+      position: absolute;
+      background: var(--btn-blue-hover);
+      bottom: 0;
+      top: 0;
+      right: 0;
+      width: 20px;
+      z-index: 12;
+    }
     img {
+      position: absolute;
       width: 100%;
     }
+    .profile-pic {
+      border-bottom: rem(20px) solid var(--btn-blue-hover);
+    }
+  }
+
+  .img-about {
+    background-color: var(--btn-blue-hover);
   }
 
   .text-about {
     width: 75%;
     .about-me {
-      padding: 0 rem(20px);
+      padding: rem(20px) rem(20px);
     }
   }
 
