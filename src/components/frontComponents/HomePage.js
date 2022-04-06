@@ -23,7 +23,7 @@ function HomePage({ generalInfo, isLoaded }) {
         <Navbar headerRef={headerRef} />
       </header>
       <main>
-        <About generalInfo={generalInfo} />
+        <About generalInfo={generalInfo} isLoaded={isLoaded} />
         <Portfolio isLoaded={isLoaded} />
         <Resume isLoaded={isLoaded} />
         <Contact generalInfo={generalInfo} />
