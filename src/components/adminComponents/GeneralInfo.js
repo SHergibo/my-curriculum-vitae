@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-scroll";
 import { CSSTransition } from "react-transition-group";
 import FormGeneralInfo from "./adminForms/FormGeneralInfo";
+import FormProfilePicture from "./adminForms/FormProfilePicture";
 import FormProfessionTitle from "./adminForms/FormProfessionTitle";
 import FormResetPassword from "./adminForms/FormResetPassword";
 import DisplayListProfessionTitle from "./adminDisplayLists/DisplayListProfessionTitle";
@@ -20,6 +21,7 @@ function GeneralInfo({ generalInfoState }) {
   const infosGenContainerRef = useRef(null);
   const menuLeftRef = useRef(null);
   const divTitleRef = useRef(null);
+  const profilePicRef = useRef(null);
   const profTitleRef = useRef(null);
   const passwordRef = useRef(null);
   const nodeRef = useRef(null);
@@ -101,6 +103,8 @@ function GeneralInfo({ generalInfoState }) {
       profTitleRef.current.scrollIntoView();
     } else if (elem === "password") {
       passwordRef.current.scrollIntoView();
+    } else if (elem === "profilePic") {
+      profilePicRef.current.scrollIntoView();
     }
   };
 
@@ -162,23 +166,42 @@ function GeneralInfo({ generalInfoState }) {
                 </Link>
               </li>
               {generalInfo.firstname !== "" && (
-                <li
-                  tabIndex={0}
-                  onKeyPress={() => {
-                    focusOnKeypress("prof-title");
-                  }}
-                >
-                  <Link
-                    activeClass="active"
-                    to="prof-title"
-                    spy={true}
-                    smooth={true}
-                    offset={-80}
-                    duration={1000}
+                <>
+                  <li
+                    tabIndex={0}
+                    onKeyPress={() => {
+                      focusOnKeypress("profilePic");
+                    }}
                   >
-                    Profession
-                  </Link>
-                </li>
+                    <Link
+                      activeClass="active"
+                      to="profilePic"
+                      spy={true}
+                      smooth={true}
+                      offset={-80}
+                      duration={1000}
+                    >
+                      Photo de profil
+                    </Link>
+                  </li>
+                  <li
+                    tabIndex={0}
+                    onKeyPress={() => {
+                      focusOnKeypress("prof-title");
+                    }}
+                  >
+                    <Link
+                      activeClass="active"
+                      to="prof-title"
+                      spy={true}
+                      smooth={true}
+                      offset={-80}
+                      duration={1000}
+                    >
+                      Profession
+                    </Link>
+                  </li>
+                </>
               )}
               <li
                 tabIndex={0}
@@ -214,55 +237,65 @@ function GeneralInfo({ generalInfoState }) {
               <FormGeneralInfo generalInfoState={generalInfoState} />
             </div>
           </div>
-          {generalInfo.firstname !== "" && (
-            <div
-              ref={profTitleRef}
-              id="prof-title"
-              className="profession-title-container"
-            >
-              <TitleAction
-                title="Profession"
-                btnTitle={
-                  addBtn
-                    ? "Éditer un titre de profession"
-                    : "Ajouter un titre de profession"
-                }
-                action={switchForm}
-                btnState={{ addBtn, editbtn }}
-              />
 
-              <div className="forms-block">
-                <CSSTransition
-                  nodeRef={nodeRef}
-                  in={addBtn}
-                  timeout={500}
-                  classNames="add"
-                  unmountOnExit
-                >
-                  <div ref={nodeRef} className="form-container">
-                    <FormProfessionTitle
-                      add={true}
-                      infoId={generalInfo._id}
-                      generalInfoState={generalInfoState}
-                    />
-                  </div>
-                </CSSTransition>
-                <CSSTransition
-                  nodeRef={nodeRefTwo}
-                  in={editbtn}
-                  timeout={500}
-                  classNames="edit"
-                  unmountOnExit
-                >
-                  <div ref={nodeRefTwo} className="list-container">
-                    <h3>Édition</h3>
-                    <DisplayListProfessionTitle
-                      generalInfoState={generalInfoState}
-                    />
-                  </div>
-                </CSSTransition>
+          {generalInfo.firstname !== "" && (
+            <>
+              <div
+                ref={profilePicRef}
+                id="profilePic"
+                className="change-password-container"
+              >
+                <FormProfilePicture />
               </div>
-            </div>
+              <div
+                ref={profTitleRef}
+                id="prof-title"
+                className="profession-title-container"
+              >
+                <TitleAction
+                  title="Profession"
+                  btnTitle={
+                    addBtn
+                      ? "Éditer un titre de profession"
+                      : "Ajouter un titre de profession"
+                  }
+                  action={switchForm}
+                  btnState={{ addBtn, editbtn }}
+                />
+
+                <div className="forms-block">
+                  <CSSTransition
+                    nodeRef={nodeRef}
+                    in={addBtn}
+                    timeout={500}
+                    classNames="add"
+                    unmountOnExit
+                  >
+                    <div ref={nodeRef} className="form-container">
+                      <FormProfessionTitle
+                        add={true}
+                        infoId={generalInfo._id}
+                        generalInfoState={generalInfoState}
+                      />
+                    </div>
+                  </CSSTransition>
+                  <CSSTransition
+                    nodeRef={nodeRefTwo}
+                    in={editbtn}
+                    timeout={500}
+                    classNames="edit"
+                    unmountOnExit
+                  >
+                    <div ref={nodeRefTwo} className="list-container">
+                      <h3>Édition</h3>
+                      <DisplayListProfessionTitle
+                        generalInfoState={generalInfoState}
+                      />
+                    </div>
+                  </CSSTransition>
+                </div>
+              </div>
+            </>
           )}
           {localStorage.getItem("userId") && (
             <div
