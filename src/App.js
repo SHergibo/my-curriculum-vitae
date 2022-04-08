@@ -35,6 +35,7 @@ function App() {
     birthdate: "",
     licence: "",
     professionTitles: [],
+    profilePic: {},
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
