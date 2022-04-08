@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
+import { apiDomain, apiVersion } from "../../apiConfig/ApiConfig";
 import AboutJobContainer from "./AboutJobContainer";
+import PropTypes from "prop-types";
 
 function About({ generalInfo, isLoaded }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -35,11 +36,20 @@ function About({ generalInfo, isLoaded }) {
     <div id="about" className="about">
       <div className="wrapper about-container">
         <div ref={imgAboutRef} className="img-about">
-          <img
-            ref={profilePictureRef}
-            src="./Hergibo_Sacha.jpg"
-            alt="Hergibo Sacha"
-          />
+          {generalInfo.profilePic?.fileName && (
+            <img
+              ref={profilePictureRef}
+              src={`${apiDomain}/api/${apiVersion}/infos/image/${generalInfo.profilePic?.fileName}`}
+              alt={generalInfo.profilePic?.alt}
+            />
+          )}
+          {!generalInfo.profilePic?.fileName && (
+            <img
+              ref={profilePictureRef}
+              src="./default-profile-picture.png"
+              alt="photo de profil par défaut"
+            />
+          )}
         </div>
         <div className="text-about">
           <div className="title-right">À propos</div>
