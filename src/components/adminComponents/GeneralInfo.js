@@ -245,7 +245,7 @@ function GeneralInfo({ generalInfoState }) {
                 id="profilePic"
                 className="change-password-container"
               >
-                <FormProfilePicture />
+                <FormProfilePicture generalInfoState={generalInfoState} />
               </div>
               <div
                 ref={profTitleRef}
