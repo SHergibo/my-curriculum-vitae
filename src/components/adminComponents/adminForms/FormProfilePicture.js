@@ -6,11 +6,14 @@ import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
+import PropTypes from "prop-types";
 
-function FormProfilePicture() {
+function FormProfilePicture({ generalInfoState }) {
+  const { generalInfo, setGeneralInfo } = generalInfoState;
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [imgSrc, setImgSrc] = useState("");
-
+  const [imgFile, setImgFile] = useState(null);
+  const [errorMessageImg, setErrorMessageImg] = useState("");
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
   const loadingRef = useRef(null);
@@ -54,6 +57,8 @@ function FormProfilePicture() {
 
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
+      setImgFile(e.target.files[0]);
+      setErrorMessageImg("");
       const reader = new FileReader();
       reader.addEventListener("load", () =>
         setImgSrc(reader.result.toString() || "")
@@ -64,35 +69,51 @@ function FormProfilePicture() {
   };
 
   const onSubmitData = async (data) => {
-    // if (data.newPassword && data.confirmPassword) {
-    //   if (data.newPassword !== data.confirmPassword) {
-    //     setError("confirmPassword", {
-    //       type: "manual",
-    //       message: "Mauvais mot de passe!",
-    //     });
-    //     return;
-    //   }
-    // }
-    // reset();
-    // setLoader(true);
-    // setSpanError(false);
-    // const editPasswordUser = `${apiDomain}/api/${apiVersion}/users/${localStorage.getItem(
-    //   "userId"
-    // )}`;
-    // await axiosInstance
-    //   .patch(editPasswordUser, data)
-    //   .then(() => {
-    //     checkSuccess(
-    //       setTimeoutLoader,
-    //       setLoader,
-    //       setTimeoutSuccess,
-    //       setSpanSuccess
-    //     );
-    //     reset();
-    //   })
-    //   .catch(() => {
-    //     checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
-    //   });
+    if (!imgFile) {
+      setErrorMessageImg("Ajouter une photo de profile !");
+      return;
+    }
+    setLoader(true);
+    setSpanError(false);
+    const formData = new FormData();
+    formData.append("img", imgFile);
+    formData.append("profilePicAlt", JSON.stringify(data.profilePicAlt));
+    const profilPicture = `${apiDomain}/api/${apiVersion}/infos/prof-picture/${generalInfo._id}`;
+    await axiosInstance
+      .patch(profilPicture, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      })
+      .then((response) => {
+        checkSuccess(
+          setTimeoutLoader,
+          setLoader,
+          setTimeoutSuccess,
+          setSpanSuccess
+        );
+        reset();
+        setImgFile();
+        setImgSrc();
+        setGeneralInfo({
+          ...generalInfo,
+          profilePic: response.data,
+        });
+      })
+      .catch(() => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
+      });
+  };
+
+  const onClickDelete = async () => {
+    const deleteProjectEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-picture-delete/${generalInfo._id}/${generalInfo.profilePic.id}`;
+    await axiosInstance.delete(deleteProjectEndPoint).then(() => {
+      setGeneralInfo({
+        ...generalInfo,
+        profilePic: {},
+      });
+    });
   };
 
   const form = (
@@ -100,7 +121,7 @@ function FormProfilePicture() {
       <div className="form-left">
         <div className="input-container">
           <div className="input">
-            <label htmlFor="profilePicture">Photo de profil</label>
+            <label htmlFor="profilePicture">Photo de profil *</label>
             <div className="input-block input-interaction">
               <span>
                 <FontAwesomeIcon icon="images" />
@@ -120,6 +141,9 @@ function FormProfilePicture() {
               </div>
               <label htmlFor="profilePicture">Chercher</label>
             </div>
+            {errorMessageImg && (
+              <span className="error-message-form">{errorMessageImg}</span>
+            )}
           </div>
         </div>
         <div className="input-container">
@@ -150,7 +174,7 @@ function FormProfilePicture() {
         {windowWidth >= 960 && (
           <>
             <ActionButtonSubmit
-              button={"Changer"}
+              button={generalInfo.profilePic.fileName ? "Éditer" : "Ajouter"}
               value={{}}
               loadingRef={loadingRef}
               loader={loader}
@@ -176,18 +200,29 @@ function FormProfilePicture() {
       </div>
 
       <div className="form-right">
-        {imgSrc && (
+        {(imgSrc || generalInfo.profilePic.fileName) && (
           <div className="preview-profile-picture-container">
             <p>Prévisualisation</p>
             <div className="preview-profile-picture">
               <button
                 title="Supprimer la photo de profil"
                 className="delete-preview"
-                onClick={() => setImgSrc("")}
+                type="button"
+                onClick={(e) => {
+                  if (generalInfo.profilePic.fileName) onClickDelete();
+                  if (!generalInfo.profilePic.fileName) setImgSrc("");
+                  setImgFile(null);
+                }}
               >
                 <FontAwesomeIcon icon="times" />
               </button>
-              <img src={imgSrc} />
+              {generalInfo.profilePic.fileName && !imgSrc && (
+                <img
+                  src={`${apiDomain}/api/${apiVersion}/infos/image/${generalInfo.profilePic.fileName}`}
+                  alt={generalInfo.profilePic.alt}
+                />
+              )}
+              {imgSrc && <img src={imgSrc} alt="" />}
             </div>
           </div>
         )}
@@ -195,7 +230,7 @@ function FormProfilePicture() {
         {windowWidth < 960 && (
           <>
             <ActionButtonSubmit
-              button={"Changer"}
+              button={generalInfo.profilePic.fileName ? "Éditer" : "Ajouter"}
               value={{}}
               loadingRef={loadingRef}
               loader={loader}
@@ -229,5 +264,12 @@ function FormProfilePicture() {
     </>
   );
 }
+
+FormProfilePicture.propTypes = {
+  generalInfoState: PropTypes.shape({
+    generalInfo: PropTypes.object.isRequired,
+    setGeneralInfo: PropTypes.func.isRequired,
+  }),
+};
 
 export default FormProfilePicture;
