@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, {
+  useContext,
+  createContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import "./styles/Styles.scss";
 import axios from "axios";
 import { apiDomain, apiVersion } from "./apiConfig/ApiConfig";
@@ -16,6 +22,11 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
 library.add(fab, fas);
+const InfosDataContext = createContext();
+
+export function useInfosData() {
+  return useContext(InfosDataContext);
+}
 
 function App() {
   const location = useLocation();
@@ -71,7 +82,7 @@ function App() {
   }, [getData, location.pathname]);
 
   return (
-    <div>
+    <>
       {(location.pathname === "/" || location.pathname === "/admin") && (
         <Loading
           loading={loading}
@@ -79,23 +90,21 @@ function App() {
           retryFetch={getData}
         />
       )}
-      <Routes>
-        <Route
-          path="/"
-          element={<HomePage generalInfo={generalInfo} isLoaded={isLoaded} />}
-        />
-        <Route element={<IsLoggedRoute />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
-        <Route element={<ProtectedRoute />}>
-          <Route
-            path="/admin"
-            element={<Admin generalInfoAdmin={generalInfo} />}
-          />
-        </Route>
-        <Route path="*" element={<Page404 />} />
-      </Routes>
-    </div>
+      <InfosDataContext.Provider value={{ generalInfo, setGeneralInfo }}>
+        <Routes>
+          <Route path="/" element={<HomePage isLoaded={isLoaded} />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin" element={<Admin />} />
+          </Route>
+
+          <Route element={<IsLoggedRoute />}>
+            <Route path="/login" element={<Login />} />
+          </Route>
+
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      </InfosDataContext.Provider>
+    </>
   );
 }
 
