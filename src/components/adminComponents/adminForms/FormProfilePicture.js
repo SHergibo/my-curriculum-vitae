@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useInfosData } from "../../../App";
 import { useForm } from "react-hook-form";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
@@ -6,10 +7,9 @@ import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
-import PropTypes from "prop-types";
 
-function FormProfilePicture({ generalInfoState }) {
-  const { generalInfo, setGeneralInfo } = generalInfoState;
+function FormProfilePicture() {
+  const { generalInfo, setGeneralInfo } = useInfosData();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [imgSrc, setImgSrc] = useState("");
   const [imgFile, setImgFile] = useState(null);
@@ -29,7 +29,6 @@ function FormProfilePicture({ generalInfoState }) {
     register,
     reset,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm({});
 
@@ -264,12 +263,5 @@ function FormProfilePicture({ generalInfoState }) {
     </>
   );
 }
-
-FormProfilePicture.propTypes = {
-  generalInfoState: PropTypes.shape({
-    generalInfo: PropTypes.object.isRequired,
-    setGeneralInfo: PropTypes.func.isRequired,
-  }),
-};
 
 export default FormProfilePicture;
