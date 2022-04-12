@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useInfosData } from "../../App";
 import { Link } from "react-scroll";
 import { CSSTransition } from "react-transition-group";
 import FormGeneralInfo from "./adminForms/FormGeneralInfo";
@@ -11,10 +12,9 @@ import TitleAction from "../TitleAction";
 import { displayModalNoValue, closeModal } from "../../utils/modalDisplay";
 import axiosInstance from "../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../apiConfig/ApiConfig";
-import PropTypes from "prop-types";
 
-function GeneralInfo({ generalInfoState }) {
-  const { generalInfo, setGeneralInfo } = generalInfoState;
+function GeneralInfo() {
+  const { generalInfo, setGeneralInfo } = useInfosData();
   const [displayForm, setDisplayForm] = useState(false);
   const [addBtn, setAddBtn] = useState(true);
   const [editbtn, setEditBtn] = useState(false);
@@ -234,7 +234,7 @@ function GeneralInfo({ generalInfoState }) {
             />
 
             <div className="forms-block">
-              <FormGeneralInfo generalInfoState={generalInfoState} />
+              <FormGeneralInfo />
             </div>
           </div>
 
@@ -245,7 +245,7 @@ function GeneralInfo({ generalInfoState }) {
                 id="profilePic"
                 className="change-password-container"
               >
-                <FormProfilePicture generalInfoState={generalInfoState} />
+                <FormProfilePicture />
               </div>
               <div
                 ref={profTitleRef}
@@ -272,11 +272,7 @@ function GeneralInfo({ generalInfoState }) {
                     unmountOnExit
                   >
                     <div ref={nodeRef} className="form-container">
-                      <FormProfessionTitle
-                        add={true}
-                        infoId={generalInfo._id}
-                        generalInfoState={generalInfoState}
-                      />
+                      <FormProfessionTitle add={true} />
                     </div>
                   </CSSTransition>
                   <CSSTransition
@@ -288,9 +284,7 @@ function GeneralInfo({ generalInfoState }) {
                   >
                     <div ref={nodeRefTwo} className="list-container">
                       <h3>Édition</h3>
-                      <DisplayListProfessionTitle
-                        generalInfoState={generalInfoState}
-                      />
+                      <DisplayListProfessionTitle />
                     </div>
                   </CSSTransition>
                 </div>
@@ -318,12 +312,5 @@ function GeneralInfo({ generalInfoState }) {
     </div>
   );
 }
-
-GeneralInfo.propTypes = {
-  generalInfoState: PropTypes.shape({
-    generalInfo: PropTypes.object,
-    setGeneralInfo: PropTypes.func,
-  }),
-};
 
 export default GeneralInfo;
