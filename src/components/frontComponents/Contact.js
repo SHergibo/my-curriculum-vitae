@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useInfosData } from "../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import Axios from "axios";
@@ -6,9 +7,9 @@ import { apiDomain, apiVersion } from "../../apiConfig/ApiConfig";
 import { checkSuccess, checkErrors } from "../../utils/checkSuccess";
 import ActionButtonSubmit from "../ActionButtonSubmit";
 import { CSSTransition } from "react-transition-group";
-import PropTypes from "prop-types";
 
-function Contact({ generalInfo }) {
+function Contact() {
+  const { generalInfo } = useInfosData();
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
   const loadingRef = useRef(null);
@@ -215,7 +216,18 @@ function Contact({ generalInfo }) {
         </div>
         <div className="contact-info">
           <div className="container-img-contact">
-            <img src="./Hergibo_Sacha.jpg" alt="Hergibo Sacha" />
+            {generalInfo.profilePic?.fileName && (
+              <img
+                src={`${apiDomain}/api/${apiVersion}/infos/image/${generalInfo.profilePic?.fileName}`}
+                alt={generalInfo.profilePic?.alt}
+              />
+            )}
+            {!generalInfo.profilePic?.fileName && (
+              <img
+                src="./default-profile-picture.png"
+                alt="Profil par défaut"
+              />
+            )}
           </div>
           <ul>
             <li>
@@ -250,9 +262,5 @@ function Contact({ generalInfo }) {
     </div>
   );
 }
-
-Contact.propTypes = {
-  generalInfo: PropTypes.object.isRequired,
-};
 
 export default Contact;
