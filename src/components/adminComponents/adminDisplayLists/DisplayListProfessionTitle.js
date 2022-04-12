@@ -1,13 +1,13 @@
 import React, { useState, useEffect, createRef, useRef } from "react";
+import { useInfosData } from "../../../App";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormProfessionTitle from "../adminForms/FormProfessionTitle";
 import { CSSTransition } from "react-transition-group";
-import PropTypes from "prop-types";
 
-function DisplayListProfessionTitle({ generalInfoState }) {
-  const { generalInfo, setGeneralInfo } = generalInfoState;
+function DisplayListProfessionTitle() {
+  const { generalInfo, setGeneralInfo } = useInfosData();
   const [arrayProfessionTitle, setArrayProfessionTitle] = useState([]);
   const [formListState, setFormListState] = useState({});
   const [lastFormListOpen, setLastFormListOpen] = useState();
@@ -93,7 +93,6 @@ function DisplayListProfessionTitle({ generalInfoState }) {
             <FormProfessionTitle
               value={item}
               setArrayProfessionTitle={setArrayProfessionTitle}
-              generalInfoState={generalInfoState}
             />
           </div>
         </CSSTransition>
@@ -114,12 +113,5 @@ function DisplayListProfessionTitle({ generalInfoState }) {
     </>
   );
 }
-
-DisplayListProfessionTitle.propTypes = {
-  generalInfoState: PropTypes.shape({
-    generalInfo: PropTypes.object.isRequired,
-    setGeneralInfo: PropTypes.func.isRequired,
-  }),
-};
 
 export default DisplayListProfessionTitle;
