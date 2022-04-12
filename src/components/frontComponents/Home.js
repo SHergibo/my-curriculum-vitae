@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useInfosData } from "../../App";
 import { useLocation } from "react-router-dom";
 import HomeSection from "./HomeSection";
 import Typed from "react-typed";
-import PropTypes from "prop-types";
 
-function Home({ generalInfo }) {
+function Home() {
+  const { generalInfo } = useInfosData();
   const location = useLocation();
   const [fullName, setFullName] = useState("");
   const [div, setDiv] = useState();
@@ -53,9 +54,5 @@ function Home({ generalInfo }) {
 
   return <HomeSection welcome={welcome} name={fullName} div={div} />;
 }
-
-Home.propTypes = {
-  generalInfo: PropTypes.object,
-};
 
 export default Home;
