@@ -9,38 +9,13 @@ import { refreshToken, logout } from "../../utils/Auth";
 import EducExpe from "./EducExpe";
 import Skills from "./Skills";
 import Projects from "./Projects";
-import PropTypes from "prop-types";
 
-function Admin({ generalInfoAdmin }) {
+function Admin() {
   const navigate = useNavigate();
   const headerRef = useRef(null);
   const [expiresIn, setExpiresIn] = useState(
     new Date(localStorage.getItem("expiresIn"))
   );
-
-  const [generalInfo, setGeneralInfo] = useState({
-    firstname: "",
-    lastname: "",
-    address: {
-      street: "",
-      number: "",
-      zip: "",
-      city: "",
-    },
-    phone: "",
-    email: "",
-    birthdate: "",
-    isoDate: "",
-    licence: "",
-    description: "",
-    professionTitles: [],
-  });
-
-  useEffect(() => {
-    if (generalInfoAdmin) {
-      setGeneralInfo(generalInfoAdmin);
-    }
-  }, [generalInfoAdmin]);
 
   const logOut = useCallback(async () => {
     await logout();
@@ -90,11 +65,11 @@ function Admin({ generalInfoAdmin }) {
   return (
     <>
       <header ref={headerRef} id="header">
-        <Home generalInfo={generalInfo} />
+        <Home />
         <Navbar headerRef={headerRef} />
       </header>
       <main>
-        <GeneralInfo generalInfoState={{ generalInfo, setGeneralInfo }} />
+        <GeneralInfo />
         <EducExpe />
         <Skills />
         <Projects />
@@ -106,9 +81,5 @@ function Admin({ generalInfoAdmin }) {
     </>
   );
 }
-
-Admin.propTypes = {
-  generalInfoAdmin: PropTypes.object.isRequired,
-};
 
 export default Admin;
