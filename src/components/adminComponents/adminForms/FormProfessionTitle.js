@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import { useInfosData } from "../../../App";
 import { useForm } from "react-hook-form";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
@@ -10,14 +11,8 @@ import SelectFontAwesome from "../../ReactSelectComponents/SelectFontAwesome";
 import PropTypes from "prop-types";
 import fontAwesomeData from "../../../utils/fontAwesomeData";
 
-function FormProfessionTitle({
-  add,
-  value,
-  setArrayProfessionTitle,
-  infoId,
-  generalInfoState,
-}) {
-  const { generalInfo, setGeneralInfo } = generalInfoState;
+function FormProfessionTitle({ add, value, setArrayProfessionTitle }) {
+  const { generalInfo, setGeneralInfo } = useInfosData();
   const successSpanRef = useRef(null);
   const [spanSuccess, setSpanSuccess] = useState(false);
   const loadingRef = useRef(null);
@@ -109,7 +104,7 @@ function FormProfessionTitle({
     }
     setLoader(true);
     setSpanError(false);
-    const addProfTitleEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title/${infoId}`;
+    const addProfTitleEndPoint = `${apiDomain}/api/${apiVersion}/infos/prof-title/${generalInfo._id}`;
     await axiosInstance
       .patch(addProfTitleEndPoint, data)
       .then((response) => {
@@ -287,11 +282,6 @@ FormProfessionTitle.propTypes = {
   add: PropTypes.bool,
   value: PropTypes.object,
   setArrayProfessionTitle: PropTypes.func,
-  infoId: PropTypes.string,
-  generalInfoState: PropTypes.shape({
-    generalInfo: PropTypes.object.isRequired,
-    setGeneralInfo: PropTypes.func.isRequired,
-  }),
 };
 
 export default FormProfessionTitle;
