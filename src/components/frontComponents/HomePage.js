@@ -9,7 +9,7 @@ import Footer from "../Footer";
 import BackToTop from "../BackToTop";
 import PropTypes from "prop-types";
 
-function HomePage({ generalInfo, isLoaded }) {
+function HomePage({ isLoaded }) {
   const headerRef = useRef(null);
 
   useEffect(() => {
@@ -19,14 +19,14 @@ function HomePage({ generalInfo, isLoaded }) {
   return (
     <>
       <header ref={headerRef} id="header">
-        <Home generalInfo={generalInfo} />
+        <Home />
         <Navbar headerRef={headerRef} />
       </header>
       <main>
-        <About generalInfo={generalInfo} isLoaded={isLoaded} />
+        <About isLoaded={isLoaded} />
         <Portfolio isLoaded={isLoaded} />
         <Resume isLoaded={isLoaded} />
-        <Contact generalInfo={generalInfo} />
+        <Contact />
       </main>
       <footer>
         <Footer />
@@ -37,7 +37,6 @@ function HomePage({ generalInfo, isLoaded }) {
 }
 
 HomePage.propTypes = {
-  generalInfo: PropTypes.object.isRequired,
   isLoaded: PropTypes.bool.isRequired,
 };
 
