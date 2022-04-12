@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useInfosData } from "../../../App";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
@@ -6,15 +7,14 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSTransition } from "react-transition-group";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
-import PropTypes from "prop-types";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 registerLocale("fr", fr);
 
-function FormGeneralInfo({ generalInfoState }) {
-  const { generalInfo, setGeneralInfo } = generalInfoState;
+function FormGeneralInfo() {
+  const { generalInfo, setGeneralInfo } = useInfosData();
   const value = generalInfo;
   const [dateBirthday, setDateBirthday] = useState(null);
   const [titleForm, setTitleForm] = useState("Ajout");
@@ -422,12 +422,5 @@ function FormGeneralInfo({ generalInfoState }) {
     </div>
   );
 }
-
-FormGeneralInfo.propTypes = {
-  generalInfoState: PropTypes.shape({
-    generalInfo: PropTypes.object,
-    setGeneralInfo: PropTypes.func,
-  }),
-};
 
 export default FormGeneralInfo;
