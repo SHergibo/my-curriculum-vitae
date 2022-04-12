@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useInfosData } from "../../App";
 import { apiDomain, apiVersion } from "../../apiConfig/ApiConfig";
 import AboutJobContainer from "./AboutJobContainer";
 import PropTypes from "prop-types";
 
-function About({ generalInfo, isLoaded }) {
+function About({ isLoaded }) {
+  const { generalInfo } = useInfosData();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const imgAboutRef = useRef(null);
   const profilePictureRef = useRef(null);
@@ -47,7 +49,7 @@ function About({ generalInfo, isLoaded }) {
             <img
               ref={profilePictureRef}
               src="./default-profile-picture.png"
-              alt="photo de profil par défaut"
+              alt="Profil par défaut"
             />
           )}
         </div>
@@ -92,7 +94,6 @@ function About({ generalInfo, isLoaded }) {
 }
 
 About.propTypes = {
-  generalInfo: PropTypes.object.isRequired,
   isLoaded: PropTypes.bool.isRequired,
 };
 
