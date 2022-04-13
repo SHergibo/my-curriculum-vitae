@@ -33,7 +33,7 @@
   display: flex;
   justify-content: center;
   img {
-    width: 80%;
+    width: 60%;
   }
 }
 
@@ -185,47 +185,6 @@
 
 /*Tablet*/
 @media screen and (min-width: 640px) {
-  .img-about {
-    img {
-      width: 50%;
-    }
-  }
-  .info {
-    span {
-      width: rem(140px);
-    }
-  }
-  .about-job-one {
-    div:first-child {
-      display: flex;
-      width: 25%;
-      border-left: var(--border);
-    }
-    div:last-child {
-      display: flex;
-      width: 25%;
-      border-right: var(--border);
-    }
-    div:nth-child(even) {
-      width: 50%;
-      border-left: var(--border);
-      border-right: var(--border);
-    }
-  }
-  .about-job-three {
-    flex-wrap: nowrap;
-    div:last-child {
-      width: 50%;
-    }
-    div:nth-child(-n + 2) {
-      border-bottom: unset;
-      border-right: var(--border);
-    }
-  }
-}
-
-/*Full-screen*/
-@media screen and (min-width: 960px) {
   .about-container {
     flex-direction: row;
     margin: 0 auto;
@@ -272,6 +231,42 @@
     }
   }
 
+  .info {
+    span {
+      width: rem(140px);
+    }
+  }
+  .about-job-one {
+    div:first-child {
+      display: flex;
+      width: 25%;
+      border-left: var(--border);
+    }
+    div:last-child {
+      display: flex;
+      width: 25%;
+      border-right: var(--border);
+    }
+    div:nth-child(even) {
+      width: 50%;
+      border-left: var(--border);
+      border-right: var(--border);
+    }
+  }
+  .about-job-three {
+    flex-wrap: nowrap;
+    div:last-child {
+      width: 50%;
+    }
+    div:nth-child(-n + 2) {
+      border-bottom: unset;
+      border-right: var(--border);
+    }
+  }
+}
+
+/*Full-screen*/
+@media screen and (min-width: 960px) {
   .info {
     ul {
       padding: rem(20px) rem(40px);
