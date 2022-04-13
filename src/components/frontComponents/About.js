@@ -22,7 +22,7 @@ function About({ isLoaded }) {
   }, []);
 
   useEffect(() => {
-    if (windowWidth >= 960 && isLoaded) {
+    if (windowWidth >= 640 && isLoaded) {
       if (
         imgAboutRef.current.offsetHeight - profilePictureRef.current.height >=
         20
@@ -31,6 +31,11 @@ function About({ isLoaded }) {
         imgAboutRef.current.classList.add("img-about-height");
         profilePictureRef.current.classList.add("profile-pic");
       }
+    }
+    if (windowWidth < 640 && isLoaded) {
+      imgAboutRef.current.classList.add("img-about");
+      imgAboutRef.current.classList.remove("img-about-height");
+      profilePictureRef.current.classList.remove("profile-pic");
     }
   }, [windowWidth, isLoaded]);
 
