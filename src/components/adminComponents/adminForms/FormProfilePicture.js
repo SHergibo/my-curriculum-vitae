@@ -173,7 +173,7 @@ function FormProfilePicture() {
         {windowWidth >= 960 && (
           <>
             <ActionButtonSubmit
-              button={generalInfo.profilePic.fileName ? "Éditer" : "Ajouter"}
+              button={generalInfo.profilePic?.fileName ? "Éditer" : "Ajouter"}
               value={{}}
               loadingRef={loadingRef}
               loader={loader}
@@ -199,7 +199,7 @@ function FormProfilePicture() {
       </div>
 
       <div className="form-right">
-        {(imgSrc || generalInfo.profilePic.fileName) && (
+        {(imgSrc || generalInfo.profilePic?.fileName) && (
           <div className="preview-profile-picture-container">
             <p>Prévisualisation</p>
             <div className="preview-profile-picture">
@@ -208,14 +208,14 @@ function FormProfilePicture() {
                 className="delete-preview"
                 type="button"
                 onClick={(e) => {
-                  if (generalInfo.profilePic.fileName) onClickDelete();
-                  if (!generalInfo.profilePic.fileName) setImgSrc("");
+                  if (generalInfo.profilePic?.fileName) onClickDelete();
+                  if (!generalInfo.profilePic?.fileName) setImgSrc("");
                   setImgFile(null);
                 }}
               >
                 <FontAwesomeIcon icon="times" />
               </button>
-              {generalInfo.profilePic.fileName && !imgSrc && (
+              {generalInfo.profilePic?.fileName && !imgSrc && (
                 <img
                   src={`${apiDomain}/api/${apiVersion}/infos/image/${generalInfo.profilePic.fileName}`}
                   alt={generalInfo.profilePic.alt}
@@ -229,7 +229,7 @@ function FormProfilePicture() {
         {windowWidth < 960 && (
           <>
             <ActionButtonSubmit
-              button={generalInfo.profilePic.fileName ? "Éditer" : "Ajouter"}
+              button={generalInfo.profilePic?.fileName ? "Éditer" : "Ajouter"}
               value={{}}
               loadingRef={loadingRef}
               loader={loader}
