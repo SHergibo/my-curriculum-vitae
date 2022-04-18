@@ -40,12 +40,35 @@ function Nav({ headerRef, li, divMobile, divNonMobile }) {
     }
   }, [headerRef]);
 
+  const handleMenuPosition = useCallback(() => {
+    if (windowWidth < 960) {
+      if (menu.current.getBoundingClientRect().top < 0) {
+        menu.current.style.top = "5rem";
+      } else if (
+        menu.current.getBoundingClientRect().top >=
+        menu.current.offsetHeight + mainMenu.current.offsetHeight
+      ) {
+        menu.current.style.removeProperty("top");
+      }
+    } else {
+      if (menu.current.hasAttribute("style")) {
+        menu.current.style.removeProperty("top");
+      }
+      if (menu.current.classList.contains("display-block")) {
+        setBurgerMenuSwitch(false);
+        menu.current.classList.remove("display-block");
+      }
+    }
+  }, [windowWidth]);
+
   useEffect(() => {
     window.addEventListener("scroll", handleMenuScroll);
+    window.addEventListener("scroll", handleMenuPosition);
     return () => {
       window.removeEventListener("scroll", handleMenuScroll);
+      window.removeEventListener("scroll", handleMenuPosition);
     };
-  }, [handleMenuScroll]);
+  }, [handleMenuScroll, handleMenuPosition]);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -61,6 +84,15 @@ function Nav({ headerRef, li, divMobile, divNonMobile }) {
   const burgerMenu = () => {
     menu.current.classList.toggle("display-block");
     setBurgerMenuSwitch(!burgerMenuSwitch);
+
+    if (menu.current.getBoundingClientRect().top < 0) {
+      menu.current.style.top = "5rem";
+    } else if (
+      menu.current.getBoundingClientRect().top >=
+      menu.current.offsetHeight + mainMenu.current.offsetHeight
+    ) {
+      menu.current.style.removeProperty("top");
+    }
   };
 
   const focusOnKeypress = (elem) => {
