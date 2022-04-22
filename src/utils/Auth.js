@@ -1,11 +1,11 @@
 import Axios from "axios";
 import { apiDomain, apiVersion } from "./../apiConfig/ApiConfig";
 
-let response;
 let authenticated = false;
 
 const loginIn = async (data) => {
   const loginEndpoint = `${apiDomain}/api/${apiVersion}/auth/login`;
+  let response = {};
 
   await Axios.post(loginEndpoint, data)
     .then((res) => {
@@ -14,7 +14,7 @@ const loginIn = async (data) => {
         res.data.token.accessToken &&
         res.data.token.expiresIn
       ) {
-        response = res.status;
+        response.statusCode = res.status;
 
         localStorage.setItem("access_token", res.data.token.accessToken);
         localStorage.setItem(
@@ -26,8 +26,8 @@ const loginIn = async (data) => {
         localStorage.setItem("expiresIn", res.data.token.expiresIn);
       }
     })
-    .catch(() => {
-      response = 401;
+    .catch((error) => {
+      response = error.response.data.output.payload;
     });
   return response;
 };
