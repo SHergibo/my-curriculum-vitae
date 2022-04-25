@@ -15,7 +15,8 @@ import Admin from "./components/adminComponents/Admin";
 import { Route, Routes, useLocation } from "react-router-dom";
 import IsLoggedRoute from "./components/routeComponents/IsLogged.route";
 import ProtectedRoute from "./components/routeComponents/Protected.route";
-import Login from "./components/adminComponents/Login";
+import SignInSignUp from "./components/signInSignUpComponents/SignInSignUp";
+import EmailAuth from "./components/signInSignUpComponents/EmailAuth";
 import Page404 from "./components/frontComponents/Page404";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -93,12 +94,13 @@ function App() {
       <InfosDataContext.Provider value={{ generalInfo, setGeneralInfo }}>
         <Routes>
           <Route path="/" element={<HomePage isLoaded={isLoaded} />} />
+          <Route path="/email-auth/:emailAuthToken" element={<EmailAuth />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
 
           <Route element={<IsLoggedRoute />}>
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<SignInSignUp />} />
           </Route>
 
           <Route path="*" element={<Page404 />} />
