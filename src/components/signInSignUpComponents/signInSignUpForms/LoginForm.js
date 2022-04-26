@@ -28,7 +28,7 @@ function LoginForm({ setSwitchForm, setEmailFormName }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmitLogin)}>
-      <div className="input input-login">
+      <div className="input input-signIn-signUp">
         <label htmlFor="email">Email *</label>
         <div className="input-block">
           <span>
@@ -52,7 +52,7 @@ function LoginForm({ setSwitchForm, setEmailFormName }) {
           <span className="error-message-form">Ce champ est requis</span>
         )}
       </div>
-      <div className="input input-login">
+      <div className="input input-signIn-signUp">
         <label htmlFor="lastname">Mot de passe *</label>
         <div className="input-block">
           <span>
@@ -71,7 +71,7 @@ function LoginForm({ setSwitchForm, setEmailFormName }) {
         )}
       </div>
       <div className="btn-container">
-        <button className="submit-login" type="submit">
+        <button className="submit-signIn-signUp" type="submit">
           Connexion
         </button>
       </div>
