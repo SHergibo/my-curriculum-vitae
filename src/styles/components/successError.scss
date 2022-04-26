@@ -7,10 +7,10 @@
 }
 
 .error-svg {
-  opacity: 1;
+  opacity: 0;
   font-size: rem(25px);
   color: var(--red);
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }
 
 .error-message {
@@ -38,6 +38,7 @@
   opacity: 1;
 }
 .btnAnimation-exit-active {
+  display: none;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
