@@ -1,23 +1,27 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CSSTransition } from 'react-transition-group';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CSSTransition } from "react-transition-group";
 import PuffLoader from "react-spinners/PuffLoader";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-function ActionButtonSubmit({button, value, loadingRef, loader, successSpanRef, spanSuccess, errorSpanRef, spanError, formContact}) {
+function ActionButtonSubmit({
+  button,
+  value,
+  loadingRef,
+  loader,
+  successSpanRef,
+  spanSuccess,
+  errorSpanRef,
+  spanError,
+  formContact,
+}) {
   return (
     <div className="btn-container">
       <button className="btn-submit-action" type="submit">
         {button}
-        {!value && !formContact && 
-          <FontAwesomeIcon icon="plus" />
-        }
-        {value && !formContact && 
-          <FontAwesomeIcon icon="edit" />
-        }
-        {formContact && 
-          <FontAwesomeIcon icon="paper-plane" />
-        }
+        {!value && !formContact && <FontAwesomeIcon icon="plus" />}
+        {value && !formContact && <FontAwesomeIcon icon="edit" />}
+        {formContact && <FontAwesomeIcon icon="paper-plane" />}
       </button>
       <CSSTransition
         nodeRef={loadingRef}
@@ -27,18 +31,14 @@ function ActionButtonSubmit({button, value, loadingRef, loader, successSpanRef, 
         unmountOnExit
       >
         <div ref={loadingRef} className="loading-action">
-          <PuffLoader
-            color={"#1e87f0"}
-            size={40}
-            loading={loader}
-          />
+          <PuffLoader color={"#1e87f0"} size={40} loading={loader} />
         </div>
       </CSSTransition>
 
       <CSSTransition
         nodeRef={successSpanRef}
         in={spanSuccess}
-        timeout={1000}
+        timeout={2900}
         classNames="btnAnimation"
         unmountOnExit
       >
@@ -50,17 +50,16 @@ function ActionButtonSubmit({button, value, loadingRef, loader, successSpanRef, 
       <CSSTransition
         nodeRef={errorSpanRef}
         in={spanError}
-        timeout={1000}
+        timeout={2900}
         classNames="btnAnimation"
         unmountOnExit
       >
         <span ref={errorSpanRef} className="error-svg">
-        <FontAwesomeIcon icon="times" />
+          <FontAwesomeIcon icon="times" />
         </span>
       </CSSTransition>
-
     </div>
-  )
+  );
 }
 
 ActionButtonSubmit.propTypes = {
@@ -71,8 +70,7 @@ ActionButtonSubmit.propTypes = {
   successSpanRef: PropTypes.object.isRequired,
   spanSuccess: PropTypes.bool.isRequired,
   errorSpanRef: PropTypes.object.isRequired,
-  spanError: PropTypes.bool.isRequired
-}
+  spanError: PropTypes.bool.isRequired,
+};
 
-export default ActionButtonSubmit
-
+export default ActionButtonSubmit;
