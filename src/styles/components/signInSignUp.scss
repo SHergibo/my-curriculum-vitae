@@ -1,0 +1,36 @@
+.input-signIn-signUp {
+  width: 100%;
+  margin-bottom: rem(20px);
+}
+
+.error-message-signIn-signUp {
+  position: absolute;
+  bottom: -1rem;
+  color: var(--red);
+}
+
+.submit-signIn-signUp {
+  @include btn(rem(40px), rem(15px) 0, 100%);
+  .text-submit-signIn-signUp {
+    display: block;
+    margin-right: 0.5rem;
+  }
+  svg {
+    font-size: rem(20px);
+  }
+  .loading-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .success-svg {
+    width: rem(20px);
+    padding: 0;
+    color: var(--principal-color);
+    font-size: rem(20px);
+  }
+  .error-svg {
+    width: rem(20px);
+    font-size: rem(20px);
+  }
+}
