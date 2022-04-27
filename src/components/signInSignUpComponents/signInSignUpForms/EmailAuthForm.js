@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { useForm } from "react-hook-form";
@@ -6,8 +7,8 @@ import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActionInsideButtonSubmit from "../../ActionInsideButtonSubmit";
 
-function EmailAuthForm({ setSwitchForm, emailFormNameState }) {
-  const { emailFormName, setEmailFormName } = emailFormNameState;
+function EmailAuthForm({ emailFormName }) {
+  let navigate = useNavigate();
 
   const loadingRef = useRef(null);
   const [loader, setLoader] = useState(false);
@@ -60,7 +61,6 @@ function EmailAuthForm({ setSwitchForm, emailFormNameState }) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -80,14 +80,12 @@ function EmailAuthForm({ setSwitchForm, emailFormNameState }) {
           title="Retour au formulaire de connexion"
           type="button"
           onClick={() => {
-            setSwitchForm(false);
-            setEmailFormName("");
-            reset();
+            navigate("/login");
           }}
         >
           <FontAwesomeIcon icon="chevron-left" />
         </button>
-        <h3>Renvoyer un mail de confirmation</h3>
+        <h3>Renvoyer un mail d'authentification</h3>
       </div>
       <div className="input input-signIn-signUp">
         <label htmlFor="email">Email *</label>
