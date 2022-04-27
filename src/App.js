@@ -17,6 +17,7 @@ import IsLoggedRoute from "./components/routeComponents/IsLogged.route";
 import ProtectedRoute from "./components/routeComponents/Protected.route";
 import SignInSignUp from "./components/signInSignUpComponents/SignInSignUp";
 import EmailAuth from "./components/signInSignUpComponents/EmailAuth";
+import FormEmailAuth from "./components/signInSignUpComponents/FormEmailAuth";
 import Page404 from "./components/frontComponents/Page404";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -95,6 +96,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage isLoaded={isLoaded} />} />
           <Route path="/email-auth/:emailAuthToken" element={<EmailAuth />} />
+          <Route path="/form-email-auth" element={<FormEmailAuth />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
