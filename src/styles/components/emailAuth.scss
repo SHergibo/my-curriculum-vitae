@@ -1,0 +1,29 @@
+.loading-email-auth {
+  .loading-action {
+    width: rem(50px);
+    height: rem(50px);
+  }
+  .success-svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem(50px);
+    height: rem(50px);
+    padding: 0;
+    color: var(--green);
+    font-size: rem(50px);
+  }
+  .error-svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem(50px);
+    height: rem(50px);
+    font-size: rem(50px);
+  }
+  p {
+    color: var(--white);
+    font-size: rem(20px);
+    font-weight: 700;
+  }
+}
