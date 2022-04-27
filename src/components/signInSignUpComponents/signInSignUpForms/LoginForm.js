@@ -4,7 +4,7 @@ import { loginIn } from "../../../utils/Auth";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function LoginForm({ setSwitchForm, setEmailFormName }) {
+function LoginForm() {
   const [error, setError] = useState({});
   let navigate = useNavigate();
 
@@ -20,7 +20,6 @@ function LoginForm({ setSwitchForm, setEmailFormName }) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -82,21 +81,17 @@ function LoginForm({ setSwitchForm, setEmailFormName }) {
             <button
               type="button"
               onClick={() => {
-                setSwitchForm(true);
-                setEmailFormName("emailAuth");
-                reset();
+                navigate("/form-email-auth");
               }}
             >
-              Renvoyer un mail de confirmation
+              Renvoyer un mail d'authentification
             </button>
           )}
           {error.errorType === "wrongPassword" && (
             <button
               type="button"
               onClick={() => {
-                setSwitchForm(true);
-                setEmailFormName("wrongPassword");
-                reset();
+                navigate();
               }}
             >
               Mot de passe oublié?
