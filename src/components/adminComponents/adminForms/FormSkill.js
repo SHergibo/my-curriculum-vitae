@@ -256,7 +256,11 @@ function FormSkill({
   };
 
   const onChangeValue = (e) => {
-    if (previsualisationValue[0].fontAwesomeIcon && e.target.value) {
+    if (
+      previsualisationValue[0].fontAwesomeIcon &&
+      e.target.value &&
+      e.target.name !== "nameSkill"
+    ) {
       setErrorTwoIcons("Vous ne pouvez pas avoir deux icônes à la fois !");
     } else {
       if (errorTwoIcons) setErrorTwoIcons("");
