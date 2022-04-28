@@ -74,10 +74,22 @@ function LoginForm() {
           Connexion
         </button>
       </div>
-      {error.message && (
-        <div className="error-container-interaction">
+      <div className="error-container-interaction">
+        {error.message && (
           <span className="error-message-form">{error.message}</span>
-          {error.errorType === "emailAuth" && (
+        )}
+        {error.errorType !== "emailAuth" && (
+          <button
+            type="button"
+            onClick={() => {
+              navigate();
+            }}
+          >
+            Mot de passe oublié?
+          </button>
+        )}
+        {error.errorType === "emailAuth" && (
+          <div>
             <button
               type="button"
               onClick={() => {
@@ -86,19 +98,9 @@ function LoginForm() {
             >
               Renvoyer un mail d'authentification
             </button>
-          )}
-          {error.errorType === "wrongPassword" && (
-            <button
-              type="button"
-              onClick={() => {
-                navigate();
-              }}
-            >
-              Mot de passe oublié?
-            </button>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </form>
   );
 }
