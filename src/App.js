@@ -16,7 +16,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import IsLoggedRoute from "./components/routeComponents/IsLogged.route";
 import ProtectedRoute from "./components/routeComponents/Protected.route";
 import SignInSignUp from "./components/signInSignUpComponents/SignInSignUp";
-import EmailAuth from "./components/signInSignUpComponents/EmailAuth";
+import TestEmailAuth from "./components/signInSignUpComponents/TestEmailAuth";
 import SendBackEmailAuth from "./components/signInSignUpComponents/SendBackEmailAuth";
 import Page404 from "./components/frontComponents/Page404";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -95,7 +95,10 @@ function App() {
       <InfosDataContext.Provider value={{ generalInfo, setGeneralInfo }}>
         <Routes>
           <Route path="/" element={<HomePage isLoaded={isLoaded} />} />
-          <Route path="/email-auth/:emailAuthToken" element={<EmailAuth />} />
+          <Route
+            path="/email-auth/:emailAuthToken"
+            element={<TestEmailAuth />}
+          />
           <Route path="/form-email-auth" element={<SendBackEmailAuth />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />

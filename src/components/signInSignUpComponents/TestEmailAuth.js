@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
-import { apiDomain, apiVersion } from "./../../apiConfig/ApiConfig";
+import { apiDomain, apiVersion } from "../../apiConfig/ApiConfig";
 import HomeSection from "../frontComponents/HomeSection";
 import { checkSuccess, checkErrors } from "../../utils/checkSuccess";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
