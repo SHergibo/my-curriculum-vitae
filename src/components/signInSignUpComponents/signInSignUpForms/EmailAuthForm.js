@@ -56,7 +56,28 @@ function EmailAuthForm({ emailFormName }) {
       });
   };
 
-  const onSubmitResetPasswordMail = async (data) => {};
+  const onSubmitResetPasswordMail = async (data) => {
+    setLoader(true);
+    setSpanError(false);
+    setErrorMessage("");
+    const sendRequestResetPasswordEmail = `${apiDomain}/api/${apiVersion}/email-request-reset-password`;
+    await axiosInstance
+      .post(sendRequestResetPasswordEmail, data)
+      .then((res) => {
+        if (res.status === 204) {
+          checkSuccess(
+            setTimeoutLoader,
+            setLoader,
+            setTimeoutSuccess,
+            setSpanSuccess
+          );
+        }
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.output.payload.message);
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
+      });
+  };
 
   const {
     register,
