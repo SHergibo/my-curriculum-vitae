@@ -85,7 +85,11 @@ function EmailAuthForm({ emailFormName }) {
         >
           <FontAwesomeIcon icon="chevron-left" />
         </button>
-        <h3>Renvoyer un mail d'authentification</h3>
+        <h3>
+          {emailFormName === "emailAuth"
+            ? "Renvoyer un mail d'authentification"
+            : "Requête changement de mot de passe"}
+        </h3>
       </div>
       <div className="input input-signIn-signUp">
         <label htmlFor="email">Email *</label>
