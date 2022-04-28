@@ -18,11 +18,12 @@ import ProtectedRoute from "./components/routeComponents/Protected.route";
 import SignInSignUp from "./components/signInSignUpComponents/SignInSignUp";
 import TestEmailAuth from "./components/signInSignUpComponents/TestEmailAuth";
 import SendBackEmailAuth from "./components/signInSignUpComponents/SendBackEmailAuth";
+import RequestResetPassword from "./components/signInSignUpComponents/RequestResetPassword";
+import ResetPassword from "./components/signInSignUpComponents/ResetPassword";
 import Page404 from "./components/frontComponents/Page404";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import RequestResetPassword from "./components/signInSignUpComponents/RequestResetPassword";
 
 library.add(fab, fas);
 const InfosDataContext = createContext();
@@ -96,14 +97,18 @@ function App() {
       <InfosDataContext.Provider value={{ generalInfo, setGeneralInfo }}>
         <Routes>
           <Route path="/" element={<HomePage isLoaded={isLoaded} />} />
+          <Route path="/send-back-email-auth" element={<SendBackEmailAuth />} />
           <Route
             path="/email-auth/:emailAuthToken"
             element={<TestEmailAuth />}
           />
-          <Route path="/send-back-email-auth" element={<SendBackEmailAuth />} />
           <Route
             path="/request-reset-password"
             element={<RequestResetPassword />}
+          />
+          <Route
+            path="/reset-password/:resetPasswordAuthToken"
+            element={<ResetPassword />}
           />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />
