@@ -19,6 +19,7 @@ function EmailAuth() {
   const errorSpanRef = useRef(null);
   const [spanError, setSpanError] = useState(false);
   const [success, setSuccess] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
@@ -52,13 +53,14 @@ function EmailAuth() {
         }
       })
       .catch((error) => {
+        checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
         if (error.response.status === 401) {
           setSuccess(false);
-          checkErrors(
-            setTimeoutLoader,
-            setLoader,
-            setTimeoutError,
-            setSpanError
+        } else if (error.response.status === 404) {
+          setErrorMessage("Ce lien d'authentification n'existe pas !");
+        } else {
+          setErrorMessage(
+            "Une erreur est survenue, veuillez réessayer plus tard !"
           );
         }
       });
@@ -86,7 +88,7 @@ function EmailAuth() {
           </div>
         </>
       )}
-      {!loader && !spanError && !success && (
+      {!loader && !spanError && !success && !errorMessage && (
         <>
           <p>Ce lien d'authentification a expiré !</p>
           <div className="btn-container">
@@ -98,6 +100,22 @@ function EmailAuth() {
               }}
             >
               Renvoyer un mail d'authentification
+            </button>
+          </div>
+        </>
+      )}
+      {!loader && !spanError && errorMessage && (
+        <>
+          <p>{errorMessage}</p>
+          <div className="btn-container">
+            <button
+              className="submit-signIn-signUp"
+              type="button"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Revenir à la page de connexion
             </button>
           </div>
         </>
