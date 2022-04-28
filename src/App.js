@@ -99,7 +99,7 @@ function App() {
             path="/email-auth/:emailAuthToken"
             element={<TestEmailAuth />}
           />
-          <Route path="/form-email-auth" element={<SendBackEmailAuth />} />
+          <Route path="/send-back-email-auth" element={<SendBackEmailAuth />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />
           </Route>

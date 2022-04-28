@@ -81,7 +81,7 @@ function LoginForm() {
             <button
               type="button"
               onClick={() => {
-                navigate("/form-email-auth");
+                navigate("/send-back-email-auth");
               }}
             >
               Renvoyer un mail d'authentification

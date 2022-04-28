@@ -96,7 +96,7 @@ function EmailAuth() {
               className="submit-signIn-signUp"
               type="button"
               onClick={() => {
-                navigate("/form-email-auth");
+                navigate("/send-back-email-auth");
               }}
             >
               Renvoyer un mail d'authentification
