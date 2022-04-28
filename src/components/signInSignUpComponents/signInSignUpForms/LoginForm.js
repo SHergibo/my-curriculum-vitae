@@ -82,7 +82,7 @@ function LoginForm() {
           <button
             type="button"
             onClick={() => {
-              navigate();
+              navigate("/request-reset-password");
             }}
           >
             Mot de passe oublié?
