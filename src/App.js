@@ -22,6 +22,7 @@ import Page404 from "./components/frontComponents/Page404";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import RequestResetPassword from "./components/signInSignUpComponents/RequestResetPassword";
 
 library.add(fab, fas);
 const InfosDataContext = createContext();
@@ -100,6 +101,10 @@ function App() {
             element={<TestEmailAuth />}
           />
           <Route path="/send-back-email-auth" element={<SendBackEmailAuth />} />
+          <Route
+            path="/request-reset-password"
+            element={<RequestResetPassword />}
+          />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
