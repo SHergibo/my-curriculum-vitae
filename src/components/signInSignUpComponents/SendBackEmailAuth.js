@@ -2,7 +2,7 @@ import React from "react";
 import HomeSection from "../frontComponents/HomeSection";
 import EmailAuthForm from "./signInSignUpForms/EmailAuthForm";
 
-function FormEmailAuth() {
+function SendBackEmailAuth() {
   return (
     <HomeSection
       welcome="Email d'authentification"
@@ -12,4 +12,4 @@ function FormEmailAuth() {
   );
 }
 
-export default FormEmailAuth;
+export default SendBackEmailAuth;
