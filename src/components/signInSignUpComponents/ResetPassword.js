@@ -38,7 +38,7 @@ function ResetPassword() {
 
   const resetPassword = async (data) => {
     setSpanError(false);
-    const resetPasswordRoute = `${apiDomain}/api/${apiVersion}/email-request-reset-password/${emailAuthToken}`;
+    const resetPasswordRoute = `${apiDomain}/api/${apiVersion}/email-request-reset-password/${resetPasswordAuthToken}`;
     await axiosInstance
       .patch(resetPasswordRoute, data)
       .then((response) => {
