@@ -139,6 +139,7 @@ function EmailAuthForm({ emailFormName }) {
 
       <ActionInsideButtonSubmit
         buttonTxt={"Envoyer"}
+        icon={"envelope"}
         loadingRef={loadingRef}
         loader={loader}
         successSpanRef={successSpanRef}
