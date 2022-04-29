@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 
 function ActionInsideButtonSubmit({
   buttonTxt,
+  icon,
   loadingRef,
   loader,
   successSpanRef,
@@ -18,7 +19,7 @@ function ActionInsideButtonSubmit({
       <button className="submit-signIn-signUp" type="submit">
         <span className="text-submit-signIn-signUp">{buttonTxt}</span>
         {!loader && !spanSuccess && !spanError && (
-          <FontAwesomeIcon icon="envelope" />
+          <FontAwesomeIcon icon={icon} />
         )}
         <CSSTransition
           nodeRef={loadingRef}
@@ -60,6 +61,7 @@ function ActionInsideButtonSubmit({
 
 ActionInsideButtonSubmit.propTypes = {
   buttonTxt: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
   loadingRef: PropTypes.object.isRequired,
   loader: PropTypes.bool.isRequired,
   successSpanRef: PropTypes.object.isRequired,
