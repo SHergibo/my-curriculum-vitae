@@ -74,7 +74,13 @@ function ResetPassword() {
         }
       })
       .catch((error) => {
-        setErrorMessage(error.response.data.output.payload.message);
+        if (error.response.status === 401 || error.response.status === 404) {
+          setErrorMessage(error.response.data.output.payload.message);
+        } else {
+          setErrorMessage(
+            "Une erreur est survenue, veuillez réessayer plus tard !"
+          );
+        }
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
   };
