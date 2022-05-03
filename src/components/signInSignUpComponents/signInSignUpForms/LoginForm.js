@@ -78,28 +78,14 @@ function LoginForm() {
         {error.message && (
           <span className="error-message-form">{error.message}</span>
         )}
-        {error.errorType !== "emailAuth" && (
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/request-reset-password");
-            }}
-          >
-            Mot de passe oublié?
-          </button>
-        )}
-        {error.errorType === "emailAuth" && (
-          <div>
-            <button
-              type="button"
-              onClick={() => {
-                navigate("/send-back-email-auth");
-              }}
-            >
-              Renvoyer un mail d'authentification
-            </button>
-          </div>
-        )}
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/request-reset-password");
+          }}
+        >
+          Mot de passe oublié?
+        </button>
       </div>
     </form>
   );
