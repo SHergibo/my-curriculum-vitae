@@ -16,6 +16,7 @@ function CreateUserAccountForm() {
   const errorSpanRef = useRef(null);
   const [spanError, setSpanError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccesMessage] = useState("");
 
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
@@ -56,12 +57,16 @@ function CreateUserAccountForm() {
     setLoader(true);
     setSpanError(false);
     setErrorMessage("");
+    setSuccesMessage("");
     const createUserAccountRoute = `${apiDomain}/api/${apiVersion}/users`;
     await axiosInstance
       .post(createUserAccountRoute, data)
       .then((response) => {
         if (response.status === 204) {
           reset();
+          setSuccesMessage(
+            "Votre compte a bien été créée, un mail d'authentification a été envoyé sur votre boîte mail, vous devez authentifier votre compte avant de pouvoir vous connectez !"
+          );
           checkSuccess(
             setTimeoutLoader,
             setLoader,
@@ -176,6 +181,11 @@ function CreateUserAccountForm() {
       <div className="error-container-interaction">
         {errorMessage && !loader && (
           <span className="error-message-signIn-signUp">{errorMessage}</span>
+        )}
+        {successMessage && !loader && (
+          <span className="success-message-signIn-signUp">
+            {successMessage}
+          </span>
         )}
         <div>
           <button
