@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useInfosData } from "../../App";
 import Home from "./Home";
 import Navbar from "../Navbar";
 import About from "./About";
@@ -10,6 +11,7 @@ import BackToTop from "../BackToTop";
 import PropTypes from "prop-types";
 
 function HomePage({ isLoaded }) {
+  const { generalInfo } = useInfosData();
   const headerRef = useRef(null);
 
   useEffect(() => {
@@ -24,8 +26,8 @@ function HomePage({ isLoaded }) {
       </header>
       <main>
         <About isLoaded={isLoaded} />
-        <Portfolio isLoaded={isLoaded} />
-        <Resume isLoaded={isLoaded} />
+        {generalInfo.hasPortfolio && <Portfolio isLoaded={isLoaded} />}
+        {generalInfo.hasSkills && <Resume isLoaded={isLoaded} />}
         <Contact />
       </main>
       <footer>
