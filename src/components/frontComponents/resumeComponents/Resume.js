@@ -100,89 +100,91 @@ function Resume({ isLoaded }) {
   };
 
   return (
-    <div ref={resumeContainerRef} id="resume" className="wrapper resume">
-      <div className="title-left">Résumé</div>
-      <div className="menu-left">
-        <div
-          ref={menuResumeRef}
-          className="list-menu-left"
-          style={{ top: 30 + "px" }}
-        >
-          <ul>
-            <li
-              tabIndex={0}
-              onKeyPress={() => {
-                focusOnKeypress("experience");
-              }}
-            >
-              <Link
-                activeClass="active"
-                to="experience"
-                spy={true}
-                smooth={true}
-                offset={-80}
-                duration={1000}
+    <div className="resume-container">
+      <div ref={resumeContainerRef} id="resume" className="wrapper resume">
+        <div className="title-left">Résumé</div>
+        <div className="menu-left">
+          <div
+            ref={menuResumeRef}
+            className="list-menu-left"
+            style={{ top: 30 + "px" }}
+          >
+            <ul>
+              <li
+                tabIndex={0}
+                onKeyPress={() => {
+                  focusOnKeypress("experience");
+                }}
               >
-                Expérience
-              </Link>
-            </li>
-            <li
-              tabIndex={0}
-              onKeyPress={() => {
-                focusOnKeypress("education");
-              }}
-            >
-              <Link
-                activeClass="active"
-                to="education"
-                spy={true}
-                smooth={true}
-                offset={-80}
-                duration={1000}
+                <Link
+                  activeClass="active"
+                  to="experience"
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={1000}
+                >
+                  Expérience
+                </Link>
+              </li>
+              <li
+                tabIndex={0}
+                onKeyPress={() => {
+                  focusOnKeypress("education");
+                }}
               >
-                Éducation
-              </Link>
-            </li>
-            <li
-              tabIndex={0}
-              onKeyPress={() => {
-                focusOnKeypress("skills");
-              }}
-            >
-              <Link
-                activeClass="active"
-                to="skills"
-                spy={true}
-                smooth={true}
-                offset={-80}
-                duration={1000}
+                <Link
+                  activeClass="active"
+                  to="education"
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={1000}
+                >
+                  Éducation
+                </Link>
+              </li>
+              <li
+                tabIndex={0}
+                onKeyPress={() => {
+                  focusOnKeypress("skills");
+                }}
               >
-                Compétences
-              </Link>
-            </li>
-          </ul>
+                <Link
+                  activeClass="active"
+                  to="skills"
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={1000}
+                >
+                  Compétences
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div className="edu-expe">
-        <div ref={expRef} id="experience" className="exp-container">
-          <h2>Expérience</h2>
-          <EducationExperience data={arrayExpe} type="exp" />
-        </div>
-        <div ref={educRef} id="education" className="edu-container">
-          <h2>Éducation</h2>
-          <EducationExperience data={arrayEduc} type="educ" />
-        </div>
-        <div ref={skillref} id="skills" className="skill-container">
-          <h2>Compétences</h2>
-          <CanvasResume data={arrayCodingSkill} />
-          <div className="skill-bars">
-            <div className="soft-skills">
-              <h4>Compétences générales</h4>
-              <SkillBarResume data={arrayGeneralSkill} />
-            </div>
-            <div className="language-skills">
-              <h4>Langues</h4>
-              <SkillBarResume data={arrayLanguage} />
+        <div className="edu-expe">
+          <div ref={expRef} id="experience" className="exp-container">
+            <h2>Expérience</h2>
+            <EducationExperience data={arrayExpe} type="exp" />
+          </div>
+          <div ref={educRef} id="education" className="edu-container">
+            <h2>Éducation</h2>
+            <EducationExperience data={arrayEduc} type="educ" />
+          </div>
+          <div ref={skillref} id="skills" className="skill-container">
+            <h2>Compétences</h2>
+            <CanvasResume data={arrayCodingSkill} />
+            <div className="skill-bars">
+              <div className="soft-skills">
+                <h4>Compétences générales</h4>
+                <SkillBarResume data={arrayGeneralSkill} />
+              </div>
+              <div className="language-skills">
+                <h4>Langues</h4>
+                <SkillBarResume data={arrayLanguage} />
+              </div>
             </div>
           </div>
         </div>
