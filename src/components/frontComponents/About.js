@@ -77,8 +77,12 @@ function About({ isLoaded }) {
               <li>
                 <span>Adresse :</span>
                 <div>
-                  {generalInfo.address.street}, {generalInfo.address.number}{" "}
-                  {generalInfo.address.zip} {generalInfo.address.city}
+                  {generalInfo.address.street && (
+                    <>
+                      {generalInfo.address.street}, {generalInfo.address.number}{" "}
+                      {generalInfo.address.zip} {generalInfo.address.city}
+                    </>
+                  )}
                 </div>
               </li>
               <li>
