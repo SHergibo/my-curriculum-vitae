@@ -24,7 +24,7 @@ function Skills() {
     <div className="skill-section">
       <div id="skills" className="wrapper">
         <div className="title-left-admin">Compétences</div>
-        <div className="skill-container skill-container-admin">
+        <div className="skills-container skills-container-admin">
           <TitleAction
             title="Compétences"
             btnTitle={
