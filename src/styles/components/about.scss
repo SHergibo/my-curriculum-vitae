@@ -32,6 +32,7 @@
 .img-about {
   display: flex;
   justify-content: center;
+  overflow: hidden;
   img {
     width: 60%;
   }
