@@ -3,9 +3,18 @@
   margin-bottom: rem(20px);
 }
 
-.error-message-signIn-signUp {
+.error-message-signIn-signUp,
+.success-message-signIn-signUp {
   position: absolute;
+}
+
+.error-message-signIn-signUp {
   color: var(--red);
+}
+
+.success-message-signIn-signUp {
+  color: var(--green);
+  text-align: center;
 }
 
 .submit-signIn-signUp {
