@@ -19,7 +19,7 @@ function Logo() {
         offset={0}
         duration={500}
       >
-        <span>{generalInfo.firstname}</span>
+        <span>{generalInfo.firstname ? generalInfo.firstname : "Accueil"}</span>
       </Link>
     </div>
   );
