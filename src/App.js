@@ -51,6 +51,8 @@ function App() {
     licence: "",
     professionTitles: [],
     profilePic: {},
+    hasPortfolio: false,
+    hasSkills: false,
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
