@@ -60,7 +60,7 @@ function Contact() {
   });
 
   return (
-    <div className="contact-container">
+    <div>
       <div id="contact" className="wrapper contact">
         <div className="title-left">Contact</div>
         <div className="contact-form">
@@ -229,34 +229,36 @@ function Contact() {
               />
             )}
           </div>
-          <ul>
-            <li>
-              <span>
-                <FontAwesomeIcon icon="envelope" />
-              </span>{" "}
-              {generalInfo.email}
-            </li>
-            <li>
-              <span>
-                <FontAwesomeIcon icon="mobile-alt" />
-              </span>{" "}
-              {generalInfo.phone}
-            </li>
-            <li>
-              <span>
-                <FontAwesomeIcon icon="map-marker-alt" />
-              </span>
-              <div>
+          {generalInfo.email && (
+            <ul>
+              <li>
+                <span>
+                  <FontAwesomeIcon icon="envelope" />
+                </span>{" "}
+                {generalInfo.email}
+              </li>
+              <li>
+                <span>
+                  <FontAwesomeIcon icon="mobile-alt" />
+                </span>{" "}
+                {generalInfo.phone}
+              </li>
+              <li>
+                <span>
+                  <FontAwesomeIcon icon="map-marker-alt" />
+                </span>
                 <div>
-                  {" "}
-                  {generalInfo.address.street}, {generalInfo.address.number}
+                  <div>
+                    {" "}
+                    {generalInfo.address.street}, {generalInfo.address.number}
+                  </div>
+                  <div>
+                    {generalInfo.address.zip} {generalInfo.address.city}
+                  </div>
                 </div>
-                <div>
-                  {generalInfo.address.zip} {generalInfo.address.city}
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </div>
