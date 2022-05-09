@@ -7,7 +7,7 @@
 
 .info-container,
 .educExpe-container,
-.skill-container,
+.skills-container,
 .profession-title-container,
 .change-password-container,
 .project-container {
@@ -23,20 +23,20 @@
 
 .info-container,
 .educExpe-container,
-.skill-container,
+.skills-container,
 .project-container {
   margin-top: rem(70px);
 }
 
 .info-container,
 .educExpe-container,
-.skill-container,
+.skills-container,
 .profession-title-container,
 .change-password-container {
   @include title();
 }
 
-.skill-container-admin {
+.skills-container-admin {
   .skill-canvas {
     margin: rem(10px) 0 0 0;
   }
@@ -228,7 +228,7 @@
     }
   }
 
-  .skill-container-admin {
+  .skills-container-admin {
     .skill-canvas {
       margin: rem(20px) 0 rem(30px) 0;
     }
@@ -259,7 +259,7 @@
 @media screen and (min-width: 960px) {
   .info-container,
   .educExpe-container,
-  .skill-container,
+  .skills-container,
   .profession-title-container,
   .change-password-container,
   .project-container {
@@ -275,7 +275,7 @@
     margin-left: rem(-1px);
   }
 
-  .skill-container,
+  .skills-container,
   .profession-title-container,
   .change-password-container {
     .input-container {
