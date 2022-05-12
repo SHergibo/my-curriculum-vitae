@@ -52,7 +52,7 @@ function App() {
     professionTitles: [],
     profilePic: {},
     hasPortfolio: false,
-    hasSkills: false,
+    hasResume: false,
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
