@@ -27,7 +27,7 @@ function HomePage({ isLoaded }) {
       <main>
         <About isLoaded={isLoaded} />
         {generalInfo.hasPortfolio && <Portfolio isLoaded={isLoaded} />}
-        {generalInfo.hasSkills && <Resume isLoaded={isLoaded} />}
+        {generalInfo.hasResume && <Resume isLoaded={isLoaded} />}
         <Contact />
       </main>
       <footer>
