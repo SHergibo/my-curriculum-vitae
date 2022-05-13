@@ -9,40 +9,39 @@ import workingData from "../../../utils/workingData";
 import PropTypes from "prop-types";
 
 function Resume({ isLoaded }) {
-  const objectEducExpe = {
-    _id: "",
-    dateStart: "",
-    dateEnd: "",
-    titleEducExpe: "",
-    placeEducExpe: "",
-    educExpe: "",
-  };
-  const [arrayEduc, setArrayEduc] = useState([objectEducExpe]);
-  const [arrayExpe, setArrayExpe] = useState([objectEducExpe]);
-
-  const objectSkill = {
-    _id: "",
-    nameSkill: "",
-    percentage: "",
-    skillCategory: "",
-    fontAwesomeIcon: "",
-    svgIcon: "",
-  };
-
-  const [arrayCodingSkill, setArrayCodingSkill] = useState([objectSkill]);
-  const [arrayGeneralSkill, setArrayGeneralSkill] = useState([objectSkill]);
-  const [arrayLanguage, setArrayLanguage] = useState([objectSkill]);
+  const [arrayEduc, setArrayEduc] = useState([]);
+  const [arrayExpe, setArrayExpe] = useState([]);
+  const [arrayCodingSkill, setArrayCodingSkill] = useState([]);
+  const [arrayGeneralSkill, setArrayGeneralSkill] = useState([]);
+  const [arrayLanguage, setArrayLanguage] = useState([]);
   const resumeContainerRef = useRef(null);
   const menuResumeRef = useRef(null);
   const educRef = useRef(null);
   const expRef = useRef(null);
   const skillref = useRef(null);
 
-  const handleResumeMenuOnScroll = () => {
+  const handleResumeMenuOnScroll = useCallback(() => {
     let resumeContainer = resumeContainerRef.current;
     let menuResume = menuResumeRef.current;
     let getBounding = resumeContainer.getBoundingClientRect();
-    let bottomResume = getBounding.height + getBounding.top - 80 - 180;
+    let liHeight = 0;
+
+    let hasData = [false, false, false];
+
+    if (arrayEduc.length >= 1) hasData[0] = true;
+    if (arrayExpe.length >= 1) hasData[1] = true;
+    if (
+      arrayCodingSkill.length >= 1 ||
+      arrayGeneralSkill.length >= 1 ||
+      arrayLanguage.length >= 1
+    )
+      hasData[2] = true;
+
+    let filteredArray = hasData.filter((data) => data === true);
+    if (filteredArray.length === 2) liHeight = 35;
+    if (filteredArray.length === 3) liHeight = 70;
+
+    let bottomResume = getBounding.height + getBounding.top - 190 - liHeight;
     if (bottomResume <= 0) {
       menuResume.setAttribute(
         "style",
@@ -56,7 +55,13 @@ function Resume({ isLoaded }) {
     } else {
       menuResume.classList.remove("menu-left-fixed");
     }
-  };
+  }, [
+    arrayEduc,
+    arrayExpe,
+    arrayCodingSkill,
+    arrayGeneralSkill,
+    arrayLanguage,
+  ]);
 
   const getDataEducExpe = useCallback(async () => {
     const getListEducExpeEndPoint = `${apiDomain}/api/${apiVersion}/educs-exps/educs-exps-list`;
@@ -80,14 +85,17 @@ function Resume({ isLoaded }) {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleResumeMenuOnScroll);
     if (isLoaded) {
       getDataEducExpe();
     }
+  }, [isLoaded, getDataEducExpe]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleResumeMenuOnScroll);
     return () => {
       window.removeEventListener("scroll", handleResumeMenuOnScroll);
     };
-  }, [isLoaded, getDataEducExpe]);
+  }, [handleResumeMenuOnScroll]);
 
   const focusOnKeypress = (elem) => {
     if (elem === "eduction") {
