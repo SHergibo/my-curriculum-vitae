@@ -5,6 +5,7 @@ import { CSSTransition } from "react-transition-group";
 import FormGeneralInfo from "./adminForms/FormGeneralInfo";
 import FormProfilePicture from "./adminForms/FormProfilePicture";
 import FormProfessionTitle from "./adminForms/FormProfessionTitle";
+import FormChangeEmail from "./adminForms/FormChangeEmail";
 import FormResetPassword from "./adminForms/FormResetPassword";
 import DisplayListProfessionTitle from "./adminDisplayLists/DisplayListProfessionTitle";
 import Modal from "../Modal";
@@ -23,6 +24,7 @@ function GeneralInfo() {
   const divTitleRef = useRef(null);
   const profilePicRef = useRef(null);
   const profTitleRef = useRef(null);
+  const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const nodeRef = useRef(null);
   const nodeRefTwo = useRef(null);
@@ -101,6 +103,8 @@ function GeneralInfo() {
       divTitleRef.current.scrollIntoView();
     } else if (elem === "prof-title") {
       profTitleRef.current.scrollIntoView();
+    } else if (elem === "emailMenu") {
+      emailRef.current.scrollIntoView();
     } else if (elem === "password") {
       passwordRef.current.scrollIntoView();
     } else if (elem === "profilePic") {
@@ -206,6 +210,23 @@ function GeneralInfo() {
               <li
                 tabIndex={0}
                 onKeyPress={() => {
+                  focusOnKeypress("emailMenu");
+                }}
+              >
+                <Link
+                  activeClass="active"
+                  to="emailMenu"
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={1000}
+                >
+                  Changer email
+                </Link>
+              </li>
+              <li
+                tabIndex={0}
+                onKeyPress={() => {
                   focusOnKeypress("password");
                 }}
               >
@@ -243,7 +264,7 @@ function GeneralInfo() {
               <div
                 ref={profilePicRef}
                 id="profilePic"
-                className="change-password-container"
+                className="change-form-container"
               >
                 <FormProfilePicture />
               </div>
@@ -292,13 +313,22 @@ function GeneralInfo() {
             </>
           )}
           {localStorage.getItem("userId") && (
-            <div
-              ref={passwordRef}
-              id="password"
-              className="change-password-container"
-            >
-              <FormResetPassword />
-            </div>
+            <>
+              <div
+                ref={emailRef}
+                id="emailMenu"
+                className="change-form-container"
+              >
+                <FormChangeEmail />
+              </div>
+              <div
+                ref={passwordRef}
+                id="password"
+                className="change-form-container"
+              >
+                <FormResetPassword />
+              </div>
+            </>
           )}
         </div>
       </div>
