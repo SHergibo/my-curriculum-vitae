@@ -3,7 +3,7 @@ import { useInfosData } from "../../../App";
 import axiosInstance from "../../../utils/axiosInstance";
 import { apiDomain, apiVersion } from "../../../apiConfig/ApiConfig";
 import { checkSuccess, checkErrors } from "../../../utils/checkSuccess";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSTransition } from "react-transition-group";
 import ActionButtonSubmit from "../../ActionButtonSubmit";
@@ -16,7 +16,6 @@ registerLocale("fr", fr);
 function FormGeneralInfo() {
   const { generalInfo, setGeneralInfo } = useInfosData();
   const value = generalInfo;
-  const [dateBirthday, setDateBirthday] = useState(null);
   const [titleForm, setTitleForm] = useState("Ajout");
   const [button, setButton] = useState("Ajouter");
   const successSpanRef = useRef(null);
@@ -35,8 +34,10 @@ function FormGeneralInfo() {
   const {
     register,
     reset,
+    control,
     handleSubmit,
     formState: { errors },
+    clearErrors,
     setValue,
   } = useForm({
     defaultValues: useMemo(() => {
@@ -69,10 +70,8 @@ function FormGeneralInfo() {
 
   useEffect(() => {
     if (generalInfo && generalInfo.isoDate) {
-      setDateBirthday(parseISO(generalInfo.isoDate));
       setValue("dateBirthday", parseISO(generalInfo.isoDate));
     } else {
-      setDateBirthday(null);
       setValue("dateBirthday", null);
     }
   }, [setValue, generalInfo]);
@@ -207,7 +206,7 @@ function FormGeneralInfo() {
               id="email"
               placeholder="Adresse mail"
               {...register("email", {
-                required: true,
+                required: "Ce champs est requis",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: "Adresse mail invalide",
@@ -324,19 +323,26 @@ function FormGeneralInfo() {
             <span>
               <FontAwesomeIcon icon="birthday-cake" />
             </span>
-            <DatePicker
-              ref={datePickerRef}
-              id="birthDate"
-              isClearable
-              placeholderText="Date de naissance"
-              dateFormat="dd/MM/yyyy"
-              locale="fr"
-              selected={dateBirthday}
-              enableTabLoop={false}
-              onChange={(val) => {
-                setDateBirthday(val);
-                setValue("dateBirthday", val);
-              }}
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              name="dateBirthday"
+              render={({ field }) => (
+                <DatePicker
+                  ref={datePickerRef}
+                  id="birthDate"
+                  isClearable
+                  placeholderText="Date de naissance"
+                  dateFormat="dd/MM/yyyy"
+                  locale="fr"
+                  selected={field.value}
+                  enableTabLoop={false}
+                  onChange={(val) => {
+                    setValue("dateBirthday", val);
+                    clearErrors("dateBirthday");
+                  }}
+                />
+              )}
             />
           </div>
           {errors.dateBirthday && (
