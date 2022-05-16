@@ -9,7 +9,7 @@
 .educExpe-container,
 .skills-container,
 .profession-title-container,
-.change-password-container,
+.change-form-container,
 .project-container {
   overflow: hidden;
   padding: 0 rem(15px);
@@ -32,7 +32,7 @@
 .educExpe-container,
 .skills-container,
 .profession-title-container,
-.change-password-container {
+.change-form-container {
   @include title();
 }
 
@@ -261,7 +261,7 @@
   .educExpe-container,
   .skills-container,
   .profession-title-container,
-  .change-password-container,
+  .change-form-container,
   .project-container {
     padding: 0;
   }
@@ -277,7 +277,7 @@
 
   .skills-container,
   .profession-title-container,
-  .change-password-container {
+  .change-form-container {
     .input-container {
       flex-wrap: wrap;
       margin-bottom: 0;
