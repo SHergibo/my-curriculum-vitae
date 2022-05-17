@@ -51,11 +51,11 @@ function FormResetPassword() {
     reset();
     setLoader(true);
     setSpanError(false);
-    const editPasswordUser = `${apiDomain}/api/${apiVersion}/users/${localStorage.getItem(
+    const editPasswordUserEndPoint = `${apiDomain}/api/${apiVersion}/users/updatePassword/${localStorage.getItem(
       "userId"
     )}`;
     await axiosInstance
-      .patch(editPasswordUser, data)
+      .patch(editPasswordUserEndPoint, data)
       .then(() => {
         checkSuccess(
           setTimeoutLoader,
