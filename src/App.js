@@ -20,6 +20,7 @@ import TestEmailAuth from "./components/signInSignUpComponents/TestEmailAuth";
 import SendBackEmailAuth from "./components/signInSignUpComponents/SendBackEmailAuth";
 import RequestResetPassword from "./components/signInSignUpComponents/RequestResetPassword";
 import ResetPassword from "./components/signInSignUpComponents/ResetPassword";
+import ChangeEmail from "./components/frontComponents/ChangeEmail";
 import Page404 from "./components/frontComponents/Page404";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -111,6 +112,10 @@ function App() {
           <Route
             path="/reset-password/:resetPasswordAuthToken"
             element={<ResetPassword />}
+          />
+          <Route
+            path="/update-email/:changeEmailAuthToken"
+            element={<ChangeEmail />}
           />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />
