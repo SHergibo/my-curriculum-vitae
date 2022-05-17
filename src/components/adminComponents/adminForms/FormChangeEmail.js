@@ -15,6 +15,7 @@ function FormChangeEmail() {
   const errorSpanRef = useRef(null);
   const errorMessageRef = useRef(null);
   const [spanError, setSpanError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
@@ -41,7 +42,7 @@ function FormChangeEmail() {
     reset();
     setLoader(true);
     setSpanError(false);
-    const editUserEmailEndPoint = `${apiDomain}/api/${apiVersion}/users/${localStorage.getItem(
+    const editUserEmailEndPoint = `${apiDomain}/api/${apiVersion}/users/updateEmail/${localStorage.getItem(
       "userId"
     )}`;
     await axiosInstance
@@ -55,7 +56,14 @@ function FormChangeEmail() {
         );
         reset();
       })
-      .catch(() => {
+      .catch((error) => {
+        if (error.response.status === 409) {
+          setErrorMessage(error.response.data.output.payload.message);
+        } else {
+          setErrorMessage(
+            "Une erreur est survenue, veuillez réessayer plus tard !"
+          );
+        }
         checkErrors(setTimeoutLoader, setLoader, setTimeoutError, setSpanError);
       });
   };
@@ -103,7 +111,7 @@ function FormChangeEmail() {
         unmountOnExit
       >
         <span ref={errorMessageRef} className="error-message">
-          Une erreur est survenue, veuillez réessayer plus tard !
+          {errorMessage}
         </span>
       </CSSTransition>
     </>
