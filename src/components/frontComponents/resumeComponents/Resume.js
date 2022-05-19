@@ -111,75 +111,73 @@ function Resume({ isLoaded }) {
     <div className="resume-container">
       <div ref={resumeContainerRef} id="resume" className="wrapper resume">
         <div className="title-left">Résumé</div>
-        <div className="menu-left">
-          <div
+        <nav className="menu-left">
+          <ul
             ref={menuResumeRef}
             className="list-menu-left"
             style={{ top: 30 + "px" }}
           >
-            <ul>
-              {arrayExpe.length >= 1 && (
-                <li
-                  tabIndex={0}
-                  onKeyPress={() => {
-                    focusOnKeypress("experience");
-                  }}
+            {arrayExpe.length >= 1 && (
+              <li
+                tabIndex={0}
+                onKeyPress={() => {
+                  focusOnKeypress("experience");
+                }}
+              >
+                <Link
+                  activeClass="active"
+                  to="experience"
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={1000}
                 >
-                  <Link
-                    activeClass="active"
-                    to="experience"
-                    spy={true}
-                    smooth={true}
-                    offset={-80}
-                    duration={1000}
-                  >
-                    Expérience
-                  </Link>
-                </li>
-              )}
-              {arrayEduc.length >= 1 && (
-                <li
-                  tabIndex={0}
-                  onKeyPress={() => {
-                    focusOnKeypress("education");
-                  }}
+                  Expérience
+                </Link>
+              </li>
+            )}
+            {arrayEduc.length >= 1 && (
+              <li
+                tabIndex={0}
+                onKeyPress={() => {
+                  focusOnKeypress("education");
+                }}
+              >
+                <Link
+                  activeClass="active"
+                  to="education"
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={1000}
                 >
-                  <Link
-                    activeClass="active"
-                    to="education"
-                    spy={true}
-                    smooth={true}
-                    offset={-80}
-                    duration={1000}
-                  >
-                    Éducation
-                  </Link>
-                </li>
-              )}
-              {(arrayCodingSkill.length >= 1 ||
-                arrayGeneralSkill.length >= 1 ||
-                arrayLanguage.length >= 1) && (
-                <li
-                  tabIndex={0}
-                  onKeyPress={() => {
-                    focusOnKeypress("skills");
-                  }}
+                  Éducation
+                </Link>
+              </li>
+            )}
+            {(arrayCodingSkill.length >= 1 ||
+              arrayGeneralSkill.length >= 1 ||
+              arrayLanguage.length >= 1) && (
+              <li
+                tabIndex={0}
+                onKeyPress={() => {
+                  focusOnKeypress("skills");
+                }}
+              >
+                <Link
+                  activeClass="active"
+                  to="skills"
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={1000}
                 >
-                  <Link
-                    activeClass="active"
-                    to="skills"
-                    spy={true}
-                    smooth={true}
-                    offset={-80}
-                    duration={1000}
-                  >
-                    Compétences
-                  </Link>
-                </li>
-              )}
-            </ul>
-          </div>
-        </div>
+                  Compétences
+                </Link>
+              </li>
+            )}
+          </ul>
+        </nav>
         <div className="edu-expe">
           {arrayExpe.length >= 1 && (
             <div ref={expRef} id="experience" className="exp-container">

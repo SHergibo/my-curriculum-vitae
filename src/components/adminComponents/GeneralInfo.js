@@ -151,105 +151,103 @@ function GeneralInfo() {
         className="wrapper general-info"
       >
         <div className="title-left">Infos générales</div>
-        <div className="menu-left">
-          <div
+        <nav className="menu-left">
+          <ul
             ref={menuLeftRef}
             className="list-menu-left"
             style={{ top: 30 + "px" }}
           >
-            <ul>
-              <li
-                tabIndex={0}
-                onKeyPress={() => {
-                  focusOnKeypress("info-gen");
-                }}
+            <li
+              tabIndex={0}
+              onKeyPress={() => {
+                focusOnKeypress("info-gen");
+              }}
+            >
+              <Link
+                activeClass="active"
+                to="info-gen"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={1000}
               >
-                <Link
-                  activeClass="active"
-                  to="info-gen"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={1000}
+                Infos générales
+              </Link>
+            </li>
+            {generalInfo.firstname !== "" && (
+              <>
+                <li
+                  tabIndex={0}
+                  onKeyPress={() => {
+                    focusOnKeypress("profilePic");
+                  }}
                 >
-                  Infos générales
-                </Link>
-              </li>
-              {generalInfo.firstname !== "" && (
-                <>
-                  <li
-                    tabIndex={0}
-                    onKeyPress={() => {
-                      focusOnKeypress("profilePic");
-                    }}
+                  <Link
+                    activeClass="active"
+                    to="profilePic"
+                    spy={true}
+                    smooth={true}
+                    offset={-80}
+                    duration={1000}
                   >
-                    <Link
-                      activeClass="active"
-                      to="profilePic"
-                      spy={true}
-                      smooth={true}
-                      offset={-80}
-                      duration={1000}
-                    >
-                      Photo de profil
-                    </Link>
-                  </li>
-                  <li
-                    tabIndex={0}
-                    onKeyPress={() => {
-                      focusOnKeypress("prof-title");
-                    }}
+                    Photo de profil
+                  </Link>
+                </li>
+                <li
+                  tabIndex={0}
+                  onKeyPress={() => {
+                    focusOnKeypress("prof-title");
+                  }}
+                >
+                  <Link
+                    activeClass="active"
+                    to="prof-title"
+                    spy={true}
+                    smooth={true}
+                    offset={-80}
+                    duration={1000}
                   >
-                    <Link
-                      activeClass="active"
-                      to="prof-title"
-                      spy={true}
-                      smooth={true}
-                      offset={-80}
-                      duration={1000}
-                    >
-                      Profession
-                    </Link>
-                  </li>
-                </>
-              )}
-              <li
-                tabIndex={0}
-                onKeyPress={() => {
-                  focusOnKeypress("emailMenu");
-                }}
+                    Profession
+                  </Link>
+                </li>
+              </>
+            )}
+            <li
+              tabIndex={0}
+              onKeyPress={() => {
+                focusOnKeypress("emailMenu");
+              }}
+            >
+              <Link
+                activeClass="active"
+                to="emailMenu"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={1000}
               >
-                <Link
-                  activeClass="active"
-                  to="emailMenu"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={1000}
-                >
-                  Changer email
-                </Link>
-              </li>
-              <li
-                tabIndex={0}
-                onKeyPress={() => {
-                  focusOnKeypress("password");
-                }}
+                Changer email
+              </Link>
+            </li>
+            <li
+              tabIndex={0}
+              onKeyPress={() => {
+                focusOnKeypress("password");
+              }}
+            >
+              <Link
+                activeClass="active"
+                to="password"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={1000}
               >
-                <Link
-                  activeClass="active"
-                  to="password"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={1000}
-                >
-                  Changer mot de passe
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+                Changer mot de passe
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <div className="info-general-container">
           <div ref={divTitleRef} id="info-gen" className="info-container">
             <TitleAction
