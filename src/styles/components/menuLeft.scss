@@ -33,35 +33,33 @@
     margin-bottom: rem(50px);
     font-weight: bolder;
     top: rem(30px);
-    ul {
-      font-size: rem(15px);
-      li {
-        padding: rem(7px) 0;
-        a {
-          display: flex;
-          align-items: center;
-          color: var(--grey-two);
-          transition: 0.5s ease-in-out;
-          cursor: pointer;
-          &:hover {
-            color: var(--grey-one);
-          }
-          &:before {
-            content: "";
-            width: 0rem;
-            height: rem(1px);
-            background-color: #ffffff;
-            transition: 0.5s ease-in-out;
-          }
+    font-size: rem(15px);
+    li {
+      padding: rem(7px) 0;
+      a {
+        display: flex;
+        align-items: center;
+        color: var(--grey-two);
+        transition: 0.5s ease-in-out;
+        cursor: pointer;
+        &:hover {
+          color: var(--grey-one);
         }
-        .active {
-          color: #ffffff;
-          &:before {
-            content: "";
-            display: inline-block;
-            width: rem(15px);
-            margin-right: rem(5px);
-          }
+        &:before {
+          content: "";
+          width: 0rem;
+          height: rem(1px);
+          background-color: #ffffff;
+          transition: 0.5s ease-in-out;
+        }
+      }
+      .active {
+        color: #ffffff;
+        &:before {
+          content: "";
+          display: inline-block;
+          width: rem(15px);
+          margin-right: rem(5px);
         }
       }
     }
