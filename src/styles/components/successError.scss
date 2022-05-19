@@ -13,6 +13,15 @@
   transition: opacity 1s ease-in-out;
 }
 
+.success-message {
+  display: block;
+  margin-top: -1.875rem;
+  line-height: 1.875rem;
+  opacity: 0;
+  color: var(--green);
+  transition: opacity 0.5s ease-in-out;
+}
+
 .error-message {
   display: block;
   margin-top: -1.875rem;
