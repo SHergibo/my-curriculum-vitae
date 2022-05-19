@@ -143,9 +143,11 @@ function Nav({ headerRef, li, divMobile, divNonMobile }) {
         <Logo />
         <nav ref={menu} className="menu">
           <ul className="list-menu">{liList}</ul>
-          <div className="social-mobile">{divMobile}</div>
+          {windowWidth < 960 && (
+            <div className="social-mobile">{divMobile}</div>
+          )}
         </nav>
-        <div className="social">{divNonMobile}</div>
+        {windowWidth >= 960 && <div className="social">{divNonMobile}</div>}
         {windowWidth < 960 && (
           <>
             {!burgerMenuSwitch && (
