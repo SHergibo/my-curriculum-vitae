@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useInfosData } from "../../App";
 import { Link } from "react-scroll";
 import { CSSTransition } from "react-transition-group";
@@ -39,12 +39,18 @@ function GeneralInfo() {
     }
   };
 
-  const handleResumeMenuOnScroll = () => {
+  const handleGenerealInfoMenuOnScroll = useCallback(() => {
     let infosGenContainer = infosGenContainerRef.current;
     let menuLeft = menuLeftRef.current;
     let getBounding = infosGenContainer.getBoundingClientRect();
-    let bottomResume = getBounding.height + getBounding.top - 50 - 180;
-    if (bottomResume <= 0) {
+    let liHeight = 105;
+
+    if (generalInfo.firstname) {
+      liHeight = 175;
+    }
+
+    let bottomSection = getBounding.height + getBounding.top - 150 - liHeight;
+    if (bottomSection <= 0) {
       menuLeft.setAttribute(
         "style",
         "position: absolute; bottom: 0; top: unset"
@@ -57,14 +63,14 @@ function GeneralInfo() {
     } else {
       menuLeft.classList.remove("menu-left-fixed");
     }
-  };
+  }, [generalInfo]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleResumeMenuOnScroll);
+    window.addEventListener("scroll", handleGenerealInfoMenuOnScroll);
     return () => {
-      window.removeEventListener("scroll", handleResumeMenuOnScroll);
+      window.removeEventListener("scroll", handleGenerealInfoMenuOnScroll);
     };
-  }, []);
+  }, [handleGenerealInfoMenuOnScroll]);
 
   useEffect(() => {
     if (generalInfo) {
