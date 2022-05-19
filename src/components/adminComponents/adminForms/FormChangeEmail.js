@@ -14,6 +14,7 @@ function FormChangeEmail() {
   const [loader, setLoader] = useState(false);
   const errorSpanRef = useRef(null);
   const errorMessageRef = useRef(null);
+  const successMessageRef = useRef(null);
   const [spanError, setSpanError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const setTimeoutLoader = useRef();
@@ -102,6 +103,18 @@ function FormChangeEmail() {
         errorSpanRef={errorSpanRef}
         spanError={spanError}
       />
+
+      <CSSTransition
+        nodeRef={successMessageRef}
+        in={spanSuccess}
+        timeout={2900}
+        classNames="btnAnimation"
+        unmountOnExit
+      >
+        <span ref={successMessageRef} className="success-message">
+          Un mail de vérification a été envoyé sur votre nouvelle boîte mail !
+        </span>
+      </CSSTransition>
 
       <CSSTransition
         nodeRef={errorMessageRef}
