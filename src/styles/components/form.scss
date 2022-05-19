@@ -43,14 +43,6 @@
   font-size: rem(12px);
 }
 
-.success-message {
-  opacity: 0;
-  margin-left: rem(20px);
-  font-size: rem(20px);
-  color: var(--green);
-  transition: opacity 0.5s ease-in-out;
-}
-
 .input-container {
   display: flex;
   flex-direction: column;
