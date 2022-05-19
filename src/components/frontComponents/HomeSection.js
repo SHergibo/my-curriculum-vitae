@@ -44,28 +44,26 @@ function HomeSection({ welcome, name, div }) {
         <div ref={welcomeRef} className="welcome">
           {welcome}
         </div>
-        <section>
-          <div className="wrapper title-home-div">
-            <svg
-              id="svgHome"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-              aria-labelledby="title"
-              aria-describedby="desc"
-              role="img"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-            >
-              <path
-                data-name="layer2"
-                fill="#202020"
-                d="M2 8h60v8H2zm0 20h60v8H2z"
-              ></path>
-              <path data-name="layer1" fill="#202020" d="M2 48h60v8H2z"></path>
-            </svg>
-            <h1 className="home-gradient">{name}</h1>
-            {div}
-          </div>
-        </section>
+        <div className="wrapper title-home-div">
+          <svg
+            id="svgHome"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 64 64"
+            aria-labelledby="title"
+            aria-describedby="desc"
+            role="img"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+          >
+            <path
+              data-name="layer2"
+              fill="#202020"
+              d="M2 8h60v8H2zm0 20h60v8H2z"
+            ></path>
+            <path data-name="layer1" fill="#202020" d="M2 48h60v8H2z"></path>
+          </svg>
+          <h1 className="home-gradient">{name}</h1>
+          {div}
+        </div>
       </div>
     </div>
   );
