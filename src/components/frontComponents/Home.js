@@ -35,19 +35,27 @@ function Home() {
   useEffect(() => {
     if (profTitleArray.length >= 1 && location.pathname !== "/admin") {
       setDiv(
-        <div className="job-name">
-          Je suis un{" "}
-          <Typed
-            strings={profTitleArray}
-            typeSpeed={80}
-            loop
-            smartBackspace={false}
-          />
-        </div>
+        <>
+          <div className="job-name">
+            Je suis un{" "}
+            <Typed
+              strings={profTitleArray}
+              typeSpeed={80}
+              loop
+              smartBackspace={false}
+            />
+          </div>
+          <div className="icon-scroll"></div>
+        </>
       );
     }
     if (location.pathname === "/admin") {
-      setDiv(<div className="sub-name">Partie administration</div>);
+      setDiv(
+        <>
+          <div className="sub-name">Partie administration</div>
+          <div className="icon-scroll"></div>
+        </>
+      );
       setWelcome("Administration");
     }
   }, [profTitleArray, location]);
