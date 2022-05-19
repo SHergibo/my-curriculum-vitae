@@ -105,7 +105,7 @@ function InfoProject({
 
   return (
     <div className="project-container">
-      {windowWidth < 1087 && (
+      {windowWidth < 1087 && (indexProject > 0 || nextProject === true) && (
         <div
           className={
             indexProject > 0
