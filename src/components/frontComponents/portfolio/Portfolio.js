@@ -304,7 +304,7 @@ function Portfolio({ isLoaded }) {
               </div>
             )}
 
-            <div>
+            <div className="portfolio-info-container">
               <div className="title-right">Projet - {value.projectName}</div>
               <SwitchTransition mode={"out-in"}>
                 <CSSTransition
