@@ -32,19 +32,6 @@ const loginIn = async (data) => {
   return response;
 };
 
-const logout = async () => {
-  const logoutEndpoint = `${apiDomain}/api/${apiVersion}/auth/logout`;
-  try {
-    await Axios.post(logoutEndpoint, {
-      token: localStorage.getItem("refresh_token"),
-      email: localStorage.getItem("user_email"),
-    });
-    localStorage.clear();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const createAxiosHeader = () => {
   return Axios.create({
     baseURL: apiDomain,
@@ -55,6 +42,20 @@ const createAxiosHeader = () => {
       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
     },
   });
+};
+
+const logout = async () => {
+  const axiosLogout = createAxiosHeader();
+  const logoutEndpoint = `${apiDomain}/api/${apiVersion}/auth/logout`;
+  try {
+    await axiosLogout.post(logoutEndpoint, {
+      token: localStorage.getItem("refresh_token"),
+      email: localStorage.getItem("user_email"),
+    });
+    localStorage.clear();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const refreshToken = async () => {
