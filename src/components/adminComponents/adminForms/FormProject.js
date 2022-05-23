@@ -17,12 +17,12 @@ const customStyles = {
   }),
   placeholder: (styles) => ({
     ...styles,
-    color: "hsla(0, 0%, 100%, 0.5);",
+    color: "hsla(212, 80%, 89%, 1);",
     marginLeft: "0px",
   }),
   input: (styles) => ({
     ...styles,
-    color: "hsla(0, 0%, 100%, 0.5);",
+    color: "#ffffff",
     marginLeft: "0px",
   }),
   control: (styles) => ({
@@ -454,7 +454,14 @@ function FormProject({ value, projectState }) {
                   <FontAwesomeIcon icon="images" />
                 </span>
                 <div className="container-input-interaction">
-                  <span>{imgProjectName}</span>
+                  <p
+                    style={{
+                      color:
+                        imgProjectName !== "Image du projet" ? "#ffffff" : "",
+                    }}
+                  >
+                    {imgProjectName}
+                  </p>
                   <input
                     name="projectImg"
                     type="file"
