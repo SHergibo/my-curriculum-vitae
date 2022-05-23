@@ -266,15 +266,17 @@ function Portfolio({ isLoaded }) {
                     </button>
                     <span>
                       Page
-                      <input
-                        type="number"
-                        value={paginationInput || ""}
-                        min={1}
-                        max={pageCount}
-                        onChange={(e) => {
-                          inputPagination(e);
-                        }}
-                      />
+                      <label>
+                        <input
+                          type="number"
+                          value={paginationInput || ""}
+                          min={1}
+                          max={pageCount}
+                          onChange={(e) => {
+                            inputPagination(e);
+                          }}
+                        />
+                      </label>
                       sur {pageCount}
                     </span>
                     <button onClick={() => nextPage()} aria-label="Suivant">
