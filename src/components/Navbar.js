@@ -18,7 +18,10 @@ function Navbar({ headerRef }) {
   const [divMobile, setDivMobile] = useState(
     <ul className="social-svg">
       <li>
-        <a href="https://www.linkedin.com/in/sachahergibo/">
+        <a
+          href="https://www.linkedin.com/in/sachahergibo/"
+          aria-label="Vers mon compte linkedin"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 64 64"
@@ -36,7 +39,10 @@ function Navbar({ headerRef }) {
         </a>
       </li>
       <li>
-        <a href="https://github.com/SHergibo">
+        <a
+          href="https://github.com/SHergibo"
+          aria-label="Vers mon compte github"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 64 64"
@@ -64,7 +70,10 @@ function Navbar({ headerRef }) {
   const [divNonMobile, setDivNonMobile] = useState(
     <ul className="social-svg">
       <li>
-        <a href="https://www.linkedin.com/in/sachahergibo/">
+        <a
+          href="https://www.linkedin.com/in/sachahergibo/"
+          aria-label="Vers mon compte linkedin"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 64 64"
@@ -82,7 +91,10 @@ function Navbar({ headerRef }) {
         </a>
       </li>
       <li>
-        <a href="https://github.com/SHergibo">
+        <a
+          href="https://github.com/SHergibo"
+          aria-label="Vers mon compte github"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 64 64"
