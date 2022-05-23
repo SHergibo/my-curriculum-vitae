@@ -68,7 +68,7 @@
       align-items: center;
       width: rem(40px);
       height: rem(40px);
-      color: var(--grey-two);
+      color: var(--white);
       margin: 0 rem(5px);
       svg {
         width: rem(25px) !important;
@@ -82,7 +82,7 @@
       width: 100%;
       font-size: 1rem;
       padding-right: rem(10px);
-      color: var(--grey-two);
+      color: var(--white);
     }
     input[type="file"] {
       opacity: 0;
@@ -94,10 +94,14 @@
     .container-input-interaction {
       width: 100%;
       position: relative;
-      span {
+      span,
+      p {
         justify-content: flex-start;
         width: 100%;
         z-index: 9;
+      }
+      p {
+        color: var(--grey-input-placeholder);
       }
     }
     .react-datepicker-wrapper {
@@ -172,7 +176,7 @@
       width: 100%;
       height: rem(200px);
       font-size: 1rem;
-      color: var(--grey-two);
+      color: var(--grey-three);
     }
   }
 }
