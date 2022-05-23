@@ -14,16 +14,16 @@
     transition: 0.2s ease-in border;
   }
   ::placeholder {
-    color: var(--grey-two);
+    color: var(--grey-input-placeholder);
     font-family: var(--font-poppins);
     opacity: 1;
   }
   :-ms-input-placeholder {
-    color: var(--grey-two);
+    color: var(--grey-three);
     font-family: var(--font-poppins);
   }
   ::-ms-input-placeholder {
-    color: var(--grey-two);
+    color: var(--grey-three);
     font-family: var(--font-poppins);
   }
   &:focus-within .input-block {
