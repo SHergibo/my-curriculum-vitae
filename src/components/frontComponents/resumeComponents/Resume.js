@@ -202,13 +202,13 @@ function Resume({ isLoaded }) {
               <div className="skill-bars">
                 {arrayGeneralSkill.length >= 1 && (
                   <div className="soft-skills">
-                    <h4>Compétences générales</h4>
+                    <h3>Compétences générales</h3>
                     <SkillBarResume data={arrayGeneralSkill} />
                   </div>
                 )}
                 {arrayLanguage.length >= 1 && (
                   <div className="language-skills">
-                    <h4>Langues</h4>
+                    <h3>Langues</h3>
                     <SkillBarResume data={arrayLanguage} />
                   </div>
                 )}
