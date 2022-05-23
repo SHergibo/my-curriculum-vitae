@@ -126,7 +126,7 @@ function FormProfilePicture() {
                 <FontAwesomeIcon icon="images" />
               </span>
               <div className="container-input-interaction">
-                <span>Photo de profil</span>
+                <p>Photo de profil</p>
                 <input
                   name="profilePicture"
                   type="file"
