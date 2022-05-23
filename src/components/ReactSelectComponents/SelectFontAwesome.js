@@ -13,15 +13,15 @@ const customStyles = {
   }),
   placeholder: (styles) => ({
     ...styles,
-    color: "hsla(0, 0%, 100%, 0.5);",
+    color: "hsla(212, 80%, 89%, 1);",
   }),
   singleValue: (styles) => ({
     ...styles,
-    color: "hsla(0, 0%, 100%, 0.5);",
+    color: "#ffffff",
   }),
   input: (styles) => ({
     ...styles,
-    color: "hsla(0, 0%, 100%, 0.5);",
+    color: "hsla(212, 80%, 89%, 1);",
   }),
   control: (styles) => ({
     ...styles,
@@ -62,16 +62,16 @@ const customStyles = {
     ...styles,
     width: "1px !important",
     height: "38px !important",
-    backgroundColor: "hsla(0, 0%, 100%, 0.5);",
+    backgroundColor: "hsla(212, 80%, 89%, 1);",
   }),
   dropdownIndicator: (styles, { isFocused, isSelected }) => ({
     ...styles,
     color:
       isSelected || isFocused
-        ? "hsla(0, 0%, 100%, 0.5);"
-        : "hsla(0, 0%, 100%, 0.5);",
+        ? "hsla(212, 80%, 89%, 1);"
+        : "hsla(212, 80%, 89%, 1);",
     "&:hover": {
-      color: "hsla(0, 0%, 100%, 0.2)",
+      color: "hsla(212, 80%, 89%, 0.7);",
     },
   }),
   clearIndicator: (styles, { isFocused, isSelected }) => ({
