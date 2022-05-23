@@ -65,7 +65,7 @@
       display: flex;
       align-items: center;
       margin: rem(10px) 0;
-      color: var(--grey-two);
+      color: var(--grey-three);
       font-size: rem(13px);
       div {
         width: 70%;
@@ -74,7 +74,7 @@
   }
   span {
     display: inline-block;
-    color: var(--grey-one);
+    color: var(--white);
     width: 30%;
   }
   &:after {
@@ -109,7 +109,7 @@
     svg {
       margin-bottom: rem(20px);
       path {
-        fill: var(--grey-two);
+        fill: var(--grey-three);
       }
     }
     span {
