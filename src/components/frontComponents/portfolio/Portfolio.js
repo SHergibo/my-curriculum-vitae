@@ -252,10 +252,16 @@ function Portfolio({ isLoaded }) {
               {pageCount >= 1 && (
                 <div className="pagination">
                   <div className="action-pagination">
-                    <button onClick={() => gotoPage(1)}>
+                    <button
+                      onClick={() => gotoPage(1)}
+                      aria-label="Aller au début"
+                    >
                       <FontAwesomeIcon icon="angle-double-left" />
                     </button>
-                    <button onClick={() => previousPage()}>
+                    <button
+                      onClick={() => previousPage()}
+                      aria-label="Précédent"
+                    >
                       <FontAwesomeIcon icon="angle-left" />
                     </button>
                     <span>
@@ -271,10 +277,13 @@ function Portfolio({ isLoaded }) {
                       />
                       sur {pageCount}
                     </span>
-                    <button onClick={() => nextPage()}>
+                    <button onClick={() => nextPage()} aria-label="Suivant">
                       <FontAwesomeIcon icon="angle-right" />
                     </button>
-                    <button onClick={() => gotoPage(pageCount)}>
+                    <button
+                      onClick={() => gotoPage(pageCount)}
+                      aria-label="Aller à la fin"
+                    >
                       <FontAwesomeIcon icon="angle-double-right" />
                     </button>
                   </div>
