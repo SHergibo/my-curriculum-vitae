@@ -67,6 +67,9 @@
 
 .project-card {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   width: rem(300px);
   height: rem(200px);
@@ -78,7 +81,6 @@
   -moz-box-shadow: 0px rem(15px) rem(36px) rem(-11px) hsla(0, 0%, 0%, 0.5);
   box-shadow: 0px rem(15px) rem(36px) rem(-11px) hsla(0, 0%, 0%, 0.5);
   img {
-    width: 100%;
     height: inherit;
     transform: scale(1.2);
     transition: transform ease-in-out 0.2s;
