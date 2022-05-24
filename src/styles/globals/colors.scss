@@ -5,7 +5,8 @@
   --grey-four: hsla(0, 0%, 100%, 0.2);
   --grey-five: hsla(0, 0%, 100%, 0.027);
   --grey-input-placeholder: hsla(212, 80%, 89%, 1);
-  --border: 0.5px solid hsla(0, 0%, 100%, 0.3);
+  --grey-border: hsla(0, 0%, 100%, 0.3);
+  --border: 0.5px solid var(--grey-border);
   --blue: hsl(208, 100%, 43%);
   --blue-hover: hsla(210, 88%, 53%, 0.849);
   --principal-color: hsl(211, 80%, 10%);
