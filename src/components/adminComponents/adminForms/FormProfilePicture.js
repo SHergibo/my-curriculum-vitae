@@ -24,6 +24,7 @@ function FormProfilePicture() {
   const setTimeoutLoader = useRef();
   const setTimeoutSuccess = useRef();
   const setTimeoutError = useRef();
+  const inputInteractionRef = useRef();
 
   const {
     register,
@@ -128,6 +129,7 @@ function FormProfilePicture() {
               <div className="container-input-interaction">
                 <p>Photo de profil</p>
                 <input
+                  ref={inputInteractionRef}
                   name="profilePicture"
                   type="file"
                   accept=".jpg,.jpeg,.png"
@@ -138,7 +140,14 @@ function FormProfilePicture() {
                   }}
                 />
               </div>
-              <label htmlFor="profilePicture">Chercher</label>
+              <button
+                type="button"
+                onClick={() => {
+                  inputInteractionRef.current.click();
+                }}
+              >
+                Chercher
+              </button>
             </div>
             {errorMessageImg && (
               <span className="error-message-form">{errorMessageImg}</span>
