@@ -11,11 +11,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: rem(48px);
+    height: rem(48px);
     background-color: transparent;
     color: var(--white);
     border: none;
     padding: 0 0.3rem;
-    font-size: 1.7rem;
+    font-size: 2.5rem;
     cursor: pointer;
   }
   span {
@@ -40,6 +42,19 @@
         -webkit-appearance: none;
         margin: 0;
       }
+    }
+  }
+}
+
+/*Media queries*/
+
+/*Tablet*/
+@media screen and (min-width: 640px) {
+  .action-pagination {
+    button {
+      width: unset;
+      height: unset;
+      font-size: 1.7rem;
     }
   }
 }
