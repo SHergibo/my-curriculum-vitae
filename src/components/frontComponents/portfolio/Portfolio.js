@@ -297,7 +297,7 @@ function Portfolio({ isLoaded }) {
       )}
 
       {displayProject && (
-        <div className="project-section">
+        <div className="project-section-carrousel">
           <div id="portfolio" className="wrapper-project project">
             {windowWidth >= 1087 && (
               <div className="project-carousel-full-screen">
