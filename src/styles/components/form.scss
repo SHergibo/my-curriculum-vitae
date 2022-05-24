@@ -155,13 +155,16 @@
 
 .input-interaction {
   overflow: hidden;
-  label {
+  button {
     display: flex;
     align-items: center;
-    background-color: var(--blue);
     height: rem(40px);
     padding: 0 rem(20px);
-    margin: 0;
+    background-color: var(--blue);
+    color: var(--white);
+    font-size: 0.875rem;
+    font-family: var(--font-poppins);
+    border: none;
   }
 }
 
