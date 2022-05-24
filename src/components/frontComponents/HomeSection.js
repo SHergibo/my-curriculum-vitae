@@ -44,7 +44,7 @@ function HomeSection({ welcome, name, div }) {
         <div ref={welcomeRef} className="welcome">
           {welcome}
         </div>
-        <div className="wrapper title-home-div">
+        <div className="title-home-div">
           <svg
             id="svgHome"
             xmlns="http://www.w3.org/2000/svg"
