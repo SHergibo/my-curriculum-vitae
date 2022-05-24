@@ -73,6 +73,7 @@ function FormProject({ value, projectState }) {
   const setTimeoutError = useRef();
   const formDefaultValueRef = useRef({});
   const altImgInputRef = useRef(null);
+  const projectImgInput = useRef();
 
   useEffect(() => {
     setImgProjectName("Image du projet");
@@ -463,6 +464,7 @@ function FormProject({ value, projectState }) {
                     {imgProjectName}
                   </p>
                   <input
+                    ref={projectImgInput}
                     name="projectImg"
                     type="file"
                     accept=".jpg,.jpeg,.png"
@@ -473,7 +475,14 @@ function FormProject({ value, projectState }) {
                     }}
                   />
                 </div>
-                <label htmlFor="projectImg">Chercher</label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    projectImgInput.current.click();
+                  }}
+                >
+                  Chercher
+                </button>
               </div>
               {errorMessageImg && (
                 <span className="error-message-form">{errorMessageImg}</span>
@@ -503,9 +512,9 @@ function FormProject({ value, projectState }) {
                     ref={altImgInputRef}
                   />
                 </div>
-                <label htmlFor="projectAltImg" onClick={addImage}>
+                <button type="button" onClick={addImage}>
                   Ajouter
-                </label>
+                </button>
               </div>
               {errorAltImg && (
                 <span className="error-message-form">{errorAltImg}</span>
