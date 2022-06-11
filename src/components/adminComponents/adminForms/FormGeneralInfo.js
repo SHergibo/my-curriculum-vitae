@@ -69,8 +69,8 @@ function FormGeneralInfo() {
   }, [value]);
 
   useEffect(() => {
-    if (generalInfo && generalInfo.isoDate) {
-      setValue("dateBirthday", parseISO(generalInfo.isoDate));
+    if (generalInfo && generalInfo.isoBirthdate) {
+      setValue("dateBirthday", parseISO(generalInfo.isoBirthdate));
     } else {
       setValue("dateBirthday", null);
     }
@@ -119,7 +119,6 @@ function FormGeneralInfo() {
           setTimeoutSuccess,
           setSpanSuccess
         );
-        response.data.isoDate = response.data.birthdate;
         setGeneralInfo(response.data);
       })
       .catch(() => {
@@ -141,7 +140,6 @@ function FormGeneralInfo() {
           setTimeoutSuccess,
           setSpanSuccess
         );
-        response.data.isoDate = response.data.birthdate;
         setGeneralInfo(response.data);
       })
       .catch(() => {
