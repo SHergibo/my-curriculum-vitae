@@ -8,7 +8,6 @@ import React, {
 import "./styles/Styles.scss";
 import axios from "axios";
 import { apiDomain, apiVersion } from "./apiConfig/ApiConfig";
-import { format } from "date-fns";
 import Loading from "./components/Loading";
 import HomePage from "./components/frontComponents/HomePage";
 import Admin from "./components/adminComponents/Admin";
@@ -65,12 +64,6 @@ function App() {
       .get(getGeneralInfoEndPoint)
       .then((response) => {
         if (response.data) {
-          let formatDate = format(
-            new Date(response.data.birthdate),
-            "dd/MM/yyyy"
-          );
-          response.data.isoDate = response.data.birthdate;
-          response.data.birthdate = formatDate;
           setGeneralInfo(response.data);
         }
         setLoading(false);
