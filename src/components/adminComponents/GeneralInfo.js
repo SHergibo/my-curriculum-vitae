@@ -96,7 +96,7 @@ function GeneralInfo() {
         phone: "",
         email: "",
         birthdate: "",
-        isoDate: "",
+        isoBirthdate: "",
         licence: "",
         description: "",
       });
